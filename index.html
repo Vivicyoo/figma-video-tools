@@ -255,7 +255,14 @@
   .vp-gen-pts{display:inline-flex;align-items:center;gap:3px;}
   .vp-gen-pts svg{width:12px;height:12px;color:#fbbf24;}
   .vp-gen.disabled{opacity:.7;cursor:not-allowed;}
-  .vp-breakdown{margin:0 16px 10px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;font-size:12px;color:#78350f;}
+  .vp-breakdown{margin:0 0 8px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:0 12px;font-size:12px;color:#78350f;max-height:0;opacity:0;overflow:hidden;border-color:transparent;transition:max-height .28s ease,opacity .22s ease;}
+  .panel.bd-open .vp-breakdown{max-height:320px;opacity:1;padding:10px 12px;border-color:#fde68a;margin:0 0 8px;}
+  .vp-genrow{margin:4px 16px 16px;}
+  .vp-genrow .vp-gen{margin:0;}
+  .vp-bd-toggle{margin-left:auto;margin-bottom:6px;background:none;border:none;color:var(--gray-500);font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:2px 6px;border-radius:6px;}
+  .vp-bd-toggle:hover{color:var(--acc);}
+  .vp-bd-toggle .i{font-size:10px;transition:transform .25s;}
+  .panel.bd-open .vp-bd-toggle .i{transform:rotate(180deg);}
   .vp-breakdown-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}
   .vp-breakdown-head .t{font-weight:700;color:#92400e;}
   .vp-breakdown-head .pts{font-weight:700;color:var(--amber);}
@@ -416,7 +423,7 @@
   .vp-tab.active{background:#4f46e5;border-color:#4f46e5;color:#fff;}
   .vp-upload-mini{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px dashed var(--gray-300);border-radius:9px;font-size:12px;color:var(--gray-500);cursor:pointer;}
   .vp-hint2{font-size:11px;color:var(--gray-400);padding:8px 16px 0;}
-  .vp-char{font-size:11px;color:var(--gray-400);text-align:right;padding:5px 16px 0;}
+  .vp-char{font-size:11px;color:var(--gray-400);text-align:right;padding:5px 0 0;}
   /* digital human avatar cards */
   .dh-grid{display:flex;gap:8px;flex-wrap:wrap;}
   .dh-av{width:62px;border:1.5px solid var(--gray-200);border-radius:10px;padding:8px 6px 7px;background:#fff;display:flex;flex-direction:column;align-items:center;gap:4px;}
@@ -798,7 +805,8 @@
         <div class="vp-step">
           <div class="vp-step-no">2</div>
           <div class="vp-step-name">口播文案</div>
-          <textarea class="vp-ta" rows="2" placeholder="输入口播文案，数字人将同步朗读并配合肢体演示..."></textarea>
+          <textarea class="vp-ta" rows="2" data-max="500" placeholder="输入口播文案，数字人将同步朗读并配合肢体演示..."></textarea>
+          <div class="vp-char">0/500</div>
         </div>
         <div class="vp-step">
           <div class="vp-step-no">3</div>
@@ -829,16 +837,7 @@
         </div>
         <div class="vp-step">
           <div class="vp-step-no">4</div>
-          <div class="vp-step-name">画面与输出规格</div>
-          <div class="vp-opt">
-            <div class="vp-opt-label">背景样式</div>
-            <div class="vp-opts" data-group>
-              <button class="vp-opt-btn active">纯白</button>
-              <button class="vp-opt-btn">渐变蓝</button>
-              <button class="vp-opt-btn">渐变灰</button>
-              <button class="vp-opt-btn">自定义</button>
-            </div>
-          </div>
+          <div class="vp-step-name">输出规格</div>
           <div class="vp-opt">
             <div class="vp-opt-label">视频时长</div>
             <div class="vp-opts" data-group>
@@ -852,15 +851,23 @@
             <div class="vp-opt-label">分辨率</div>
             <div class="vp-opts" data-group>
               <button class="vp-opt-btn active">720p</button>
-              <button class="vp-opt-btn">1080p</button>            </div>
+              <button class="vp-opt-btn">1080p</button>
+            </div>
           </div>
           <div class="vp-opt">
             <div class="vp-opt-label">画面比例</div>
             <div class="vp-opts" data-group>
-              <button class="vp-opt-btn active">9:16</button>
+              <button class="vp-opt-btn active">1:1</button>
+              <button class="vp-opt-btn">9:16</button>
               <button class="vp-opt-btn">16:9</button>
-              <button class="vp-opt-btn">1:1</button>
             </div>
+          </div>
+          <div class="tr-switch">
+            <div>
+              <div class="l">背景音乐</div>
+              <div class="s">开启后自动匹配BGM</div>
+            </div>
+            <span class="tr-sw on"></span>
           </div>
         </div>
         <label class="vp-agree" style="margin:12px 16px 0;padding-left:2px;"><input type="checkbox"><span>我已确认对上传素材拥有合法版权，并已获得出镜人物的肖像授权</span></label>
@@ -928,8 +935,8 @@
           <div class="vp-step-no">3</div>
           <div class="vp-step-name">描述词</div>
           <div style="display:flex;justify-content:flex-end;margin-bottom:6px;"><button class="vp-opt-btn" style="color:var(--acc);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>AI 生成</button></div>
-          <textarea class="vp-ta" rows="3" placeholder="描述产品特点、使用场景或想要的视频效果...上传图片后点击右上角「AI 生成」按钮自动生成描述词"></textarea>
-          <div class="vp-char">0/2000</div>
+          <textarea class="vp-ta" rows="3" data-max="500" placeholder="描述产品特点、使用场景或想要的视频效果...上传图片后点击右上角「AI 生成」按钮自动生成描述词"></textarea>
+          <div class="vp-char">0/500</div>
         </div>
         <div class="vp-step">
           <div class="vp-step-no">4</div>
@@ -972,7 +979,7 @@
           <label class="vp-upload">
             <span class="up-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>
             <span class="vp-upload-n">点击上传口播视频</span>
-            <span class="vp-upload-warn">请勿上传裸露、暴力、血腥或其他包含非法信息视频。<br>支持 MP4、MOV，50M 以内</span>
+            <span class="vp-upload-warn">请勿上传裸露、暴力、血腥或其他包含非法信息视频。<br>支持 JPG、JPEG、MP4、MOV，20MB 以内</span>
           </label>        </div>
         <div class="vp-step">
           <div class="vp-step-no">2</div>
@@ -981,19 +988,16 @@
           <button class="kb-sk"><span class="t">产品介绍</span><span class="c">大家好，欢迎来到我的主页！今天给大家带来一款让我爱不释手的好…</span></button>
           <button class="kb-sk"><span class="t">活动促销</span><span class="c">好消息！我们的限时特惠活动正式开启，全场商品低至五折！机会难…</span></button>
           <button class="kb-sk"><span class="t">知识分享</span><span class="c">今天分享一个超实用的小技巧，学会之后效率提升不止一倍。很多人…</span></button>
-          <textarea class="vp-ta" rows="2" placeholder="在此输入要融合的口播文案，或点击上方示例快速填入..."></textarea>
+          <textarea class="vp-ta" rows="2" data-max="500" placeholder="在此输入要融合的口播文案，或点击上方示例快速填入..."></textarea>
+          <div class="vp-char">0/500</div>
           <div class="vp-hint2" style="padding-left:0">建议 50–300 字，效果最佳</div>
         </div>
         <div class="vp-step">
           <div class="vp-step-no">3</div>
-          <div class="vp-step-name">输出语言与声音</div>
+          <div class="vp-step-name">输出语言</div>
           <div class="vp-opt">
             <div class="vp-opt-label">输出语言</div>
             <div class="vp-opts" data-group><button class="vp-opt-btn active">中文</button><button class="vp-opt-btn">英语</button><button class="vp-opt-btn">阿拉伯语</button><button class="vp-opt-btn">泰语</button><button class="vp-opt-btn">印尼语</button><button class="vp-opt-btn">越南语</button><button class="vp-opt-btn">韩语</button><button class="vp-opt-btn">马来语</button><button class="vp-opt-btn">蒙古语</button></div>
-          </div>
-          <div class="vp-opt">
-            <div class="vp-opt-label">声音</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">女声A</button><button class="vp-opt-btn">女声B</button><button class="vp-opt-btn">男声A</button><button class="vp-opt-btn">男声B</button></div>
           </div>
         </div>
         <div class="vp-step">
@@ -1001,7 +1005,7 @@
           <div class="vp-step-name">输出规格</div>
           <div class="vp-opt">
             <div class="vp-opt-label">画面比例</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">9:16</button><button class="vp-opt-btn">16:9</button><button class="vp-opt-btn">1:1</button></div>
+            <div class="vp-opts" data-group><button class="vp-opt-btn active">跟随原素材</button><button class="vp-opt-btn">9:16</button><button class="vp-opt-btn">16:9</button><button class="vp-opt-btn">1:1</button></div>
           </div>
           <div class="vp-opt">
             <div class="vp-opt-label">视频时长</div>
@@ -1010,6 +1014,13 @@
           <div class="vp-opt">
             <div class="vp-opt-label">分辨率</div>
             <div class="vp-opts" data-group><button class="vp-opt-btn active">720p</button><button class="vp-opt-btn">1080p</button></div>
+          </div>
+          <div class="tr-switch">
+            <div>
+              <div class="l">保留原始背景</div>
+              <div class="s">关闭可替换自定义背景</div>
+            </div>
+            <span class="tr-sw on"></span>
           </div>
         </div>
         <label class="vp-agree" style="margin:12px 16px 0;padding-left:2px;"><input type="checkbox"><span>我已确认对上传素材拥有合法版权，并已获得出镜人物的肖像授权</span></label>
@@ -1050,13 +1061,27 @@
         </div>
         <div class="vp-step">
           <div class="vp-step-no">3</div>
-          <div class="vp-step-name">配音与输出选项</div>
+          <div class="vp-step-name">配音与输出设置</div>
           <div class="tr-switch">
             <div>
               <div class="l">保留原声音色</div>
               <div class="s">用AI克隆原始声音配音（更自然）</div>
             </div>
             <span class="tr-sw on" id="trSwitch"></span>
+          </div>
+          <div class="tr-switch">
+            <div>
+              <div class="l">对齐口型</div>
+              <div class="s">关闭仅替换音频</div>
+            </div>
+            <span class="tr-sw on" id="trLipSwitch"></span>
+          </div>
+          <div class="tr-switch">
+            <div>
+              <div class="l">保留原始背景音</div>
+              <div class="s">仅替换人声部分</div>
+            </div>
+            <span class="tr-sw on" id="trBgmSwitch"></span>
           </div>
         </div>
         <div class="vp-step">
@@ -1715,17 +1740,31 @@ function renderGenCredits(panel){
   var pts=gen.querySelector('.vp-gen-pts');
   var r=calcCredits(panel);
   if(pts){pts.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'+r.total;}
-  // breakdown
+  // wrap gen + toggle + breakdown in a genrow
+  if(!panel.querySelector('.vp-genrow')){
+    var wr=document.createElement('div');
+    wr.className='vp-genrow';
+    gen.parentNode.insertBefore(wr,gen);
+    wr.appendChild(gen);
+    var tg=document.createElement('button');
+    tg.className='vp-bd-toggle';
+    tg.type='button';
+    tg.innerHTML='<span class="t">明细</span><span class="i">▴</span>';
+    wr.insertBefore(tg,gen);
+    tg.addEventListener('click',function(){panel.classList.toggle('bd-open');});
+  }
+  var wr=panel.querySelector('.vp-genrow');
+  var tg=wr.querySelector('.vp-bd-toggle');
   var br=panel.querySelector('.vp-breakdown');
   if(!br){
     br=document.createElement('div');
     br.className='vp-breakdown';
-    gen.parentNode.insertBefore(br,gen);
+    wr.insertBefore(br,tg);
   }
   var rows=r.rows.map(function(x){return '<span class="l">'+x.l+'</span><span class="v">'+(x.v>0?'+'+x.v:x.v)+'</span>';}).join('');
   br.innerHTML='<div class="vp-breakdown-head"><span class="t">积分抵扣明细</span><span class="pts">合计 '+r.total+' 积分</span></div>'+
     '<div class="vp-breakdown-rows">'+rows+'</div>'+
-    '<div class="vp-breakdown-tip">⚡ 生成成功将按此金额扣减，生成失败自动原路返还</div>';
+    '<div class="vp-breakdown-tip">⚡ 生成失败自动原路返还</div>';
 }
 
 /* ================= Credit balance & claim (localStorage) ================= */
@@ -2029,8 +2068,10 @@ function bindPanelInteractions(panel){
     if(c.__bound)return; c.__bound=true;
     c.addEventListener('click',function(){c.classList.toggle('on');updateTrCount(panel);renderGenCredits(panel);});
   });
-  var sw=panel.querySelector('.tr-sw');
-  if(sw&&!sw.__bound){sw.__bound=true;sw.addEventListener('click',function(){sw.classList.toggle('on');renderGenCredits(panel);});}
+  panel.querySelectorAll('.tr-sw').forEach(function(sw){
+    if(sw.__bound)return; sw.__bound=true;
+    sw.addEventListener('click',function(){sw.classList.toggle('on');renderGenCredits(panel);});
+  });
   // image slots (promo) toggle
   panel.querySelectorAll('.promo-img').forEach(function(slot,i){
     if(slot.__bound)return; slot.__bound=true;
@@ -2069,6 +2110,17 @@ function updatePromoCount(panel){
 document.querySelectorAll('#videoView .video-panel').forEach(function(p){bindPanelInteractions(p);});
 updateTrCount(document.getElementById('vpanel-translate'));
 updateTrCount(document.getElementById('vpanel-subtitle'));
+
+// character counter for textareas with data-max
+document.querySelectorAll('.vp-ta[data-max]').forEach(function(ta){
+  if(ta.__cb)return; ta.__cb=true;
+  var max=parseInt(ta.getAttribute('data-max'),10)||500;
+  ta.maxLength=max;
+  var step=ta.closest('.vp-step');
+  var counter=step?step.querySelector('.vp-char'):null;
+  function u(){if(counter)counter.textContent=ta.value.length+'/'+max;}
+  ta.addEventListener('input',u);u();
+});
 
 /* ================= generate flow: config -> progress -> success/fail ================= */
 var genTimers=[];
