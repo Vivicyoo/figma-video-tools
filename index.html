@@ -220,12 +220,6 @@
   .video-panel.tool-koubo{--acc:#6d28d9;--acc-50:#f3e8ff;--acc-grad:linear-gradient(135deg,#faf5ff,#f3e8ff);}
   .vp-title{font-weight:700;font-size:15px;padding:14px 16px 2px;}
   .vp-sub{font-size:12px;color:var(--gray-500);padding:2px 16px 12px;}
-  .vp-card{margin:0 16px 14px;padding:14px;border-radius:11px;background:var(--acc-grad);}
-  .vp-card-title{font-weight:700;font-size:14px;color:var(--acc);margin-bottom:5px;}
-  .vp-card-desc{font-size:12px;color:var(--gray-600);line-height:1.5;margin-bottom:12px;}
-  .vp-flow{display:flex;}
-  .vp-flow-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;color:var(--ink);font-weight:600;}
-  .vp-flow-item .emoji{font-size:20px;width:38px;height:38px;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.06);}
 
   .vp-step{position:relative;padding:0 16px 16px;}
   .vp-step-no{width:20px;height:20px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;position:absolute;left:16px;top:0;}
@@ -432,18 +426,6 @@
   .dh-av .d{font-size:10px;color:var(--gray-400);}
   .dh-av.on{border-color:var(--acc);background:var(--acc-50);}
   .dh-av.on .n{color:var(--acc);}
-  /* product script example cards */
-  .kb-ex{margin:0 16px 14px;padding:13px;border-radius:11px;background:var(--acc-grad);text-align:center;}
-  .kb-ex-t{font-size:13px;font-weight:700;color:var(--acc);margin-bottom:12px;}
-  .kb-ex-row{display:flex;align-items:center;justify-content:center;gap:9px;}
-  .kb-ex-cell{width:56px;height:66px;border-radius:8px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--gray-400);}
-  .kb-ex-cell svg{width:22px;height:22px;}
-  .kb-ex-cell .l{font-size:9.5px;color:var(--gray-500);}
-  .kb-ex-cell.hl{background:linear-gradient(135deg,var(--acc),#a855f7);color:#fff;}
-  .kb-ex-cell.hl .l{color:#fff;}
-  .kb-ex-arr{color:var(--gray-400);}
-  .kb-ex-ai{font-size:9.5px;font-weight:700;color:var(--acc);}
-  .kb-ex-desc{font-size:11px;color:var(--gray-600);margin-top:9px;line-height:1.5;text-align:left;}
   /* script template snippets */
   .kb-sk{margin:0 16px 12px;border:1px solid var(--gray-200);border-radius:9px;padding:8px 10px;text-align:left;background:#fff;width:calc(100% - 32px);display:block;}
   .kb-sk .t{font-size:11px;font-weight:600;color:var(--acc);margin-bottom:3px;}
@@ -1249,16 +1231,6 @@
         <div class="vp-title">首尾帧生视频</div>
         <div class="vp-sub">AI自动补全首尾帧之间的过渡画面</div>
 
-        <div class="vp-card">
-          <div class="vp-card-title">首尾帧生视频</div>
-          <div class="vp-card-desc">AI自动补全首尾帧之间的过渡画面，适合产品展示、场景转场等生视频场景。</div>
-          <div class="vp-flow">
-            <div class="vp-flow-item"><span class="emoji">🖼️</span>上传首尾帧</div>
-            <div class="vp-flow-item"><span class="emoji">✍️</span>描述镜头</div>
-            <div class="vp-flow-item"><span class="emoji">✨</span>AI补帧生成</div>
-          </div>
-        </div>
-
         <div class="vp-step">
           <div class="vp-step-no">1</div>
           <div class="vp-step-name">首帧画面</div>
@@ -1328,15 +1300,6 @@
       <aside class="panel video-panel tool-dh" id="vpanel-dh" data-tool="dh" style="display:none">
         <div class="vp-title">数字人口播</div>
         <div class="vp-sub">虚拟形象真人口播，一键生成产品介绍</div>
-        <div class="vp-card">
-          <div class="vp-card-title">数字人口播</div>
-          <div class="vp-card-desc">选择虚拟形象或真人数字人，输入口播文案，AI 自动生成同步口型与肢体动作的口播视频，一键输出多语种版本，适合产品介绍、品牌宣传、知识讲解等场景。</div>
-          <div class="vp-flow">
-            <div class="vp-flow-item"><span class="emoji">🧑</span>选择数字人</div>
-            <div class="vp-flow-item"><span class="emoji">📝</span>撰写文案</div>
-            <div class="vp-flow-item"><span class="emoji">🎬</span>生成口播视频</div>
-          </div>
-        </div>
         <div class="vp-step">
           <div class="vp-step-no">1</div>
           <div class="vp-step-name">选择数字人形象</div>
@@ -1423,15 +1386,6 @@
       <aside class="panel video-panel tool-promo" id="vpanel-promo" data-tool="promo">
         <div class="vp-title">产品宣传视频</div>
         <div class="vp-sub">上传产品图片，AI自动生成电商宣传视频</div>
-        <div class="vp-card">
-          <div class="vp-card-title">产品宣传视频</div>
-          <div class="vp-card-desc">上传产品图片，AI 自动生成专业的电商宣传视频，支持多种比例和时长，适合短视频投放、电商主图、品牌推广等场景。</div>
-          <div class="vp-flow">
-            <div class="vp-flow-item"><span class="emoji">📸</span>上传产品图</div>
-            <div class="vp-flow-item"><span class="emoji">🎯</span>选视频类型</div>
-            <div class="vp-flow-item"><span class="emoji">✨</span>AI生成宣传片</div>
-          </div>
-        </div>
         <div class="vp-step">
           <div class="vp-step-no">1</div>
           <div class="vp-img-head">
@@ -1507,17 +1461,6 @@
       <aside class="panel video-panel tool-koubo" id="vpanel-koubo" data-tool="koubo" style="display:none">
         <div class="vp-title">真人口播视频</div>
         <div class="vp-sub">上传介绍人物的形象，替换文案生成同款人物口播</div>
-        <div class="kb-ex">
-          <div class="kb-ex-t">效果示例</div>
-          <div class="kb-ex-row">
-            <div class="kb-ex-cell"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="5" width="20" height="14" rx="2" opacity=".4"/><path d="M9 9v6l5-3-5-3z"/></svg><span class="l">原始人物口播</span></div>
-            <div class="kb-ex-arr">→</div>
-            <div class="kb-ex-ai">AI</div>
-            <div class="kb-ex-arr">→</div>
-            <div class="kb-ex-cell hl"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="5" width="20" height="14" rx="2" opacity=".5"/><path d="M9 9v6l5-3-5-3z"/></svg><span class="l">融合新文案</span></div>
-          </div>
-          <div class="kb-ex-desc">上传介绍人物的清晰形象照片/视频，保留原始人物形象，AI 将其声音与口型同步替换为输入的新文案。适合真人模特、商家、企业领导进行产品介绍、品牌宣传、知识讲解等场景。</div>
-        </div>
         <div class="vp-step">
           <div class="vp-step-no">1</div>
           <div class="vp-step-name">上传人物口播视频</div>
@@ -1576,10 +1519,6 @@
       <aside class="panel video-panel tool-translate" id="vpanel-translate" data-tool="translate" style="display:none">
         <div class="vp-title">口播视频翻译</div>
         <div class="vp-sub">上传口播视频，一键翻译生成多语种版本</div>
-        <div class="vp-card">
-          <div class="vp-card-title">口播视频翻译</div>
-          <div class="vp-card-desc">上传中文口播视频，AI自动将语音内容翻译并重新配音，输出多语种版本，口型与人物形象保持同步。</div>
-        </div>
         <div class="vp-step">
           <div class="vp-step-no">1</div>
           <div class="vp-step-name">上传口播视频</div>
@@ -1654,15 +1593,6 @@
       <aside class="panel video-panel tool-subtitle" id="vpanel-subtitle" data-tool="subtitle" style="display:none">
         <div class="vp-title">视频字幕翻译</div>
         <div class="vp-sub">翻译视频的音频及字幕，字幕语言对齐</div>
-        <div class="vp-card">
-          <div class="vp-card-title">视频字幕翻译</div>
-          <div class="vp-card-desc">上传原始语言视频，AI 生成多语言音频及对齐字幕的视频，字幕与语音同步对齐。适合外贸商品运营中，无人像带字幕视频的翻译场景。</div>
-          <div class="vp-flow">
-            <div class="vp-flow-item"><span class="emoji">📹</span>上传原始视频</div>
-            <div class="vp-flow-item"><span class="emoji">🌐</span>选择多语种</div>
-            <div class="vp-flow-item"><span class="emoji">💬</span>AI翻译+对齐字幕</div>
-          </div>
-        </div>
         <div class="vp-step">
           <div class="vp-step-no">1</div>
           <div class="vp-step-name">上传原始语言视频</div>
@@ -1723,15 +1653,6 @@
       <aside class="panel video-panel tool-text" id="vpanel-text" data-tool="text" style="display:none">
         <div class="vp-title">文本生视频</div>
         <div class="vp-sub">通过文字描述生成创意视频内容</div>
-        <div class="vp-card">
-          <div class="vp-card-title">文本生视频</div>
-          <div class="vp-card-desc">用一句话或一段文字描述你想要的画面，AI 理解语义后自动生成对应视频，支持多种风格，适合创意短片、广告素材等。</div>
-          <div class="vp-flow">
-            <div class="vp-flow-item"><span class="emoji">✍️</span>输入描述词</div>
-            <div class="vp-flow-item"><span class="emoji">🎨</span>选择画面风格</div>
-            <div class="vp-flow-item"><span class="emoji">✨</span>AI生成视频</div>
-          </div>
-        </div>
         <div class="vp-step">
           <div class="vp-step-no">1</div>
           <div class="vp-step-name">视频描述</div>
