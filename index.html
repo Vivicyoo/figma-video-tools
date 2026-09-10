@@ -548,7 +548,7 @@
   .bg-chip.on:hover{background:var(--purple-50);}
 
   /* scene grid */
-  .bg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(162px,1fr));gap:12px;}
+  .bg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:12px;}
   .bg-card{position:relative;aspect-ratio:16/10;border-radius:10px;overflow:hidden;border:2px solid transparent;background:#f3f4f6;transition:box-shadow .18s,transform .18s;}
   .bg-card:hover{box-shadow:0 4px 14px rgba(17,24,39,.13);}
   .bg-card.on{border-color:var(--purple);box-shadow:0 0 0 3px rgba(124,58,237,.16);}
@@ -575,12 +575,12 @@
 
   /* bottom action bar */
   .bg-foot{flex:none;margin:0 12px 12px;border-radius:12px;background:#f5f6fa;padding:11px 14px;display:flex;align-items:center;gap:16px;}
-  .bg-foot-l{flex:1;min-width:0;}
+  .bg-foot-l{flex:1;min-width:0;padding-right:2px;}
   .bg-foot-t{font-size:13px;font-weight:700;color:var(--ink);}
   .bg-foot-s{font-size:12px;color:var(--gray-500);margin-top:3px;}
+  .bg-foot-s .done{display:block;font-size:11px;color:#059669;font-weight:600;margin-top:2px;line-height:1.35;}
   .bg-foot-s b{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
-  .bg-foot-s .done{color:#059669;font-weight:600;}
-  .bg-start{flex:none;height:38px;padding:0 24px;border-radius:9px;background:linear-gradient(135deg,#8b5cf6 0%,#d946ef 55%,#ec4899 100%);color:#fff;font-size:13.5px;font-weight:700;display:inline-flex;align-items:center;gap:7px;box-shadow:0 4px 13px rgba(168,85,247,.32);transition:filter .18s;}
+  .bg-start{flex:none;height:38px;padding:0 18px;border-radius:9px;background:linear-gradient(135deg,#8b5cf6 0%,#d946ef 55%,#ec4899 100%);color:#fff;font-size:13.5px;font-weight:700;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 13px rgba(168,85,247,.32);transition:filter .18s;}
   .bg-start svg{width:14px;height:14px;flex:none;}
   .bg-start:hover{filter:brightness(1.07);}
   .bg-start.busy{opacity:.72;pointer-events:none;}
@@ -645,6 +645,16 @@
   .th-card.t-mint .th-tag{background:#a5e6e5;color:#0f5252;}
   .th-card.t-violet{background:linear-gradient(180deg,#f6f4ff,#eeebfd);}
   .th-card.t-violet .th-tag{background:#cfc4fb;color:#3b2a86;}
+
+  /* ===== 生成张数 / 积分徽标 ===== */
+  .cnt-pts{font-size:12.5px;color:var(--gray-400);font-variant-numeric:tabular-nums;}
+  .cnt-pts b{color:var(--acc);font-weight:700;}
+  .bg-start-pts{display:inline-flex;align-items:center;gap:3px;height:20px;padding:0 8px;border-radius:999px;background:rgba(255,255,255,.24);font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums;}
+  .bg-start-pts svg{width:10px;height:10px;}
+  .bg-start.inline{width:100%;justify-content:center;margin-top:12px;}
+  .bg-start.inline .bg-start-pts{background:rgba(255,255,255,.24);}
+  .sec-div{height:1px;background:var(--gray-100);margin:14px 22px 0;}
+  .opt-sub.done{color:var(--acc);font-weight:600;}
 
 
   /* responsive */
@@ -836,7 +846,9 @@
     <!-- ============================================================ -->
     <!-- ===== AI 换背景 page ===== -->
     <!-- ============================================================ -->
-    <section class="bgpage" id="ipanel-bg" style="display:none">
+    <!-- ============ AI换背景（左操作区 + 右画布） ============ -->
+    <section class="tpage" id="ipanel-bg" style="display:none">
+      <div class="tpanel">
       <div class="bg-scroll">
 
         <!-- 待调整图片 -->
@@ -851,6 +863,21 @@
               <span class="t">上传图片</span>
             </div>
           </div>
+        </div>
+
+        <!-- 生成张数 -->
+        <div class="bg-sec">
+          <div class="bg-sec-head">
+            <span class="bg-sec-name req">生成张数</span>
+            <span class="bg-sec-cnt cnt-pts" id="bgCntHint">1 张 · 共 <b>8</b> 积分</span>
+          </div>
+          <div class="opt-chips cnt-group" id="bgCntGroup">
+            <button class="opt-chip on" type="button">1张</button>
+            <button class="opt-chip" type="button">2张</button>
+            <button class="opt-chip" type="button">4张</button>
+            <button class="opt-chip" type="button">9张</button>
+          </div>
+          <div class="opt-sub">按所选张数批量生成，单张 8 积分；余额不足时可前往「领取」补充</div>
         </div>
 
         <!-- 智能生成 -->
@@ -909,7 +936,22 @@
         <button class="bg-start" id="bgStart">
           <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           <span id="bgStartTxt">开始处理</span>
+          <span class="bg-start-pts" id="bgPts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="bgPtsNum" style="font-style:normal">8</i></span>
         </button>
+      </div>
+      </div>
+
+      <div class="tcanvas">
+        <div class="th-card t-violet">
+          <span class="th-tag">AI换背景</span>
+          <div class="th-title">一键切换商品场景</div>
+          <div class="th-sub">光影智能融合 更真实自然</div>
+          <div class="th-shot">
+            <img src="images/web/t-bgrepl.jpg" alt="AI换背景效果示例">
+            <span class="th-badge l dark">前</span>
+            <span class="th-badge r light">后</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -943,6 +985,21 @@
               </div>
             </div>
           </div>
+
+          <!-- 生成张数 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生成张数</span>
+              <span class="bg-sec-cnt cnt-pts" id="whitebgCntHint">1 张 · 共 <b>6</b> 积分</span>
+            </div>
+            <div class="opt-chips cnt-group" id="whitebgCntGroup">
+              <button class="opt-chip on" type="button">1张</button>
+              <button class="opt-chip" type="button">2张</button>
+              <button class="opt-chip" type="button">4张</button>
+              <button class="opt-chip" type="button">9张</button>
+            </div>
+            <div class="opt-sub">按所选张数批量输出，单张 6 积分</div>
+          </div>
         </div>
         <div class="bg-foot">
           <div class="bg-foot-l">
@@ -952,6 +1009,7 @@
           <button class="bg-start" id="whitebgStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
             <span id="whitebgStartTxt">开始处理</span>
+            <span class="bg-start-pts" id="whitebgPts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="whitebgPtsNum" style="font-style:normal">6</i></span>
           </button>
         </div>
       </div>
@@ -987,6 +1045,21 @@
               </div>
             </div>
           </div>
+
+          <!-- 生成张数 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生成张数</span>
+              <span class="bg-sec-cnt cnt-pts" id="watermarkCntHint">1 张 · 共 <b>5</b> 积分</span>
+            </div>
+            <div class="opt-chips cnt-group" id="watermarkCntGroup">
+              <button class="opt-chip on" type="button">1张</button>
+              <button class="opt-chip" type="button">2张</button>
+              <button class="opt-chip" type="button">4张</button>
+              <button class="opt-chip" type="button">9张</button>
+            </div>
+            <div class="opt-sub">按所选张数批量去水印，单张 5 积分</div>
+          </div>
         </div>
         <div class="bg-foot">
           <div class="bg-foot-l">
@@ -996,6 +1069,7 @@
           <button class="bg-start" id="watermarkStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
             <span id="watermarkStartTxt">开始处理</span>
+            <span class="bg-start-pts" id="watermarkPts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="watermarkPtsNum" style="font-style:normal">5</i></span>
           </button>
         </div>
       </div>
@@ -1038,6 +1112,27 @@
               <span class="opt" data-g="erase-mode"><i></i>文字替换</span>
             </div>
             <div class="opt-sub" id="eraseHint">涂抹消除：手动圈选要移除的区域；文字替换：框选文字后自动识别并替换</div>
+          </div>
+
+          <!-- 生成张数 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生成张数</span>
+              <span class="bg-sec-cnt cnt-pts" id="eraseCntHint">1 张 · 共 <b>8</b> 积分</span>
+            </div>
+            <div class="opt-chips cnt-group" id="eraseCntGroup">
+              <button class="opt-chip on" type="button">1张</button>
+              <button class="opt-chip" type="button">2张</button>
+              <button class="opt-chip" type="button">4张</button>
+              <button class="opt-chip" type="button">9张</button>
+            </div>
+            <div class="opt-sub">按所选张数批量消除，单张 8 积分</div>
+            <span class="opt-sub done" id="eraseDone"></span>
+            <button class="bg-start inline" id="eraseStart">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span id="eraseStartTxt">应用消除</span>
+              <span class="bg-start-pts" id="erasePts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="erasePtsNum" style="font-style:normal">8</i></span>
+            </button>
           </div>
         </div>
       </div>
@@ -1091,6 +1186,21 @@
             </div>
             <div class="opt-sub" id="oneclickHint">可多选，一次上传商品图即可批量输出多种上架素材</div>
           </div>
+
+          <!-- 生成张数 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生成张数</span>
+              <span class="bg-sec-cnt cnt-pts" id="oneclickCntHint">1 张 · 共 <b>8</b> 积分</span>
+            </div>
+            <div class="opt-chips cnt-group" id="oneclickCntGroup">
+              <button class="opt-chip on" type="button">1张</button>
+              <button class="opt-chip" type="button">2张</button>
+              <button class="opt-chip" type="button">4张</button>
+              <button class="opt-chip" type="button">9张</button>
+            </div>
+            <div class="opt-sub">按类型与张数计费：每张 6 积分，每增加 1 个生成类型 +2 积分</div>
+          </div>
         </div>
         <div class="bg-foot">
           <div class="bg-foot-l">
@@ -1100,6 +1210,7 @@
           <button class="bg-start" id="oneclickStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
             <span id="oneclickStartTxt">开始处理</span>
+            <span class="bg-start-pts" id="oneclickPts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="oneclickPtsNum" style="font-style:normal">8</i></span>
           </button>
         </div>
       </div>
@@ -1674,7 +1785,7 @@
     <div class="credits-pop-title"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>我的积分</div>
     <div class="credits-pop-balance"><b id="popBalance">125</b><small>可用积分</small></div>
     <div class="credits-pop-claim">
-      <div class="l">每日签到领取<small id="claimHint">每日可领 +20 积分</small></div>
+      <div class="l">每日签到领取<small id="claimHint">每日可领 +100 积分</small></div>
       <button class="credits-pop-claimbtn" id="popClaimBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/></svg><span id="popClaimBtnText">一键领取</span></button>
     </div>
   </div>
@@ -2238,7 +2349,7 @@ function markClaimed(){
 }
 function claimDaily(){
   if(todayClaimed())return false;
-  var amt=20;
+  var amt=100;
   setBalance(getBalance()+amt);
   logCredit('gift',amt,'每日签到领取','+'+amt+' 积分');
   markClaimed();
@@ -2347,7 +2458,19 @@ function renderCreditRule(){
     '<h4 style="margin-top:12px">🔁 返还与领取</h4>'+
     '<table><tbody>'+
       '<tr><td>生成失败</td><td style="color:#2563eb">积分自动原路返还</td></tr>'+
-      '<tr><td>每日签到</td><td style="color:#10b981">可领取 +20 积分</td></tr>'+
+      '<tr><td>每日签到</td><td style="color:#10b981">可领取 +100 积分</td></tr>'+
+    '</tbody></table>'+
+    '<h4 style="margin-top:14px">🖼 图片生成单价（按张计费）</h4>'+
+    '<div class="formula">图片生成积分 = <code>单张单价</code> × <code>生成张数</code>（一键生图另按生成类型加价）</div>'+
+    '<table><thead><tr><th>工具</th><th>单张单价</th></tr></thead><tbody>'+
+      '<tr><td>白底图</td><td><b>6</b> 积分</td></tr>'+
+      '<tr><td>去水印</td><td><b>5</b> 积分</td></tr>'+
+      '<tr><td>局部消除</td><td><b>8</b> 积分</td></tr>'+
+      '<tr><td>AI换背景</td><td><b>8</b> 积分</td></tr>'+
+      '<tr><td>一键生图</td><td><b>6</b> 积分 + 每多 1 个类型 <b>+2</b></td></tr>'+
+    '</tbody></table>'+
+    '<table style="margin-top:8px"><thead><tr><th>生成张数</th><th>可选档位</th></tr></thead><tbody>'+
+      '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张 / 9 张</td></tr>'+
     '</tbody></table>'+
     '</div>';
 }
@@ -2583,7 +2706,7 @@ function runVGenerate(panel){
   if(bal<amt){
     var need=amt-bal;
     var ok=confirm('当前积分不足，生成本次需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往领取积分。');
-    if(ok){openCreditsPop('stmt');}
+    if(ok){setTimeout(function(){openCreditsPop('stmt');},0);}
     return;
   }
   var gen=panel.querySelector('.vp-gen');
@@ -2757,6 +2880,9 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
   var doneEl=document.getElementById('bgDone');
   var startBtn=document.getElementById('bgStart');
   var startTxt=document.getElementById('bgStartTxt');
+  var cntGroup=document.getElementById('bgCntGroup');
+  var ptsNum=document.getElementById('bgPtsNum');
+  var cntHint=document.getElementById('bgCntHint');
   var grid=document.getElementById('bgGrid');
   var myEmpty=document.getElementById('bgMyEmpty');
   var smartSw=document.getElementById('bgSmartSw');
@@ -2764,6 +2890,30 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
   var uploaded=false, curCat='*', curTab='通用图库', curScene=null, running=false;
 
   function updateCount(){ if(countEl){countEl.textContent=uploaded?1:0;} }
+
+  /* ---- 生成张数与积分（单张 8 积分） ---- */
+  var BG_UNIT=8;
+  function getCnt(){
+    if(!cntGroup){return 1;}
+    var on=cntGroup.querySelector('.opt-chip.on');
+    var n=on?parseInt(on.textContent,10):1;
+    return (isNaN(n)||n<1)?1:n;
+  }
+  function calcPts(){return BG_UNIT*getCnt();}
+  function renderPts(){
+    var amt=calcPts();
+    if(ptsNum){ptsNum.textContent=amt;}
+    if(cntHint){cntHint.innerHTML=getCnt()+' 张 · 共 <b>'+amt+'</b> 积分';}
+  }
+  if(cntGroup){
+    cntGroup.querySelectorAll('.opt-chip').forEach(function(c){
+      c.addEventListener('click',function(){
+        cntGroup.querySelectorAll('.opt-chip').forEach(function(x){x.classList.remove('on');});
+        c.classList.add('on');
+        renderPts();
+      });
+    });
+  }
 
   function renderDrop(){
     inner.innerHTML='';
@@ -2858,6 +3008,14 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       setTimeout(function(){drop.classList.remove('shake');},430);
       return;
     }
+    var amt=calcPts();
+    var bal=getBalance();
+    if(bal<amt){
+      var need=amt-bal;
+      var ok=confirm('当前积分不足，本次处理需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往领取积分。');
+      if(ok){setTimeout(function(){openCreditsPop('stmt');},0);}
+      return;
+    }
     running=true;
     startBtn.classList.add('busy');
     startTxt.textContent='处理中…';
@@ -2869,16 +3027,26 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       startBtn.classList.remove('busy');
       startTxt.textContent='开始处理';
       running=false;
-      if(doneEl){doneEl.innerHTML=' · <span class="done">'+(curScene?curScene+' ':'')+'已完成</span>';}
+      var n=getCnt();
+      spendCredits(amt,'AI换背景','生成扣减 · '+amt+' 积分');
+      if(countEl){countEl.textContent=n;}
+      if(doneEl){
+        doneEl.innerHTML='<span class="done">已完成 · 已扣 '+amt+' 积分'+(curScene?'（'+curScene+'）':'')+'</span>';
+      }
+      renderPts();
     },1900);
   });
 
-  renderDrop(); updateCount(); renderGrid();
+  renderDrop(); updateCount(); renderGrid(); renderPts();
 })();
 
 /* ================= 图片处理工具页（白底图 / 去水印 / 局部消除 / 一键生图） ================= */
 (function(){
   var TOOLS=['whitebg','watermark','erase','oneclick'];
+  /* 每张基础积分（复用生视频同一套余额 / 明细 / 余额不足引导体系） */
+  var IMG_PRICE={whitebg:6,watermark:5,erase:8,oneclick:6};
+  var ONECLICK_TYPE_ADD=2;   /* 一键生图：每增加 1 个生成类型，每张 +2 积分 */
+  var IMG_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图'};
   var THUMBS={
     whitebg:'images/upd-cushion.png',
     watermark:'images/upd-product.jpg',
@@ -2900,7 +3068,32 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var done=document.getElementById(key+'Done');
     var start=document.getElementById(key+'Start');
     var startTxt=document.getElementById(key+'StartTxt');
+    var cntGroup=page.querySelector('.cnt-group');
+    var ptsNum=document.getElementById(key+'PtsNum');
+    var cntHint=document.getElementById(key+'CntHint');
     var uploaded=false, running=false;
+
+    /* ---- 生成张数与积分 ---- */
+    function getCnt(){
+      if(!cntGroup){return 1;}
+      var on=cntGroup.querySelector('.opt-chip.on');
+      var n=on?parseInt(on.textContent,10):1;
+      return (isNaN(n)||n<1)?1:n;
+    }
+    function getTypes(){
+      var sel=page.querySelectorAll('.opt-chips:not(.cnt-group) .opt-chip.on');
+      return sel.length||1;
+    }
+    function unitPts(){
+      if(key==='oneclick'){return IMG_PRICE.oneclick+(getTypes()-1)*ONECLICK_TYPE_ADD;}
+      return IMG_PRICE[key]||6;
+    }
+    function calcPts(){return unitPts()*getCnt();}
+    function renderPts(){
+      var amt=calcPts();
+      if(ptsNum){ptsNum.textContent=amt;}
+      if(cntHint){cntHint.innerHTML=getCnt()+' 张 · 共 <b>'+amt+'</b> 积分';}
+    }
 
     function setCount(){
       if(num){num.textContent=uploaded?1:0;}
@@ -2957,17 +3150,36 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       });
     });
 
-    /* 多选标签（生成类型） */
-    page.querySelectorAll('.opt-chip').forEach(function(c){
-      c.addEventListener('click',function(){ c.classList.toggle('on'); });
+    /* 多选标签（生成类型；张数组 .cnt-group 单独处理） */
+    page.querySelectorAll('.opt-chips:not(.cnt-group) .opt-chip').forEach(function(c){
+      c.addEventListener('click',function(){ c.classList.toggle('on'); renderPts(); });
     });
 
-    /* 开始处理 */
+    /* 生成张数（单选） */
+    if(cntGroup){
+      cntGroup.querySelectorAll('.opt-chip').forEach(function(c){
+        c.addEventListener('click',function(){
+          cntGroup.querySelectorAll('.opt-chip').forEach(function(x){x.classList.remove('on');});
+          c.classList.add('on');
+          renderPts();
+        });
+      });
+    }
+
+    /* 开始处理：校验上传 → 校验余额 → 扣积分 → 处理 → 完成 */
     if(start){
       start.addEventListener('click',function(){
         if(running){return;}
         if(!uploaded){
           if(drop){drop.classList.add('shake');setTimeout(function(){drop.classList.remove('shake');},430);}
+          return;
+        }
+        var amt=calcPts();
+        var bal=getBalance();
+        if(bal<amt){
+          var need=amt-bal;
+          var ok=confirm('当前积分不足，本次处理需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往领取积分。');
+          if(ok){setTimeout(function(){openCreditsPop('stmt');},0);}
           return;
         }
         running=true;
@@ -2979,14 +3191,21 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         setTimeout(function(){
           if(spin.parentNode){spin.parentNode.removeChild(spin);}
           start.classList.remove('busy');
-          if(startTxt){startTxt.textContent='开始处理';}
+          if(startTxt){startTxt.textContent=(key==='erase'?'应用消除':'开始处理');}
           running=false;
-          if(done){done.innerHTML=' · <span class="done">已完成</span>';}
+          var n=getCnt();
+          spendCredits(amt,IMG_NAMES[key],'生成扣减 · '+amt+' 积分');
+          if(num){num.textContent=n;}
+          if(done){
+            if(key==='erase'){done.textContent='已完成 '+n+' 张 · 已扣 '+amt+' 积分';}
+            else{done.innerHTML='<span class="done">已完成 · 已扣 '+amt+' 积分</span>';}
+          }
+          renderPts();
         },1900);
       });
     }
 
-    renderDrop(); setCount();
+    renderDrop(); setCount(); renderPts();
   }
 
   TOOLS.forEach(initTool);
