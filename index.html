@@ -956,7 +956,7 @@
             <button class="opt-chip" type="button">4张</button>
             <button class="opt-chip" type="button">9张</button>
           </div>
-          <div class="opt-sub">按所选张数批量生成，单张 8 积分；余额不足时可前往「领取」补充</div>
+          <div class="opt-sub">按所选张数批量生成，单张 8 积分；余额不足时可前往「充值」补充</div>
         </div>
 
         <!-- 智能生成 -->
@@ -1630,17 +1630,11 @@
             <button class="tr-lang">马来语</button>
             <button class="tr-lang">蒙古语</button>
           </div>
+          <div class="tr-langcount" style="margin:10px 0 0">将生成 <b id="trCount">1</b> 个语言版本 · <span>英语</span></div>
         </div>
         <div class="vp-step">
           <div class="vp-step-no">3</div>
           <div class="vp-step-name">配音与输出设置</div>
-          <div class="tr-switch">
-            <div>
-              <div class="l">保留原声音色</div>
-              <div class="s">用AI克隆原始声音配音（更自然）</div>
-            </div>
-            <span class="tr-sw on" id="trSwitch"></span>
-          </div>
           <div class="tr-switch">
             <div>
               <div class="l">对齐口型</div>
@@ -1656,25 +1650,8 @@
             <span class="tr-sw on" id="trBgmSwitch"></span>
           </div>
         </div>
-        <div class="vp-step">
-          <div class="vp-step-no">4</div>
-          <div class="vp-step-name">输出规格</div>
-          <div class="vp-opt">
-            <div class="vp-opt-label">画面比例</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">原始</button><button class="vp-opt-btn">16:9</button><button class="vp-opt-btn">9:16</button><button class="vp-opt-btn">1:1</button></div>
-          </div>
-          <div class="vp-opt">
-            <div class="vp-opt-label">视频时长</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">原始时长</button><button class="vp-opt-btn">30s</button><button class="vp-opt-btn">60s</button><button class="vp-opt-btn">120s</button></div>
-          </div>
-          <div class="vp-opt">
-            <div class="vp-opt-label">输出分辨率</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">720p</button><button class="vp-opt-btn">1080p</button></div>
-          </div>
-          <div class="tr-langcount">将生成 <b id="trCount">1</b> 个语言版本 · <span>英语</span></div>
-        </div>
         <label class="vp-agree" style="margin:12px 16px 0;padding-left:2px;"><input type="checkbox"><span>我已确认对上传素材拥有合法版权，并已获得出镜人物的肖像授权</span></label>
-        <button class="vp-gen"><span>开始翻译</span><span class="vp-gen-pts"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>18</span><span>积分</span></button>
+        <button class="vp-gen"><span>开始翻译</span><span class="vp-gen-pts"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>15</span><span>积分</span></button>
       </aside>
 
       <!-- ===== Video Subtitle (视频字幕翻译) panel ===== -->
@@ -2682,8 +2659,7 @@ function openCreditsPop(tab){
   document.querySelectorAll('#creditsPop .credits-pop-tabs button').forEach(function(b){
     b.classList.toggle('on',b.getAttribute('data-tab')===tab);
   });
-  var wide=tab==='recharge'||tab==='orders';
-  pop.classList.toggle('wide',wide);
+  pop.classList.add('wide');
   if(tab==='rule')renderCreditRule();
   else if(tab==='recharge')renderRecharge();
   else if(tab==='orders')renderOrders();
@@ -2723,7 +2699,9 @@ document.getElementById('popClaimBtn').addEventListener('click',function(){
 document.getElementById('creditPlusFab').addEventListener('click',function(e){
   e.stopPropagation();
   var pop=document.getElementById('creditsPop');
-  if(pop.classList.contains('open'))closeCreditsPop();
+  var onTab=pop.querySelector('.credits-pop-tabs .on');
+  var onRecharge=pop.classList.contains('open')&&onTab&&onTab.getAttribute('data-tab')==='recharge';
+  if(onRecharge)closeCreditsPop();
   else openCreditsPop('recharge');
 });
 document.querySelectorAll('#creditsPop .credits-pop-tabs button').forEach(function(b){
@@ -2935,8 +2913,8 @@ function runVGenerate(panel){
   var bal=getBalance();
   if(bal<amt){
     var need=amt-bal;
-    var ok=confirm('当前积分不足，生成本次需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往领取积分。');
-    if(ok){setTimeout(function(){openCreditsPop('stmt');},0);}
+    var ok=confirm('当前积分不足，生成本次需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往充值。');
+    if(ok){setTimeout(function(){openCreditsPop('recharge');},0);}
     return;
   }
   var gen=panel.querySelector('.vp-gen');
@@ -3242,8 +3220,8 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var bal=getBalance();
     if(bal<amt){
       var need=amt-bal;
-      var ok=confirm('当前积分不足，本次处理需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往领取积分。');
-      if(ok){setTimeout(function(){openCreditsPop('stmt');},0);}
+      var ok=confirm('当前积分不足，本次处理需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往充值。');
+      if(ok){setTimeout(function(){openCreditsPop('recharge');},0);}
       return;
     }
     running=true;
@@ -3408,8 +3386,8 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         var bal=getBalance();
         if(bal<amt){
           var need=amt-bal;
-          var ok=confirm('当前积分不足，本次处理需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往领取积分。');
-          if(ok){setTimeout(function(){openCreditsPop('stmt');},0);}
+          var ok=confirm('当前积分不足，本次处理需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往充值。');
+          if(ok){setTimeout(function(){openCreditsPop('recharge');},0);}
           return;
         }
         running=true;
