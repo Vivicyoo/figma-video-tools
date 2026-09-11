@@ -244,6 +244,9 @@
   .vp-opt-btn{height:30px;padding:0 14px;border-radius:8px;border:1px solid var(--gray-200);background:#fff;font-size:12.5px;font-weight:600;color:var(--ink);}
   .vp-opt-btn:hover{border-color:var(--gray-300);}
   .vp-opt-btn.active{background:var(--acc-50);border-color:var(--acc);color:var(--acc);}
+  .vp-ai-btn{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 10px;border-radius:999px;border:1px solid color-mix(in srgb,var(--acc) 35%,transparent);background:var(--acc-50);color:var(--acc);font-size:11.5px;font-weight:700;cursor:pointer;transition:background .12s ease;}
+  .vp-ai-btn:hover{background:color-mix(in srgb,var(--acc) 14%,#fff);}
+  .vp-ai-btn.loading{color:var(--gray-400);border-color:var(--gray-200);background:#fff;pointer-events:none;}
   .vp-gen{display:flex;align-items:center;justify-content:center;gap:6px;height:40px;margin:4px 16px 16px;border-radius:10px;background:var(--acc);color:#fff;font-size:14px;font-weight:700;}
   .vp-gen:hover{filter:brightness(1.06);}
   .vp-gen-pts{display:inline-flex;align-items:center;gap:3px;}
@@ -1515,24 +1518,15 @@
         </div>
         <div class="vp-step">
           <div class="vp-step-no">2</div>
-          <div class="vp-step-name">视频类型</div>
-          <div class="vp-opts" data-group>
-            <button class="vp-opt-btn active"><span style="display:inline-flex;align-items:center;gap:4px"><span style="font-size:9px;background:var(--acc);color:#fff;border-radius:4px;padding:1px 4px;">推荐</span>产品宣传</span></button>
-            <button class="vp-opt-btn">创意应用</button>
-            <button class="vp-opt-btn">功能展示</button>
-            <button class="vp-opt-btn">开箱体验</button>
-            <button class="vp-opt-btn">场景故事</button>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+            <div class="vp-step-name" style="margin-bottom:0;">描述词</div>
+            <button class="vp-ai-btn" type="button" title="AI 自动生成描述词"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>AI 生成</button>
           </div>
-        </div>
-        <div class="vp-step">
-          <div class="vp-step-no">3</div>
-          <div class="vp-step-name">描述词</div>
-          <div style="display:flex;justify-content:flex-end;margin-bottom:6px;"><button class="vp-opt-btn" style="color:var(--acc);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>AI 生成</button></div>
           <textarea class="vp-ta" rows="3" data-max="500" placeholder="描述产品特点、使用场景或想要的视频效果...上传图片后点击右上角「AI 生成」按钮自动生成描述词"></textarea>
           <div class="vp-char">0/500</div>
         </div>
         <div class="vp-step">
-          <div class="vp-step-no">4</div>
+          <div class="vp-step-no">3</div>
           <div class="vp-step-name">输出规格</div>
           <div class="vp-opt">
             <div class="vp-opt-label">画面比例</div>
@@ -1540,7 +1534,7 @@
           </div>
           <div class="vp-opt">
             <div class="vp-opt-label">视频时长</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">5s</button><button class="vp-opt-btn">10s</button><button class="vp-opt-btn">12s</button></div>
+            <div class="vp-opts" data-group><button class="vp-opt-btn active">5s</button><button class="vp-opt-btn">10s</button><button class="vp-opt-btn">15s</button><button class="vp-opt-btn">30s</button></div>
           </div>
           <div class="vp-opt">
             <div class="vp-opt-label">分辨率</div>
@@ -2232,7 +2226,7 @@ document.querySelectorAll('#videoView .rail-item').forEach(function(b){
  *           + 时长加价 + 分辨率加价 + 多图/多语加价 + 开关加价
  */
 var CREDITS_RULES={
-  promo:{base:24,perImg:2,dur:{5:0,10:6,12:9,15:11,30:20},res:{'720p':0,'1080p':7},feat:{}},
+  promo:{base:24,perImg:2,dur:{5:0,10:6,15:11,30:20},res:{'720p':0,'1080p':7},feat:{}},
   dh:{base:20,dur:{15:0,30:8,60:18,120:34},res:{'720p':0,'1080p':7},feat:{customBg:5}},
   koubo:{base:18,dur:{15:0,30:6,60:18,120:34},res:{'720p':0,'1080p':7},feat:{}},
   translate:{base:15,perLang:6,dur:{原始时长:0,30:6,60:18,120:34},res:{'720p':0,'1080p':7},feat:{}},
@@ -2862,6 +2856,27 @@ function bindPanelInteractions(panel){
       renderGenCredits(panel);
     });
   });
+  // promo: AI 生成描述词（与步骤标题同行按钮）
+  var aiBtn=panel.querySelector('.vp-ai-btn');
+  if(aiBtn&&!aiBtn.__bound){
+    aiBtn.__bound=true;
+    aiBtn.addEventListener('click',function(){
+      var ta=panel.querySelector('.vp-ta');
+      if(!ta)return;
+      var orig=aiBtn.innerHTML;
+      aiBtn.classList.add('loading');aiBtn.textContent='AI 生成中…';
+      setTimeout(function(){
+        var demos=[
+          '这款产品采用简约设计语言，日常通勤与居家场景皆宜。镜头从产品特写缓慢拉远，暖光下呈现细腻质感，结尾定格主视觉与品牌标语，节奏轻快、突出核心卖点。',
+          '清晨的梳妆台前，柔和自然光洒在产品瓶身。镜头环绕展示细节，水珠滑落凸显水润质感，配合轻盈的音乐节奏推进，结尾出现品牌 Logo 与活动信息。',
+          '从都市生活场景切入，主人公随手拿起产品，镜头快速切换多个使用瞬间：特写、侧拍、俯拍交替，突出便携与高颜值，收尾定格产品全家福。'
+        ];
+        ta.value=demos[Math.floor(Math.random()*demos.length)];
+        ta.dispatchEvent(new Event('input',{bubbles:true}));
+        aiBtn.classList.remove('loading');aiBtn.innerHTML=orig;
+      },900);
+    });
+  }
   // generate
   var gen=panel.querySelector('.vp-gen');
   if(gen&&!gen.__bound){gen.__bound=true;gen.addEventListener('click',function(){runVGenerate(panel);});}
