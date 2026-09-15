@@ -501,6 +501,11 @@
   .vp-upload-mini{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px dashed var(--gray-300);border-radius:9px;font-size:12px;color:var(--gray-500);cursor:pointer;}
   .vp-hint2{font-size:11px;color:var(--gray-400);padding:8px 16px 0;}
   .vp-char{font-size:11px;color:var(--gray-400);text-align:right;padding:5px 0 0;}
+  .vp-est{font-size:11px;color:var(--gray-500);text-align:right;padding:2px 0 0;}
+  .vp-est b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;}
+  .vp-est.warn b{color:#f59e0b;}
+  .vp-est-warn{display:none;color:#f59e0b;margin-left:6px;}
+  .vp-est.warn .vp-est-warn{display:inline;}
   /* digital human avatar cards */
   .dh-grid{display:flex;gap:8px;flex-wrap:wrap;}
   .dh-av{width:62px;border:1.5px solid var(--gray-200);border-radius:10px;padding:8px 6px 7px;background:#fff;display:flex;flex-direction:column;align-items:center;gap:4px;}
@@ -1566,6 +1571,7 @@
           <button class="kb-sk"><span class="t">知识分享</span><span class="c">今天分享一个超实用的小技巧，学会之后效率提升不止一倍。很多人…</span></button>
           <textarea class="vp-ta" rows="2" data-max="500" placeholder="在此输入要融合的口播文案，或点击上方示例快速填入..."></textarea>
           <div class="vp-char">0/500</div>
+          <div class="vp-est" id="kouboEst"><span>预估时长 <b>5s</b>（按 4 字/秒）</span><span class="vp-est-warn">文案较长，已按 30s 计算</span></div>
           <div class="vp-hint2" style="padding-left:0">建议 50–300 字，效果最佳</div>
         </div>
         <div class="vp-step">
@@ -1586,6 +1592,7 @@
           <div class="vp-opt">
             <div class="vp-opt-label">视频时长</div>
             <div class="vp-opts" data-group><button class="vp-opt-btn active">5s</button><button class="vp-opt-btn">10s</button><button class="vp-opt-btn">15s</button><button class="vp-opt-btn">30s</button></div>
+            <div class="vp-hint2" style="padding:6px 0 0">实际按文案预估时长与所选档位取较大者</div>
           </div>
           <div class="vp-opt">
             <div class="vp-opt-label">分辨率</div>
@@ -2243,7 +2250,13 @@ function calcCredits(panel){
   // duration
   var durG=panel.querySelector('.vp-opts[data-factor="dur"]');
   var durLbl=durG?activeLabel(durG):'';
-  var durDelta=durG?(rule.dur||{})[durKey(durLbl)]||0:0;
+  var durSec=durG?(parseInt((durLbl||'').replace('s',''),10)||0):0;
+  // koubo: 按文案预估时长与档位取较大者（视频长度不能短于读完文案所需时长）
+  if(key==='koubo'&&panel.dataset.estDur){
+    var estSec=parseInt(panel.dataset.estDur,10);
+    if(estSec>durSec){durSec=estSec;durLbl='预估 '+estSec+'s';}
+  }
+  var durDelta=(rule.dur||{})[durSec]||0;
   if(durLbl){rows.push({l:'时长加价 · '+durLbl,v:durDelta});}
   // resolution
   var resG=panel.querySelector('.vp-opts[data-factor="res"]');
@@ -2794,7 +2807,7 @@ function bindPanelInteractions(panel){
   panel.querySelectorAll('.kb-sk').forEach(function(s){
     if(s.__bound)return; s.__bound=true;
     s.addEventListener('click',function(){
-      var ta=panel.querySelector('.vp-ta');if(ta){ta.value=s.querySelector('.c').textContent;}
+      var ta=panel.querySelector('.vp-ta');if(ta){ta.value=s.querySelector('.c').textContent;ta.dispatchEvent(new Event('input',{bubbles:true}));}
     });
   });
   // text-to-video style card single-select
@@ -2872,6 +2885,22 @@ function updatePromoCount(panel){
   var c=panel.querySelector('.promo-count');
   if(c)c.textContent=n;
 }
+function updateKouboEstDur(panel){
+  if(panel.getAttribute('data-tool')!=='koubo')return;
+  var ta=panel.querySelector('.vp-ta');if(!ta)return;
+  var chars=(ta.value||'').length;
+  var raw=Math.max(5,Math.ceil(chars/4));   // 4 字/秒 默认下限 5s
+  var TIERS=[5,10,15,30];
+  var tier=TIERS.find(function(t){return t>=raw;})||30;
+  var warn=chars>30*4;                       // >120 字 → 已按 30s 计算
+  panel.dataset.estDur=tier;
+  var d=panel.querySelector('.vp-est');
+  if(d){
+    d.classList.toggle('warn',warn);
+    var b=d.querySelector('b');if(b)b.textContent=tier+'s';
+  }
+  renderGenCredits(panel);
+}
 document.querySelectorAll('#videoView .video-panel').forEach(function(p){bindPanelInteractions(p);});
 updateTrCount(document.getElementById('vpanel-translate'));
 updateTrCount(document.getElementById('vpanel-subtitle'));
@@ -2883,7 +2912,11 @@ document.querySelectorAll('.vp-ta[data-max]').forEach(function(ta){
   ta.maxLength=max;
   var step=ta.closest('.vp-step');
   var counter=step?step.querySelector('.vp-char'):null;
-  function u(){if(counter)counter.textContent=ta.value.length+'/'+max;}
+  function u(){
+    if(counter)counter.textContent=ta.value.length+'/'+max;
+    var p=ta.closest('.video-panel');
+    if(p)updateKouboEstDur(p);
+  }
   ta.addEventListener('input',u);u();
 });
 
