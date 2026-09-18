@@ -361,7 +361,7 @@
   .rec-pack{position:relative;background:#fff;border:1px solid var(--gray-200);border-radius:12px;padding:14px 8px 12px;text-align:center;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;font-family:inherit;color:inherit;}
   .rec-pack:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(17,24,39,.08);border-color:#c7c0f0;}
   .rec-pack.hit{border:2px solid var(--purple);padding-top:22px;}
-  .rec-hit{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:0 0 7px 7px;letter-spacing:.5px;}
+  .rec-pack .rec-hit{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:0 0 7px 7px;letter-spacing:.5px;}
   .rec-tag{font-size:11.5px;color:var(--gray-500);font-weight:600;display:block;margin-bottom:8px;}
   .rec-pack.hit .rec-tag{color:var(--purple);font-weight:700;}
   .rec-credits{font-size:22px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1;}
@@ -769,23 +769,6 @@
     .rec-tag{font-size:10.5px;margin-bottom:6px;}
     .rec-price small{font-size:9.5px;}
     .pay-card{width:100%;}
-    /* recharge full page */
-    .rec-page{padding:14px 12px 28px;}
-    .rec-hero{flex-direction:column;align-items:flex-start;gap:12px;padding:18px 18px 16px;border-radius:14px;}
-    .rec-hero-right{text-align:left;}
-    .rec-hero-balance{justify-content:flex-start;font-size:28px;}
-    .rec-hero h1{font-size:19px;}
-    .rec-hero-stats{gap:14px;font-size:11.5px;}
-    .rec-banner{padding:11px 14px;font-size:12px;flex-wrap:wrap;}
-    .rec-cards{grid-template-columns:repeat(2,1fr);gap:10px;}
-    .rec-card:nth-child(3){grid-column:1/-1;}
-    .rec-card{padding:15px 12px 14px;}
-    .rec-card-credits{font-size:24px;white-space:nowrap;}
-    .rec-custom{flex-direction:column;align-items:stretch;gap:10px;padding:14px;}
-    .rec-custom-input-wrap{max-width:none;}
-    .rec-faq{padding:14px;}
-    .rec-paymethods{flex-direction:column;gap:8px;}
-    .rec-pay-section{flex-direction:column;align-items:stretch;}
   }
 
   /* ================= Recharge Full Page ================= */
@@ -797,8 +780,11 @@
   .rec-hero::before{content:'';position:absolute;right:-60px;top:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%);pointer-events:none;}
   .rec-hero h1{font-size:24px;font-weight:700;margin:0 0 6px;letter-spacing:.3px;}
   .rec-hero p{font-size:13px;opacity:.88;margin:0 0 14px;}
-  .rec-hero-stats{display:flex;gap:24px;font-size:12.5px;opacity:.86;}
-  .rec-hero-stats span b{font-weight:700;font-size:13.5px;opacity:1;}
+  .rec-hero-stats{display:flex;font-size:12.5px;}
+  .rec-hero-stats span{display:flex;flex-direction:column;gap:4px;padding:0 22px;border-left:1px solid rgba(255,255,255,.25);}
+  .rec-hero-stats span:first-child{padding-left:0;border-left:none;}
+  .rec-hero-stats span em{font-style:normal;font-size:11px;opacity:.72;letter-spacing:.3px;}
+  .rec-hero-stats span b{font-weight:700;font-size:16px;opacity:1;font-variant-numeric:tabular-nums;line-height:1;}
   .rec-hero-right{text-align:right;position:relative;z-index:1;}
   .rec-hero-balance{font-size:34px;font-weight:700;display:flex;align-items:center;justify-content:flex-end;gap:8px;line-height:1;}
   .rec-hero-balance small{font-size:12px;opacity:.86;font-weight:500;}
@@ -819,18 +805,19 @@
   .rec-card.hit{border:2px solid #f59e0b;padding-top:32px;box-shadow:0 6px 18px -10px rgba(245,158,11,.4);}
   .rec-hit{position:absolute;top:0;left:0;right:0;background:linear-gradient(90deg,#f59e0b,#d97706);color:#fff;text-align:center;font-size:11px;font-weight:700;padding:4px 0;letter-spacing:.4px;border-radius:13px 13px 0 0;}
   .rec-card-tag{font-size:11.5px;color:var(--gray-500);font-weight:600;margin-bottom:8px;}
-  .rec-card-credits{font-size:30px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1;letter-spacing:-.5px;}
+  .rec-card-credits{font-size:30px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1;letter-spacing:-.5px;white-space:nowrap;}
   .rec-card-credits small{font-size:12px;color:var(--gray-500);font-weight:500;margin-left:3px;letter-spacing:0;}
   .rec-card-gift{margin-top:5px;font-size:11.5px;color:#10b981;font-weight:600;background:#ecfdf5;padding:2px 7px;border-radius:5px;display:inline-block;}
   .rec-card-gift.empty{color:var(--gray-400);background:transparent;padding-left:0;}
   .rec-card-line{border-top:1px dashed var(--gray-200);margin:12px 0 10px;}
   .rec-card-perks{list-style:none;padding:0;margin:0 0 12px;font-size:11.5px;color:var(--gray-600);line-height:1.85;flex:1;}
-  .rec-card-perks li::before{content:'✓';color:#10b981;font-weight:700;margin-right:4px;}
+  .rec-card-perks li{position:relative;padding-left:14px;}
+  .rec-card-perks li::before{content:'✓';color:#10b981;font-weight:700;margin-right:4px;position:absolute;left:0;top:0;}
   .rec-card-price{display:flex;align-items:baseline;gap:6px;color:var(--ink);font-weight:700;font-size:14px;margin-bottom:10px;}
   .rec-card-price .cur{font-size:12px;font-weight:500;}
   .rec-card-price s{color:var(--gray-400);font-weight:400;font-size:12px;}
   .rec-card-unit{font-size:11px;color:var(--gray-400);margin-bottom:11px;}
-  .rec-card-btn{width:100%;height:34px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;font-weight:600;font-size:12.5px;border:none;cursor:pointer;font-family:inherit;transition:transform .1s ease,box-shadow .1s ease;}
+  .rec-card-btn{width:100%;height:34px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;font-weight:600;font-size:12.5px;border:none;cursor:pointer;font-family:inherit;transition:transform .1s ease,box-shadow .1s ease;display:flex;align-items:center;justify-content:center;text-align:center;}
   .rec-card-btn:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(83,74,183,.6);}
   .rec-card.hit .rec-card-btn{background:linear-gradient(135deg,#f59e0b,#d97706);}
   .rec-card.hit .rec-card-btn:hover{box-shadow:0 6px 14px -8px rgba(217,119,6,.6);}
@@ -843,7 +830,7 @@
   .rec-custom-input:focus{border-color:var(--purple);background:#fff;}
   .rec-custom-tip{font-size:12px;color:var(--gray-500);}
   .rec-custom-tip b{color:var(--purple);font-weight:700;}
-  .rec-custom-btn{flex-shrink:0;height:38px;padding:0 22px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;font-weight:600;font-size:13px;border:none;cursor:pointer;font-family:inherit;}
+  .rec-custom-btn{flex-shrink:0;height:38px;padding:0 22px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;font-weight:600;font-size:13px;border:none;cursor:pointer;font-family:inherit;text-align:center;}
 
   .rec-faq{background:#fff;border:1px solid var(--gray-200);border-radius:12px;padding:6px 18px;margin-top:18px;}
   .rec-faq-item{border-bottom:1px solid var(--gray-100);padding:13px 0;}
@@ -859,6 +846,7 @@
   .rec-paymethod{height:36px;padding:0 14px;border:1.5px solid var(--gray-200);border-radius:8px;background:#fff;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--gray-700);display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:border-color .12s,color .12s,background .12s;}
   .rec-paymethod:hover{border-color:var(--purple);color:var(--ink);}
   .rec-paymethod.active{border-color:var(--purple);color:var(--purple);background:#f4f3ff;}
+  .rec-paymethod .pm-ic{width:14px;height:14px;border-radius:4px;display:inline-block;flex-shrink:0;}
   .rec-agree{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-600);cursor:pointer;}
   .rec-agree input{accent-color:var(--purple);cursor:pointer;}
   .rec-agree a{color:var(--purple);text-decoration:none;font-weight:500;}
@@ -867,6 +855,35 @@
   .rec-foot a:hover{color:var(--purple);}
   .rec-pop-cta{display:block;margin:14px auto 0;height:36px;padding:0 22px;border-radius:9px;background:#f4f3ff;color:var(--purple);font-weight:600;font-size:12.5px;border:1px solid #d9d4f3;cursor:pointer;font-family:inherit;transition:background .12s;}
   .rec-pop-cta:hover{background:#ebe8ff;}
+
+  /* ---- Recharge full page: narrow screens (MUST stay after base rules above) ---- */
+  @media (max-width:640px){
+    .rec-page{padding:14px 12px 28px;}
+    .rec-hero{flex-direction:column;align-items:flex-start;gap:14px;padding:18px 18px 16px;border-radius:14px;}
+    .rec-hero-right{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left;}
+    .rec-hero-balance{font-size:26px;}
+    .rec-hero h1{font-size:19px;}
+    .rec-hero p{margin-bottom:10px;}
+    .rec-hero-stats span{padding:0 14px;}
+    .rec-hero-stats span:last-child{padding-right:0;}
+    .rec-banner{padding:11px 14px;font-size:12px;flex-wrap:wrap;}
+    .rec-cards{grid-template-columns:repeat(2,1fr);gap:10px;}
+    .rec-card:nth-child(3){grid-column:1/-1;}
+    .rec-card{padding:15px 12px 14px;}
+    .rec-card-credits{font-size:24px;}
+    .rec-custom{flex-direction:column;align-items:stretch;gap:10px;padding:14px;}
+    .rec-custom-input-wrap{max-width:none;}
+    .rec-faq{padding:4px 14px;}
+    .rec-paymethods{flex-direction:column;gap:8px;}
+    .rec-paymethod{justify-content:center;}
+    .rec-pay-section{flex-direction:column;align-items:stretch;gap:12px;}
+    .rec-agree{justify-content:center;flex-wrap:wrap;}
+  }
+  /* mid screens: 5 columns too squeezed */
+  @media (min-width:641px) and (max-width:1000px){
+    .rec-cards{grid-template-columns:repeat(3,1fr);}
+    .rec-card-credits{font-size:26px;}
+  }
 </style>
 </head>
 <body>
@@ -1879,9 +1896,9 @@
             <h1>充值中心</h1>
             <p>充值得积分，畅享全站所有 AI 创作工具 · <b>多充多送</b>，越大越划算</p>
             <div class="rec-hero-stats">
-              <span>累计充值 <b id="recHeroTotal">¥0</b></span>
-              <span>累计消耗 <b id="recHeroSpent">¥0</b></span>
-              <span>累计获赠 <b id="recHeroGift">0</b> 积分</span>
+              <span><em>累计充值</em><b id="recHeroTotal">¥0</b></span>
+              <span><em>累计消耗</em><b id="recHeroSpent">¥0</b></span>
+              <span><em>累计获赠积分</em><b id="recHeroGift">0</b></span>
             </div>
           </div>
           <div class="rec-hero-right">
@@ -1935,9 +1952,9 @@
 
         <div class="rec-pay-section">
           <div class="rec-paymethods" id="recPayMethods">
-            <button class="rec-paymethod active" data-pay="wx">💚 微信支付</button>
-            <button class="rec-paymethod" data-pay="ali">💙 支付宝</button>
-            <button class="rec-paymethod" data-pay="union">💳 银联</button>
+            <button class="rec-paymethod active" data-pay="wx"><i class="pm-ic" style="background:#07c160"></i>微信支付</button>
+            <button class="rec-paymethod" data-pay="ali"><i class="pm-ic" style="background:#1677ff"></i>支付宝</button>
+            <button class="rec-paymethod" data-pay="union"><i class="pm-ic" style="background:#00457c"></i>银联</button>
           </div>
           <label class="rec-agree"><input type="checkbox" id="recAgree" checked>我已阅读并同意 <a href="#">《数字内容服务协议》</a><a href="#">《充值协议》</a></label>
         </div>
@@ -3664,7 +3681,7 @@ function renderRechargePage(){
   var bal=typeof getBalance==='function'?getBalance():0;
   var hBal=document.getElementById('recHeroBalance');if(hBal)hBal.textContent=bal.toLocaleString();
   var hTot=document.getElementById('recHeroTotal');if(hTot)hTot.textContent='¥'+totalPaid.toLocaleString();
-  var hSp=document.getElementById('recHeroSpent');if(hSp)hSp.textContent='¥'+(spentPts*0.1).toFixed(1);
+  var hSp=document.getElementById('recHeroSpent');if(hSp)hSp.textContent='¥'+parseFloat((spentPts*0.1).toFixed(1)).toLocaleString();
   var hGf=document.getElementById('recHeroGift');if(hGf)hGf.textContent=totalGift.toLocaleString();
 
   // 套餐卡片
