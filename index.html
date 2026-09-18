@@ -302,7 +302,7 @@
   .credit-plus-fab svg{width:10px;height:10px;stroke-width:3.2;}
   .credits-pop{position:fixed;top:64px;right:18px;width:320px;background:#fff;border-radius:14px;box-shadow:0 18px 48px rgba(17,24,39,.18);border:1px solid var(--gray-200);z-index:80;display:none;overflow:hidden;}
   .credits-pop.open{display:block;animation:popIn .18s ease;}
-  .credits-pop.wide{top:50%;left:50%;right:auto;transform:translate(-50%,-50%);width:560px;max-width:calc(100vw - 36px);max-height:calc(100vh - 80px);}
+  .credits-pop.wide{top:50%;left:50%;right:auto;transform:translate(-50%,-50%);width:680px;max-width:calc(100vw - 36px);max-height:calc(100vh - 80px);}
   .credits-pop.wide.open{animation:popInWide .22s ease;}
   @keyframes popInWide{from{opacity:0;transform:translate(-50%,calc(-50% + 8px)) scale(.97);}to{opacity:1;transform:translate(-50%,-50%) scale(1);}}
   .credits-pop-head.wide-mode{padding:18px 22px 14px;}
@@ -324,8 +324,8 @@
   .credits-pop-tabs{display:flex;border-bottom:1px solid var(--gray-200);background:#fff;}
   .credits-pop-tabs button{flex:1;height:36px;font-size:12.5px;font-weight:600;color:var(--gray-500);border-bottom:2px solid transparent;}
   .credits-pop-tabs button.on{color:var(--purple);border-bottom-color:var(--purple);}
-  .credits-pop-body{max-height:300px;overflow-y:auto;padding:8px;}
-  .credits-pop.wide .credits-pop-body{max-height:min(640px,calc(100vh - 250px));}
+  .credits-pop-body{max-height:300px;overflow-y:auto;padding:14px 16px;}
+  .credits-pop.wide .credits-pop-body{max-height:min(680px,calc(100vh - 240px));}
   .credits-rule{padding:12px 14px;}
   .credits-rule h4{font-size:12.5px;font-weight:700;color:var(--gray-600);margin-bottom:6px;}
   .credits-rule table{width:100%;font-size:12px;border-collapse:collapse;}
@@ -336,24 +336,38 @@
   .credits-rule .formula{font-size:12px;color:var(--gray-500);background:var(--gray-50);padding:8px 10px;border-radius:7px;margin-top:8px;line-height:1.55;}
   .credits-rule .formula code{background:#fff;padding:1px 5px;border-radius:4px;color:var(--purple);font-weight:600;border:1px solid var(--gray-200);}
   .credits-statement{font-size:12px;}
-  .cs-day{font-size:12px;font-weight:700;color:var(--gray-400);padding:6px 4px 4px;display:flex;align-items:center;gap:6px;}
+  .cs-day{font-size:13px;font-weight:700;color:var(--gray-500);padding:12px 6px 8px;display:flex;align-items:center;gap:8px;letter-spacing:.3px;}
   .cs-day:after{content:'';flex:1;height:1px;background:var(--gray-100);}
-  .cs-row{display:flex;align-items:center;gap:10px;padding:8px 6px;border-radius:7px;}
-  .cs-row:hover{background:var(--gray-50);}
-  .cs-row .ic{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:var(--gray-100);color:var(--gray-500);flex:none;}
+  .cs-row{display:flex;align-items:center;gap:14px;padding:13px 14px;border-radius:12px;margin-bottom:9px;border:1px solid var(--gray-100);background:#fff;box-shadow:0 1px 3px rgba(17,24,39,.04);transition:border-color .12s,box-shadow .12s;}
+  .cs-row:hover{border-color:#d9d4f3;box-shadow:0 3px 10px rgba(83,74,183,.08);}
+  .cs-row .ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--gray-100);color:var(--gray-500);flex:none;}
   .cs-row .ic.plus{background:var(--green-50);color:var(--green);}
   .cs-row .ic.minus{background:var(--red-100);color:var(--red);}
   .cs-row .ic.refund{background:#dbeafe;color:#2563eb;}
   .cs-row .ic.gift{background:#fef3c7;color:#f59e0b;}
-  .cs-row .ic svg{width:12px;height:12px;}
+  .cs-row .ic svg{width:16px;height:16px;}
   .cs-row .main{flex:1;min-width:0;}
-  .cs-row .n{font-weight:600;color:var(--ink);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .cs-row .d{font-size:11.5px;color:var(--gray-400);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
-  .cs-row .v{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;}
+  .cs-row .n{font-weight:600;color:var(--ink);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .cs-row .d{font-size:12.5px;color:var(--gray-400);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+  .cs-row .v{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums;}
   .cs-row .v.plus{color:var(--green);}
   .cs-row .v.minus{color:var(--red);}
   .cs-row .v.refund{color:#2563eb;}
-  .cs-empty{padding:24px 0;text-align:center;font-size:12px;color:var(--gray-400);}
+  .cs-empty{padding:32px 0;text-align:center;font-size:13px;color:var(--gray-400);}
+  /* 充值记录 · 订单卡片 */
+  .ord-row{display:flex;align-items:center;gap:14px;padding:13px 14px;border-radius:12px;margin-bottom:9px;border:1px solid var(--gray-100);background:#fff;box-shadow:0 1px 3px rgba(17,24,39,.04);transition:border-color .12s,box-shadow .12s;}
+  .ord-row:hover{border-color:#d9d4f3;box-shadow:0 3px 10px rgba(83,74,183,.08);}
+  .ord-row .ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;flex:none;}
+  .ord-row .ic.wx{background:linear-gradient(135deg,#2bd466,#07c160);}
+  .ord-row .ic.ali{background:linear-gradient(135deg,#4d9bff,#1677ff);}
+  .ord-row .main{flex:1;min-width:0;}
+  .ord-row .n{font-weight:600;color:var(--ink);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ord-row .n em{font-style:normal;font-size:12px;color:var(--green);font-weight:600;background:var(--green-50);border-radius:5px;padding:1px 6px;margin-left:4px;}
+  .ord-row .d{font-size:12.5px;color:var(--gray-400);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+  .ord-row .amt{text-align:right;flex:none;}
+  .ord-row .amt .v{font-size:16px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;}
+  .ord-row .amt .m{font-size:12px;color:var(--gray-400);margin-top:2px;font-variant-numeric:tabular-nums;}
+  .ord-row .st{flex:none;font-size:12px;font-weight:600;color:var(--green);background:var(--green-50);border-radius:999px;padding:3px 10px;}
 
   /* ===== Recharge packs (in wide mode) ===== */
   .rec-wrap{padding:18px 22px 22px;}
@@ -416,6 +430,27 @@
   .pay-ok-ic{width:54px;height:54px;border-radius:50%;background:#e6f7ee;color:var(--green);font-size:32px;font-weight:800;line-height:54px;margin:0 auto 12px;}
   .pay-ok-t{font-size:22px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
   .pay-ok-d{font-size:12px;color:var(--gray-500);margin-top:6px;line-height:1.5;}
+  /* ===== 收银台（微信 / 支付宝 扫码支付页） ===== */
+  .pay-brandbar{height:4px;}
+  .pay-cash{padding:22px 22px 16px;text-align:center;}
+  .pay-cash-merk{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--gray-500);margin-bottom:8px;}
+  .pay-cash-merk .mk{width:22px;height:22px;border-radius:6px;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .pay-cash-amt{font-size:32px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:.5px;}
+  .pay-cash-sub{font-size:13px;color:var(--gray-500);margin-top:5px;}
+  .pay-cash-sub b{color:var(--green);font-weight:700;}
+  .pay-qr-box{width:200px;height:200px;margin:18px auto 0;padding:13px;border:1px solid var(--gray-200);border-radius:14px;background:#fff;position:relative;box-shadow:0 4px 14px rgba(17,24,39,.06);}
+  .pay-qr-box canvas{display:block;width:172px;height:172px;}
+  .pay-qr-logo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:10px;background:#fff;border:4px solid #fff;box-shadow:0 0 0 1px var(--gray-200);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;}
+  .pay-qr-tip{margin-top:14px;font-size:13px;color:var(--gray-600);line-height:1.5;}
+  .pay-count{margin-top:7px;font-size:12.5px;color:var(--gray-400);}
+  .pay-count b{color:#b45309;font-variant-numeric:tabular-nums;font-weight:700;}
+  .pay-cash-actions{display:flex;gap:10px;padding:0 20px 20px;}
+  .pay-btn{flex:1;height:44px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .1s ease,box-shadow .12s ease;}
+  .pay-btn.main{color:#fff;box-shadow:0 6px 14px -6px rgba(17,24,39,.35);}
+  .pay-btn.main:hover{transform:translateY(-1px);}
+  .pay-btn.ghost{background:var(--gray-100);color:var(--gray-600);}
+  .pay-btn.ghost:hover{background:var(--gray-200);}
+  .pay-cash .pay-err{text-align:left;margin:0 0 4px;}
 
   .rec-orders{padding:4px 8px;}
   .rec-orders-h{display:flex;justify-content:space-between;padding:6px 8px;font-size:12px;color:var(--gray-500);}
@@ -2714,19 +2749,21 @@ function renderOrders(){
     return;
   }
   var html='<div class="rec-orders">';
-  html+='<table class="rec-orders-t"><thead><tr><th>订单号</th><th>套餐</th><th>支付</th><th>积分</th></tr></thead><tbody>';
   orders.forEach(function(o){
     var dt=new Date(o.ts);
-    var payLabel=o.pay==='wx'?'微信支付':'支付宝';
-    var payClass=o.pay==='wx'?'pay-wx':'pay-ali';
-    html+='<tr>'+
-      '<td class="id">'+o.id.slice(-8)+'<br><small style="color:var(--gray-400);font-size:11px">'+(dt.getMonth()+1)+'-'+dt.getDate()+' '+('0'+dt.getHours()).slice(-2)+':'+('0'+dt.getMinutes()).slice(-2)+'</small></td>'+
-      '<td>'+o.pkg+(o.gift?'<br><small style="color:var(--green);font-weight:600">+'+o.gift+' 赠送</small>':'')+'</td>'+
-      '<td class="'+payClass+'">'+payLabel+'<br><small style="color:var(--gray-500);font-weight:500">¥'+o.amount+'</small></td>'+
-      '<td class="v">+'+o.credits.toLocaleString()+'</td>'+
-    '</tr>';
+    var isWx=o.pay==='wx';
+    var p2=function(n){return('0'+n).slice(-2);};
+    var timeStr=(dt.getMonth()+1)+'-'+dt.getDate()+' '+p2(dt.getHours())+':'+p2(dt.getMinutes());
+    html+='<div class="ord-row">'+
+      '<div class="ic '+(isWx?'wx':'ali')+'">'+(isWx?'微':'支')+'</div>'+
+      '<div class="main">'+
+        '<div class="n">'+o.pkg+(o.gift?'<em>含赠 +'+o.gift+'</em>':'')+'</div>'+
+        '<div class="d">'+(isWx?'微信支付':'支付宝')+' · 单号 '+o.id.slice(-8)+' · '+timeStr+'</div>'+
+      '</div>'+
+      '<div class="amt"><div class="v">+'+o.credits.toLocaleString()+' 积分</div><div class="m">¥'+o.amount+'</div></div>'+
+      '<div class="st">已支付</div>'+
+    '</div>';
   });
-  html+='</tbody></table>';
   html+='<div style="margin-top:14px;text-align:center"><button id="ordersGo" style="height:36px;padding:0 18px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;border:none;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit">+ 继续充值</button></div>';
   html+='</div>';
   body.innerHTML=html;
@@ -2739,6 +2776,9 @@ var _selectedPkg=null,_selectedPay=null;
 function openPayConfirm(p){
   _selectedPkg=p;_selectedPay=null;
   closeCreditsPop();
+  clearCashTimers();
+  var titleReset=document.querySelector('#payPop .pay-title');
+  if(titleReset)titleReset.textContent='确认订单';
   var body=document.getElementById('payBody');
   if(!body)return;
   var total=p.credits;
@@ -2774,44 +2814,128 @@ function openPayConfirm(p){
   if(sub)sub.addEventListener('click',function(){submitPay(p,_selectedPay);});
 }
 function closePay(){
+  clearCashTimers();
   var pop=document.getElementById('payPop');
   if(pop)pop.classList.remove('open');
+}
+/* ===== 收银台（微信 / 支付宝 扫码支付页） ===== */
+var _cashTimers=[],_cashOid=null;
+function clearCashTimers(){
+  _cashTimers.forEach(function(t){clearTimeout(t);clearInterval(t);});
+  _cashTimers=[];
+}
+function makeOrderId(){
+  var now=new Date();var p=function(n){return('0'+n).slice(-2);};
+  return 'R'+now.getFullYear()+p(now.getMonth()+1)+p(now.getDate())+
+    p(now.getHours())+p(now.getMinutes())+p(now.getSeconds())+('00'+now.getMilliseconds()).slice(-3);
+}
+/* 伪二维码：确定性伪随机点阵 + 三个定位角 */
+function drawPseudoQR(cv,seed,size){
+  var ctx=cv.getContext('2d');var n=25,cell=size/n;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,size,size);
+  var s=0;for(var c=0;c<seed.length;c++)s=((s*31)+seed.charCodeAt(c))>>>0;
+  function rnd(){s^=s<<13;s>>>=0;s^=s>>17;s^=s<<5;s>>>=0;return s/4294967296;}
+  ctx.fillStyle='#141414';
+  var w=Math.max(1,Math.floor(cell)-0.6);
+  for(var i=0;i<n;i++)for(var j=0;j<n;j++){
+    var f=(i<9&&j<9)||(i>n-10&&j<9)||(i<9&&j>n-10);
+    if(!f&&rnd()>0.52)ctx.fillRect(Math.round(i*cell),Math.round(j*cell),w,w);
+  }
+  function finder(x,y){
+    ctx.fillStyle='#141414';
+    ctx.fillRect(x*cell,y*cell,7*cell,7*cell);
+    ctx.fillStyle='#fff';ctx.fillRect((x+1)*cell,(y+1)*cell,5*cell,5*cell);
+    ctx.fillStyle='#141414';ctx.fillRect((x+2)*cell,(y+2)*cell,3*cell,3*cell);
+  }
+  finder(0,0);finder(n-7,0);finder(0,n-7);
+}
+function openCashier(p,pay){
+  clearCashTimers();
+  var pop=document.getElementById('payPop');
+  var body=document.getElementById('payBody');
+  var titleEl=document.querySelector('#payPop .pay-title');
+  if(!body)return;
+  var wx=pay==='wx';
+  var brand=wx
+    ?{name:'微信支付',color:'#07c160',ic:'微',app:'微信'}
+    :{name:'支付宝',color:'#1677ff',ic:'支',app:'支付宝'};
+  if(titleEl)titleEl.textContent='收银台 · '+brand.name;
+  _cashOid=makeOrderId();
+  var total=p.credits+(p.gift||0);
+  body.innerHTML=
+    '<div class="pay-brandbar" style="background:'+brand.color+'"></div>'+
+    '<div class="pay-cash">'+
+      '<div class="pay-cash-merk"><span class="mk" style="background:'+brand.color+'">'+brand.ic+'</span>'+brand.name+' · 扫码支付</div>'+
+      '<div class="pay-cash-amt">¥'+p.price+'.00</div>'+
+      '<div class="pay-cash-sub">'+p.tag+' · 实得 <b>'+total.toLocaleString()+' 积分</b>'+(p.gift?'（含赠 +'+p.gift+'）':'')+'</div>'+
+      '<div class="pay-qr-box">'+
+        '<canvas id="payQr" width="172" height="172"></canvas>'+
+        '<div class="pay-qr-logo" style="color:'+brand.color+'">'+brand.ic+'</div>'+
+      '</div>'+
+      '<div class="pay-qr-tip">请使用'+brand.app+'「扫一扫」<br>扫描二维码完成支付</div>'+
+      '<div class="pay-count">订单号 '+_cashOid+' · 剩余支付时间 <b id="payCount">15:00</b></div>'+
+    '</div>'+
+    '<div class="pay-cash-actions">'+
+      '<button class="pay-btn ghost" id="cashCancel" type="button">取消支付</button>'+
+      '<button class="pay-btn main" id="cashDone" type="button" style="background:'+brand.color+'">我已完成支付</button>'+
+    '</div>';
+  var cv=document.getElementById('payQr');
+  if(cv)drawPseudoQR(cv,_cashOid+p.id,172);
+  if(pop){
+    pop.classList.add('open');
+    pop.onclick=function(e){if(e.target===pop)closePay();};
+  }
+  var cancelBtn=document.getElementById('cashCancel');
+  if(cancelBtn)cancelBtn.addEventListener('click',function(){closePay();});
+  var doneBtn=document.getElementById('cashDone');
+  if(doneBtn)doneBtn.addEventListener('click',function(){checkCashPay(p,pay);});
+  /* 倒计时 15:00 */
+  var left=900;
+  var ct=setInterval(function(){
+    left--;if(left<0)left=0;
+    var el=document.getElementById('payCount');
+    if(!el){clearInterval(ct);return;}
+    el.textContent=Math.floor(left/60)+':'+('0'+left%60).slice(-2);
+  },1000);
+  _cashTimers.push(ct);
+  /* 模拟：2.8 秒后自动查询支付结果 */
+  var at=setTimeout(function(){checkCashPay(p,pay);},2800);
+  _cashTimers.push(at);
+}
+function checkCashPay(p,pay){
+  var body=document.getElementById('payBody');
+  if(!body||!body.querySelector('#payQr'))return; /* 已离开收银台 */
+  if(Math.random()<0.9){paySuccess(p,pay);return;}
+  var cash=body.querySelector('.pay-cash');
+  if(cash&&!cash.querySelector('.pay-err'))cash.insertAdjacentHTML('afterbegin',
+    '<div class="pay-err">未查询到支付结果，请确认已在'+(pay==='wx'?'微信':'支付宝')+'内完成付款，然后再次点击「我已完成支付」</div>');
+}
+function paySuccess(p,pay){
+  clearCashTimers();
+  var id=_cashOid||makeOrderId();
+  var payName=pay==='wx'?'微信':'支付宝';
+  var detail=fmtMoney(p.price)+' · '+payName+(p.gift?' · 含赠 +'+p.gift:'');
+  addCredits(p.credits,p.tag+'充值到账',detail);
+  saveOrder({id:id,pkg:p.tag,amount:p.price,credits:p.credits,gift:p.gift||0,pay:pay,status:'paid',ts:new Date().toISOString()});
+  if(typeof renderRechargePage==='function')renderRechargePage(); /* 刷新充值页 hero 统计 */
+  var body=document.getElementById('payBody');
+  body.innerHTML=
+    '<div class="pay-ok">'+
+      '<div class="pay-ok-ic">✓</div>'+
+      '<div class="pay-ok-t">+'+p.credits.toLocaleString()+' 积分已入账</div>'+
+      '<div class="pay-ok-d">'+p.tag+(p.gift?'（含赠送 +'+p.gift+'）':'')+' · '+fmtMoney(p.price)+' · '+payName+' · 订单号 '+id.slice(-8)+'</div>'+
+    '</div>'+
+    '<button class="pay-submit" id="payDone" type="button">查看明细</button>'+
+    '<button class="pay-tip" id="payContinue" type="button" style="background:transparent;border:none;display:block;margin:8px auto 0;color:var(--purple);cursor:pointer;font-weight:600">继续充值</button>';
+  var done=document.getElementById('payDone');
+  if(done)done.addEventListener('click',function(){closePay();openCreditsPop('stmt');});
+  var cont=document.getElementById('payContinue');
+  if(cont)cont.addEventListener('click',function(){openPayConfirm(p);});
 }
 function submitPay(p,pay){
   var btn=document.getElementById('paySubmit');
   if(!btn||!pay)return;
-  btn.disabled=true;btn.classList.add('loading');btn.textContent='支付中';
-  setTimeout(function(){
-    var fail=Math.random()<0.1;
-    if(fail){
-      btn.classList.remove('loading');btn.disabled=false;btn.textContent='重新支付 ¥'+p.price+'.00';
-      var body=document.getElementById('payBody');
-      if(body&&!body.querySelector('.pay-err'))body.insertAdjacentHTML('afterbegin',
-        '<div class="pay-err">⚡ 支付未完成，余额未扣减，请重试</div>');
-      return;
-    }
-    var now=new Date();
-    var p2=function(n){return ('0'+n).slice(-2);};
-    var id='R'+now.getFullYear()+p2(now.getMonth()+1)+p2(now.getDate())+
-      p2(now.getHours())+p2(now.getMinutes())+p2(now.getSeconds())+('00'+now.getMilliseconds()).slice(-3);
-    var payName=pay==='wx'?'微信':'支付宝';
-    var detail=fmtMoney(p.price)+' · '+payName+(p.gift?' · 含赠 +'+p.gift:'');
-    addCredits(p.credits,p.tag+'充值到账',detail);
-    saveOrder({id:id,pkg:p.tag,amount:p.price,credits:p.credits,gift:p.gift||0,pay:pay,status:'paid',ts:now.toISOString()});
-    var body=document.getElementById('payBody');
-    body.innerHTML=
-      '<div class="pay-ok">'+
-        '<div class="pay-ok-ic">✓</div>'+
-        '<div class="pay-ok-t">+'+p.credits.toLocaleString()+' 积分已入账</div>'+
-        '<div class="pay-ok-d">'+p.tag+(p.gift?'（含赠送 +'+p.gift+'）':'')+' · '+fmtMoney(p.price)+' · '+payName+'</div>'+
-      '</div>'+
-      '<button class="pay-submit" id="payDone" type="button">查看明细</button>'+
-      '<button class="pay-tip" id="payContinue" type="button" style="background:transparent;border:none;display:block;margin:8px auto 0;color:var(--purple);cursor:pointer;font-weight:600">继续充值</button>';
-    var done=document.getElementById('payDone');
-    if(done)done.addEventListener('click',function(){closePay();openCreditsPop('stmt');});
-    var cont=document.getElementById('payContinue');
-    if(cont)cont.addEventListener('click',function(){openPayConfirm(p);});
-  },1500);
+  openCashier(p,pay);
 }
 function refreshClaimUI(){
   var claimed=todayClaimed();
