@@ -2995,11 +2995,12 @@ document.querySelectorAll('#creditsPop .credits-pop-tabs button').forEach(functi
     openCreditsPop(b.getAttribute('data-tab'));
   });
 });
-// head 卡右上角「充值」按钮 → 套餐选择（原「立即充值」tab 入口）
+// head 卡右上角「充值」按钮 → 关闭弹层，打开整页充值中心
 var popRechargeBtn=document.getElementById('popRechargeBtn');
 if(popRechargeBtn)popRechargeBtn.addEventListener('click',function(e){
   e.stopPropagation();
-  openCreditsPop('recharge');
+  closeCreditsPop();
+  setMode('recharge');
 });
 // 支付确认弹窗右上角 × 关闭（原先只绑了遮罩点击，× 一直无法关闭）
 var payXBtn=document.getElementById('payX');
