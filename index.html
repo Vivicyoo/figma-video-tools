@@ -307,7 +307,9 @@
   @keyframes popInWide{from{opacity:0;transform:translate(-50%,calc(-50% + 8px)) scale(.97);}to{opacity:1;transform:translate(-50%,-50%) scale(1);}}
   .credits-pop-head.wide-mode{padding:18px 22px 14px;}
   @keyframes popIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
-  .credits-pop-head{padding:14px 16px 12px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border-bottom:1px solid #fde68a;}
+  .credits-pop-head{padding:14px 16px 12px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border-bottom:1px solid #fde68a;position:relative;}
+  .credits-pop-recharge{position:absolute;top:12px;right:14px;height:30px;padding:0 16px;border-radius:999px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:12.5px;font-weight:700;border:none;cursor:pointer;font-family:inherit;letter-spacing:2px;box-shadow:0 3px 8px -3px rgba(217,119,6,.5);transition:transform .1s ease,box-shadow .1s ease;}
+  .credits-pop-recharge:hover{transform:translateY(-1px);box-shadow:0 5px 12px -4px rgba(217,119,6,.6);}
   .credits-pop-title{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#92400e;}
   .credits-pop-title svg{width:14px;height:14px;color:#f59e0b;}
   .credits-pop-balance{display:flex;align-items:baseline;gap:6px;margin-top:6px;}
@@ -423,7 +425,6 @@
   .rec-orders-t td.id{color:var(--gray-500);font-size:11px;}
   .rec-orders-t td.pay-wx{color:#07c160;font-weight:600;}
   .rec-orders-t td.pay-ali{color:#1677ff;font-weight:600;}
-  .rec-orders-t td.pay-union{color:#2768c9;font-weight:600;}
   .rec-orders-t td.v{text-align:right;color:var(--green);font-weight:700;}
   .rec-orders-empty{padding:36px 0;text-align:center;color:var(--gray-400);font-size:12.5px;}
   .rec-orders-empty .em{font-size:30px;display:block;margin-bottom:8px;opacity:.4;}
@@ -822,16 +823,6 @@
   .rec-card.hit .rec-card-btn{background:linear-gradient(135deg,#f59e0b,#d97706);}
   .rec-card.hit .rec-card-btn:hover{box-shadow:0 6px 14px -8px rgba(217,119,6,.6);}
 
-  .rec-custom{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--gray-200);border-radius:12px;padding:14px 18px;margin-top:14px;}
-  .rec-custom-label{font-size:13px;font-weight:600;color:var(--ink);flex-shrink:0;}
-  .rec-custom-input-wrap{position:relative;flex:1;max-width:280px;}
-  .rec-custom-prefix{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--gray-500);font-weight:600;font-size:13.5px;}
-  .rec-custom-input{width:100%;height:38px;border:1px solid var(--gray-200);border-radius:9px;padding:0 12px 0 26px;font-size:14px;font-weight:600;color:var(--ink);font-family:inherit;background:#fafafa;outline:none;box-sizing:border-box;}
-  .rec-custom-input:focus{border-color:var(--purple);background:#fff;}
-  .rec-custom-tip{font-size:12px;color:var(--gray-500);}
-  .rec-custom-tip b{color:var(--purple);font-weight:700;}
-  .rec-custom-btn{flex-shrink:0;height:38px;padding:0 22px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;font-weight:600;font-size:13px;border:none;cursor:pointer;font-family:inherit;text-align:center;}
-
   .rec-faq{background:#fff;border:1px solid var(--gray-200);border-radius:12px;padding:6px 18px;margin-top:18px;}
   .rec-faq-item{border-bottom:1px solid var(--gray-100);padding:13px 0;}
   .rec-faq-item:last-child{border-bottom:none;}
@@ -871,8 +862,6 @@
     .rec-card:nth-child(3){grid-column:1/-1;}
     .rec-card{padding:15px 12px 14px;}
     .rec-card-credits{font-size:24px;}
-    .rec-custom{flex-direction:column;align-items:stretch;gap:10px;padding:14px;}
-    .rec-custom-input-wrap{max-width:none;}
     .rec-faq{padding:4px 14px;}
     .rec-paymethods{flex-direction:column;gap:8px;}
     .rec-paymethod{justify-content:center;}
@@ -1916,21 +1905,11 @@
         <div class="rec-section-title">积分套餐 <small>点击卡片即可充值，下单后积分立即到账</small></div>
         <div class="rec-cards" id="recCards"></div>
 
-        <div class="rec-custom">
-          <span class="rec-custom-label">自定义金额</span>
-          <div class="rec-custom-input-wrap">
-            <span class="rec-custom-prefix">¥</span>
-            <input class="rec-custom-input" type="number" id="recCustomInput" min="1" max="9999" step="1" placeholder="输入金额（1 - 9999）">
-          </div>
-          <span class="rec-custom-tip">将到账 <b id="recCustomPoints">0</b> 积分（按 ¥0.10/积分）</span>
-          <button class="rec-custom-btn" id="recCustomBtn">立即充值 →</button>
-        </div>
-
         <div class="rec-section-title">常见问题</div>
         <div class="rec-faq">
           <div class="rec-faq-item" data-faq>
             <div class="rec-faq-q">积分可以退款吗？</div>
-            <div class="rec-faq-a">可以。未消耗积分可申请退款（扣 5% 手续费），原路退回微信 / 支付宝 / 银联账户，1-3 个工作日到账。</div>
+            <div class="rec-faq-a">可以。未消耗积分可申请退款（扣 5% 手续费），原路退回微信 / 支付宝账户，1-3 个工作日到账。</div>
           </div>
           <div class="rec-faq-item" data-faq>
             <div class="rec-faq-q">积分会过期吗？</div>
@@ -1954,7 +1933,6 @@
           <div class="rec-paymethods" id="recPayMethods">
             <button class="rec-paymethod active" data-pay="wx"><i class="pm-ic" style="background:#07c160"></i>微信支付</button>
             <button class="rec-paymethod" data-pay="ali"><i class="pm-ic" style="background:#1677ff"></i>支付宝</button>
-            <button class="rec-paymethod" data-pay="union"><i class="pm-ic" style="background:#00457c"></i>银联</button>
           </div>
           <label class="rec-agree"><input type="checkbox" id="recAgree" checked>我已阅读并同意 <a href="#">《数字内容服务协议》</a><a href="#">《充值协议》</a></label>
         </div>
@@ -1973,6 +1951,7 @@
 <!-- ===== 积分明细 / 规则 弹层 ===== -->
 <div class="credits-pop" id="creditsPop">
   <div class="credits-pop-head">
+    <button class="credits-pop-recharge" id="popRechargeBtn">充值</button>
     <div class="credits-pop-title"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>我的积分</div>
     <div class="credits-pop-balance"><b id="popBalance">125</b><small>可用积分</small></div>
     <div class="credits-pop-claim">
@@ -1983,7 +1962,6 @@
   <div class="credits-pop-tabs">
     <button class="on" data-tab="stmt">抵扣明细</button>
     <button data-tab="rule">扣除规则</button>
-    <button data-tab="recharge">立即充值</button>
     <button data-tab="orders">充值记录</button>
   </div>
   <div class="credits-pop-body" id="creditsBody"></div>
@@ -2594,7 +2572,7 @@ var PACKS=[
 ];
 // 全屏充值页 4-6 项权益（按套餐分级）
 var PACKS_PERKS={
-  trial:  ['立即生效到账','积分长期有效','支持 5 种支付方式','专属客服工单优先'],
+  trial:  ['立即生效到账','积分长期有效','支持微信 / 支付宝','专属客服工单优先'],
   basic:  ['立即生效到账','积分长期有效','专属客服工单优先','可申请电子发票'],
   std:    ['立即生效到账','积分长期有效','专属客服工单优先','推荐人奖励 8%','首单可领 100 积分券','可申请电子发票'],
   create: ['立即生效到账','积分长期有效','专属 1V1 客服','推荐人奖励 10%','生图特权工具解锁','VIP 创作徽标'],
@@ -2658,8 +2636,8 @@ function renderOrders(){
   html+='<table class="rec-orders-t"><thead><tr><th>订单号</th><th>套餐</th><th>支付</th><th>积分</th></tr></thead><tbody>';
   orders.forEach(function(o){
     var dt=new Date(o.ts);
-    var payLabel=o.pay==='wx'?'微信支付':(o.pay==='ali'?'支付宝':'银联');
-    var payClass=o.pay==='wx'?'pay-wx':(o.pay==='ali'?'pay-ali':'pay-union');
+    var payLabel=o.pay==='wx'?'微信支付':'支付宝';
+    var payClass=o.pay==='wx'?'pay-wx':'pay-ali';
     html+='<tr>'+
       '<td class="id">'+o.id.slice(-8)+'<br><small style="color:var(--gray-400);font-size:10px">'+(dt.getMonth()+1)+'-'+dt.getDate()+' '+('0'+dt.getHours()).slice(-2)+':'+('0'+dt.getMinutes()).slice(-2)+'</small></td>'+
       '<td>'+o.pkg+(o.gift?'<br><small style="color:var(--green);font-weight:600">+'+o.gift+' 赠送</small>':'')+'</td>'+
@@ -2693,7 +2671,6 @@ function openPayConfirm(p){
       '<div class="pay-methods">'+
         '<button class="pay-method-btn" data-pay="wx" type="button"><span class="pay-method-ic" style="background:#07c160">微</span><span>微信支付</span><span class="pay-method-ok"></span></button>'+
         '<button class="pay-method-btn" data-pay="ali" type="button"><span class="pay-method-ic" style="background:#1677ff">支</span><span>支付宝</span><span class="pay-method-ok"></span></button>'+
-        '<button class="pay-method-btn" data-pay="union" type="button"><span class="pay-method-ic" style="background:linear-gradient(135deg,#2768c9,#1655b3)">银</span><span>银联</span><span class="pay-method-ok"></span></button>'+
       '</div>'+
     '</div>'+
     '<button class="pay-submit" id="paySubmit" type="button" disabled>选择支付方式后确认</button>'+
@@ -2736,7 +2713,7 @@ function submitPay(p,pay){
     var p2=function(n){return ('0'+n).slice(-2);};
     var id='R'+now.getFullYear()+p2(now.getMonth()+1)+p2(now.getDate())+
       p2(now.getHours())+p2(now.getMinutes())+p2(now.getSeconds())+('00'+now.getMilliseconds()).slice(-3);
-    var payName=pay==='wx'?'微信':(pay==='ali'?'支付宝':'银联');
+    var payName=pay==='wx'?'微信':'支付宝';
     var detail=fmtMoney(p.price)+' · '+payName+(p.gift?' · 含赠 +'+p.gift:'');
     addCredits(p.credits,p.tag+'充值到账',detail);
     saveOrder({id:id,pkg:p.tag,amount:p.price,credits:p.credits,gift:p.gift||0,pay:pay,status:'paid',ts:now.toISOString()});
@@ -2937,6 +2914,18 @@ document.querySelectorAll('#creditsPop .credits-pop-tabs button').forEach(functi
     e.stopPropagation();
     openCreditsPop(b.getAttribute('data-tab'));
   });
+});
+// head 卡右上角「充值」按钮 → 套餐选择（原「立即充值」tab 入口）
+var popRechargeBtn=document.getElementById('popRechargeBtn');
+if(popRechargeBtn)popRechargeBtn.addEventListener('click',function(e){
+  e.stopPropagation();
+  openCreditsPop('recharge');
+});
+// 支付确认弹窗右上角 × 关闭（原先只绑了遮罩点击，× 一直无法关闭）
+var payXBtn=document.getElementById('payX');
+if(payXBtn)payXBtn.addEventListener('click',function(e){
+  e.stopPropagation();
+  closePay();
 });
 document.addEventListener('click',function(e){
   var pop=document.getElementById('creditsPop');
@@ -3709,30 +3698,6 @@ function renderRechargePage(){
         var p=PACKS.find(function(x){return x.id===pid;});
         if(p)openPayConfirm(p);
       });
-    });
-  }
-
-  // 自定义金额实时换算
-  var ci=document.getElementById('recCustomInput');
-  if(ci&&!ci.__bound){
-    ci.__bound=true;
-    function syncCustom(){
-      var v=parseInt(ci.value,10)||0;
-      if(v<0)v=0;if(v>9999)v=9999;
-      document.getElementById('recCustomPoints').textContent=(v*10).toLocaleString();
-    }
-    ci.addEventListener('input',syncCustom);syncCustom();
-    document.getElementById('recCustomBtn').addEventListener('click',function(){
-      var v=parseInt(ci.value,10)||0;
-      if(v<1){ci.focus();return;}
-      var ag=document.getElementById('recAgree');
-      if(ag&&!ag.checked){alert('请先勾选并同意《数字内容服务协议》');return;}
-      // 取当前选中的支付方式
-      var payBtn=document.querySelector('#recPayMethods .rec-paymethod.active');
-      var pay=payBtn?payBtn.getAttribute('data-pay'):'wx';
-      var cust={id:'custom',tag:'自定义 ¥'+v,price:v,credits:v*10,gift:0,unit:0.100,pay:pay};
-      // 直接走支付确认（openPayConfirm 支持 pay 字段后透传到 submitPay）
-      openPayConfirm(cust);
     });
   }
 }
