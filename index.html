@@ -1979,7 +1979,7 @@
         </div>
 
         <div class="rec-banner">
-          <span>🎁 <b>限时活动</b> · 首充任意套餐立减 <b>¥10</b> + 加赠 <b>100</b> 积分</span>
+          <span>🎁 <b>新用户福利</b> · 首充任意套餐 <b>加赠 100 积分</b>，支付后即时到账</span>
           <span class="rec-banner-spacer"></span>
           <span>距活动结束 <span class="rec-banner-countdown" id="recCountdown">23:58:42</span></span>
         </div>
@@ -2862,12 +2862,13 @@ function openCashier(p,pay){
   if(titleEl)titleEl.textContent='收银台 · '+brand.name;
   _cashOid=makeOrderId();
   var total=p.credits+(p.gift||0);
+  var firstHint=getOrders().length===0?' · 首充加赠 <b>+100</b>':'';
   body.innerHTML=
     '<div class="pay-brandbar" style="background:'+brand.color+'"></div>'+
     '<div class="pay-cash">'+
       '<div class="pay-cash-merk"><span class="mk" style="background:'+brand.color+'">'+brand.ic+'</span>'+brand.name+' · 扫码支付</div>'+
       '<div class="pay-cash-amt">¥'+p.price+'.00</div>'+
-      '<div class="pay-cash-sub">'+p.tag+' · 实得 <b>'+total.toLocaleString()+' 积分</b>'+(p.gift?'（含赠 +'+p.gift+'）':'')+'</div>'+
+      '<div class="pay-cash-sub">'+p.tag+' · 实得 <b>'+total.toLocaleString()+' 积分</b>'+(p.gift?'（含赠 +'+p.gift+'）':'')+firstHint+'</div>'+
       '<div class="pay-qr-box">'+
         '<canvas id="payQr" width="172" height="172"></canvas>'+
         '<div class="pay-qr-logo" style="color:'+brand.color+'">'+brand.ic+'</div>'+
@@ -2914,16 +2915,22 @@ function paySuccess(p,pay){
   clearCashTimers();
   var id=_cashOid||makeOrderId();
   var payName=pay==='wx'?'微信':'支付宝';
+  /* 新用户首充加赠 100 积分（与充值页横幅一致） */
+  var isFirst=getOrders().length===0;
+  var bonus=isFirst?100:0;
+  var base=p.credits+(p.gift||0); /* 套餐基础分 + 赠送分 */
+  var total=base+bonus;
   var detail=fmtMoney(p.price)+' · '+payName+(p.gift?' · 含赠 +'+p.gift:'');
-  addCredits(p.credits,p.tag+'充值到账',detail);
-  saveOrder({id:id,pkg:p.tag,amount:p.price,credits:p.credits,gift:p.gift||0,pay:pay,status:'paid',ts:new Date().toISOString()});
+  addCredits(base,p.tag+'充值到账',detail);
+  if(bonus>0)addCredits(bonus,'新用户首充加赠','限时福利 · 支付后即时到账');
+  saveOrder({id:id,pkg:p.tag,amount:p.price,credits:p.credits,gift:(p.gift||0)+bonus,pay:pay,status:'paid',ts:new Date().toISOString()});
   if(typeof renderRechargePage==='function')renderRechargePage(); /* 刷新充值页 hero 统计 */
   var body=document.getElementById('payBody');
   body.innerHTML=
     '<div class="pay-ok">'+
       '<div class="pay-ok-ic">✓</div>'+
-      '<div class="pay-ok-t">+'+p.credits.toLocaleString()+' 积分已入账</div>'+
-      '<div class="pay-ok-d">'+p.tag+(p.gift?'（含赠送 +'+p.gift+'）':'')+' · '+fmtMoney(p.price)+' · '+payName+' · 订单号 '+id.slice(-8)+'</div>'+
+      '<div class="pay-ok-t">+'+total.toLocaleString()+' 积分已入账</div>'+
+      '<div class="pay-ok-d">'+p.tag+(p.gift?'（含赠送 +'+p.gift+'）':'')+(bonus>0?' · 首充加赠 +'+bonus+'（新用户福利）':'')+' · '+fmtMoney(p.price)+' · '+payName+' · 订单号 '+id.slice(-8)+'</div>'+
     '</div>'+
     '<button class="pay-submit" id="payDone" type="button">查看明细</button>'+
     '<button class="pay-tip" id="payContinue" type="button" style="background:transparent;border:none;display:block;margin:8px auto 0;color:var(--purple);cursor:pointer;font-weight:600">继续充值</button>';
