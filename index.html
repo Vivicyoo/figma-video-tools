@@ -403,6 +403,49 @@
   .pay-pop.open{display:flex;animation:fadeIn .18s ease;}
   @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
   .pay-card{background:#fff;border-radius:14px;box-shadow:0 22px 56px rgba(15,23,42,.22);width:380px;max-width:100%;overflow:hidden;animation:popIn .2s ease;}
+
+  /* Invoice 发票申请弹窗 */
+  .invoice-pop{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
+  .invoice-pop.open{display:flex;animation:fadeIn .18s ease;}
+  .invoice-card{background:#fff;border-radius:14px;box-shadow:0 22px 56px rgba(15,23,42,.22);width:480px;max-width:100%;max-height:calc(100vh - 40px);display:flex;flex-direction:column;overflow:hidden;animation:popIn .2s ease;}
+  .invoice-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--gray-200);}
+  .invoice-title{font-size:16px;font-weight:700;color:var(--ink);}
+  .invoice-x{width:28px;height:28px;border-radius:50%;border:none;background:transparent;color:var(--gray-500);font-size:20px;cursor:pointer;line-height:1;transition:background .12s;}
+  .invoice-x:hover{background:var(--gray-100);color:var(--ink);}
+  .invoice-body{padding:18px 22px 22px;overflow-y:auto;}
+  .invoice-summary{background:linear-gradient(135deg,#f4f3ff,#faf7ff);border:1px solid #d9d4f3;border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
+  .invoice-summary .l{font-size:12px;color:var(--gray-500);}
+  .invoice-summary .r{text-align:right;}
+  .invoice-summary .pkg{font-size:14px;font-weight:700;color:var(--ink);}
+  .invoice-summary .amt{font-size:18px;font-weight:800;color:#534AB7;font-variant-numeric:tabular-nums;margin-top:2px;}
+  .invoice-summary .oid{font-size:11.5px;color:var(--gray-400);margin-top:2px;}
+  .invoice-field{margin-bottom:12px;}
+  .invoice-field label{display:block;font-size:12.5px;font-weight:600;color:var(--gray-600);margin-bottom:5px;}
+  .invoice-field label .req{color:#dc2626;margin-left:2px;}
+  .invoice-field input,.invoice-field textarea{width:100%;height:38px;padding:0 12px;border:1px solid var(--gray-200);border-radius:8px;font-size:13px;color:var(--ink);font-family:inherit;background:#fff;outline:none;box-sizing:border-box;transition:border-color .12s;}
+  .invoice-field textarea{height:60px;padding:8px 12px;resize:none;line-height:1.5;}
+  .invoice-field input:focus,.invoice-field textarea:focus{border-color:var(--purple);}
+  .invoice-field .err{font-size:11px;color:#dc2626;margin-top:3px;display:none;}
+  .invoice-field.invalid input,.invoice-field.invalid textarea{border-color:#dc2626;}
+  .invoice-field.invalid .err{display:block;}
+  .invoice-type{display:flex;gap:8px;}
+  .invoice-type label{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;height:36px;border:1.5px solid var(--gray-200);border-radius:8px;cursor:pointer;font-size:13px;color:var(--gray-600);font-weight:500;margin:0;transition:border-color .12s,background .12s;color:var(--gray-600);}
+  .invoice-type label.on{border-color:var(--purple);background:#f4f3ff;color:var(--purple);font-weight:700;}
+  .invoice-type input{display:none;}
+  .invoice-actions{display:flex;gap:10px;margin-top:16px;}
+  .invoice-actions .btn-cancel,.invoice-actions .btn-submit{flex:1;height:40px;border-radius:9px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;transition:background .12s;}
+  .invoice-actions .btn-cancel{background:var(--gray-100);color:var(--gray-600);border:none;}
+  .invoice-actions .btn-cancel:hover{background:var(--gray-200);}
+  .invoice-actions .btn-submit{background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;border:none;box-shadow:0 4px 12px -4px rgba(83,74,183,.5);}
+  .invoice-actions .btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 14px -4px rgba(83,74,183,.55);}
+  .invoice-tip{font-size:11.5px;color:var(--gray-500);text-align:center;margin-top:10px;line-height:1.55;}
+
+  /* 订单卡片：申请发票按钮 */
+  .ord-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex:none;}
+  .ord-invoice{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 10px;border-radius:7px;border:1px solid var(--gray-200);background:#fff;color:var(--gray-600);font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .12s;}
+  .ord-invoice:hover{border-color:var(--purple);color:var(--purple);background:#f4f3ff;}
+  .ord-invoice.done{background:#ecfdf5;border-color:#a7f3d0;color:#059669;cursor:default;}
+  .ord-invoice.done:hover{background:#ecfdf5;border-color:#a7f3d0;color:#059669;}
   .pay-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--gray-200);}
   .pay-title{font-size:15px;font-weight:700;color:var(--ink);}
   .pay-x{background:transparent;border:none;color:var(--gray-500);width:28px;height:28px;border-radius:7px;font-size:18px;line-height:1;cursor:pointer;}
@@ -843,6 +886,7 @@
   .rec-banner{margin-top:18px;background:linear-gradient(90deg,#fff7ed,#fef3c7);border:1px solid #fde68a;border-radius:12px;padding:13px 18px;display:flex;align-items:center;gap:12px;font-size:13px;color:#92400e;}
   .rec-banner b{color:#b45309;font-weight:700;}
   .rec-banner-countdown{font-family:var(--font);font-weight:700;color:#b45309;background:#fff;border-radius:6px;padding:3px 8px;border:1px solid #fcd34d;letter-spacing:.5px;}
+  .rec-banner-date{color:#92400e;font-weight:600;}
   .rec-banner-spacer{flex:1;}
 
   .rec-section-title{font-size:15px;font-weight:700;color:var(--ink);margin:26px 0 12px;display:flex;align-items:baseline;gap:10px;}
@@ -877,6 +921,8 @@
   .rec-faq-item.open .rec-faq-q::after{transform:rotate(45deg);}
   .rec-faq-a{display:none;font-size:12.5px;color:var(--gray-600);line-height:1.7;padding-top:8px;}
   .rec-faq-item.open .rec-faq-a{display:block;}
+  .rec-faq-a .cs-link{color:var(--purple);text-decoration:none;font-weight:600;border-bottom:1px dashed var(--purple);padding-bottom:1px;}
+  .rec-faq-a .cs-link:hover{border-bottom-style:solid;}
 
   .rec-foot{margin-top:18px;text-align:center;font-size:12px;color:var(--gray-400);line-height:1.7;}
   .rec-foot a{color:var(--gray-500);text-decoration:none;margin:0 6px;}
@@ -1980,7 +2026,7 @@
         <div class="rec-banner">
           <span>🎁 <b>新用户福利</b> · 首充任意套餐 <b>加赠 100 积分</b>，支付后即时到账</span>
           <span class="rec-banner-spacer"></span>
-          <span>今日 24 点前 <span class="rec-banner-countdown" id="recCountdown">23:58:42</span></span>
+          <span>活动截止 <span id="recCountdownDate" class="rec-banner-date"></span> · 剩余 <span class="rec-banner-countdown" id="recCountdown">23:58:42</span></span>
         </div>
 
         <div class="rec-section-title">积分套餐 <small>点击卡片即可充值，下单后积分立即到账</small></div>
@@ -2032,11 +2078,11 @@
           </div>
           <div class="rec-faq-item" data-faq>
             <div class="rec-faq-q">充错了账号怎么办？</div>
-            <div class="rec-faq-a">联系右下角在线客服（7×24h），提供订单号与正确账号，1 小时内可协助转移。</div>
+            <div class="rec-faq-a">请通过 <a class="cs-link" id="csLinkCharge" href="#" rel="noopener">在线客服</a>（7×24h）联系我们，提供订单号与正确账号，1 小时内可协助转移。</div>
           </div>
           <div class="rec-faq-item" data-faq>
             <div class="rec-faq-q">可以开具发票吗？</div>
-            <div class="rec-faq-a">支持。单笔实付 ≥ ¥100 的订单可联系在线客服申请电子发票，提供订单号后 3 个工作日内开具。</div>
+            <div class="rec-faq-a">支持。单笔实付 ≥ ¥100 的订单可在「充值记录」页对应订单点击 <b>申请发票</b>，填写抬头 / 邮箱后提交，3 个工作日内开具。如有疑问可联系 <a class="cs-link" id="csLinkInvoice" href="#" rel="noopener">在线客服</a>。</div>
           </div>
           <div class="rec-faq-item" data-faq>
             <div class="rec-faq-q">什么是套餐「加赠」积分？</div>
@@ -2046,7 +2092,7 @@
 
         <div class="rec-foot">
           充值即视为同意《数字内容服务协议》· 积分长期有效 · 未消耗可申请退款（扣 5% 手续费）<br>
-          <a href="#">服务条款</a>·<a href="#">隐私政策</a>·<a href="#">联系客服</a>·<a href="#">发票申请</a>
+          <a href="#" id="footTerms">服务条款</a>·<a href="#" id="footPrivacy">隐私政策</a>·<a class="cs-link" id="footCs" href="#" rel="noopener">联系客服</a>·<a href="#" id="footInvoice">发票申请</a>
         </div>
       </div>
     </div><!-- /rechargeView -->
@@ -2099,6 +2145,17 @@
       <button class="pay-x" id="payX" aria-label="关闭">×</button>
     </div>
     <div class="pay-body" id="payBody"></div>
+  </div>
+</div>
+
+<!-- ===== Invoice 发票申请弹窗 ===== -->
+<div class="invoice-pop" id="invoicePop">
+  <div class="invoice-card">
+    <div class="invoice-head">
+      <div class="invoice-title">申请电子发票</div>
+      <button class="invoice-x" id="invoiceX" aria-label="关闭">×</button>
+    </div>
+    <div class="invoice-body" id="invoiceBody"></div>
   </div>
 </div>
 
@@ -2683,6 +2740,8 @@ function spendCredits(amt,name,detail){
   setBalance(getBalance()-amt);
   logCredit('minus',-amt,name,detail||'');
 }
+/* ================= KEFU 客服链接（在线客服：与本页所有 cs-link 元素绑定） ================= */
+var KEFU_URL='https://cs-im.chinamarket.cn/buyer/4178779707388102201?tenant=T0001&ios=OPEN_INNER_PAGE&daji_userName=18800259285&daji_host=www.chinamarket.cn&sdk=1.0.4&auto_action=platform&daji_token=eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI0MTc2ODg3ODcxNjQ2MzAxNTAxIiwiaWF0IjoxNzg5NzQyNjk2fQ.shrA-5MfV6MP21pK6cAY0KpdnN7ClbFZ09Ja72AxxbAl08MNPL8sseK3KbksDJTUn5fhFFZjL2UvTRSWQQpPOaeSCJaVns4UMwujmbfr6nOj-OlMiGphD7NTigSv_T6ow9dbB1fXvKqS6iSytA_Ft9dt74quuM_VFyI87Dnpk_vu-2KXivQHhK958DxwQVbj4gXywF-gcTboXX5LNgMoX8rz_MAPTejTvw5h7yb-gbDVOoXvr6yTe1WCI2HKqBL5JGimEU0OvdzsL4Rh0npm4ncBXarvhQIYTmXFdoFKXB9Jd7XJIlF9kW6Kb5_JqiZH0j6iugHx-Hhg8zKuCj8QXQ';
 function refundCredits(amt,name,detail){
   setBalance(getBalance()+amt);
   logCredit('refund',amt,name,'已返还 '+amt+' 积分 · '+(detail||''));
@@ -2696,24 +2755,36 @@ function addCredits(amt,name,detail){
 var PACKS=[
   {id:'trial', tag:'体验装', price:6,   credits:60,   gift:0},
   {id:'basic', tag:'基础包', price:30,  credits:320,  gift:0},
-  {id:'std',   tag:'标准包', price:98,  credits:1100, gift:100, hot:true, scope:'够用 1-2 周'},
+  {id:'std',   tag:'标准包', price:98,  credits:1100, gift:100, hot:true},
   {id:'create',tag:'创作包', price:198, credits:2400, gift:400},
-  {id:'max',   tag:'至尊包', price:498, credits:6200, gift:1000}
+  {id:'max',   tag:'至尊包', price:498, credits:6200, gift:1500}
 ];
-/* 折合单价按实得积分（含赠送）计算：0.100 → 0.094 → 0.082 → 0.071 → 0.069 */
+/* 折合单价按实得积分（含赠送）计算：0.100 → 0.094 → 0.082 → 0.071 → 0.065 */
 function packUnit(p){return p.price/(p.credits+(p.gift||0));}
-// 全屏充值页 4-6 项权益（按套餐分级）
+// 全屏充值页 4-5 项权益（按套餐分级；trial/basic 价格低无专属客服）
 var PACKS_PERKS={
-  trial:  ['立即生效到账','积分长期有效','支持微信 / 支付宝','专属客服工单'],
-  basic:  ['立即生效到账','积分长期有效','专属客服工单优先','可申请电子发票'],
-  std:    ['立即生效到账','积分长期有效','专属客服工单优先','可申请电子发票','新用户首充再 +100 积分'],
+  trial:  ['立即生效到账','积分长期有效','支持微信 / 支付宝','在线客服 7×24h'],
+  basic:  ['立即生效到账','积分长期有效','在线客服工单','可申请电子发票'],
+  std:    ['立即生效到账','积分长期有效','客服工单优先','可申请电子发票','新用户首充再 +100 积分'],
   create: ['立即生效到账','积分长期有效','专属 1V1 客服','生图特权工具解锁','VIP 创作徽标'],
   max:    ['立即生效到账','积分长期有效','专属 VIP 客户经理','优先排队生成','内部模型 Beta 体验']
 };
 var ORDERS_KEY='wb_credits_orders_v1';
+var INVOICES_KEY='wb_invoices_v1';
 function getOrders(){
   try{var a=JSON.parse(localStorage.getItem(ORDERS_KEY)||'[]');return Array.isArray(a)?a:[];}
   catch(e){return [];}
+}
+function getInvoices(){
+  try{var a=JSON.parse(localStorage.getItem(INVOICES_KEY)||'[]');return Array.isArray(a)?a:[];}
+  catch(e){return [];}
+}
+function getInvoice(oid){return getInvoices().find(function(x){return x.orderId===oid;});}
+function saveInvoice(inv){
+  var arr=getInvoices();
+  var idx=arr.findIndex(function(x){return x.orderId===inv.orderId;});
+  if(idx>=0){arr[idx]=inv;}else{arr.unshift(inv);}
+  localStorage.setItem(INVOICES_KEY,JSON.stringify(arr));
 }
 function saveOrder(o){var a=getOrders();a.unshift(o);localStorage.setItem(ORDERS_KEY,JSON.stringify(a.slice(0,50)));}
 function fmtMoney(n){return '¥'+n.toFixed(2);}
@@ -2733,6 +2804,12 @@ function renderOrders(body){
     var isWx=o.pay==='wx';
     var p2=function(n){return('0'+n).slice(-2);};
     var timeStr=(dt.getMonth()+1)+'-'+dt.getDate()+' '+p2(dt.getHours())+':'+p2(dt.getMinutes());
+    var inv=getInvoice(o.id);
+    var canInvoice=o.status==='paid'&&o.amount>=100;
+    var invoiceBtn=canInvoice?(inv?
+      '<button class="ord-invoice done" data-invoice="'+o.id+'"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>发票已申请</button>'
+      :'<button class="ord-invoice" data-invoice="'+o.id+'"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>申请发票</button>'
+    ):'';
     html+='<div class="ord-row">'+
       '<div class="ic '+(isWx?'wx':'ali')+'">'+(isWx?'微':'支')+'</div>'+
       '<div class="main">'+
@@ -2740,7 +2817,10 @@ function renderOrders(body){
         '<div class="d">'+(isWx?'微信支付':'支付宝')+' · 单号 '+o.id.slice(-8)+' · '+timeStr+'</div>'+
       '</div>'+
       '<div class="amt"><div class="v">+'+o.credits.toLocaleString()+' 积分</div><div class="m">¥'+o.amount+'</div></div>'+
-      '<div class="st">已支付</div>'+
+      '<div class="ord-right">'+
+        '<div class="st">已支付</div>'+
+        invoiceBtn+
+      '</div>'+
     '</div>';
   });
   html+='<div style="margin-top:14px;text-align:center"><button id="ordersGo" style="height:38px;padding:0 20px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;border:none;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit">+ 继续充值</button></div>';
@@ -2748,6 +2828,15 @@ function renderOrders(body){
   body.innerHTML=html;
   var go=document.getElementById('ordersGo');
   if(go)go.addEventListener('click',function(){setMode('recharge');});
+  body.querySelectorAll('.ord-invoice[data-invoice]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var oid=b.getAttribute('data-invoice');
+      var order=getOrders().find(function(x){return x.id===oid;});
+      var inv=getInvoice(oid);
+      if(inv){openInvoicePop({id:oid,pkg:inv.orderPkg||'充值订单',amount:inv.orderAmount||0});}
+      else if(order){openInvoicePop(order);}
+    });
+  });
 }
 function renderOrdersPage(){
   var el=document.getElementById('ordersPageBody');
@@ -2807,6 +2896,102 @@ function closePay(){
   clearCashTimers();
   var pop=document.getElementById('payPop');
   if(pop)pop.classList.remove('open');
+}
+
+/* ================= Invoice 发票申请 ================= */
+function openInvoicePop(order){
+  var pop=document.getElementById('invoicePop');
+  var body=document.getElementById('invoiceBody');
+  if(!pop||!body)return;
+  var existing=getInvoice(order.id);
+  if(existing){
+    /* 已申请过：只读展示 */
+    body.innerHTML=
+      '<div class="invoice-summary"><div class="l">'+order.pkg+'</div><div class="r"><div class="amt">¥'+order.amount+'</div><div class="oid">订单号 '+order.id.slice(-8)+'</div></div></div>'+
+      '<div style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:9px;padding:14px 16px;text-align:center"><div style="font-size:14px;font-weight:700;color:#059669;margin-bottom:4px">✓ 发票已申请</div>'+
+      '<div style="font-size:12px;color:#065f46;line-height:1.6">抬头：'+escHtml(existing.title)+'<br>类型：'+(existing.type==='company'?'企业':'个人')+(existing.taxId?' · 税号：'+escHtml(existing.taxId):'')+'<br>接收邮箱：'+escHtml(existing.email)+'<br>预计 3 个工作日内开具至您的邮箱</div></div>'+
+      '<button class="btn-submit" style="width:100%;height:40px;margin-top:14px;border-radius:9px;background:var(--gray-100);color:var(--gray-600);border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit" id="invoiceCloseOnly">关闭</button>';
+    pop.classList.add('open');
+    var c=document.getElementById('invoiceCloseOnly');
+    if(c)c.addEventListener('click',closeInvoicePop);
+    return;
+  }
+  body.innerHTML=
+    '<div class="invoice-summary"><div class="l">'+order.pkg+'</div><div class="r"><div class="amt">¥'+order.amount+'</div><div class="oid">订单号 '+order.id.slice(-8)+'</div></div></div>'+
+    '<div class="invoice-field"><label>发票类型 <span class="req">*</span></label>'+
+      '<div class="invoice-type" id="invoiceType">'+
+        '<label class="on"><input type="radio" name="it" value="personal" checked>个人</label>'+
+        '<label><input type="radio" name="it" value="company">企业</label>'+
+      '</div></div>'+
+    '<div class="invoice-field" id="fTitle"><label>发票抬头 <span class="req">*</span></label>'+
+      '<input type="text" id="invTitle" placeholder="个人填姓名，企业填公司全称" maxlength="60">'+
+      '<div class="err">请填写发票抬头</div></div>'+
+    '<div class="invoice-field" id="fTax"><label>税号 <span class="req" id="taxReq" style="display:none">*</span></label>'+
+      '<input type="text" id="invTaxId" placeholder="企业必填（如需开企业发票）" maxlength="30">'+
+      '<div class="err">企业发票必填税号</div></div>'+
+    '<div class="invoice-field" id="fEmail"><label>接收邮箱 <span class="req">*</span></label>'+
+      '<input type="email" id="invEmail" placeholder="发票将发送到此邮箱" maxlength="60">'+
+      '<div class="err">请填写正确的邮箱</div></div>'+
+    '<div class="invoice-field"><label>备注 <span style="color:var(--gray-400);font-weight:400">(选填)</span></label>'+
+      '<textarea id="invMemo" placeholder="如有特殊要求请说明（最多 100 字）" maxlength="100"></textarea></div>'+
+    '<div class="invoice-actions">'+
+      '<button class="btn-cancel" id="invoiceCancel">取消</button>'+
+      '<button class="btn-submit" id="invoiceSubmit">提交申请</button>'+
+    '</div>'+
+    '<div class="invoice-tip">提交后通常 3 个工作日内开具；申请记录可在「充值记录」查询</div>';
+  pop.classList.add('open');
+  /* type radio 切换 */
+  body.querySelectorAll('#invoiceType label').forEach(function(lab){
+    lab.addEventListener('click',function(){
+      body.querySelectorAll('#invoiceType label').forEach(function(x){x.classList.remove('on');});
+      lab.classList.add('on');
+      var taxReq=document.getElementById('taxReq');
+      if(taxReq)taxReq.style.display=lab.querySelector('input').value==='company'?'':'none';
+    });
+  });
+  var cancel=document.getElementById('invoiceCancel');
+  if(cancel)cancel.addEventListener('click',closeInvoicePop);
+  var submit=document.getElementById('invoiceSubmit');
+  if(submit)submit.addEventListener('click',function(){
+    var type=body.querySelector('#invoiceType label.on input').value;
+    var title=document.getElementById('invTitle').value.trim();
+    var taxId=document.getElementById('invTaxId').value.trim();
+    var email=document.getElementById('invEmail').value.trim();
+    var memo=document.getElementById('invMemo').value.trim();
+    var ok=true;
+    if(!title){document.getElementById('fTitle').classList.add('invalid');ok=false;}
+    else{document.getElementById('fTitle').classList.remove('invalid');}
+    if(!email|!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('fEmail').classList.add('invalid');ok=false;}
+    else{document.getElementById('fEmail').classList.remove('invalid');}
+    if(type==='company'&&!taxId){document.getElementById('fTax').classList.add('invalid');ok=false;}
+    else{document.getElementById('fTax').classList.remove('invalid');}
+    if(!ok)return;
+    saveInvoice({orderId:order.id,type:type,title:title,taxId:taxId,email:email,memo:memo,orderPkg:order.pkg,orderAmount:order.amount,ts:new Date().toISOString()});
+    closeInvoicePop();
+    showToast('✓ 发票申请已提交，3 个工作日内开具至 '+email);
+    /* 刷新当前视图（充值记录页）*/
+    if(typeof renderOrdersPage==='function'&&document.getElementById('ordersView').style.display!=='none')renderOrdersPage();
+  });
+}
+function closeInvoicePop(){
+  var pop=document.getElementById('invoicePop');
+  if(pop)pop.classList.remove('open');
+}
+/* 简单 HTML 转义 */
+function escHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+/* 简易 toast */
+function showToast(msg){
+  var t=document.getElementById('wbToast');
+  if(!t){
+    t=document.createElement('div');
+    t.id='wbToast';
+    t.style.cssText='position:fixed;left:50%;top:32px;transform:translateX(-50%);background:#1f2937;color:#fff;padding:11px 22px;border-radius:9px;font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:9999;opacity:0;transition:opacity .2s';
+    document.body.appendChild(t);
+  }
+  t.textContent=msg;
+  t.style.opacity='1';
+  clearTimeout(t.__t);
+  t.__t=setTimeout(function(){t.style.opacity='0';},2400);
 }
 /* ===== 收银台（微信 / 支付宝 扫码支付页） ===== */
 var _cashTimers=[],_cashOid=null;
@@ -3141,6 +3326,13 @@ if(payXBtn)payXBtn.addEventListener('click',function(e){
   e.stopPropagation();
   closePay();
 });
+// 发票申请弹窗 × 关闭 + 点击遮罩关闭
+var invoicePop=document.getElementById('invoicePop');
+if(invoicePop){
+  invoicePop.addEventListener('click',function(e){if(e.target===invoicePop)closeInvoicePop();});
+  var ix=document.getElementById('invoiceX');
+  if(ix)ix.addEventListener('click',function(e){e.stopPropagation();closeInvoicePop();});
+}
 document.addEventListener('click',function(e){
   var pop=document.getElementById('creditsPop');
   if(!pop||!pop.classList.contains('open'))return;
@@ -3940,6 +4132,22 @@ document.querySelectorAll('#rechargeView .rec-faq-item').forEach(function(f){
   f.querySelector('.rec-faq-q').addEventListener('click',function(){f.classList.toggle('open');});
 });
 
+// 全页「在线客服」热链 → 跳转客服 URL（统一为新窗口打开，避免丢失当前页状态）
+document.querySelectorAll('.cs-link').forEach(function(a){
+  if(a.__bound)return;a.__bound=true;
+  a.href=KEFU_URL;
+  a.target='_blank';
+  a.rel='noopener';
+});
+// 页脚「发票申请」→ 跳到充值记录子页（订单卡片里有"申请发票"入口）
+var footInvoice=document.getElementById('footInvoice');
+if(footInvoice){
+  footInvoice.addEventListener('click',function(e){
+    e.preventDefault();
+    if(typeof setMode==='function')setMode('orders');
+  });
+}
+
 // 邀请好友：复制推荐码 / 邀请链接（带视觉反馈）
 function bindInviteCopy(btn,getText,label){
   if(!btn||btn.__bound)return;btn.__bound=true;
@@ -3969,14 +4177,29 @@ function bindInviteCopy(btn,getText,label){
 bindInviteCopy(document.getElementById('invCopyCode'),function(){var el=document.getElementById('invCode');return el?el.textContent.trim():'';});
 bindInviteCopy(document.getElementById('invCopyUrl'),function(){var el=document.getElementById('invUrl');return el?el.textContent.trim():'';});
 
-// 活动倒计时（每分钟变化即可，演示用）
+// 活动倒计时（固定 30 天窗口；首次访问记入 localStorage，刷新不重置；活动结束后隐藏 banner）
 (function(){
-  var end=new Date();end.setHours(23,59,59,999);
+  var KEY='wb_promo_end_v1';
+  var end=localStorage.getItem(KEY);
+  if(!end){
+    end=new Date(Date.now()+30*24*3600*1000).getTime();
+    localStorage.setItem(KEY,String(end));
+  }else{
+    end=parseInt(end,10);
+  }
+  var dateEl=document.getElementById('recCountdownDate');
+  var endDate=new Date(end);
+  var m=endDate.getMonth()+1,d=endDate.getDate(),h=endDate.getHours(),mi=endDate.getMinutes();
+  if(dateEl)dateEl.textContent=m+'-'+d+' '+('0'+h).slice(-2)+':'+('0'+mi).slice(-2);
   function tick(){
-    var diff=Math.max(0,end-new Date());
-    var h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    var diff=Math.max(0,end-Date.now());
+    var day=Math.floor(diff/86400000),hh=Math.floor((diff%86400000)/3600000),mm=Math.floor((diff%3600000)/60000),ss=Math.floor((diff%60000)/1000);
     var el=document.getElementById('recCountdown');
-    if(el)el.textContent=('0'+h).slice(-2)+':'+('0'+m).slice(-2)+':'+('0'+s).slice(-2);
+    if(el)el.textContent=(day>0?day+'天 ':'')+('0'+hh).slice(-2)+':'+('0'+mm).slice(-2)+':'+('0'+ss).slice(-2);
+    if(diff<=0){
+      var banner=document.querySelector('.rec-banner');
+      if(banner)banner.style.display='none';
+    }
   }
   tick();setInterval(tick,1000);
 })();
