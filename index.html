@@ -305,27 +305,32 @@
   .credits-pop.wide{top:50%;left:50%;right:auto;transform:translate(-50%,-50%);width:680px;max-width:calc(100vw - 36px);max-height:calc(100vh - 80px);}
   .credits-pop.wide.open{animation:popInWide .22s ease;}
   @keyframes popInWide{from{opacity:0;transform:translate(-50%,calc(-50% + 8px)) scale(.97);}to{opacity:1;transform:translate(-50%,-50%) scale(1);}}
-  .credits-pop-head.wide-mode{padding:18px 22px 14px;}
   @keyframes popIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
-  .credits-pop-head{padding:14px 16px 12px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border-bottom:1px solid #fde68a;position:relative;}
-  .credits-pop-recharge{position:absolute;top:12px;right:14px;height:30px;padding:0 16px;border-radius:999px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:12.5px;font-weight:700;border:none;cursor:pointer;font-family:inherit;letter-spacing:2px;box-shadow:0 3px 8px -3px rgba(217,119,6,.5);transition:transform .1s ease,box-shadow .1s ease;}
-  .credits-pop-recharge:hover{transform:translateY(-1px);box-shadow:0 5px 12px -4px rgba(217,119,6,.6);}
-  .credits-pop-title{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#92400e;}
-  .credits-pop-title svg{width:14px;height:14px;color:#f59e0b;}
-  .credits-pop-balance{display:flex;align-items:baseline;gap:6px;margin-top:6px;}
-  .credits-pop-balance b{font-size:26px;font-weight:800;color:#78350f;font-variant-numeric:tabular-nums;}
-  .credits-pop-balance small{font-size:12px;color:#a16207;}
-  .credits-pop-claim{margin-top:10px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;background:#fff;border:1px dashed #fde68a;border-radius:9px;}
-  .credits-pop-claim .l{font-size:12.5px;color:#92400e;font-weight:600;}
-  .credits-pop-claim .l small{display:block;font-size:11.5px;color:#a16207;font-weight:400;margin-top:2px;}
-  .credits-pop-claimbtn{height:30px;padding:0 14px;border-radius:8px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff;font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;gap:4px;box-shadow:0 2px 6px rgba(245,158,11,.3);}
-  .credits-pop-claimbtn:disabled,.credits-pop-claimbtn.done{background:var(--gray-200);color:var(--gray-500);cursor:not-allowed;box-shadow:none;}
+  .credits-pop-head{padding:16px 16px 14px;background:#fff;border-bottom:1px solid transparent;position:relative;}
+  .credits-pop.wide .credits-pop-head{border-bottom-color:var(--gray-100);}
+  .credits-pop-top{display:flex;align-items:center;gap:8px;}
+  .credits-pop-title{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--ink);flex:1;}
+  .credits-pop-title svg{width:15px;height:15px;color:var(--purple);}
+  .credits-pop-links{display:flex;gap:12px;}
+  .credits-pop.wide .credits-pop-links{display:none;}
+  .credits-pop-link{font-size:12.5px;font-weight:600;color:var(--purple);cursor:pointer;white-space:nowrap;}
+  .credits-pop-link:hover{text-decoration:underline;}
+  .credits-pop-x{flex:none;width:22px;height:22px;border-radius:6px;border:none;background:var(--gray-100);color:var(--gray-500);font-size:14px;line-height:1;cursor:pointer;font-family:inherit;padding:0;display:flex;align-items:center;justify-content:center;transition:background .12s;}
+  .credits-pop-x:hover{background:var(--gray-200);color:var(--ink);}
+  .credits-pop-balance{display:flex;align-items:baseline;gap:6px;margin-top:10px;}
+  .credits-pop-balance b{font-size:30px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .credits-pop-balance small{font-size:12.5px;color:var(--gray-400);}
+  .credits-pop-claim{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px;background:var(--purple-50);border-radius:12px;}
+  .credits-pop.wide .credits-pop-claim{display:none;}
+  .credits-pop-claim .l{font-size:13px;color:var(--ink);font-weight:600;}
+  .credits-pop-claim .l small{display:block;font-size:11.5px;color:var(--gray-500);font-weight:400;margin-top:2px;}
+  .credits-pop-claimbtn{height:32px;padding:0 14px;border-radius:9px;background:#fff;border:1px solid #d9d4f3;color:var(--purple);font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;gap:4px;}
+  .credits-pop-claimbtn:hover{background:#faf9ff;}
+  .credits-pop-claimbtn:disabled,.credits-pop-claimbtn.done{background:var(--gray-100);color:var(--gray-500);cursor:not-allowed;border-color:var(--gray-200);}
   .credits-pop-claimbtn svg{width:12px;height:12px;}
-  .credits-pop-tabs{display:flex;border-bottom:1px solid var(--gray-200);background:#fff;}
-  .credits-pop-tabs button{flex:1;height:36px;font-size:12.5px;font-weight:600;color:var(--gray-500);border-bottom:2px solid transparent;}
-  .credits-pop-tabs button.on{color:var(--purple);border-bottom-color:var(--purple);}
-  .credits-pop-body{max-height:300px;overflow-y:auto;padding:14px 16px;}
-  .credits-pop.wide .credits-pop-body{max-height:min(680px,calc(100vh - 240px));}
+  .credits-pop-body{display:none;overflow-y:auto;padding:14px 16px;}
+  .credits-pop.wide .credits-pop-body{display:block;max-height:min(680px,calc(100vh - 240px));}
+  .credits-pop:not(.wide) .credits-pop-head{border-bottom:none;}
   .credits-rule{padding:12px 14px;}
   .credits-rule h4{font-size:12.5px;font-weight:700;color:var(--gray-600);margin-bottom:6px;}
   .credits-rule table{width:100%;font-size:12px;border-collapse:collapse;}
@@ -808,7 +813,14 @@
   }
 
   /* ================= Recharge Full Page ================= */
-  #rechargeView{display:none;flex:1;min-width:0;flex-direction:column;overflow-y:auto;background:#f7f7fb;}
+  #rechargeView,.sub-view{display:none;flex:1;min-width:0;flex-direction:column;overflow-y:auto;background:#f7f7fb;}
+  .rec-sub-title{font-size:20px;font-weight:800;color:var(--ink);margin:4px 0 16px;}
+  .rec-sub-title small{display:block;font-size:12.5px;color:var(--gray-500);font-weight:500;margin-top:4px;}
+  #rulesPageBody .credits-rule{background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:20px 22px;box-shadow:0 1px 3px rgba(17,24,39,.04);}
+  #rulesPageBody .credits-rule h4{font-size:14px;}
+  #rulesPageBody .credits-rule table{font-size:13px;}
+  #rulesPageBody .credits-rule table th,.credits-rule table td{padding:6px 8px;}
+  #rulesPageBody .credits-rule .formula{font-size:12.5px;}
   .rec-page{max-width:1080px;margin:0 auto;padding:24px 28px 44px;width:100%;box-sizing:border-box;}
   .rec-page-back{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--gray-600);cursor:pointer;padding:5px 10px;border-radius:8px;margin:0 0 14px;background:transparent;border:none;font-family:inherit;transition:background .12s;}
   .rec-page-back:hover{background:rgba(28,28,40,.06);color:var(--ink);}
@@ -1962,7 +1974,7 @@
         <div class="rec-hero">
           <div class="rec-hero-left">
             <h1>充值中心</h1>
-            <p>充值得积分，畅享全站所有 AI 创作工具 · <b>多充多送</b>，越大越划算</p>
+            <p>充值即得积分，全站 AI 创作通用 · <b>积分长期有效</b></p>
             <div class="rec-hero-stats">
               <span><em>累计充值</em><b id="recHeroTotal">¥0</b></span>
               <span><em>累计消耗</em><b id="recHeroSpent">¥0</b></span>
@@ -2060,6 +2072,22 @@
       </div>
     </div><!-- /rechargeView -->
 
+    <!-- ===== 充值记录 / 计费规则 子页面 ===== -->
+    <div id="ordersView" class="sub-view" style="display:none">
+      <div class="rec-page">
+        <button class="rec-page-back" data-back><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>返回</button>
+        <div class="rec-sub-title">充值记录<small>全部充值订单与到账明细</small></div>
+        <div id="ordersPageBody"></div>
+      </div>
+    </div>
+    <div id="rulesView" class="sub-view" style="display:none">
+      <div class="rec-page">
+        <button class="rec-page-back" data-back><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>返回</button>
+        <div class="rec-sub-title">计费规则<small>各场景积分消耗、加分项与充值套餐说明</small></div>
+        <div id="rulesPageBody"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -2067,18 +2095,19 @@
 <!-- ===== 积分明细 / 规则 弹层 ===== -->
 <div class="credits-pop" id="creditsPop">
   <div class="credits-pop-head">
-    <button class="credits-pop-recharge" id="popRechargeBtn">充值</button>
-    <div class="credits-pop-title"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>我的积分</div>
+    <div class="credits-pop-top">
+      <div class="credits-pop-title"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>我的积分</div>
+      <div class="credits-pop-links">
+        <a class="credits-pop-link" id="popStmtLink">积分明细 ›</a>
+        <a class="credits-pop-link" id="popRuleLink">计费规则 ›</a>
+      </div>
+      <button class="credits-pop-x" id="creditsPopX" aria-label="关闭">×</button>
+    </div>
     <div class="credits-pop-balance"><b id="popBalance">125</b><small>可用积分</small></div>
     <div class="credits-pop-claim">
       <div class="l">每日签到领取<small id="claimHint">每日可领 +100 积分</small></div>
       <button class="credits-pop-claimbtn" id="popClaimBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/></svg><span id="popClaimBtnText">一键领取</span></button>
     </div>
-  </div>
-  <div class="credits-pop-tabs">
-    <button class="on" data-tab="stmt">抵扣明细</button>
-    <button data-tab="rule">扣除规则</button>
-    <button data-tab="orders">充值记录</button>
   </div>
   <div class="credits-pop-body" id="creditsBody"></div>
 </div>
@@ -2231,8 +2260,8 @@ var LAST_MODE_BEFORE_RECHARGE='image';
 function setMode(mode){
   var img=mode==='image';
   var vid=mode==='video';
-  var rec=mode==='recharge';
-  if(rec&&currentMode!=='recharge')LAST_MODE_BEFORE_RECHARGE=currentMode||'image';
+  var rec=(mode==='recharge'||mode==='orders'||mode==='rules');
+  if(rec&&currentMode!=='recharge'&&currentMode!=='orders'&&currentMode!=='rules')LAST_MODE_BEFORE_RECHARGE=currentMode||'image';
   currentMode=mode;
   tabImage.classList.toggle('active',img);
   tabVideo.classList.toggle('active',vid);
@@ -2240,8 +2269,14 @@ function setMode(mode){
   tabVideo.style.display=rec?'none':'';
   imageView.style.display=img?'flex':'none';
   videoView.style.display=vid?'flex':'none';
-  if(rechargeView)rechargeView.style.display=rec?'flex':'none';
-  if(rec&&typeof renderRechargePage==='function')renderRechargePage();
+  if(rechargeView)rechargeView.style.display=mode==='recharge'?'flex':'none';
+  var ordersV=document.getElementById('ordersView');
+  if(ordersV)ordersV.style.display=mode==='orders'?'flex':'none';
+  var rulesV=document.getElementById('rulesView');
+  if(rulesV)rulesV.style.display=mode==='rules'?'flex':'none';
+  if(mode==='orders'&&typeof renderOrdersPage==='function')renderOrdersPage();
+  if(mode==='rules'&&typeof renderRulesPage==='function')renderRulesPage();
+  if(rec&&mode==='recharge'&&typeof renderRechargePage==='function')renderRechargePage();
   if(historyBtn&&document.getElementById('drawerTitle')){
     var icon=historyBtn.querySelector('.icon');
     historyBtn.innerHTML='';
@@ -2701,51 +2736,14 @@ function getOrders(){
 }
 function saveOrder(o){var a=getOrders();a.unshift(o);localStorage.setItem(ORDERS_KEY,JSON.stringify(a.slice(0,50)));}
 function fmtMoney(n){return '¥'+n.toFixed(2);}
-function renderRecharge(){
-  var body=document.getElementById('creditsBody');
-  if(!body)return;
-  var html='<div class="rec-wrap">';
-  html+='<div class="rec-title">选择套餐<small>点击套餐前往支付</small></div>';
-  html+='<div class="rec-packs">';
-  PACKS.forEach(function(p){
-    html+='<button class="rec-pack'+(p.hot?' hit':'')+'" data-id="'+p.id+'" type="button">'+
-      (p.hot?'<div class="rec-hit">推荐</div>':'')+
-      '<span class="rec-tag">'+p.tag+'</span>'+
-      '<div class="rec-credits">'+p.credits.toLocaleString()+'<small>积分</small></div>'+
-      '<div class="rec-gift '+(p.gift>0?'':'empty')+ '">'+(p.gift>0?'送 +'+p.gift:'无赠送')+'</div>'+
-      '<div class="rec-line"></div>'+
-      '<div class="rec-price">¥'+p.price+'<small>'+p.unit.toFixed(3)+' 元/积分'+(p.scope?'<br>'+p.scope:'')+'</small></div>'+
-    '</button>';
-  });
-  html+='</div>';
-  html+='<div class="rec-tips"><span>⚡ 套餐越大多赠越多 · 消耗统一按 ¥0.10/积分 抵扣</span><a id="recToOrders">查看充值记录 ›</a></div>';
-  html+='<div class="rec-foot">⚡ 充值即视为同意《数字内容服务协议》· 未消耗积分可申请退款（扣 5% 手续费）· 积分长期有效</div>';
-  html+='<button class="rec-pop-cta" id="recPopGoPage">查看完整充值中心 →</button>';
-  html+='</div>';
-  body.innerHTML=html;
-  body.querySelectorAll('.rec-pack').forEach(function(b){
-    b.addEventListener('click',function(){
-      var pid=b.getAttribute('data-id');
-      var p=PACKS.find(function(x){return x.id===pid;});
-      if(p)openPayConfirm(p);
-    });
-  });
-  var toO=document.getElementById('recToOrders');
-  if(toO)toO.addEventListener('click',function(){openCreditsPop('orders');});
-  var toPage=document.getElementById('recPopGoPage');
-  if(toPage)toPage.addEventListener('click',function(){
-    closeCreditsPop();
-    if(typeof setMode==='function')setMode('recharge');
-  });
-}
-function renderOrders(){
-  var body=document.getElementById('creditsBody');
+function renderOrders(body){
+  body=body||document.getElementById('creditsBody');
   if(!body)return;
   var orders=getOrders();
   if(!orders.length){
     body.innerHTML='<div class="rec-orders-empty"><span class="em">💎</span>暂无充值记录 · <a id="recEmptyGo" style="color:var(--purple);cursor:pointer;font-weight:600">前往充值</a></div>';
     var g=document.getElementById('recEmptyGo');
-    if(g)g.addEventListener('click',function(){openCreditsPop('recharge');});
+    if(g)g.addEventListener('click',function(){setMode('recharge');});
     return;
   }
   var html='<div class="rec-orders">';
@@ -2764,11 +2762,19 @@ function renderOrders(){
       '<div class="st">已支付</div>'+
     '</div>';
   });
-  html+='<div style="margin-top:14px;text-align:center"><button id="ordersGo" style="height:36px;padding:0 18px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;border:none;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit">+ 继续充值</button></div>';
+  html+='<div style="margin-top:14px;text-align:center"><button id="ordersGo" style="height:38px;padding:0 20px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;border:none;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit">+ 继续充值</button></div>';
   html+='</div>';
   body.innerHTML=html;
   var go=document.getElementById('ordersGo');
-  if(go)go.addEventListener('click',function(){openCreditsPop('recharge');});
+  if(go)go.addEventListener('click',function(){setMode('recharge');});
+}
+function renderOrdersPage(){
+  var el=document.getElementById('ordersPageBody');
+  if(el)renderOrders(el);
+}
+function renderRulesPage(){
+  var el=document.getElementById('rulesPageBody');
+  if(el)renderCreditRule(el);
 }
 
 /* ===== Pay confirm popover ===== */
@@ -2935,7 +2941,7 @@ function paySuccess(p,pay){
     '<button class="pay-submit" id="payDone" type="button">查看明细</button>'+
     '<button class="pay-tip" id="payContinue" type="button" style="background:transparent;border:none;display:block;margin:8px auto 0;color:var(--purple);cursor:pointer;font-weight:600">继续充值</button>';
   var done=document.getElementById('payDone');
-  if(done)done.addEventListener('click',function(){closePay();openCreditsPop('stmt');});
+  if(done)done.addEventListener('click',function(){closePay();openStmtPop();});
   var cont=document.getElementById('payContinue');
   if(cont)cont.addEventListener('click',function(){openPayConfirm(p);});
 }
@@ -3004,8 +3010,9 @@ function renderCreditStmt(){
   });
   body.innerHTML='<div class="credits-statement">'+html+'</div>';
 }
-function renderCreditRule(){
-  var body=document.getElementById('creditsBody');
+function renderCreditRule(body){
+  body=body||document.getElementById('creditsBody');
+  if(!body)return;
   var ruleKeys=Object.keys(CREDITS_RULES);
   var LABELS={promo:'产品宣传视频',dh:'数字人口播',koubo:'真人口播视频',translate:'口播视频翻译',subtitle:'视频字幕翻译',frame:'首尾帧生视频',text:'文本生视频'};
   var baseRows=ruleKeys.filter(function(k){return LABELS[k];}).map(function(k){return '<tr><td>'+LABELS[k]+'</td><td><b>'+CREDITS_RULES[k].base+'</b> 积分</td></tr>';}).join('');
@@ -3071,22 +3078,26 @@ function renderCreditRule(){
     '</tbody></table>'+
     '</div>';
 }
-/* credits popover open/close */
-function openCreditsPop(tab){
+/* credits popover: 紧凑卡（默认）/ 积分明细 wide 弹窗 */
+function openCreditsPop(){
   closeMenus();
   closePay();
   var pop=document.getElementById('creditsPop');
   if(!pop)return;
   setBalance(getBalance());
   refreshClaimUI();
-  document.querySelectorAll('#creditsPop .credits-pop-tabs button').forEach(function(b){
-    b.classList.toggle('on',b.getAttribute('data-tab')===tab);
-  });
+  pop.classList.remove('wide');
+  pop.classList.add('open');
+}
+function openStmtPop(){
+  closeMenus();
+  closePay();
+  var pop=document.getElementById('creditsPop');
+  if(!pop)return;
+  setBalance(getBalance());
+  refreshClaimUI();
+  renderCreditStmt();
   pop.classList.add('wide');
-  if(tab==='rule')renderCreditRule();
-  else if(tab==='recharge')renderRecharge();
-  else if(tab==='orders')renderOrders();
-  else renderCreditStmt();
   pop.classList.add('open');
 }
 function closeCreditsPop(){
@@ -3095,12 +3106,12 @@ function closeCreditsPop(){
 }
 document.getElementById('creditsChip').addEventListener('click',function(e){
   e.stopPropagation();
-  // 点积分 chip → 打开积分弹层（默认抵扣明细）；充值入口由「+充值」按钮和弹层右上角「充值」承担
-  openCreditsPop('stmt');
+  // 点积分 chip → 紧凑积分卡；明细/规则经卡内入口进入
+  openCreditsPop();
 });
 document.getElementById('claimFab').addEventListener('click',function(e){
   e.stopPropagation();
-  openCreditsPop('stmt');
+  openCreditsPop();
   setTimeout(function(){
     var btn=document.getElementById('popClaimBtn');
     if(btn&&!btn.disabled){
@@ -3115,25 +3126,30 @@ document.getElementById('popClaimBtn').addEventListener('click',function(){
   if(todayClaimed())return;
   if(claimDaily()){
     refreshClaimUI();
-    renderCreditStmt();
   }
 });
 document.getElementById('creditPlusFab').addEventListener('click',function(e){
   e.stopPropagation();
   setMode('recharge');
 });
-document.querySelectorAll('#creditsPop .credits-pop-tabs button').forEach(function(b){
-  b.addEventListener('click',function(e){
-    e.stopPropagation();
-    openCreditsPop(b.getAttribute('data-tab'));
-  });
+// 紧凑卡 → 积分明细（wide 弹窗）
+var popStmtLink=document.getElementById('popStmtLink');
+if(popStmtLink)popStmtLink.addEventListener('click',function(e){
+  e.stopPropagation();
+  openStmtPop();
 });
-// head 卡右上角「充值」按钮 → 关闭弹层，打开整页充值中心
-var popRechargeBtn=document.getElementById('popRechargeBtn');
-if(popRechargeBtn)popRechargeBtn.addEventListener('click',function(e){
+// 紧凑卡 → 计费规则子页面
+var popRuleLink=document.getElementById('popRuleLink');
+if(popRuleLink)popRuleLink.addEventListener('click',function(e){
   e.stopPropagation();
   closeCreditsPop();
-  setMode('recharge');
+  setMode('rules');
+});
+// 弹层 × 关闭（紧凑卡 / 明细弹窗共用）
+var creditsPopX=document.getElementById('creditsPopX');
+if(creditsPopX)creditsPopX.addEventListener('click',function(e){
+  e.stopPropagation();
+  closeCreditsPop();
 });
 // 支付确认弹窗右上角 × 关闭（原先只绑了遮罩点击，× 一直无法关闭）
 var payXBtn=document.getElementById('payX');
@@ -3366,7 +3382,7 @@ function runVGenerate(panel){
   if(bal<amt){
     var need=amt-bal;
     var ok=confirm('当前积分不足，生成本次需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往充值。');
-    if(ok){setTimeout(function(){openCreditsPop('recharge');},0);}
+    if(ok){setTimeout(function(){setMode('recharge');},0);}
     return;
   }
   var gen=panel.querySelector('.vp-gen');
@@ -3673,7 +3689,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     if(bal<amt){
       var need=amt-bal;
       var ok=confirm('当前积分不足，本次处理需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往充值。');
-      if(ok){setTimeout(function(){openCreditsPop('recharge');},0);}
+      if(ok){setTimeout(function(){setMode('recharge');},0);}
       return;
     }
     running=true;
@@ -3839,7 +3855,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         if(bal<amt){
           var need=amt-bal;
           var ok=confirm('当前积分不足，本次处理需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+need+' 积分。\n\n点击「确定」前往充值。');
-          if(ok){setTimeout(function(){openCreditsPop('recharge');},0);}
+          if(ok){setTimeout(function(){setMode('recharge');},0);}
           return;
         }
         running=true;
@@ -3922,11 +3938,17 @@ if(recBackBtn)recBackBtn.addEventListener('click',function(){setMode(LAST_MODE_B
 
 // Hero 内"查看积分明细"（stopPropagation 防止冒泡到 document 的 outside-click 关闭逻辑）
 var recStmtBtn=document.getElementById('recHeroStmt');
-if(recStmtBtn)recStmtBtn.addEventListener('click',function(e){e.stopPropagation();openCreditsPop('stmt');});
+if(recStmtBtn)recStmtBtn.addEventListener('click',function(e){e.stopPropagation();openStmtPop();});
 
 // Hero 内"充值记录"热链 → 打开充值记录弹窗
 var recOrdersBtn=document.getElementById('recHeroOrders');
-if(recOrdersBtn)recOrdersBtn.addEventListener('click',function(e){e.stopPropagation();openCreditsPop('orders');});
+if(recOrdersBtn)recOrdersBtn.addEventListener('click',function(e){e.stopPropagation();setMode('orders');});
+
+// 子页面（充值记录/计费规则）返回 → 充值中心
+document.querySelectorAll('#ordersView [data-back],#rulesView [data-back]').forEach(function(b){
+  if(b.__bound)return;b.__bound=true;
+  b.addEventListener('click',function(){setMode('recharge');});
+});
 
 // FAQ 折叠
 document.querySelectorAll('#rechargeView .rec-faq-item').forEach(function(f){
