@@ -1703,8 +1703,8 @@
           </div>
           <div class="tr-switch">
             <div>
-              <div class="l">背景音乐</div>
-              <div class="s">开启后自动匹配BGM</div>
+              <div class="l">生成字幕</div>
+              <div class="s">自动生成与口播同步的字幕</div>
             </div>
             <span class="tr-sw on"></span>
           </div>
@@ -2588,7 +2588,7 @@ var DUR_TIERS={5:0,10:20,15:40,30:60};
 var RES_TIERS={'720p':0,'1080p':10};
 var CREDITS_RULES={
   promo:{base:25,dur:DUR_TIERS,res:RES_TIERS,feat:{}},
-  dh:{base:20,dur:DUR_TIERS,res:RES_TIERS,feat:{bgm:5}},
+  dh:{base:20,dur:DUR_TIERS,res:RES_TIERS,feat:{genSub:5}},
   koubo:{base:20,dur:DUR_TIERS,res:RES_TIERS,feat:{customBg:5},featInvert:['customBg']},
   translate:{base:15,perVideo:true,dur:DUR_TIERS,res:RES_TIERS,feat:{lip:5,keepBgm:0}},
   subtitle:{base:15,perVideo:true,dur:DUR_TIERS,res:RES_TIERS,feat:{burnSub:5}},
@@ -3219,7 +3219,7 @@ function renderCreditRule(body){
     '<table><thead><tr><th>分辨率</th><th>加分</th></tr></thead><tbody>'+resRows+'</tbody></table>'+
     '<h4 style="margin-top:12px">➕ 功能项加分</h4>'+
     '<table><tbody>'+
-      '<tr><td>数字人口播 · 增加背景音乐</td><td>+5</td></tr>'+
+      '<tr><td>数字人口播 · 生成字幕</td><td>+5</td></tr>'+
       '<tr><td>真人口播视频 · 自定义背景</td><td>+5</td></tr>'+
       '<tr><td>口播视频翻译 · 对齐口型</td><td>+5</td></tr>'+
       '<tr><td>口播视频翻译 · 保留背景音</td><td>+0</td></tr>'+
@@ -3378,12 +3378,12 @@ function bindPanelInteractions(panel){
   });
   // tag feature switches (.tr-switch) with data-feat-id for credit calculator
   var FEAT_IDS={
-    dh:{'背景音乐':'bgm'},
+    dh:{'生成字幕':'genSub'},
     koubo:{'保留原始背景':'customBg'},
     translate:{'对齐口型':'lip','保留原始背景音':'keepBgm'},
     subtitle:{'生成对齐字幕':'burnSub'}
   };
-  var FEAT_LABELS={bgm:'背景音乐',customBg:'自定义背景',lip:'对齐口型',keepBgm:'保留背景音',burnSub:'生成对齐字幕'};
+  var FEAT_LABELS={genSub:'生成字幕',customBg:'自定义背景',lip:'对齐口型',keepBgm:'保留背景音',burnSub:'生成对齐字幕'};
   var fmap=FEAT_IDS[panel.getAttribute('data-tool')]||{};
   panel.querySelectorAll('.tr-switch').forEach(function(sw){
     if(sw.getAttribute('data-feat-id'))return;
