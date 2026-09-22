@@ -476,6 +476,7 @@
   .pay-tip{font-size:11.5px;color:var(--gray-500);text-align:center;margin-top:10px;line-height:1.5;}
   .pay-err{margin-bottom:12px;padding:9px 12px;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;border-radius:8px;font-size:12.5px;font-weight:600;}
   .pay-ok{text-align:center;padding:18px 12px 14px;}
+  .pay-ok-cap{font-size:13px;font-weight:700;color:var(--green);margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:5px;}
   .pay-ok-ic{width:54px;height:54px;border-radius:50%;background:#e6f7ee;color:var(--green);font-size:32px;font-weight:800;line-height:54px;margin:0 auto 12px;}
   .pay-ok-t{font-size:22px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
   .pay-ok-d{font-size:12px;color:var(--gray-500);margin-top:6px;line-height:1.5;}
@@ -500,6 +501,11 @@
   .pay-btn.ghost{background:var(--gray-100);color:var(--gray-600);}
   .pay-btn.ghost:hover{background:var(--gray-200);}
   .pay-cash .pay-err{text-align:left;margin:0 0 4px;}
+  .pay-btn.main:disabled{opacity:.78;cursor:default;transform:none;}
+  .pay-spin{display:inline-block;width:13px;height:13px;border:2px solid var(--gray-200);border-top-color:var(--purple);border-radius:50%;vertical-align:-2px;margin-right:7px;animation:paySpin .7s linear infinite;}
+  @keyframes paySpin{to{transform:rotate(360deg);}}
+  .pay-btn.main .pay-spin{border-color:rgba(255,255,255,.4);border-top-color:#fff;margin-right:6px;}
+  .pay-verify{margin-top:14px;font-size:13px;color:var(--gray-500);display:flex;align-items:center;justify-content:center;gap:2px;}
 
   .rec-orders{padding:4px 8px;}
   .rec-orders-h{display:flex;justify-content:space-between;padding:6px 8px;font-size:12px;color:var(--gray-500);}
@@ -3078,7 +3084,11 @@ function openCashier(p,pay){
   var cancelBtn=document.getElementById('cashCancel');
   if(cancelBtn)cancelBtn.addEventListener('click',function(){closePay();});
   var doneBtn=document.getElementById('cashDone');
-  if(doneBtn)doneBtn.addEventListener('click',function(){checkCashPay(p,pay);});
+  if(doneBtn)doneBtn.addEventListener('click',function(){
+    if(doneBtn.disabled)return;
+    setCashVerifying(true);
+    checkCashPay(p,pay);
+  });
   /* 倒计时 15:00 */
   var left=900;
   var ct=setInterval(function(){
@@ -3092,13 +3102,40 @@ function openCashier(p,pay){
   var at=setTimeout(function(){checkCashPay(p,pay);},2800);
   _cashTimers.push(at);
 }
+function setCashVerifying(on){
+  var btn=document.getElementById('cashDone');
+  if(btn){
+    if(on){
+      btn.disabled=true;
+      btn.innerHTML='<span class="pay-spin"></span>正在确认支付结果…';
+    }else{
+      btn.disabled=false;
+      btn.textContent='我已完成支付';
+    }
+  }
+  var tip=document.getElementById('payVerifyTip');
+  if(tip)tip.remove();
+  if(on){
+    var cash=document.querySelector('#payBody .pay-cash');
+    if(cash)cash.insertAdjacentHTML('beforeend','<div class="pay-verify" id="payVerifyTip"><span class="pay-spin"></span>正在确认支付结果，请勿关闭窗口…</div>');
+  }
+}
 function checkCashPay(p,pay){
   var body=document.getElementById('payBody');
   if(!body||!body.querySelector('#payQr'))return; /* 已离开收银台 */
+  var vt=setTimeout(function(){resolveCashPay(p,pay);},1100);
+  _cashTimers.push(vt);
+}
+function resolveCashPay(p,pay){
+  var body=document.getElementById('payBody');
+  if(!body||!body.querySelector('#payQr'))return; /* 已离开收银台 */
   if(Math.random()<0.9){paySuccess(p,pay);return;}
+  setCashVerifying(false);
   var cash=body.querySelector('.pay-cash');
-  if(cash&&!cash.querySelector('.pay-err'))cash.insertAdjacentHTML('afterbegin',
-    '<div class="pay-err">未查询到支付结果，请确认已在'+(pay==='wx'?'微信':'支付宝')+'内完成付款，然后再次点击「我已完成支付」</div>');
+  var msg='未查询到支付结果，请确认已在'+(pay==='wx'?'微信':'支付宝')+'内完成付款，然后再次点击「我已完成支付」';
+  var err=cash&&cash.querySelector('.pay-err');
+  if(err){err.textContent=msg;}
+  else if(cash)cash.insertAdjacentHTML('afterbegin','<div class="pay-err">'+msg+'</div>');
 }
 function paySuccess(p,pay){
   clearCashTimers();
@@ -3118,13 +3155,17 @@ function paySuccess(p,pay){
   body.innerHTML=
     '<div class="pay-ok">'+
       '<div class="pay-ok-ic">✓</div>'+
+      '<div class="pay-ok-cap">支付结果已确认 · 购买成功</div>'+
       '<div class="pay-ok-t">+'+total.toLocaleString()+' 积分已入账</div>'+
       '<div class="pay-ok-d">'+p.tag+(p.gift?'（含赠送 +'+p.gift+'）':'')+(bonus>0?' · 首充加赠 +'+bonus+'（新用户福利）':'')+' · '+fmtMoney(p.price)+' · '+payName+' · 订单号 '+id.slice(-8)+'</div>'+
     '</div>'+
-    '<button class="pay-submit" id="payDone" type="button">查看明细</button>'+
-    '<button class="pay-tip" id="payContinue" type="button" style="background:transparent;border:none;display:block;margin:8px auto 0;color:var(--purple);cursor:pointer;font-weight:600">继续充值</button>';
+    '<button class="pay-submit" id="payDone" type="button">查看我的订单</button>'+
+    '<button class="pay-tip" id="payStmt" type="button" style="background:transparent;border:none;display:block;margin:8px auto 0;color:var(--purple);cursor:pointer;font-weight:600">查看积分明细</button>'+
+    '<button class="pay-tip" id="payContinue" type="button" style="background:transparent;border:none;display:block;margin:4px auto 0;color:var(--gray-400);cursor:pointer;font-weight:600;font-size:12px">继续充值</button>';
   var done=document.getElementById('payDone');
-  if(done)done.addEventListener('click',function(){closePay();openStmtPop();});
+  if(done)done.addEventListener('click',function(){closePay();setMode('orders');});
+  var stmt=document.getElementById('payStmt');
+  if(stmt)stmt.addEventListener('click',function(){closePay();openStmtPop();});
   var cont=document.getElementById('payContinue');
   if(cont)cont.addEventListener('click',function(){openPayConfirm(p);});
 }
