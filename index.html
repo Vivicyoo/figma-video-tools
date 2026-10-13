@@ -58,7 +58,7 @@
 
   /* Left tool rail */
   .rail{width:64px;flex:none;border-right:1px solid var(--gray-200);padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:6px;overflow-y:auto;}
-  .rail-item{width:56px;padding:9px 0 7px;border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11.5px;color:var(--gray-500);}
+  .rail-item{width:56px;padding:9px 2px 7px;border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11.5px;color:var(--gray-500);line-height:1.2;text-align:center;}
   .rail-item svg{width:21px;height:21px;}
   .rail-item.active{background:var(--purple-50);color:var(--purple);}
   .rail-item.active svg{color:var(--purple);}
@@ -763,6 +763,11 @@
   .tpanel.a-green{--acc:#3f9b46;--acc-50:#eaf7ea;}
   .tpanel.a-brown{--acc:#b5793a;--acc-50:#fdf3e7;}
   .tpanel.a-teal{--acc:#1fa79f;--acc-50:#e7f7f6;}
+  .tpanel.a-pink{--acc:#db2777;--acc-50:#fdeaf3;}
+  .tpanel.a-blue{--acc:#2563eb;--acc-50:#e9f1fe;}
+  .tpanel.a-amber{--acc:#b45309;--acc-50:#fdf3e2;}
+  .tpanel.a-cyan{--acc:#0e7490;--acc-50:#e5f5f9;}
+  .tpanel.a-slate{--acc:#475569;--acc-50:#edf1f5;}
   .tpanel>.bg-scroll{flex:1;min-height:0;overflow-y:auto;padding-bottom:14px;}
   .tcanvas{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;background:#f5f6fa;overflow:auto;padding:24px;}
 
@@ -784,6 +789,7 @@
   .opt-chip.on{background:var(--acc-50);color:var(--acc);border-color:var(--acc);}
   .opt-chip svg{display:none;}
   .opt-chip.on svg{display:block;}
+  .opt-chip .cdot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(17,24,39,.14);flex:none;display:block;}
 
   /* 右侧画布示例卡 */
   .th-card{width:270px;flex:none;border-radius:16px;padding:18px 16px 16px;text-align:center;box-shadow:0 2px 12px rgba(17,24,39,.05);}
@@ -807,6 +813,16 @@
   .th-card.t-mint .th-tag{background:#a5e6e5;color:#0f5252;}
   .th-card.t-violet{background:linear-gradient(180deg,#f6f4ff,#eeebfd);}
   .th-card.t-violet .th-tag{background:#cfc4fb;color:#3b2a86;}
+  .th-card.t-pink{background:linear-gradient(180deg,#fff3f8,#fdeaf3);}
+  .th-card.t-pink .th-tag{background:#f3bed4;color:#7c1843;}
+  .th-card.t-blue{background:linear-gradient(180deg,#f0f6ff,#e6effe);}
+  .th-card.t-blue .th-tag{background:#bcd6fb;color:#123f8f;}
+  .th-card.t-amber{background:linear-gradient(180deg,#fdf6ea,#fbf0dd);}
+  .th-card.t-amber .th-tag{background:#f0dcae;color:#5f4310;}
+  .th-card.t-cyan{background:linear-gradient(180deg,#eefafc,#e4f6fa);}
+  .th-card.t-cyan .th-tag{background:#b2e4ef;color:#0c4b5c;}
+  .th-card.t-slate{background:linear-gradient(180deg,#f4f6f9,#ecf0f5);}
+  .th-card.t-slate .th-tag{background:#ccd5e0;color:#2b3a4e;}
 
   /* ===== 生成张数 / 积分徽标 ===== */
   .cnt-pts{font-size:12.5px;color:var(--gray-400);font-variant-numeric:tabular-nums;}
@@ -1051,6 +1067,11 @@
       <button class="rail-item" data-itool="erase"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 20H7L3 16l10-10 7 7-3.5 3.5"/><path d="M6.09 6.09 3 9.17"/></svg></span>局部消除</button>
       <button class="rail-item" data-itool="bg"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>AI换背景</button>
       <button class="rail-item" data-itool="oneclick"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>一键生图</button>
+      <button class="rail-item" data-itool="sellpoint"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.83z"/><circle cx="7" cy="7" r="1.2"/></svg></span>AI卖点图</button>
+      <button class="rail-item" data-itool="tryon"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M16 2l4 3-2 4-2-1v12H8V8l-2 1-2-4 4-3a4 4 0 0 0 8 0z"/></svg></span>试穿试用</button>
+      <button class="rail-item" data-itool="recolor"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></span>商品换色</button>
+      <button class="rail-item" data-itool="detail"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>AI细节图</button>
+      <button class="rail-item" data-itool="ruler"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="9" width="20" height="6" rx="1"/><line x1="6" y1="9" x2="6" y2="12"/><line x1="10" y1="9" x2="10" y2="13"/><line x1="14" y1="9" x2="14" y2="12"/><line x1="18" y1="9" x2="18" y2="13"/></svg></span>AI商品标尺图</button>
     </nav>
 
     <!-- ===== Left upload panel ===== -->
@@ -1503,7 +1524,7 @@
               <button class="opt-chip" data-t="标尺图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>标尺图</button>
               <button class="opt-chip" data-t="商品套图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>商品套图</button>
             </div>
-            <div class="opt-sub" id="oneclickHint">可多选，一次上传商品图即可批量输出多种上架素材</div>
+            <div class="opt-sub" id="oneclickHint">可多选，一次上传商品图即可批量输出多种上架素材；单张精修请用左侧「AI卖点图 / AI商品标尺图」独立工具</div>
           </div>
 
           <!-- 生成张数 -->
@@ -1540,6 +1561,381 @@
           <div class="th-sub">主图 · 卖点图 · 套图一次出齐</div>
           <div class="th-shot">
             <img src="images/web/t-oneclick.jpg" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ===== AI卖点图 page ===== -->
+    <!-- ============================================================ -->
+    <section class="tpage" id="ipanel-sellpoint" style="display:none">
+      <div class="tpanel a-pink">
+        <div class="bg-scroll">
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">商品图片</span>
+              <span class="bg-sec-cnt">(<b id="sellpointCnt">0</b>/9张)</span>
+            </div>
+            <div class="bg-drop" id="sellpointDrop">
+              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-inner" id="sellpointDropInner">
+                <span class="plus">+</span>
+                <span class="t">上传图片</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">卖点类型</span>
+            </div>
+            <div class="opt-chips" id="sellpointChips">
+              <button class="opt-chip" type="button">核心功能</button>
+              <button class="opt-chip" type="button">材质工艺</button>
+              <button class="opt-chip" type="button">使用场景</button>
+              <button class="opt-chip" type="button">服务承诺</button>
+              <button class="opt-chip" type="button">促销活动</button>
+            </div>
+            <div class="opt-sub">可多选，AI 将围绕所选类型提炼卖点并排版上图；不选则自动识别</div>
+          </div>
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name">卖点关键词<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
+            </div>
+            <textarea class="vp-ta" id="sellpointKw" rows="2" placeholder="描述商品卖点，如「续航 48 小时 · IPX7 防水 · 一年换新」，留空则由 AI 自动提炼"></textarea>
+          </div>
+
+          <!-- 生成张数 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生成张数</span>
+              <span class="bg-sec-cnt cnt-pts" id="sellpointCntHint">1 张 · 共 <b>10</b> 积分</span>
+            </div>
+            <div class="opt-chips cnt-group" id="sellpointCntGroup">
+              <button class="opt-chip on" type="button">1张</button>
+              <button class="opt-chip" type="button">2张</button>
+              <button class="opt-chip" type="button">4张</button>
+              <button class="opt-chip" type="button">9张</button>
+            </div>
+            <div class="opt-sub">按所选张数批量输出，单张 10 积分</div>
+          </div>
+        </div>
+        <div class="bg-foot">
+          <div class="bg-foot-l">
+            <div class="bg-foot-t">处理内容</div>
+            <div class="bg-foot-s">AI卖点图 · <b id="sellpointNum">0</b> 张<span id="sellpointDone"></span></div>
+          </div>
+          <button class="bg-start" id="sellpointStart">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span id="sellpointStartTxt">开始处理</span>
+            <span class="bg-start-pts" id="sellpointPts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="sellpointPtsNum" style="font-style:normal">10</i></span>
+          </button>
+        </div>
+      </div>
+      <div class="tcanvas">
+        <div class="th-card t-pink">
+          <span class="th-tag">AI卖点图</span>
+          <div class="th-title">一图讲清卖点</div>
+          <div class="th-sub">文案自动提炼 · 排版上图</div>
+          <div class="th-shot">
+            <img src="images/web/t-sellpoint.png" alt="">
+            <span class="th-badge l dark">商品图</span>
+            <span class="th-badge r light">卖点成图</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ===== 试穿试用 page ===== -->
+    <!-- ============================================================ -->
+    <section class="tpage" id="ipanel-tryon" style="display:none">
+      <div class="tpanel a-blue">
+        <div class="bg-scroll">
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">模特图片</span>
+              <span class="bg-sec-cnt">(<b id="tryonCnt">0</b>/9张)</span>
+            </div>
+            <div class="bg-drop" id="tryonDrop">
+              <div class="bg-drop-hint">上传模特全身照，正面站立姿态效果最佳，单张10MB以内</div>
+              <div class="bg-drop-inner" id="tryonDropInner">
+                <span class="plus">+</span>
+                <span class="t">上传图片</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">服装 / 商品图片</span>
+            </div>
+            <div class="bg-drop" id="tryonDrop2">
+              <div class="bg-drop-hint">上传服装或配饰的平铺图 / 挂拍图，AI 将合成到模特身上</div>
+              <div class="bg-drop-inner" id="tryonDropInner2">
+                <span class="plus">+</span>
+                <span class="t">上传图片</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 生成张数 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生成张数</span>
+              <span class="bg-sec-cnt cnt-pts" id="tryonCntHint">1 张 · 共 <b>12</b> 积分</span>
+            </div>
+            <div class="opt-chips cnt-group" id="tryonCntGroup">
+              <button class="opt-chip on" type="button">1张</button>
+              <button class="opt-chip" type="button">2张</button>
+              <button class="opt-chip" type="button">4张</button>
+              <button class="opt-chip" type="button">9张</button>
+            </div>
+            <div class="opt-sub">按所选张数批量输出，单张 12 积分</div>
+          </div>
+        </div>
+        <div class="bg-foot">
+          <div class="bg-foot-l">
+            <div class="bg-foot-t">处理内容</div>
+            <div class="bg-foot-s">试穿试用 · <b id="tryonNum">0</b> 张<span id="tryonDone"></span></div>
+          </div>
+          <button class="bg-start" id="tryonStart">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span id="tryonStartTxt">开始处理</span>
+            <span class="bg-start-pts" id="tryonPts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="tryonPtsNum" style="font-style:normal">12</i></span>
+          </button>
+        </div>
+      </div>
+      <div class="tcanvas">
+        <div class="th-card t-blue">
+          <span class="th-tag">试穿试用</span>
+          <div class="th-title">模特上身效果</div>
+          <div class="th-sub">无需实拍 · 秒出试穿图</div>
+          <div class="th-shot">
+            <img src="images/web/t-tryon.png" alt="">
+            <span class="th-badge l dark">模特图</span>
+            <span class="th-badge r light">上身效果</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ===== 商品换色 page ===== -->
+    <!-- ============================================================ -->
+    <section class="tpage" id="ipanel-recolor" style="display:none">
+      <div class="tpanel a-amber">
+        <div class="bg-scroll">
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">商品图片</span>
+              <span class="bg-sec-cnt">(<b id="recolorCnt">0</b>/9张)</span>
+            </div>
+            <div class="bg-drop" id="recolorDrop">
+              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-inner" id="recolorDropInner">
+                <span class="plus">+</span>
+                <span class="t">上传图片</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">目标颜色</span>
+            </div>
+            <div class="opt-chips" id="recolorChips">
+              <button class="opt-chip" type="button"><span class="cdot" style="background:#1f2937"></span>黑色</button>
+              <button class="opt-chip" type="button"><span class="cdot" style="background:#f9fafb"></span>白色</button>
+              <button class="opt-chip" type="button"><span class="cdot" style="background:#dc2626"></span>红色</button>
+              <button class="opt-chip" type="button"><span class="cdot" style="background:#2563eb"></span>蓝色</button>
+              <button class="opt-chip" type="button"><span class="cdot" style="background:#059669"></span>绿色</button>
+              <button class="opt-chip" type="button"><span class="cdot" style="background:#d97706"></span>橙色</button>
+              <button class="opt-chip" type="button"><span class="cdot" style="background:#ec4899"></span>粉色</button>
+              <button class="opt-chip" type="button"><span class="cdot" style="background:#7c3aed"></span>紫色</button>
+            </div>
+            <div class="opt-sub">可多选，一次生成同款多色图；不选则由 AI 自动匹配同品类热卖色</div>
+          </div>
+
+          <!-- 生成张数 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生成张数</span>
+              <span class="bg-sec-cnt cnt-pts" id="recolorCntHint">1 张 · 共 <b>8</b> 积分</span>
+            </div>
+            <div class="opt-chips cnt-group" id="recolorCntGroup">
+              <button class="opt-chip on" type="button">1张</button>
+              <button class="opt-chip" type="button">2张</button>
+              <button class="opt-chip" type="button">4张</button>
+              <button class="opt-chip" type="button">9张</button>
+            </div>
+            <div class="opt-sub">按颜色数与张数计费：单色 8 积分/张，每多 1 个颜色 +2 积分</div>
+          </div>
+        </div>
+        <div class="bg-foot">
+          <div class="bg-foot-l">
+            <div class="bg-foot-t">处理内容</div>
+            <div class="bg-foot-s">商品换色 · <b id="recolorNum">0</b> 张<span id="recolorDone"></span></div>
+          </div>
+          <button class="bg-start" id="recolorStart">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span id="recolorStartTxt">开始处理</span>
+            <span class="bg-start-pts" id="recolorPts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="recolorPtsNum" style="font-style:normal">8</i></span>
+          </button>
+        </div>
+      </div>
+      <div class="tcanvas">
+        <div class="th-card t-amber">
+          <span class="th-tag">商品换色</span>
+          <div class="th-title">一键多色上架</div>
+          <div class="th-sub">同款多色 · 一次生成</div>
+          <div class="th-shot">
+            <img src="images/web/t-recolor.png" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ===== AI细节图 page ===== -->
+    <!-- ============================================================ -->
+    <section class="tpage" id="ipanel-detail" style="display:none">
+      <div class="tpanel a-cyan">
+        <div class="bg-scroll">
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">商品图片</span>
+              <span class="bg-sec-cnt">(<b id="detailCnt">0</b>/9张)</span>
+            </div>
+            <div class="bg-drop" id="detailDrop">
+              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-inner" id="detailDropInner">
+                <span class="plus">+</span>
+                <span class="t">上传图片</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">细节类型</span>
+            </div>
+            <div class="opt-chips" id="detailChips">
+              <button class="opt-chip" type="button">材质特写</button>
+              <button class="opt-chip" type="button">工艺细节</button>
+              <button class="opt-chip" type="button">局部放大</button>
+              <button class="opt-chip" type="button">内部结构</button>
+              <button class="opt-chip" type="button">包装清单</button>
+            </div>
+            <div class="opt-sub">可多选，AI 将围绕所选类型生成细节特写；不选则自动识别</div>
+          </div>
+
+          <!-- 生成张数 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生成张数</span>
+              <span class="bg-sec-cnt cnt-pts" id="detailCntHint">1 张 · 共 <b>8</b> 积分</span>
+            </div>
+            <div class="opt-chips cnt-group" id="detailCntGroup">
+              <button class="opt-chip on" type="button">1张</button>
+              <button class="opt-chip" type="button">2张</button>
+              <button class="opt-chip" type="button">4张</button>
+              <button class="opt-chip" type="button">9张</button>
+            </div>
+            <div class="opt-sub">按所选张数批量输出，单张 8 积分</div>
+          </div>
+        </div>
+        <div class="bg-foot">
+          <div class="bg-foot-l">
+            <div class="bg-foot-t">处理内容</div>
+            <div class="bg-foot-s">AI细节图 · <b id="detailNum">0</b> 张<span id="detailDone"></span></div>
+          </div>
+          <button class="bg-start" id="detailStart">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span id="detailStartTxt">开始处理</span>
+            <span class="bg-start-pts" id="detailPts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="detailPtsNum" style="font-style:normal">8</i></span>
+          </button>
+        </div>
+      </div>
+      <div class="tcanvas">
+        <div class="th-card t-cyan">
+          <span class="th-tag">AI细节图</span>
+          <div class="th-title">细节放大不糊</div>
+          <div class="th-sub">材质工艺 · 清晰可见</div>
+          <div class="th-shot">
+            <img src="images/web/t-detail.png" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ===== AI商品标尺图 page ===== -->
+    <!-- ============================================================ -->
+    <section class="tpage" id="ipanel-ruler" style="display:none">
+      <div class="tpanel a-slate">
+        <div class="bg-scroll">
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">商品图片</span>
+              <span class="bg-sec-cnt">(<b id="rulerCnt">0</b>/9张)</span>
+            </div>
+            <div class="bg-drop" id="rulerDrop">
+              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-inner" id="rulerDropInner">
+                <span class="plus">+</span>
+                <span class="t">上传图片</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-sec">
+            <div class="opt-card">
+              <span class="k">标注方式</span>
+              <span class="opt on" data-g="ruler-mode"><i></i>尺寸标注</span>
+              <span class="opt" data-g="ruler-mode"><i></i>比例参照</span>
+            </div>
+            <div class="opt-sub" id="rulerHint">尺寸标注：沿商品长宽高生成刻度线与数值；比例参照：加入常见物品对比出大小</div>
+          </div>
+          <div class="bg-sec">
+            <div class="opt-card">
+              <span class="k">测量单位</span>
+              <span class="opt on" data-g="ruler-unit"><i></i>厘米 cm</span>
+              <span class="opt" data-g="ruler-unit"><i></i>英寸 inch</span>
+            </div>
+            <div class="opt-sub">可在生成后手动微调标注数值，以实物测量为准</div>
+          </div>
+
+          <!-- 生成张数 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生成张数</span>
+              <span class="bg-sec-cnt cnt-pts" id="rulerCntHint">1 张 · 共 <b>6</b> 积分</span>
+            </div>
+            <div class="opt-chips cnt-group" id="rulerCntGroup">
+              <button class="opt-chip on" type="button">1张</button>
+              <button class="opt-chip" type="button">2张</button>
+              <button class="opt-chip" type="button">4张</button>
+              <button class="opt-chip" type="button">9张</button>
+            </div>
+            <div class="opt-sub">按所选张数批量输出，单张 6 积分</div>
+          </div>
+        </div>
+        <div class="bg-foot">
+          <div class="bg-foot-l">
+            <div class="bg-foot-t">处理内容</div>
+            <div class="bg-foot-s">AI商品标尺图 · <b id="rulerNum">0</b> 张<span id="rulerDone"></span></div>
+          </div>
+          <button class="bg-start" id="rulerStart">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span id="rulerStartTxt">开始处理</span>
+            <span class="bg-start-pts" id="rulerPts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="rulerPtsNum" style="font-style:normal">6</i></span>
+          </button>
+        </div>
+      </div>
+      <div class="tcanvas">
+        <div class="th-card t-slate">
+          <span class="th-tag">AI商品标尺图</span>
+          <div class="th-title">尺寸标注自动生成</div>
+          <div class="th-sub">标尺 / 比例参照两种样式</div>
+          <div class="th-shot">
+            <img src="images/web/t-ruler.png" alt="">
           </div>
         </div>
       </div>
@@ -3274,13 +3670,18 @@ function renderCreditRule(body){
       '<tr><td>每日签到</td><td style="color:#10b981">可领取 +100 积分</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">🖼 图片生成单价（按张计费）</h4>'+
-    '<div class="formula">图片生成积分 = <code>单张单价</code> × <code>生成张数</code>（一键生图另按生成类型加价）</div>'+
+    '<div class="formula">图片生成积分 = <code>单张单价</code> × <code>生成张数</code>（一键生图按生成类型加价，商品换色按颜色数加价）</div>'+
     '<table><thead><tr><th>工具</th><th>单张单价</th></tr></thead><tbody>'+
       '<tr><td>白底图</td><td><b>6</b> 积分</td></tr>'+
       '<tr><td>去水印</td><td><b>5</b> 积分</td></tr>'+
       '<tr><td>局部消除</td><td><b>8</b> 积分</td></tr>'+
       '<tr><td>AI换背景</td><td><b>8</b> 积分</td></tr>'+
       '<tr><td>一键生图</td><td><b>6</b> 积分 + 每多 1 个类型 <b>+2</b></td></tr>'+
+      '<tr><td>AI卖点图</td><td><b>10</b> 积分</td></tr>'+
+      '<tr><td>试穿试用</td><td><b>12</b> 积分</td></tr>'+
+      '<tr><td>商品换色</td><td><b>8</b> 积分 + 每多 1 个颜色 <b>+2</b></td></tr>'+
+      '<tr><td>AI细节图</td><td><b>8</b> 积分</td></tr>'+
+      '<tr><td>AI商品标尺图</td><td><b>6</b> 积分</td></tr>'+
     '</tbody></table>'+
     '<table style="margin-top:8px"><thead><tr><th>生成张数</th><th>可选档位</th></tr></thead><tbody>'+
       '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张 / 9 张</td></tr>'+
@@ -3745,8 +4146,8 @@ document.getElementById('closeHistory').onclick=function(){drawer.classList.remo
 overlay.addEventListener('click',function(){drawer.classList.remove('open');overlay.classList.remove('open');});
 
 /* ================= 图片处理 左侧导航切换 ================= */
-var IMG_TOOL_PAGES=['whitebg','watermark','erase','oneclick'];
-var IMG_TOOL_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图'};
+var IMG_TOOL_PAGES=['whitebg','watermark','erase','oneclick','sellpoint','tryon','recolor','detail','ruler'];
+var IMG_TOOL_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图'};
 function switchITool(key){
   document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     b.classList.toggle('active', b.getAttribute('data-itool')===key);
@@ -3947,17 +4348,24 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
 
 /* ================= 图片处理工具页（白底图 / 去水印 / 局部消除 / 一键生图） ================= */
 (function(){
-  var TOOLS=['whitebg','watermark','erase','oneclick'];
+  var TOOLS=['whitebg','watermark','erase','oneclick','sellpoint','tryon','recolor','detail','ruler'];
   /* 每张基础积分（复用生视频同一套余额 / 明细 / 余额不足引导体系） */
-  var IMG_PRICE={whitebg:6,watermark:5,erase:8,oneclick:6};
+  var IMG_PRICE={whitebg:6,watermark:5,erase:8,oneclick:6,sellpoint:10,tryon:12,recolor:8,detail:8,ruler:6};
   var ONECLICK_TYPE_ADD=2;   /* 一键生图：每增加 1 个生成类型，每张 +2 积分 */
-  var IMG_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图'};
+  var RECOLOR_COLOR_ADD=2;   /* 商品换色：每增加 1 个目标颜色，每张 +2 积分 */
+  var IMG_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图'};
   var THUMBS={
     whitebg:'images/upd-cushion.png',
     watermark:'images/upd-product.jpg',
     erase:'images/web/t-erase.jpg',
-    oneclick:'images/web/t-oneclick.jpg'
+    oneclick:'images/web/t-oneclick.jpg',
+    sellpoint:'images/upd-cushion.png',
+    tryon:'images/dh-xiaoya.jpg',
+    recolor:'images/upd-cushion.png',
+    detail:'images/upd-product.jpg',
+    ruler:'images/web/t-avocado.jpg'
   };
+  var THUMB2={tryon:'images/web/t-tryon-item.png'}; /* 第二上传位缩略图（试穿：服装图） */
   var HINTS={
     erase:['涂抹消除：手动圈选要移除的区域；文字替换：框选文字后自动识别并替换',
            '文字替换：框选文字后自动识别并替换为背景内容']
@@ -3977,6 +4385,10 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var ptsNum=document.getElementById(key+'PtsNum');
     var cntHint=document.getElementById(key+'CntHint');
     var uploaded=false, running=false;
+    var drop2=document.getElementById(key+'Drop2');       /* 第二上传位（试穿试用：服装图） */
+    var inner2=document.getElementById(key+'DropInner2');
+    var uploaded2=false;
+    function ready(){return uploaded&&(!drop2||uploaded2);}
 
     /* ---- 生成张数与积分 ---- */
     function getCnt(){
@@ -3991,6 +4403,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     }
     function unitPts(){
       if(key==='oneclick'){return IMG_PRICE.oneclick+(getTypes()-1)*ONECLICK_TYPE_ADD;}
+      if(key==='recolor'){return IMG_PRICE.recolor+(getTypes()-1)*RECOLOR_COLOR_ADD;}
       return IMG_PRICE[key]||6;
     }
     function calcPts(){return unitPts()*getCnt();}
@@ -4001,8 +4414,9 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     }
 
     function setCount(){
-      if(num){num.textContent=uploaded?1:0;}
-      if(cnt){cnt.textContent=uploaded?1:0;}
+      var n=ready()?1:0;
+      if(num){num.textContent=n;}
+      if(cnt){cnt.textContent=n;}
     }
 
     function renderDrop(){
@@ -4011,33 +4425,60 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       drop.classList.toggle('filled',uploaded);
       if(!uploaded){
         inner.innerHTML='<span class="plus">+</span><span class="t">上传图片</span>';
-        return;
+      }else{
+        var wrap=document.createElement('div');
+        wrap.className='bg-thumb';
+        var img=document.createElement('img');
+        img.src=THUMBS[key]; img.alt='待调整图片';
+        var nm=document.createElement('span');
+        nm.className='bg-thumb-name';
+        nm.textContent='待调整图片-01.png';
+        var x=document.createElement('button');
+        x.type='button';
+        x.className='bg-thumb-x';
+        x.setAttribute('aria-label','移除图片');
+        x.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+        x.addEventListener('click',function(e){
+          e.stopPropagation();
+          uploaded=false; if(done){done.textContent='';}
+          renderDrop(); setCount();
+        });
+        wrap.appendChild(img); wrap.appendChild(nm); wrap.appendChild(x);
+        inner.appendChild(wrap);
       }
-      var wrap=document.createElement('div');
-      wrap.className='bg-thumb';
-      var img=document.createElement('img');
-      img.src=THUMBS[key]; img.alt='待调整图片';
-      var nm=document.createElement('span');
-      nm.className='bg-thumb-name';
-      nm.textContent='待调整图片-01.png';
-      var x=document.createElement('button');
-      x.type='button';
-      x.className='bg-thumb-x';
-      x.setAttribute('aria-label','移除图片');
-      x.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
-      x.addEventListener('click',function(e){
-        e.stopPropagation();
-        uploaded=false; if(done){done.textContent='';}
-        renderDrop(); setCount();
-      });
-      wrap.appendChild(img); wrap.appendChild(nm); wrap.appendChild(x);
-      inner.appendChild(wrap);
+      if(inner2&&drop2){
+        inner2.innerHTML='';
+        drop2.classList.toggle('filled',uploaded2);
+        if(!uploaded2){
+          inner2.innerHTML='<span class="plus">+</span><span class="t">上传图片</span>';
+        }else{
+          var w2=document.createElement('div');w2.className='bg-thumb';
+          var i2=document.createElement('img');i2.src=THUMB2[key]||THUMBS[key];i2.alt='待试穿商品';
+          var n2=document.createElement('span');n2.className='bg-thumb-name';n2.textContent='待试穿商品-01.png';
+          var x2=document.createElement('button');x2.type='button';x2.className='bg-thumb-x';x2.setAttribute('aria-label','移除图片');
+          x2.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+          x2.addEventListener('click',function(e){
+            e.stopPropagation();
+            uploaded2=false; if(done){done.textContent='';}
+            renderDrop(); setCount();
+          });
+          w2.appendChild(i2);w2.appendChild(n2);w2.appendChild(x2);
+          inner2.appendChild(w2);
+        }
+      }
     }
 
     if(drop){
       drop.addEventListener('click',function(){
         if(uploaded||running){return;}
         uploaded=true; if(done){done.textContent='';}
+        renderDrop(); setCount();
+      });
+    }
+    if(drop2){
+      drop2.addEventListener('click',function(){
+        if(uploaded2||running){return;}
+        uploaded2=true; if(done){done.textContent='';}
         renderDrop(); setCount();
       });
     }
@@ -4075,8 +4516,9 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     if(start){
       start.addEventListener('click',function(){
         if(running){return;}
-        if(!uploaded){
-          if(drop){drop.classList.add('shake');setTimeout(function(){drop.classList.remove('shake');},430);}
+        if(!ready()){
+          var target=!uploaded?drop:drop2;
+          if(target){target.classList.add('shake');setTimeout(function(){target.classList.remove('shake');},430);}
           return;
         }
         var amt=calcPts();
