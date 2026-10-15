@@ -786,13 +786,7 @@
   /* 标题右侧计数 0/1张 */
   .bg-sec-cnt{font-size:12.5px;color:var(--gray-400);font-variant-numeric:tabular-nums;}
 
-  /* 选项行：单选 / 多选 */
-  .opt-card{background:#f5f6fa;border-radius:10px;padding:13px 16px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
-  .opt-card .k{font-size:13px;color:var(--gray-500);flex:none;}
-  .opt{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;user-select:none;}
-  .opt i{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--gray-300);background:#fff;flex:none;transition:.16s;}
-  .opt:hover i{border-color:var(--gray-400);}
-  .opt.on i{border-color:var(--acc);box-shadow:inset 0 0 0 3.5px var(--acc);}
+  /* 说明小字（统一放在字段名下方、选项上方）；保留 .opt-sub 供页脚完成提示复用 */
   .opt-sub{font-size:12px;color:var(--gray-400);line-height:1.5;margin-top:9px;}
 
   .opt-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px;}
@@ -804,6 +798,16 @@
   .opt-chip .cdot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(17,24,39,.14);flex:none;display:block;}
   .opt-chip.shake{animation:chipShake .38s;}
   @keyframes chipShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+
+  /* 标尺图 · 参数数值输入 */
+  .rn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px;}
+  .rn-cell{flex:1 1 84px;min-width:84px;display:flex;flex-direction:column;gap:5px;}
+  .rn-lb{font-size:12px;font-weight:600;color:var(--gray-600);}
+  .rn-inp{width:100%;height:34px;padding:0 10px;border:1px solid var(--gray-200);border-radius:8px;background:#fff;font-family:var(--font);font-size:13px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .rn-inp:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-50);}
+  .rn-inp::placeholder{color:var(--gray-300);font-weight:500;}
+  .rn-unit{display:flex;align-items:center;gap:10px;margin-top:11px;}
+  .rn-unit-lb{font-size:12px;font-weight:600;color:var(--gray-600);flex:none;}
 
   /* 右侧画布示例卡 */
   .th-card{width:270px;flex:none;border-radius:16px;padding:18px 16px 16px;text-align:center;box-shadow:0 2px 12px rgba(17,24,39,.05);}
@@ -1232,12 +1236,12 @@
           <div class="bg-sec-head">
             <span class="bg-sec-name req">生成张数</span>
           </div>
+          <div class="bg-sec-sub">按所选张数批量生成，单张 8 积分；余额不足时可前往「充值」补充</div>
           <div class="opt-chips cnt-group" id="bgCntGroup">
             <button class="opt-chip on" type="button">1张</button>
             <button class="opt-chip" type="button">2张</button>
             <button class="opt-chip" type="button">4张</button>
           </div>
-          <div class="opt-sub">按所选张数批量生成，单张 8 积分；余额不足时可前往「充值」补充</div>
         </div>
 
         <!-- 智能生成 -->
@@ -1355,12 +1359,12 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
+            <div class="bg-sec-sub">按所选张数批量输出，单张 6 积分</div>
             <div class="opt-chips cnt-group" id="whitebgCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
             </div>
-            <div class="opt-sub">按所选张数批量输出，单张 6 积分</div>
           </div>
         </div>
         <div class="bg-foot">
@@ -1417,12 +1421,12 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
+            <div class="bg-sec-sub">按所选张数批量去水印，单张 5 积分</div>
             <div class="opt-chips cnt-group" id="watermarkCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
             </div>
-            <div class="opt-sub">按所选张数批量去水印，单张 5 积分</div>
           </div>
         </div>
         <div class="bg-foot">
@@ -1474,12 +1478,14 @@
             </div>
           </div>
           <div class="bg-sec">
-            <div class="opt-card">
-              <span class="k">消除方式</span>
-              <span class="opt" data-g="erase-mode"><i></i>涂抹消除</span>
-              <span class="opt" data-g="erase-mode"><i></i>文字替换</span>
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">消除方式</span>
             </div>
-            <div class="opt-sub" id="eraseHint">涂抹消除：手动圈选要移除的区域；文字替换：框选文字后自动识别并替换</div>
+            <div class="bg-sec-sub" id="eraseHint">涂抹消除：手动圈选要移除的区域；文字替换：框选文字后自动识别并替换</div>
+            <div class="opt-chips single-group" id="eraseModes">
+              <button class="opt-chip on" type="button">涂抹消除</button>
+              <button class="opt-chip" type="button">文字替换</button>
+            </div>
           </div>
 
           <!-- 生成张数 -->
@@ -1487,12 +1493,12 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
+            <div class="bg-sec-sub">按所选张数批量消除，单张 8 积分</div>
             <div class="opt-chips cnt-group" id="eraseCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
             </div>
-            <div class="opt-sub">按所选张数批量消除，单张 8 积分</div>
             <div class="er-foot">
               <span class="foot-pts" id="eraseCntHint">1 张 · 共 <b>8</b> 积分</span>
               <span class="opt-sub done" id="eraseDone"></span>
@@ -1551,6 +1557,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">卖点类型</span>
             </div>
+            <div class="bg-sec-sub">可多选，AI 将围绕所选类型提炼卖点并排版上图；不选则自动识别</div>
             <div class="opt-chips" id="sellpointChips">
               <button class="opt-chip" type="button">核心功能</button>
               <button class="opt-chip" type="button">性能优势</button>
@@ -1559,7 +1566,6 @@
               <button class="opt-chip" type="button">使用场景</button>
               <button class="opt-chip" type="button">促销活动</button>
             </div>
-            <div class="opt-sub">可多选，AI 将围绕所选类型提炼卖点并排版上图；不选则自动识别</div>
           </div>
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -1573,12 +1579,12 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生图比例</span>
             </div>
+            <div class="bg-sec-sub">1:1 适配平台主图，4:3 适配详情页，16:9 适配横幅与封面</div>
             <div class="opt-chips single-group" id="sellpointRatio">
               <button class="opt-chip on" type="button">1:1</button>
               <button class="opt-chip" type="button">4:3</button>
               <button class="opt-chip" type="button">16:9</button>
             </div>
-            <div class="opt-sub">1:1 适配平台主图，4:3 适配详情页，16:9 适配横幅与封面</div>
           </div>
 
           <!-- 生成张数（每种语种） -->
@@ -1586,12 +1592,12 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数<small style="color:var(--gray-400);font-weight:500">（每种语种）</small></span>
             </div>
+            <div class="bg-sec-sub">生成多张 = 同一商品输出多张不同构图 / 卖点组合的主图，方便挑最合适的一张上架；每种语言各生成所选张数</div>
             <div class="opt-chips cnt-group" id="sellpointCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
             </div>
-            <div class="opt-sub">每种语言按所选张数出图，如「2张 + 中文/英语」= 共 4 张图</div>
           </div>
 
           <!-- 文案语种（最后一步） -->
@@ -1600,6 +1606,7 @@
               <span class="bg-sec-name req">文案语种<small style="color:var(--gray-400);font-weight:500">（可多选）</small></span>
               <span class="bg-sec-cnt cnt-pts" id="sellpointLangHint">已选 <b>1</b> 个语种 · 共出图 <b>1</b> 张</span>
             </div>
+            <div class="bg-sec-sub">每种语言输出一套卖点文案与对应张数的图片；与视频翻译一致，按「张数 × 语种数」计入积分</div>
             <div class="opt-chips" id="sellpointLangs">
               <button class="opt-chip on" type="button">中文</button>
               <button class="opt-chip" type="button">英语</button>
@@ -1611,7 +1618,6 @@
               <button class="opt-chip" type="button">马来语</button>
               <button class="opt-chip" type="button">蒙古语</button>
             </div>
-            <div class="opt-sub">每种语言输出一套卖点文案与对应张数的图片；与视频翻译一致，按「张数 × 语种数」计入积分</div>
           </div>
         </div>
         <div class="bg-foot">
@@ -1667,6 +1673,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">突出细节</span>
             </div>
+            <div class="bg-sec-sub">可多选，AI 将围绕所选细节生成特写；不选则自动识别</div>
             <div class="opt-chips" id="detailChips">
               <button class="opt-chip" type="button">材质纹理</button>
               <button class="opt-chip" type="button">工艺接缝</button>
@@ -1677,7 +1684,6 @@
               <button class="opt-chip" type="button">内部结构</button>
               <button class="opt-chip" type="button">表面处理</button>
             </div>
-            <div class="opt-sub">可多选，AI 将围绕所选细节生成特写；不选则自动识别</div>
           </div>
 
           <!-- 展示形式 -->
@@ -1685,6 +1691,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name">展示形式</span>
             </div>
+            <div class="bg-sec-sub">单选，决定细节图的呈现方式；默认单细节展示</div>
             <div class="opt-chips single-group" id="detailForm">
               <button class="opt-chip on" type="button">单细节展示</button>
               <button class="opt-chip" type="button">多细节拼接展示</button>
@@ -1692,7 +1699,6 @@
               <button class="opt-chip" type="button">细节+材质对比</button>
               <button class="opt-chip" type="button">细节+使用痕迹</button>
             </div>
-            <div class="opt-sub">单选，决定细节图的呈现方式；默认单细节展示</div>
           </div>
 
           <!-- 生成张数 -->
@@ -1700,12 +1706,12 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
+            <div class="bg-sec-sub">按所选张数批量输出，单张 8 积分</div>
             <div class="opt-chips cnt-group" id="detailCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
             </div>
-            <div class="opt-sub">按所选张数批量输出，单张 8 积分</div>
           </div>
         </div>
         <div class="bg-foot">
@@ -1761,12 +1767,12 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
+            <div class="bg-sec-sub">按所选张数批量输出，单张 12 积分</div>
             <div class="opt-chips cnt-group" id="tryonCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
             </div>
-            <div class="opt-sub">按所选张数批量输出，单张 12 积分</div>
           </div>
         </div>
         <div class="bg-foot">
@@ -1802,7 +1808,7 @@
       <div class="tpanel a-amber">
         <div class="tp-head">
           <div class="tp-title">商品换色</div>
-          <div class="tp-sub">一键切换商品配色，批量输出多色版本</div>
+          <div class="tp-sub">按描述替换商品花色与材质，单次生成一张</div>
         </div>
         <div class="bg-scroll">
           <div class="bg-sec">
@@ -1820,32 +1826,25 @@
           </div>
           <div class="bg-sec">
             <div class="bg-sec-head">
-              <span class="bg-sec-name req">目标颜色</span>
+              <span class="bg-sec-name req">目标花色</span>
             </div>
-            <div class="opt-chips" id="recolorChips">
-              <button class="opt-chip" type="button"><span class="cdot" style="background:#1f2937"></span>黑色</button>
-              <button class="opt-chip" type="button"><span class="cdot" style="background:#f9fafb"></span>白色</button>
-              <button class="opt-chip" type="button"><span class="cdot" style="background:#dc2626"></span>红色</button>
-              <button class="opt-chip" type="button"><span class="cdot" style="background:#2563eb"></span>蓝色</button>
-              <button class="opt-chip" type="button"><span class="cdot" style="background:#059669"></span>绿色</button>
-              <button class="opt-chip" type="button"><span class="cdot" style="background:#d97706"></span>橙色</button>
-              <button class="opt-chip" type="button"><span class="cdot" style="background:#ec4899"></span>粉色</button>
-              <button class="opt-chip" type="button"><span class="cdot" style="background:#7c3aed"></span>紫色</button>
-            </div>
-            <div class="opt-sub">可多选，一次生成同款多色图；不选则由 AI 自动匹配同品类热卖色</div>
+            <div class="bg-sec-sub">用一句话描述想要的花色 / 纹理，AI 按描述重绘商品表面，保持形状、光影与细节不变；每次生成 1 张，单次 8 积分</div>
+            <textarea class="vp-ta" id="recolorDesc" rows="2" placeholder="如「奶油白拼浅灰」「蓝白竖条纹」「原木胡桃色」「米色亚麻纹理」；留空则由 AI 自动匹配同品类热卖花色"></textarea>
           </div>
-
-          <!-- 生成张数 -->
           <div class="bg-sec">
             <div class="bg-sec-head">
-              <span class="bg-sec-name req">生成张数</span>
+              <span class="bg-sec-name">常用花色<small style="color:var(--gray-400);font-weight:500">（点选即填入上栏）</small></span>
             </div>
-            <div class="opt-chips cnt-group" id="recolorCntGroup">
-              <button class="opt-chip on" type="button">1张</button>
-              <button class="opt-chip" type="button">2张</button>
-              <button class="opt-chip" type="button">4张</button>
+            <div class="opt-chips fill-group" id="recolorQuick">
+              <button class="opt-chip" type="button" data-p="黑色"><span class="cdot" style="background:#1f2937"></span>黑色</button>
+              <button class="opt-chip" type="button" data-p="纯白色"><span class="cdot" style="background:#f9fafb"></span>纯白</button>
+              <button class="opt-chip" type="button" data-p="米白色"><span class="cdot" style="background:#f5f0e6"></span>米白</button>
+              <button class="opt-chip" type="button" data-p="浅灰色"><span class="cdot" style="background:#d1d5db"></span>浅灰</button>
+              <button class="opt-chip" type="button" data-p="莫兰迪蓝色"><span class="cdot" style="background:#5b7f9e"></span>莫兰迪蓝</button>
+              <button class="opt-chip" type="button" data-p="焦糖棕色"><span class="cdot" style="background:#8b5e3c"></span>焦糖棕</button>
+              <button class="opt-chip" type="button" data-p="樱花粉色"><span class="cdot" style="background:#f3c6d1"></span>樱花粉</button>
+              <button class="opt-chip" type="button" data-p="原木色木纹"><span class="cdot" style="background:#c9a063"></span>原木色</button>
             </div>
-            <div class="opt-sub">按颜色数与张数计费：单色 8 积分/张，每多 1 个颜色 +2 积分</div>
           </div>
         </div>
         <div class="bg-foot">
@@ -1863,8 +1862,8 @@
       <div class="tcanvas">
         <div class="th-card t-amber">
           <span class="th-tag">商品换色</span>
-          <div class="th-title">一键多色上架</div>
-          <div class="th-sub">同款多色 · 一次生成</div>
+          <div class="th-title">换成想要的花色</div>
+          <div class="th-sub">文字描述花色 · 单次 1 张</div>
           <div class="th-shot">
             <img src="images/web/t-recolor.png" alt="">
           </div>
@@ -1899,22 +1898,39 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">标尺类型</span>
             </div>
+            <div class="bg-sec-sub" id="rulerHint">长 × 宽 × 高：立体商品三维标注；长 × 宽：平面商品；高度：单边尺寸；直径 / 周长：圆形商品</div>
             <div class="opt-chips single-group" id="rulerTypes">
               <button class="opt-chip on" type="button">长 × 宽 × 高</button>
               <button class="opt-chip" type="button">长 × 宽</button>
               <button class="opt-chip" type="button">高度</button>
               <button class="opt-chip" type="button">直径 / 周长</button>
             </div>
-            <div class="opt-sub" id="rulerHint">长 × 宽 × 高：立体商品三维标注；长 × 宽：平面商品；高度：单边尺寸；直径 / 周长：圆形商品</div>
           </div>
 
-          <!-- 标尺文本 -->
+          <!-- 参数数值（随标尺类型变化） -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name">参数数值<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
+            </div>
+            <div class="bg-sec-sub">按实物测量填写，AI 会把数值直接标在图上对应位置；留空则由 AI 按商品比例估算</div>
+            <div class="rn-row" id="rulerNums"></div>
+            <div class="rn-unit">
+              <span class="rn-unit-lb">单位</span>
+              <div class="opt-chips single-group" id="rulerUnit" style="margin-top:0">
+                <button class="opt-chip on" type="button">cm</button>
+                <button class="opt-chip" type="button">mm</button>
+                <button class="opt-chip" type="button">inch</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 标尺文本（白话描述，与数值二选一） -->
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name">标尺文本<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
             </div>
-            <textarea class="vp-ta" id="rulerText" rows="2" placeholder="填写实际测量尺寸，如「长 32cm × 宽 18cm × 高 24cm」；留空则由 AI 按商品比例自动标注"></textarea>
-            <div class="opt-sub">您填写的数值会直接作为图上标注文字，请以实物测量为准</div>
+            <div class="bg-sec-sub">也可以用一段白话描述，AI 会从中解析尺寸再标注；与上方数值同时填写时以数值为准</div>
+            <textarea class="vp-ta" id="rulerText" rows="2" placeholder="如「这款收纳箱长 32 厘米、宽 18、高 24，加上轮子再高 3 厘米，整体适合床底收纳」"></textarea>
           </div>
 
           <!-- 生成张数 -->
@@ -1922,12 +1938,12 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
+            <div class="bg-sec-sub">按所选张数批量输出，单张 6 积分</div>
             <div class="opt-chips cnt-group" id="rulerCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
             </div>
-            <div class="opt-sub">按所选张数批量输出，单张 6 积分</div>
           </div>
         </div>
         <div class="bg-foot">
@@ -1980,6 +1996,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成类型</span>
             </div>
+            <div class="bg-sec-sub" id="oneclickHint">可多选，一次上传商品图即可批量输出多种上架素材；单张精修请用左侧「AI卖点图 / AI商品标尺图」独立工具</div>
             <div class="opt-chips" id="oneclickChips">
               <button class="opt-chip" data-t="主图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>商品主图</button>
               <button class="opt-chip" data-t="白底图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>白底图</button>
@@ -1987,7 +2004,6 @@
               <button class="opt-chip" data-t="标尺图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>标尺图</button>
               <button class="opt-chip" data-t="商品套图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>商品套图</button>
             </div>
-            <div class="opt-sub" id="oneclickHint">可多选，一次上传商品图即可批量输出多种上架素材；单张精修请用左侧「AI卖点图 / AI商品标尺图」独立工具</div>
           </div>
 
           <!-- 生成张数 -->
@@ -1995,12 +2011,12 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
+            <div class="bg-sec-sub">按类型与张数计费：每张 6 积分，每增加 1 个生成类型 +2 积分</div>
             <div class="opt-chips cnt-group" id="oneclickCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
             </div>
-            <div class="opt-sub">按类型与张数计费：每张 6 积分，每增加 1 个生成类型 +2 积分</div>
           </div>
         </div>
         <div class="bg-foot">
@@ -3756,7 +3772,7 @@ function renderCreditRule(body){
       '<tr><td>每日签到</td><td style="color:#10b981">可领取 +100 积分</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">🖼 图片生成单价（按张计费）</h4>'+
-    '<div class="formula">图片生成积分 = <code>单张单价</code> × <code>生成张数</code>（一键生图按生成类型加价，商品换色按颜色数加价，AI卖点图按文案语种数加价）</div>'+
+    '<div class="formula">图片生成积分 = <code>单张单价</code> × <code>生成张数</code>（一键生图按生成类型加价，AI卖点图按文案语种数加价；商品换色固定单次 1 张）</div>'+
     '<table><thead><tr><th>工具</th><th>单张单价</th></tr></thead><tbody>'+
       '<tr><td>白底图</td><td><b>6</b> 积分</td></tr>'+
       '<tr><td>去水印</td><td><b>5</b> 积分</td></tr>'+
@@ -3765,17 +3781,19 @@ function renderCreditRule(body){
       '<tr><td>一键生图</td><td><b>6</b> 积分 + 每多 1 个类型 <b>+2</b></td></tr>'+
       '<tr><td>AI卖点图</td><td><b>10</b> 积分 × 文案语种数</td></tr>'+
       '<tr><td>试穿试用</td><td><b>12</b> 积分</td></tr>'+
-      '<tr><td>商品换色</td><td><b>8</b> 积分 + 每多 1 个颜色 <b>+2</b></td></tr>'+
+      '<tr><td>商品换色</td><td><b>8</b> 积分 / 次（单次仅 1 张）</td></tr>'+
       '<tr><td>AI细节图</td><td><b>8</b> 积分</td></tr>'+
       '<tr><td>AI商品标尺图</td><td><b>6</b> 积分</td></tr>'+
     '</tbody></table>'+
     '<table style="margin-top:8px"><thead><tr><th>生成张数</th><th>可选档位</th></tr></thead><tbody>'+
-      '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张</td></tr>'+
+      '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张（商品换色固定 1 张）</td></tr>'+
       '<tr><td>生图比例（AI卖点图）</td><td>1:1 / 4:3 / 16:9，单选，不额外计费</td></tr>'+
       '<tr><td>突出细节（AI细节图）</td><td>材质纹理 / 工艺接缝 / 功能按键 / 品牌标识 / 包装细节 / 配件细节 / 内部结构 / 表面处理，可多选</td></tr>'+
       '<tr><td>展示形式（AI细节图）</td><td>单细节展示 / 多细节拼接展示 / 细节+功能关联 / 细节+材质对比 / 细节+使用痕迹，单选</td></tr>'+
       '<tr><td>文案语种（AI卖点图）</td><td>中文 / 英语 / 阿拉伯语 / 泰语 / 印尼语 / 越南语 / 韩语 / 马来语 / 蒙古语，可多选</td></tr>'+
       '<tr><td>标尺类型（AI商品标尺图）</td><td>长 × 宽 × 高 / 长 × 宽 / 高度 / 直径 / 周长，单选，不额外计费</td></tr>'+
+      '<tr><td>标尺数值 / 文本（AI商品标尺图）</td><td>按类型填长宽高数值（单位 cm / mm / inch），或输入一段白话描述；留空由 AI 自动标注</td></tr>'+
+      '<tr><td>目标花色（商品换色）</td><td>文字描述想要的花色 / 纹理，另有常用花色可点选填入；留空由 AI 自动匹配</td></tr>'+
       '<tr><td>上传图片</td><td>每个工具单次仅支持上传 1 张待处理图片</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">💎 充值套餐</h4>'+
@@ -4444,7 +4462,6 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
   /* 每张基础积分（复用生视频同一套余额 / 明细 / 余额不足引导体系） */
   var IMG_PRICE={whitebg:6,watermark:5,erase:8,oneclick:6,sellpoint:10,tryon:12,recolor:8,detail:8,ruler:6};
   var ONECLICK_TYPE_ADD=2;   /* 一键生图：每增加 1 个生成类型，每张 +2 积分 */
-  var RECOLOR_COLOR_ADD=2;   /* 商品换色：每增加 1 个目标颜色，每张 +2 积分 */
   var IMG_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图'};
   var THUMBS={
     whitebg:'images/upd-cushion.png',
@@ -4457,9 +4474,10 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     detail:'images/upd-product.jpg',
     ruler:'images/web/t-avocado.jpg'
   };
-  var HINTS={
-    erase:['涂抹消除：手动圈选要移除的区域；文字替换：框选文字后自动识别并替换',
-           '文字替换：框选文字后自动识别并替换为背景内容']
+  /* 消除方式说明（随所选方式切换） */
+  var ERASE_HINTS={
+    '涂抹消除':'涂抹消除：手动圈选要移除的区域；文字替换：框选文字后自动识别并替换',
+    '文字替换':'文字替换：框选文字后自动识别并替换为背景内容'
   };
 
   function initTool(key){
@@ -4490,7 +4508,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       return (isNaN(n)||n<1)?1:n;
     }
     function getTypes(){
-      var sel=page.querySelectorAll('.opt-chips:not(.cnt-group):not(.single-group) .opt-chip.on');
+      var sel=page.querySelectorAll('.opt-chips:not(.cnt-group):not(.single-group):not(.fill-group) .opt-chip.on');
       return sel.length||1;
     }
     /* 语种数（AI卖点图）：与视频翻译一致，按语种数做倍数计费 */
@@ -4516,9 +4534,58 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       var on=rulerGroup.querySelector('.opt-chip.on');
       return on?on.textContent.trim():'';
     }
+    /* 标尺参数数值：随标尺类型变化的输入项 */
+    var RULER_FIELDS={
+      '长 × 宽 × 高':['长','宽','高'],
+      '长 × 宽':['长','宽'],
+      '高度':['高'],
+      '直径 / 周长':['直径']
+    };
+    var rulerNums=document.getElementById(key+'Nums');
+    var rulerUnit=document.getElementById(key+'Unit');
+    function getRulerUnit(){
+      if(!rulerUnit){return '';}
+      var on=rulerUnit.querySelector('.opt-chip.on');
+      return on?on.textContent.trim():'cm';
+    }
+    /* 已填数值摘要，如「长 32 × 宽 18 × 高 24 cm」；全空返回 '' */
+    function rulerSpec(){
+      if(!rulerNums){return '';}
+      var parts=[],unit=getRulerUnit();
+      rulerNums.querySelectorAll('.rn-inp').forEach(function(inp){
+        var v=inp.value.trim();
+        if(v){parts.push(inp.getAttribute('data-k')+' '+v);}
+      });
+      if(!parts.length){return '';}
+      return parts.join(' × ')+' '+(unit||'cm');
+    }
+    /* 按标尺类型渲染数值输入行 */
+    function renderRulerNums(){
+      if(!rulerNums){return;}
+      var keys=RULER_FIELDS[getRulerType()]||RULER_FIELDS['长 × 宽 × 高'];
+      var old={};
+      rulerNums.querySelectorAll('.rn-inp').forEach(function(inp){old[inp.getAttribute('data-k')]=inp.value;});
+      rulerNums.innerHTML='';
+      keys.forEach(function(k){
+        var cell=document.createElement('label');
+        cell.className='rn-cell';
+        var lb=document.createElement('span');
+        lb.className='rn-lb';
+        lb.textContent=k;
+        var inp=document.createElement('input');
+        inp.className='rn-inp';
+        inp.type='text';
+        inp.inputMode='decimal';
+        inp.setAttribute('data-k',k);
+        inp.placeholder='如 32';
+        inp.value=old[k]||'';
+        inp.addEventListener('input',renderPts);
+        cell.appendChild(lb); cell.appendChild(inp);
+        rulerNums.appendChild(cell);
+      });
+    }
     function unitPts(){
       if(key==='oneclick'){return IMG_PRICE.oneclick+(getTypes()-1)*ONECLICK_TYPE_ADD;}
-      if(key==='recolor'){return IMG_PRICE.recolor+(getTypes()-1)*RECOLOR_COLOR_ADD;}
       return IMG_PRICE[key]||6;
     }
     function calcPts(){return unitPts()*getCnt()*getLangs();}
@@ -4574,21 +4641,8 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       });
     }
 
-    /* 单选组（消除方式） */
-    page.querySelectorAll('.opt[data-g]').forEach(function(o){
-      o.addEventListener('click',function(){
-        var g=o.getAttribute('data-g');
-        page.querySelectorAll('.opt[data-g="'+g+'"]').forEach(function(x){x.classList.remove('on');});
-        o.classList.add('on');
-        var hint=page.querySelector('.opt-sub');
-        if(hint&&HINTS[key]){
-          hint.textContent=/涂抹/.test(o.textContent)?HINTS[key][0]:HINTS[key][1];
-        }
-      });
-    });
-
-    /* 多选标签（生成类型 / 突出细节 / 文案语种；张数组 .cnt-group、单选组 .single-group 单独处理） */
-    page.querySelectorAll('.opt-chips:not(.cnt-group):not(.single-group) .opt-chip').forEach(function(c){
+    /* 多选标签（生成类型 / 突出细节 / 文案语种；张数组 .cnt-group、单选组 .single-group、快捷填入组 .fill-group 单独处理） */
+    page.querySelectorAll('.opt-chips:not(.cnt-group):not(.single-group):not(.fill-group) .opt-chip').forEach(function(c){
       c.addEventListener('click',function(){
         /* 语种至少保留 1 个，取消最后一个时抖动提示 */
         if(langGroup&&langGroup.contains(c)&&c.classList.contains('on')&&langGroup.querySelectorAll('.opt-chip.on').length<=1){
@@ -4600,15 +4654,46 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       });
     });
 
-    /* 单选标签（生图比例 / 展示形式） */
+    /* 单选标签（生图比例 / 展示形式 / 标尺类型 / 标尺单位 / 消除方式） */
     page.querySelectorAll('.opt-chips.single-group').forEach(function(g){
       g.querySelectorAll('.opt-chip').forEach(function(c){
         c.addEventListener('click',function(){
           g.querySelectorAll('.opt-chip').forEach(function(x){x.classList.remove('on');});
-          c.classList.add('on'); renderPts();
+          c.classList.add('on');
+          if(rulerGroup&&g===rulerGroup){renderRulerNums();}
+          if(key==='erase'){
+            var eh=document.getElementById('eraseHint');
+            var lbl=c.textContent.trim();
+            if(eh&&ERASE_HINTS[lbl]){eh.textContent=ERASE_HINTS[lbl];}
+          }
+          renderPts();
         });
       });
     });
+
+    /* 常用花色快捷填入（商品换色）：点选写入描述框，再点一次取消 */
+    var quick=document.getElementById(key+'Quick');
+    var desc=document.getElementById(key+'Desc');
+    if(quick&&desc){
+      quick.querySelectorAll('.opt-chip').forEach(function(c){
+        c.addEventListener('click',function(){
+          var on=c.classList.contains('on');
+          quick.querySelectorAll('.opt-chip').forEach(function(x){x.classList.remove('on');});
+          if(on){desc.value='';}
+          else{
+            c.classList.add('on');
+            desc.value=c.getAttribute('data-p')||c.textContent.trim();
+          }
+          if(done){done.textContent='';}
+        });
+      });
+      desc.addEventListener('input',function(){
+        var v=desc.value.trim();
+        quick.querySelectorAll('.opt-chip').forEach(function(c){
+          c.classList.toggle('on',!!v&&v===(c.getAttribute('data-p')||''));
+        });
+      });
+    }
 
     /* 生成张数（单选） */
     if(cntGroup){
@@ -4650,13 +4735,15 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           running=false;
           var n=getCnt();
           var logTxt=langGroup?('AI卖点图 '+n+' 张 × '+getLangs()+' 语种'+(getRatio()?' · '+getRatio():'')+' · '+amt+' 积分')
-                    :(rulerGroup?('AI商品标尺图 '+getRulerType()+' · '+n+' 张 · '+amt+' 积分')
-                    :('生成扣减 · '+amt+' 积分'));
+                    :(rulerGroup?('AI商品标尺图 '+getRulerType()+' · '+(rulerSpec()||'按商品比例自动标注')+' · '+n+' 张 · '+amt+' 积分')
+                    :(quick?('商品换色 · '+((desc&&desc.value.trim())||'AI 自动匹配同品类热卖花色')+' · 1 张 · '+amt+' 积分')
+                    :('生成扣减 · '+amt+' 积分')));
           spendCredits(amt,IMG_NAMES[key],logTxt);
           if(num){num.textContent=n;}
           if(done){
             if(key==='erase'){done.textContent='已完成 '+n+' 张 · 已扣 '+amt+' 积分';}
             else if(langGroup){done.innerHTML='<span class="done">已生成 '+(n*getLangs())+' 张图（'+n+' 张 × '+getLangs()+' 语种）· 已扣 '+amt+' 积分</span>';}
+            else if(quick){done.innerHTML='<span class="done">已换成「'+((desc&&desc.value.trim())||'AI 自动匹配花色')+'」· 已扣 '+amt+' 积分</span>';}
             else{done.innerHTML='<span class="done">已完成 · 已扣 '+amt+' 积分</span>';}
           }
           renderPts();
@@ -4664,7 +4751,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       });
     }
 
-    renderDrop(); setCount(); renderPts();
+    renderDrop(); setCount(); renderRulerNums(); renderPts();
   }
 
   TOOLS.forEach(initTool);
