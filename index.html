@@ -1219,7 +1219,7 @@
             <span class="bg-sec-name req">待调整图片</span>
           </div>
           <div class="bg-drop" id="bgDrop">
-            <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+            <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
             <div class="bg-drop-inner" id="bgDropInner">
               <span class="plus">+</span>
               <span class="t">上传图片</span>
@@ -1342,7 +1342,7 @@
               <span class="bg-sec-cnt">(<b id="whitebgCnt">0</b>/1张)</span>
             </div>
             <div class="bg-drop" id="whitebgDrop">
-              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
               <div class="bg-drop-inner" id="whitebgDropInner">
                 <span class="plus">+</span>
                 <span class="t">上传图片</span>
@@ -1404,7 +1404,7 @@
               <span class="bg-sec-name req">待调整图片</span>
             </div>
             <div class="bg-drop" id="watermarkDrop">
-              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
               <div class="bg-drop-inner" id="watermarkDropInner">
                 <span class="plus">+</span>
                 <span class="t">上传图片</span>
@@ -1466,7 +1466,7 @@
               <span class="bg-sec-name req">待调整图片</span>
             </div>
             <div class="bg-drop" id="eraseDrop">
-              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
               <div class="bg-drop-inner" id="eraseDropInner">
                 <span class="plus">+</span>
                 <span class="t">上传图片</span>
@@ -1540,7 +1540,7 @@
               <span class="bg-sec-cnt">(<b id="sellpointCnt">0</b>/1张)</span>
             </div>
             <div class="bg-drop" id="sellpointDrop">
-              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
               <div class="bg-drop-inner" id="sellpointDropInner">
                 <span class="plus">+</span>
                 <span class="t">上传图片</span>
@@ -1557,7 +1557,6 @@
               <button class="opt-chip" type="button">材质工艺</button>
               <button class="opt-chip" type="button">设计亮点</button>
               <button class="opt-chip" type="button">使用场景</button>
-              <button class="opt-chip" type="button">服务承诺</button>
               <button class="opt-chip" type="button">促销活动</button>
             </div>
             <div class="opt-sub">可多选，AI 将围绕所选类型提炼卖点并排版上图；不选则自动识别</div>
@@ -1567,26 +1566,6 @@
               <span class="bg-sec-name">卖点关键词<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
             </div>
             <textarea class="vp-ta" id="sellpointKw" rows="2" placeholder="描述商品卖点，如「续航 48 小时 · IPX7 防水 · 一年换新」，留空则由 AI 自动提炼"></textarea>
-          </div>
-
-          <!-- 文案语种 -->
-          <div class="bg-sec">
-            <div class="bg-sec-head">
-              <span class="bg-sec-name req">文案语种</span>
-              <span class="bg-sec-cnt cnt-pts" id="sellpointLangHint">已选 <b>1</b> 个语种</span>
-            </div>
-            <div class="opt-chips" id="sellpointLangs">
-              <button class="opt-chip on" type="button">中文</button>
-              <button class="opt-chip" type="button">英语</button>
-              <button class="opt-chip" type="button">阿拉伯语</button>
-              <button class="opt-chip" type="button">泰语</button>
-              <button class="opt-chip" type="button">印尼语</button>
-              <button class="opt-chip" type="button">越南语</button>
-              <button class="opt-chip" type="button">韩语</button>
-              <button class="opt-chip" type="button">马来语</button>
-              <button class="opt-chip" type="button">蒙古语</button>
-            </div>
-            <div class="opt-sub">可多选，每种语言输出一套卖点文案；与视频翻译一致，按语种数计入积分</div>
           </div>
 
           <!-- 生图比例 -->
@@ -1602,17 +1581,37 @@
             <div class="opt-sub">1:1 适配平台主图，4:3 适配详情页，16:9 适配横幅与封面</div>
           </div>
 
-          <!-- 生成张数 -->
+          <!-- 生成张数（每种语种） -->
           <div class="bg-sec">
             <div class="bg-sec-head">
-              <span class="bg-sec-name req">生成张数</span>
+              <span class="bg-sec-name req">生成张数<small style="color:var(--gray-400);font-weight:500">（每种语种）</small></span>
             </div>
             <div class="opt-chips cnt-group" id="sellpointCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
             </div>
-            <div class="opt-sub">按所选张数批量输出，单张 10 积分 × 语种数</div>
+            <div class="opt-sub">每种语言按所选张数出图，如「2张 + 中文/英语」= 共 4 张图</div>
+          </div>
+
+          <!-- 文案语种（最后一步） -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">文案语种<small style="color:var(--gray-400);font-weight:500">（可多选）</small></span>
+              <span class="bg-sec-cnt cnt-pts" id="sellpointLangHint">已选 <b>1</b> 个语种 · 共出图 <b>1</b> 张</span>
+            </div>
+            <div class="opt-chips" id="sellpointLangs">
+              <button class="opt-chip on" type="button">中文</button>
+              <button class="opt-chip" type="button">英语</button>
+              <button class="opt-chip" type="button">阿拉伯语</button>
+              <button class="opt-chip" type="button">泰语</button>
+              <button class="opt-chip" type="button">印尼语</button>
+              <button class="opt-chip" type="button">越南语</button>
+              <button class="opt-chip" type="button">韩语</button>
+              <button class="opt-chip" type="button">马来语</button>
+              <button class="opt-chip" type="button">蒙古语</button>
+            </div>
+            <div class="opt-sub">每种语言输出一套卖点文案与对应张数的图片；与视频翻译一致，按「张数 × 语种数」计入积分</div>
           </div>
         </div>
         <div class="bg-foot">
@@ -1657,7 +1656,7 @@
               <span class="bg-sec-cnt">(<b id="detailCnt">0</b>/1张)</span>
             </div>
             <div class="bg-drop" id="detailDrop">
-              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
               <div class="bg-drop-inner" id="detailDropInner">
                 <span class="plus">+</span>
                 <span class="t">上传图片</span>
@@ -1749,7 +1748,7 @@
               <span class="bg-sec-cnt">(<b id="tryonCnt">0</b>/1张)</span>
             </div>
             <div class="bg-drop" id="tryonDrop">
-              <div class="bg-drop-hint">上传服装 / 配饰的平铺图或挂拍图，AI 自动合成模特上身效果，单张10MB以内</div>
+              <div class="bg-drop-hint">上传服装 / 配饰的平铺图或挂拍图，AI 自动合成模特上身效果；支持 JPG/JPEG/PNG，单张 25MB 以内，尺寸不小于 300px</div>
               <div class="bg-drop-inner" id="tryonDropInner">
                 <span class="plus">+</span>
                 <span class="t">上传图片</span>
@@ -1812,7 +1811,7 @@
               <span class="bg-sec-cnt">(<b id="recolorCnt">0</b>/1张)</span>
             </div>
             <div class="bg-drop" id="recolorDrop">
-              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
               <div class="bg-drop-inner" id="recolorDropInner">
                 <span class="plus">+</span>
                 <span class="t">上传图片</span>
@@ -1889,7 +1888,7 @@
               <span class="bg-sec-cnt">(<b id="rulerCnt">0</b>/1张)</span>
             </div>
             <div class="bg-drop" id="rulerDrop">
-              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
               <div class="bg-drop-inner" id="rulerDropInner">
                 <span class="plus">+</span>
                 <span class="t">上传图片</span>
@@ -1970,7 +1969,7 @@
               <span class="bg-sec-name req">商品图</span>
             </div>
             <div class="bg-drop" id="oneclickDrop">
-              <div class="bg-drop-hint">支持上传JPG/PNG格式图片，单张大小10MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
               <div class="bg-drop-inner" id="oneclickDropInner">
                 <span class="plus">+</span>
                 <span class="t">上传图片</span>
@@ -4529,7 +4528,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       if(cntHint){
         cntHint.innerHTML=(langGroup?(getCnt()+' 张 × '+getLangs()+' 语种'):(getCnt()+' 张'))+' · 共 <b>'+amt+'</b> 积分';
       }
-      if(langHint){langHint.innerHTML='已选 <b>'+getLangs()+'</b> 个语种';}
+      if(langHint){langHint.innerHTML='已选 <b>'+getLangs()+'</b> 个语种 · 共出图 <b>'+(getCnt()*getLangs())+'</b> 张';}
     }
 
     function setCount(){
@@ -4657,7 +4656,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           if(num){num.textContent=n;}
           if(done){
             if(key==='erase'){done.textContent='已完成 '+n+' 张 · 已扣 '+amt+' 积分';}
-            else if(langGroup){done.innerHTML='<span class="done">已完成 '+n+' 张 × '+getLangs()+' 语种 · 已扣 '+amt+' 积分</span>';}
+            else if(langGroup){done.innerHTML='<span class="done">已生成 '+(n*getLangs())+' 张图（'+n+' 张 × '+getLangs()+' 语种）· 已扣 '+amt+' 积分</span>';}
             else{done.innerHTML='<span class="done">已完成 · 已扣 '+amt+' 积分</span>';}
           }
           renderPts();
