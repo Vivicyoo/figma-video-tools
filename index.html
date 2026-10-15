@@ -808,6 +808,14 @@
   .rn-inp::placeholder{color:var(--gray-300);font-weight:500;}
   .rn-unit{display:flex;align-items:center;gap:10px;margin-top:11px;}
   .rn-unit-lb{font-size:12px;font-weight:600;color:var(--gray-600);flex:none;}
+  /* 模特库（试穿试用 · 模特参考） */
+  .mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:9px;margin-top:11px;}
+  .mod-card{position:relative;border:1.5px solid var(--gray-200);border-radius:10px;overflow:hidden;background:#fff;padding:0;cursor:pointer;transition:.16s;}
+  .mod-card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;}
+  .mod-card .mod-name{position:absolute;left:0;right:0;bottom:0;padding:14px 6px 4px;font-size:10.5px;font-weight:600;color:#fff;text-align:center;background:linear-gradient(180deg,transparent,rgba(17,24,39,.72));}
+  .mod-card:hover{border-color:var(--gray-300);}
+  .mod-card.on{border-color:var(--acc);box-shadow:0 0 0 2.5px var(--acc-50);}
+  .mod-card.on::before{content:"✓";position:absolute;top:5px;right:5px;width:18px;height:18px;border-radius:50%;background:var(--acc);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
 
   /* 右侧画布示例卡 */
   .th-card{width:270px;flex:none;border-radius:16px;padding:18px 16px 16px;text-align:center;box-shadow:0 2px 12px rgba(17,24,39,.05);}
@@ -1090,6 +1098,7 @@
       <button class="rail-item" data-itool="recolor"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></span>商品换色</button>
       <button class="rail-item" data-itool="ruler"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="9" width="20" height="6" rx="1"/><line x1="6" y1="9" x2="6" y2="12"/><line x1="10" y1="9" x2="10" y2="13"/><line x1="14" y1="9" x2="14" y2="12"/><line x1="18" y1="9" x2="18" y2="13"/></svg></span>AI商品标尺图</button>
       <button class="rail-item" data-itool="oneclick"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>一键生图</button>
+      <button class="rail-item" data-itool="suite"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg></span>电商套图</button>
     </nav>
 
     <!-- ===== Left upload panel ===== -->
@@ -1592,7 +1601,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数<small style="color:var(--gray-400);font-weight:500">（每种语种）</small></span>
             </div>
-            <div class="bg-sec-sub">生成多张 = 同一商品输出多张不同构图 / 卖点组合的主图，方便挑最合适的一张上架；每种语言各生成所选张数</div>
+            <div class="bg-sec-sub">可一次输出多张不同构图 或 卖点组合的商品图</div>
             <div class="opt-chips cnt-group" id="sellpointCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
@@ -1606,7 +1615,7 @@
               <span class="bg-sec-name req">文案语种<small style="color:var(--gray-400);font-weight:500">（可多选）</small></span>
               <span class="bg-sec-cnt cnt-pts" id="sellpointLangHint">已选 <b>1</b> 个语种 · 共出图 <b>1</b> 张</span>
             </div>
-            <div class="bg-sec-sub">每种语言输出一套卖点文案与对应张数的图片；与视频翻译一致，按「张数 × 语种数」计入积分</div>
+            <div class="bg-sec-sub">按所选语言输出整套卖点图，按「张数 × 语种数」计</div>
             <div class="opt-chips" id="sellpointLangs">
               <button class="opt-chip on" type="button">中文</button>
               <button class="opt-chip" type="button">英语</button>
@@ -1745,7 +1754,7 @@
       <div class="tpanel a-blue">
         <div class="tp-head">
           <div class="tp-title">试穿试用</div>
-          <div class="tp-sub">上传商品图，自动生成真实上身效果图</div>
+          <div class="tp-sub">上传商品图与模特参考，AI 生成真实上身效果图</div>
         </div>
         <div class="bg-scroll">
           <div class="bg-sec">
@@ -1759,6 +1768,33 @@
                 <span class="plus">+</span>
                 <span class="t">上传图片</span>
               </div>
+            </div>
+          </div>
+
+          <!-- 模特参考 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name">模特参考<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
+            </div>
+            <div class="bg-sec-sub" id="tryonModHint">不指定模特，AI 根据商品品类自动匹配标准模特身材与姿势</div>
+            <div class="opt-chips single-group" id="tryonModModes">
+              <button class="opt-chip on" type="button">AI 自动匹配</button>
+              <button class="opt-chip" type="button">上传我的模特图</button>
+              <button class="opt-chip" type="button">平台模特库</button>
+            </div>
+            <div class="bg-drop" id="tryonModDrop" style="display:none;margin-top:11px">
+              <div class="bg-drop-hint">上传模特半身 / 全身照，正面直立效果最佳；AI 按该模特生成试穿效果；支持 JPG/JPEG/PNG，单张 25MB 以内，尺寸不小于 300px</div>
+              <div class="bg-drop-inner" id="tryonModDropInner">
+                <span class="plus">+</span>
+                <span class="t">上传模特图</span>
+              </div>
+            </div>
+            <div class="mod-grid" id="tryonModLib" style="display:none">
+              <button class="mod-card" type="button" data-n="亚洲女模"><img src="images/web/m-female-asian.png" alt=""><span class="mod-name">亚洲女模</span></button>
+              <button class="mod-card" type="button" data-n="亚洲男模"><img src="images/web/m-male-asian.png" alt=""><span class="mod-name">亚洲男模</span></button>
+              <button class="mod-card" type="button" data-n="欧美女模"><img src="images/web/m-female-west.png" alt=""><span class="mod-name">欧美女模</span></button>
+              <button class="mod-card" type="button" data-n="童模"><img src="images/web/m-kid.png" alt=""><span class="mod-name">童模</span></button>
+              <button class="mod-card" type="button" data-n="大码模特"><img src="images/web/m-plus.png" alt=""><span class="mod-name">大码模特</span></button>
             </div>
           </div>
 
@@ -1996,13 +2032,13 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成类型</span>
             </div>
-            <div class="bg-sec-sub" id="oneclickHint">可多选，一次上传商品图即可批量输出多种上架素材；单张精修请用左侧「AI卖点图 / AI商品标尺图」独立工具</div>
+            <div class="bg-sec-sub" id="oneclickHint">可多选，一次上传商品图即可批量输出多种上架素材；整套按平台规范出图请用「电商套图」，单张精修请用「AI卖点图 / AI商品标尺图」</div>
             <div class="opt-chips" id="oneclickChips">
               <button class="opt-chip" data-t="主图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>商品主图</button>
               <button class="opt-chip" data-t="白底图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>白底图</button>
               <button class="opt-chip" data-t="卖点图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>卖点图</button>
               <button class="opt-chip" data-t="标尺图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>标尺图</button>
-              <button class="opt-chip" data-t="商品套图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>商品套图</button>
+              <button class="opt-chip" data-t="场景图"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>场景图</button>
             </div>
           </div>
 
@@ -2038,6 +2074,141 @@
           <div class="th-sub">主图 · 卖点图 · 套图一次出齐</div>
           <div class="th-shot">
             <img src="images/web/t-oneclick.jpg" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ===== 电商套图 page ===== -->
+    <!-- ============================================================ -->
+    <section class="tpage" id="ipanel-suite" style="display:none">
+      <div class="tpanel">
+        <div class="tp-head">
+          <div class="tp-title">电商套图</div>
+          <div class="tp-sub">一张商品图，按平台规范生成整套上架素材</div>
+        </div>
+        <div class="bg-scroll">
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">商品图片</span>
+              <span class="bg-sec-cnt">(<b id="suiteCnt">0</b>/1张)</span>
+            </div>
+            <div class="bg-drop" id="suiteDrop">
+              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-inner" id="suiteDropInner">
+                <span class="plus">+</span>
+                <span class="t">上传图片</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 商品信息 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name">商品信息<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
+            </div>
+            <div class="bg-sec-sub">商品名称、核心卖点、材质规格等；填写越全，图上文案越准确，留空由 AI 自动识别</div>
+            <textarea class="vp-ta" id="suiteInfo" rows="2" placeholder="如「便携榨汁杯 400ml · Type-C 充电 · 六叶钢刀，主推露营场景」"></textarea>
+          </div>
+
+          <!-- 目标平台 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">目标平台</span>
+            </div>
+            <div class="bg-sec-sub" id="suitePlatHint">AI 通用规范：主图简洁干净、商品占比 60%–85%，适配多数平台上架</div>
+            <div class="opt-chips single-group" id="suitePlats">
+              <button class="opt-chip on" type="button">AI 通用</button>
+              <button class="opt-chip" type="button">Amazon</button>
+              <button class="opt-chip" type="button">TikTok Shop</button>
+              <button class="opt-chip" type="button">TEMU</button>
+              <button class="opt-chip" type="button">速卖通</button>
+              <button class="opt-chip" type="button">Shopee</button>
+              <button class="opt-chip" type="button">独立站</button>
+            </div>
+          </div>
+
+          <!-- 套图模块 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">套图模块</span>
+              <span class="bg-sec-cnt cnt-pts" id="suiteModHint">已选 <b>4</b> 个模块 · 共出图 <b>4</b> 张</span>
+            </div>
+            <div class="bg-sec-sub">每个模块生成 1 张，按上架顺序自动排版；至少选择 1 个模块</div>
+            <div class="opt-chips" id="suiteMods">
+              <button class="opt-chip on" type="button">白底主图</button>
+              <button class="opt-chip on" type="button">场景展示图</button>
+              <button class="opt-chip on" type="button">卖点信息图</button>
+              <button class="opt-chip on" type="button">细节特写图</button>
+              <button class="opt-chip" type="button">尺寸标注图</button>
+              <button class="opt-chip" type="button">模特展示图</button>
+              <button class="opt-chip" type="button">多角度展示</button>
+              <button class="opt-chip" type="button">包装展示图</button>
+            </div>
+          </div>
+
+          <!-- 详情页套图 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name">详情页套图<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
+              <span class="tr-sw" id="suiteDetailSw"></span>
+            </div>
+            <div class="bg-sec-sub" id="suiteDetailHint">开启后追加详情页模块：首屏视觉 / 核心卖点 / 参数展示，共 3 张</div>
+          </div>
+
+          <!-- 图片比例 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">图片比例</span>
+            </div>
+            <div class="bg-sec-sub">1:1 适配平台主图，3:4 适配移动端详情，9:16 适配短视频封面</div>
+            <div class="opt-chips single-group" id="suiteRatio">
+              <button class="opt-chip on" type="button">1:1</button>
+              <button class="opt-chip" type="button">3:4</button>
+              <button class="opt-chip" type="button">9:16</button>
+            </div>
+          </div>
+
+          <!-- 文案语种 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">文案语种<small style="color:var(--gray-400);font-weight:500">（可多选）</small></span>
+              <span class="bg-sec-cnt cnt-pts" id="suiteLangHint">已选 <b>1</b> 个语种 · 共出图 <b>4</b> 张</span>
+            </div>
+            <div class="bg-sec-sub">按所选语言输出整套套图，按「张数 × 语种数」计</div>
+            <div class="opt-chips" id="suiteLangs">
+              <button class="opt-chip on" type="button">中文</button>
+              <button class="opt-chip" type="button">英语</button>
+              <button class="opt-chip" type="button">阿拉伯语</button>
+              <button class="opt-chip" type="button">泰语</button>
+              <button class="opt-chip" type="button">印尼语</button>
+              <button class="opt-chip" type="button">越南语</button>
+              <button class="opt-chip" type="button">韩语</button>
+              <button class="opt-chip" type="button">马来语</button>
+              <button class="opt-chip" type="button">蒙古语</button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-foot">
+          <div class="bg-foot-l">
+            <div class="bg-foot-t">处理内容</div>
+            <div class="bg-foot-s"><span class="foot-pts" id="suiteCntHint">4 张 × 1 语种 · 共 <b>20</b> 积分</span><span id="suiteDone"></span></div>
+          </div>
+          <button class="bg-start" id="suiteStart">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span id="suiteStartTxt">开始处理</span>
+            <span class="bg-start-pts" id="suitePts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="suitePtsNum" style="font-style:normal">20</i></span>
+          </button>
+        </div>
+      </div>
+      <div class="tcanvas">
+        <div class="th-card t-blue">
+          <span class="th-tag">电商套图</span>
+          <div class="th-title">整套上架素材</div>
+          <div class="th-sub">主图 · 场景 · 卖点 · 详情一次出齐</div>
+          <div class="th-shot">
+            <img src="images/web/t-suite.png" alt="">
           </div>
         </div>
       </div>
@@ -3772,7 +3943,7 @@ function renderCreditRule(body){
       '<tr><td>每日签到</td><td style="color:#10b981">可领取 +100 积分</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">🖼 图片生成单价（按张计费）</h4>'+
-    '<div class="formula">图片生成积分 = <code>单张单价</code> × <code>生成张数</code>（一键生图按生成类型加价，AI卖点图按文案语种数加价；商品换色固定单次 1 张）</div>'+
+    '<div class="formula">图片生成积分 = <code>单张单价</code> × <code>生成张数</code>（一键生图按生成类型加价，AI卖点图按文案语种数加价；商品换色固定单次 1 张；电商套图按套图模块数出图）</div>'+
     '<table><thead><tr><th>工具</th><th>单张单价</th></tr></thead><tbody>'+
       '<tr><td>白底图</td><td><b>6</b> 积分</td></tr>'+
       '<tr><td>去水印</td><td><b>5</b> 积分</td></tr>'+
@@ -3784,6 +3955,7 @@ function renderCreditRule(body){
       '<tr><td>商品换色</td><td><b>8</b> 积分 / 次（单次仅 1 张）</td></tr>'+
       '<tr><td>AI细节图</td><td><b>8</b> 积分</td></tr>'+
       '<tr><td>AI商品标尺图</td><td><b>6</b> 积分</td></tr>'+
+      '<tr><td>电商套图</td><td><b>5</b> 积分/张 × 套图模块数 × 语种数（详情页套图追加 <b>3</b> 张）</td></tr>'+
     '</tbody></table>'+
     '<table style="margin-top:8px"><thead><tr><th>生成张数</th><th>可选档位</th></tr></thead><tbody>'+
       '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张（商品换色固定 1 张）</td></tr>'+
@@ -3794,6 +3966,8 @@ function renderCreditRule(body){
       '<tr><td>标尺类型（AI商品标尺图）</td><td>长 × 宽 × 高 / 长 × 宽 / 高度 / 直径 / 周长，单选，不额外计费</td></tr>'+
       '<tr><td>标尺数值 / 文本（AI商品标尺图）</td><td>按类型填长宽高数值（单位 cm / mm / inch），或输入一段白话描述；留空由 AI 自动标注</td></tr>'+
       '<tr><td>目标花色（商品换色）</td><td>文字描述想要的花色 / 纹理，另有常用花色可点选填入；留空由 AI 自动匹配</td></tr>'+
+      '<tr><td>模特参考（试穿试用）</td><td>AI 自动匹配 / 上传我的模特图 / 平台模特库（亚洲女模 / 亚洲男模 / 欧美女模 / 童模 / 大码模特），选填，不额外计费</td></tr>'+
+      '<tr><td>电商套图</td><td>套图模块：白底主图 / 场景展示图 / 卖点信息图 / 细节特写图 / 尺寸标注图 / 模特展示图 / 多角度展示 / 包装展示图，可多选；目标平台：AI 通用 / Amazon / TikTok Shop / TEMU / 速卖通 / Shopee / 独立站，单选；比例 1:1 / 3:4 / 9:16</td></tr>'+
       '<tr><td>上传图片</td><td>每个工具单次仅支持上传 1 张待处理图片</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">💎 充值套餐</h4>'+
@@ -4256,8 +4430,8 @@ document.getElementById('closeHistory').onclick=function(){drawer.classList.remo
 overlay.addEventListener('click',function(){drawer.classList.remove('open');overlay.classList.remove('open');});
 
 /* ================= 图片处理 左侧导航切换 ================= */
-var IMG_TOOL_PAGES=['whitebg','watermark','erase','sellpoint','detail','tryon','recolor','ruler','oneclick'];
-var IMG_TOOL_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图'};
+var IMG_TOOL_PAGES=['whitebg','watermark','erase','sellpoint','detail','tryon','recolor','ruler','oneclick','suite'];
+var IMG_TOOL_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图',suite:'电商套图'};
 function switchITool(key){
   document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     b.classList.toggle('active', b.getAttribute('data-itool')===key);
@@ -4458,11 +4632,11 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
 
 /* ================= 图片处理工具页（白底图 / 去水印 / 局部消除 / 一键生图） ================= */
 (function(){
-  var TOOLS=['whitebg','watermark','erase','sellpoint','detail','tryon','recolor','ruler','oneclick'];
+  var TOOLS=['whitebg','watermark','erase','sellpoint','detail','tryon','recolor','ruler','oneclick','suite'];
   /* 每张基础积分（复用生视频同一套余额 / 明细 / 余额不足引导体系） */
-  var IMG_PRICE={whitebg:6,watermark:5,erase:8,oneclick:6,sellpoint:10,tryon:12,recolor:8,detail:8,ruler:6};
+  var IMG_PRICE={whitebg:6,watermark:5,erase:8,oneclick:6,sellpoint:10,tryon:12,recolor:8,detail:8,ruler:6,suite:5};
   var ONECLICK_TYPE_ADD=2;   /* 一键生图：每增加 1 个生成类型，每张 +2 积分 */
-  var IMG_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图'};
+  var IMG_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图',suite:'电商套图'};
   var THUMBS={
     whitebg:'images/upd-cushion.png',
     watermark:'images/upd-product.jpg',
@@ -4472,12 +4646,29 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     tryon:'images/web/t-tryon-item.png',
     recolor:'images/upd-cushion.png',
     detail:'images/upd-product.jpg',
-    ruler:'images/web/t-avocado.jpg'
+    ruler:'images/web/t-avocado.jpg',
+    suite:'images/web/t-suite.png'
   };
   /* 消除方式说明（随所选方式切换） */
   var ERASE_HINTS={
     '涂抹消除':'涂抹消除：手动圈选要移除的区域；文字替换：框选文字后自动识别并替换',
     '文字替换':'文字替换：框选文字后自动识别并替换为背景内容'
+  };
+  /* 电商套图：目标平台规范说明（随所选平台切换） */
+  var SUITE_PLAT_HINTS={
+    'AI 通用':'AI 通用规范：主图简洁干净、商品占比 60%–85%，适配多数平台上架',
+    'Amazon':'Amazon 规范：主图纯白背景、商品占比 ≥85%、主图禁止文字与水印；辅图可加场景与卖点',
+    'TikTok Shop':'TikTok Shop 规范：偏短视频封面风格，3:4 / 9:16 竖版表现更好，文案避免绝对化用语',
+    'TEMU':'TEMU 规范：白底主图 + 多场景辅图，主图商品占比高，风格贴近北美 buyers',
+    '速卖通':'速卖通规范：主图正方形白底，详情支持多模块长图，多语种文案按站点自动匹配',
+    'Shopee':'Shopee 规范：东南亚站点，主图纯色底为主，文案用当地语言不超过 8 词',
+    '独立站':'独立站规范：无平台限制，自由发挥场景与品牌调性，建议 2048px 以上正方形'
+  };
+  /* 试穿试用：模特参考说明（随所选方式切换） */
+  var TRYON_MOD_HINTS={
+    'AI 自动匹配':'不指定模特，AI 根据商品品类自动匹配标准模特身材与姿势',
+    '上传我的模特图':'AI 将按您上传的模特生成试穿效果，请确保已获得该人像的肖像授权',
+    '平台模特库':'从平台模特库选择一位模特，AI 按所选模特生成试穿效果'
   };
 
   function initTool(key){
@@ -4494,10 +4685,14 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var ptsNum=document.getElementById(key+'PtsNum');
     var cntHint=document.getElementById(key+'CntHint');
     var uploaded=false, running=false;
+    var preCheck=function(){return true;};                 /* 开始前附加校验（试穿模特图） */
     var langGroup=document.getElementById(key+'Langs');   /* 文案语种多选（AI卖点图） */
     var langHint=document.getElementById(key+'LangHint');
     var ratioGroup=document.getElementById(key+'Ratio');   /* 生图比例单选（AI卖点图） */
     var rulerGroup=document.getElementById(key+'Types');   /* 标尺类型单选（AI商品标尺图） */
+    var modGroup=document.getElementById(key+'Mods');      /* 套图模块多选（电商套图） */
+    var platGroup=document.getElementById(key+'Plats');    /* 目标平台单选（电商套图） */
+    var detailSw=document.getElementById(key+'DetailSw');  /* 详情页套图开关（电商套图） */
     function ready(){return uploaded;}
 
     /* ---- 生成张数与积分 ---- */
@@ -4532,6 +4727,12 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     function getRulerType(){
       if(!rulerGroup){return '';}
       var on=rulerGroup.querySelector('.opt-chip.on');
+      return on?on.textContent.trim():'';
+    }
+    /* 目标平台（电商套图）当前值 */
+    function getPlat(){
+      if(!platGroup){return '';}
+      var on=platGroup.querySelector('.opt-chip.on');
       return on?on.textContent.trim():'';
     }
     /* 标尺参数数值：随标尺类型变化的输入项 */
@@ -4588,10 +4789,28 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       if(key==='oneclick'){return IMG_PRICE.oneclick+(getTypes()-1)*ONECLICK_TYPE_ADD;}
       return IMG_PRICE[key]||6;
     }
-    function calcPts(){return unitPts()*getCnt()*getLangs();}
+    /* 电商套图：出图张数 = 套图模块数 +（详情页套图开启 ? 3 : 0），单张 5 积分 × 语种数 */
+    function getMods(){
+      if(!modGroup){return 1;}
+      var n=modGroup.querySelectorAll('.opt-chip.on').length;
+      return n||1;
+    }
+    function detailOn(){return !!(detailSw&&detailSw.classList.contains('on'));}
+    function suiteImgs(){return getMods()+(detailOn()?3:0);}
+    function calcPts(){
+      if(key==='suite'){return IMG_PRICE.suite*suiteImgs()*getLangs();}
+      return unitPts()*getCnt()*getLangs();
+    }
     function renderPts(){
       var amt=calcPts();
       if(ptsNum){ptsNum.textContent=amt;}
+      if(key==='suite'){
+        if(cntHint){cntHint.innerHTML=suiteImgs()+' 张 × '+getLangs()+' 语种 · 共 <b>'+amt+'</b> 积分';}
+        if(langHint){langHint.innerHTML='已选 <b>'+getLangs()+'</b> 个语种 · 共出图 <b>'+(suiteImgs()*getLangs())+'</b> 张';}
+        var mh=document.getElementById('suiteModHint');
+        if(mh){mh.innerHTML='已选 <b>'+getMods()+'</b> 个模块 · 共出图 <b>'+suiteImgs()+'</b> 张';}
+        return;
+      }
       if(cntHint){
         cntHint.innerHTML=(langGroup?(getCnt()+' 张 × '+getLangs()+' 语种'):(getCnt()+' 张'))+' · 共 <b>'+amt+'</b> 积分';
       }
@@ -4644,8 +4863,9 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     /* 多选标签（生成类型 / 突出细节 / 文案语种；张数组 .cnt-group、单选组 .single-group、快捷填入组 .fill-group 单独处理） */
     page.querySelectorAll('.opt-chips:not(.cnt-group):not(.single-group):not(.fill-group) .opt-chip').forEach(function(c){
       c.addEventListener('click',function(){
-        /* 语种至少保留 1 个，取消最后一个时抖动提示 */
-        if(langGroup&&langGroup.contains(c)&&c.classList.contains('on')&&langGroup.querySelectorAll('.opt-chip.on').length<=1){
+        /* 语种 / 套图模块至少保留 1 个，取消最后一个时抖动提示 */
+        var minOne=(langGroup&&langGroup.contains(c))||(modGroup&&modGroup.contains(c));
+        if(minOne&&c.classList.contains('on')&&c.parentElement.querySelectorAll('.opt-chip.on').length<=1){
           c.classList.add('shake');
           setTimeout(function(){c.classList.remove('shake');},400);
           return;
@@ -4661,6 +4881,11 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           g.querySelectorAll('.opt-chip').forEach(function(x){x.classList.remove('on');});
           c.classList.add('on');
           if(rulerGroup&&g===rulerGroup){renderRulerNums();}
+          if(platGroup&&g===platGroup){
+            var ph=document.getElementById('suitePlatHint');
+            if(ph&&SUITE_PLAT_HINTS[c.textContent.trim()]){ph.textContent=SUITE_PLAT_HINTS[c.textContent.trim()];}
+          }
+          if(key==='tryon'&&modModes&&g===modModes){renderTryonMod();}
           if(key==='erase'){
             var eh=document.getElementById('eraseHint');
             var lbl=c.textContent.trim();
@@ -4695,6 +4920,96 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       });
     }
 
+    /* 模特参考（试穿试用）：AI 自动匹配 / 上传我的模特图 / 平台模特库 */
+    var modModes=document.getElementById(key+'ModModes');
+    var modDrop=document.getElementById(key+'ModDrop');
+    var modInner=document.getElementById(key+'ModDropInner');
+    var modLib=document.getElementById(key+'ModLib');
+    var modHint=document.getElementById(key+'ModHint');
+    var modUploaded=false, modName='';
+    function tryonMode(){
+      if(!modModes){return '';}
+      var on=modModes.querySelector('.opt-chip.on');
+      return on?on.textContent.trim():'AI 自动匹配';
+    }
+    function renderTryonMod(){
+      if(!modModes){return;}
+      var m=tryonMode();
+      if(modDrop){modDrop.style.display=(m==='上传我的模特图')?'':'none';}
+      if(modLib){modLib.style.display=(m==='平台模特库')?'grid':'none';}
+      if(modHint&&TRYON_MOD_HINTS[m]){modHint.textContent=TRYON_MOD_HINTS[m];}
+      renderPts();
+    }
+    if(key==='tryon'&&modModes){
+      /* 附加校验：选择「上传我的模特图」时必须已上传 */
+      preCheck=function(){
+        if(tryonMode()==='上传我的模特图'&&!modUploaded){
+          if(modDrop){modDrop.classList.add('shake');setTimeout(function(){modDrop.classList.remove('shake');},430);}
+          return false;
+        }
+        return true;
+      };
+      function renderModDrop(){
+        if(!modInner||!modDrop){return;}
+        modInner.innerHTML='';
+        modDrop.classList.toggle('filled',modUploaded);
+        if(!modUploaded){
+          modInner.innerHTML='<span class="plus">+</span><span class="t">上传模特图</span>';
+        }else{
+          var wrap=document.createElement('div');
+          wrap.className='bg-thumb';
+          var img=document.createElement('img');
+          img.src='images/web/m-female-asian.png'; img.alt='模特参考图';
+          var nm=document.createElement('span');
+          nm.className='bg-thumb-name';
+          nm.textContent='我的模特图-01.png';
+          var x=document.createElement('button');
+          x.type='button';
+          x.className='bg-thumb-x';
+          x.setAttribute('aria-label','移除模特图');
+          x.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+          x.addEventListener('click',function(e){
+            e.stopPropagation();
+            modUploaded=false;
+            renderModDrop();
+          });
+          wrap.appendChild(img); wrap.appendChild(nm); wrap.appendChild(x);
+          modInner.appendChild(wrap);
+        }
+      }
+      modDrop.addEventListener('click',function(){
+        if(modUploaded||running){return;}
+        modUploaded=true;
+        renderModDrop();
+      });
+      /* 模特库单选，可再点取消 */
+      if(modLib){
+        modLib.querySelectorAll('.mod-card').forEach(function(card){
+          card.addEventListener('click',function(){
+            var on=card.classList.contains('on');
+            modLib.querySelectorAll('.mod-card').forEach(function(x){x.classList.remove('on');});
+            if(on){modName='';}
+            else{card.classList.add('on');modName=card.getAttribute('data-n')||card.querySelector('.mod-name').textContent;}
+          });
+        });
+      }
+      renderModDrop();
+    }
+
+    /* 详情页套图开关（电商套图）：追加 3 张详情页模块 */
+    if(key==='suite'&&detailSw){
+      detailSw.addEventListener('click',function(){
+        detailSw.classList.toggle('on');
+        var dh=document.getElementById('suiteDetailHint');
+        if(dh){
+          dh.textContent=detailOn()
+            ?'已开启：追加详情页模块 首屏视觉 / 核心卖点 / 参数展示，共 3 张，按 5 积分/张计入'
+            :'开启后追加详情页模块：首屏视觉 / 核心卖点 / 参数展示，共 3 张';
+        }
+        renderPts();
+      });
+    }
+
     /* 生成张数（单选） */
     if(cntGroup){
       cntGroup.querySelectorAll('.opt-chip').forEach(function(c){
@@ -4714,6 +5029,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           if(drop){drop.classList.add('shake');setTimeout(function(){drop.classList.remove('shake');},430);}
           return;
         }
+        if(!preCheck()){return;}
         var amt=calcPts();
         var bal=getBalance();
         if(bal<amt){
@@ -4734,7 +5050,9 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           if(startTxt){startTxt.textContent=(key==='erase'?'应用消除':'开始处理');}
           running=false;
           var n=getCnt();
-          var logTxt=langGroup?('AI卖点图 '+n+' 张 × '+getLangs()+' 语种'+(getRatio()?' · '+getRatio():'')+' · '+amt+' 积分')
+          var logTxt=(key==='suite')?('电商套图 '+getPlat()+' · '+getMods()+' 模块'+(detailOn()?' + 详情页 3 张':'')+' · '+(getRatio()||'1:1')+' · '+getLangs()+' 语种 · '+amt+' 积分')
+                    :(key==='tryon')?('试穿试用 · '+(tryonMode()==='上传我的模特图'?'我的模特图':tryonMode()==='平台模特库'?('模特库 · '+(modName||'未选')):'AI 自动匹配模特')+' · '+n+' 张 · '+amt+' 积分')
+                    :langGroup?('AI卖点图 '+n+' 张 × '+getLangs()+' 语种'+(getRatio()?' · '+getRatio():'')+' · '+amt+' 积分')
                     :(rulerGroup?('AI商品标尺图 '+getRulerType()+' · '+(rulerSpec()||'按商品比例自动标注')+' · '+n+' 张 · '+amt+' 积分')
                     :(quick?('商品换色 · '+((desc&&desc.value.trim())||'AI 自动匹配同品类热卖花色')+' · 1 张 · '+amt+' 积分')
                     :('生成扣减 · '+amt+' 积分')));
@@ -4742,6 +5060,8 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           if(num){num.textContent=n;}
           if(done){
             if(key==='erase'){done.textContent='已完成 '+n+' 张 · 已扣 '+amt+' 积分';}
+            else if(key==='suite'){done.innerHTML='<span class="done">已生成 '+(suiteImgs()*getLangs())+' 张图（'+getMods()+' 模块'+(detailOn()?' + 详情页 3 张':'')+' × '+getLangs()+' 语种）· 已扣 '+amt+' 积分</span>';}
+            else if(key==='tryon'){done.innerHTML='<span class="done">已生成 '+n+' 张试穿图 · 已扣 '+amt+' 积分</span>';}
             else if(langGroup){done.innerHTML='<span class="done">已生成 '+(n*getLangs())+' 张图（'+n+' 张 × '+getLangs()+' 语种）· 已扣 '+amt+' 积分</span>';}
             else if(quick){done.innerHTML='<span class="done">已换成「'+((desc&&desc.value.trim())||'AI 自动匹配花色')+'」· 已扣 '+amt+' 积分</span>';}
             else{done.innerHTML='<span class="done">已完成 · 已扣 '+amt+' 积分</span>';}
