@@ -742,6 +742,12 @@
   .bg-foot-s{font-size:12px;color:var(--gray-500);margin-top:3px;}
   .bg-foot-s .done{display:block;font-size:11.5px;color:#059669;font-weight:600;margin-top:2px;line-height:1.35;}
   .bg-foot-s b{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .bg-foot-s .foot-pts{font-size:12px;color:var(--gray-500);font-variant-numeric:tabular-nums;}
+  .bg-foot-s .foot-pts b{color:var(--acc,var(--purple));}
+  .er-foot{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:9px;}
+  .er-foot .foot-pts{font-size:12px;color:var(--gray-500);font-variant-numeric:tabular-nums;}
+  .er-foot .foot-pts b{color:var(--acc);font-weight:700;}
+  .er-foot .opt-sub.done{margin-top:0;text-align:right;flex:none;}
   .bg-start{flex:none;height:38px;padding:0 18px;border-radius:9px;background:linear-gradient(135deg,#8b5cf6 0%,#d946ef 55%,#ec4899 100%);color:#fff;font-size:13.5px;font-weight:700;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 13px rgba(168,85,247,.32);transition:filter .18s;}
   .bg-start svg{width:14px;height:14px;flex:none;}
   .bg-start:hover{filter:brightness(1.07);}
@@ -1225,13 +1231,11 @@
         <div class="bg-sec">
           <div class="bg-sec-head">
             <span class="bg-sec-name req">生成张数</span>
-            <span class="bg-sec-cnt cnt-pts" id="bgCntHint">1 张 · 共 <b>8</b> 积分</span>
           </div>
           <div class="opt-chips cnt-group" id="bgCntGroup">
             <button class="opt-chip on" type="button">1张</button>
             <button class="opt-chip" type="button">2张</button>
             <button class="opt-chip" type="button">4张</button>
-            <button class="opt-chip" type="button">9张</button>
           </div>
           <div class="opt-sub">按所选张数批量生成，单张 8 积分；余额不足时可前往「充值」补充</div>
         </div>
@@ -1287,7 +1291,7 @@
       <div class="bg-foot">
         <div class="bg-foot-l">
           <div class="bg-foot-t">处理内容</div>
-          <div class="bg-foot-s">AI换背景 · <b id="bgCount">0</b> 张<span id="bgDone"></span></div>
+          <div class="bg-foot-s"><span class="foot-pts" id="bgCntHint">1 张 · 共 <b>8</b> 积分</span><span id="bgDone"></span></div>
         </div>
         <button class="bg-start" id="bgStart">
           <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -1350,13 +1354,11 @@
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
-              <span class="bg-sec-cnt cnt-pts" id="whitebgCntHint">1 张 · 共 <b>6</b> 积分</span>
             </div>
             <div class="opt-chips cnt-group" id="whitebgCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
-              <button class="opt-chip" type="button">9张</button>
             </div>
             <div class="opt-sub">按所选张数批量输出，单张 6 积分</div>
           </div>
@@ -1364,7 +1366,7 @@
         <div class="bg-foot">
           <div class="bg-foot-l">
             <div class="bg-foot-t">处理内容</div>
-            <div class="bg-foot-s">白底图 · <b id="whitebgNum">0</b> 张<span id="whitebgDone"></span></div>
+            <div class="bg-foot-s"><span class="foot-pts" id="whitebgCntHint">1 张 · 共 <b>6</b> 积分</span><span id="whitebgDone"></span></div>
           </div>
           <button class="bg-start" id="whitebgStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -1414,13 +1416,11 @@
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
-              <span class="bg-sec-cnt cnt-pts" id="watermarkCntHint">1 张 · 共 <b>5</b> 积分</span>
             </div>
             <div class="opt-chips cnt-group" id="watermarkCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
-              <button class="opt-chip" type="button">9张</button>
             </div>
             <div class="opt-sub">按所选张数批量去水印，单张 5 积分</div>
           </div>
@@ -1428,7 +1428,7 @@
         <div class="bg-foot">
           <div class="bg-foot-l">
             <div class="bg-foot-t">处理内容</div>
-            <div class="bg-foot-s">去水印 · <b id="watermarkNum">0</b> 张<span id="watermarkDone"></span></div>
+            <div class="bg-foot-s"><span class="foot-pts" id="watermarkCntHint">1 张 · 共 <b>5</b> 积分</span><span id="watermarkDone"></span></div>
           </div>
           <button class="bg-start" id="watermarkStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -1486,16 +1486,17 @@
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
-              <span class="bg-sec-cnt cnt-pts" id="eraseCntHint">1 张 · 共 <b>8</b> 积分</span>
             </div>
             <div class="opt-chips cnt-group" id="eraseCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
-              <button class="opt-chip" type="button">9张</button>
             </div>
             <div class="opt-sub">按所选张数批量消除，单张 8 积分</div>
-            <span class="opt-sub done" id="eraseDone"></span>
+            <div class="er-foot">
+              <span class="foot-pts" id="eraseCntHint">1 张 · 共 <b>8</b> 积分</span>
+              <span class="opt-sub done" id="eraseDone"></span>
+            </div>
             <button class="bg-start inline" id="eraseStart">
               <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               <span id="eraseStartTxt">应用消除</span>
@@ -1563,13 +1564,11 @@
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
-              <span class="bg-sec-cnt cnt-pts" id="oneclickCntHint">1 张 · 共 <b>8</b> 积分</span>
             </div>
             <div class="opt-chips cnt-group" id="oneclickCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
-              <button class="opt-chip" type="button">9张</button>
             </div>
             <div class="opt-sub">按类型与张数计费：每张 6 积分，每增加 1 个生成类型 +2 积分</div>
           </div>
@@ -1577,7 +1576,7 @@
         <div class="bg-foot">
           <div class="bg-foot-l">
             <div class="bg-foot-t">处理内容</div>
-            <div class="bg-foot-s">一键生图 · <b id="oneclickNum">0</b> 张<span id="oneclickDone"></span></div>
+            <div class="bg-foot-s"><span class="foot-pts" id="oneclickCntHint">1 张 · 共 <b>8</b> 积分</span><span id="oneclickDone"></span></div>
           </div>
           <button class="bg-start" id="oneclickStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -1627,7 +1626,9 @@
             </div>
             <div class="opt-chips" id="sellpointChips">
               <button class="opt-chip" type="button">核心功能</button>
+              <button class="opt-chip" type="button">性能优势</button>
               <button class="opt-chip" type="button">材质工艺</button>
+              <button class="opt-chip" type="button">设计亮点</button>
               <button class="opt-chip" type="button">使用场景</button>
               <button class="opt-chip" type="button">服务承诺</button>
               <button class="opt-chip" type="button">促销活动</button>
@@ -1661,17 +1662,28 @@
             <div class="opt-sub">可多选，每种语言输出一套卖点文案；与视频翻译一致，按语种数计入积分</div>
           </div>
 
+          <!-- 生图比例 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生图比例</span>
+            </div>
+            <div class="opt-chips single-group" id="sellpointRatio">
+              <button class="opt-chip on" type="button">1:1</button>
+              <button class="opt-chip" type="button">4:3</button>
+              <button class="opt-chip" type="button">16:9</button>
+            </div>
+            <div class="opt-sub">1:1 适配平台主图，4:3 适配详情页，16:9 适配横幅与封面</div>
+          </div>
+
           <!-- 生成张数 -->
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
-              <span class="bg-sec-cnt cnt-pts" id="sellpointCntHint">1 张 · 共 <b>10</b> 积分</span>
             </div>
             <div class="opt-chips cnt-group" id="sellpointCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
-              <button class="opt-chip" type="button">9张</button>
             </div>
             <div class="opt-sub">按所选张数批量输出，单张 10 积分 × 语种数</div>
           </div>
@@ -1679,7 +1691,7 @@
         <div class="bg-foot">
           <div class="bg-foot-l">
             <div class="bg-foot-t">处理内容</div>
-            <div class="bg-foot-s">AI卖点图 · <b id="sellpointNum">0</b> 张<span id="sellpointDone"></span></div>
+            <div class="bg-foot-s"><span class="foot-pts" id="sellpointCntHint">1 张 · 共 <b>10</b> 积分</span><span id="sellpointDone"></span></div>
           </div>
           <button class="bg-start" id="sellpointStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -1742,13 +1754,11 @@
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
-              <span class="bg-sec-cnt cnt-pts" id="tryonCntHint">1 张 · 共 <b>12</b> 积分</span>
             </div>
             <div class="opt-chips cnt-group" id="tryonCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
-              <button class="opt-chip" type="button">9张</button>
             </div>
             <div class="opt-sub">按所选张数批量输出，单张 12 积分</div>
           </div>
@@ -1756,7 +1766,7 @@
         <div class="bg-foot">
           <div class="bg-foot-l">
             <div class="bg-foot-t">处理内容</div>
-            <div class="bg-foot-s">试穿试用 · <b id="tryonNum">0</b> 张<span id="tryonDone"></span></div>
+            <div class="bg-foot-s"><span class="foot-pts" id="tryonCntHint">1 张 · 共 <b>12</b> 积分</span><span id="tryonDone"></span></div>
           </div>
           <button class="bg-start" id="tryonStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -1823,13 +1833,11 @@
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
-              <span class="bg-sec-cnt cnt-pts" id="recolorCntHint">1 张 · 共 <b>8</b> 积分</span>
             </div>
             <div class="opt-chips cnt-group" id="recolorCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
-              <button class="opt-chip" type="button">9张</button>
             </div>
             <div class="opt-sub">按颜色数与张数计费：单色 8 积分/张，每多 1 个颜色 +2 积分</div>
           </div>
@@ -1837,7 +1845,7 @@
         <div class="bg-foot">
           <div class="bg-foot-l">
             <div class="bg-foot-t">处理内容</div>
-            <div class="bg-foot-s">商品换色 · <b id="recolorNum">0</b> 张<span id="recolorDone"></span></div>
+            <div class="bg-foot-s"><span class="foot-pts" id="recolorCntHint">1 张 · 共 <b>8</b> 积分</span><span id="recolorDone"></span></div>
           </div>
           <button class="bg-start" id="recolorStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -1883,29 +1891,45 @@
           </div>
           <div class="bg-sec">
             <div class="bg-sec-head">
-              <span class="bg-sec-name req">细节类型</span>
+              <span class="bg-sec-name req">突出细节</span>
             </div>
             <div class="opt-chips" id="detailChips">
-              <button class="opt-chip" type="button">材质特写</button>
-              <button class="opt-chip" type="button">工艺细节</button>
-              <button class="opt-chip" type="button">局部放大</button>
+              <button class="opt-chip" type="button">材质纹理</button>
+              <button class="opt-chip" type="button">工艺接缝</button>
+              <button class="opt-chip" type="button">功能按键</button>
+              <button class="opt-chip" type="button">品牌标识</button>
+              <button class="opt-chip" type="button">包装细节</button>
+              <button class="opt-chip" type="button">配件细节</button>
               <button class="opt-chip" type="button">内部结构</button>
-              <button class="opt-chip" type="button">包装清单</button>
+              <button class="opt-chip" type="button">表面处理</button>
             </div>
-            <div class="opt-sub">可多选，AI 将围绕所选类型生成细节特写；不选则自动识别</div>
+            <div class="opt-sub">可多选，AI 将围绕所选细节生成特写；不选则自动识别</div>
+          </div>
+
+          <!-- 展示形式 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name">展示形式</span>
+            </div>
+            <div class="opt-chips single-group" id="detailForm">
+              <button class="opt-chip on" type="button">单细节展示</button>
+              <button class="opt-chip" type="button">多细节拼接展示</button>
+              <button class="opt-chip" type="button">细节+功能关联</button>
+              <button class="opt-chip" type="button">细节+材质对比</button>
+              <button class="opt-chip" type="button">细节+使用痕迹</button>
+            </div>
+            <div class="opt-sub">单选，决定细节图的呈现方式；默认单细节展示</div>
           </div>
 
           <!-- 生成张数 -->
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
-              <span class="bg-sec-cnt cnt-pts" id="detailCntHint">1 张 · 共 <b>8</b> 积分</span>
             </div>
             <div class="opt-chips cnt-group" id="detailCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
-              <button class="opt-chip" type="button">9张</button>
             </div>
             <div class="opt-sub">按所选张数批量输出，单张 8 积分</div>
           </div>
@@ -1913,7 +1937,7 @@
         <div class="bg-foot">
           <div class="bg-foot-l">
             <div class="bg-foot-t">处理内容</div>
-            <div class="bg-foot-s">AI细节图 · <b id="detailNum">0</b> 张<span id="detailDone"></span></div>
+            <div class="bg-foot-s"><span class="foot-pts" id="detailCntHint">1 张 · 共 <b>8</b> 积分</span><span id="detailDone"></span></div>
           </div>
           <button class="bg-start" id="detailStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -1978,13 +2002,11 @@
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
-              <span class="bg-sec-cnt cnt-pts" id="rulerCntHint">1 张 · 共 <b>6</b> 积分</span>
             </div>
             <div class="opt-chips cnt-group" id="rulerCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
               <button class="opt-chip" type="button">4张</button>
-              <button class="opt-chip" type="button">9张</button>
             </div>
             <div class="opt-sub">按所选张数批量输出，单张 6 积分</div>
           </div>
@@ -1992,7 +2014,7 @@
         <div class="bg-foot">
           <div class="bg-foot-l">
             <div class="bg-foot-t">处理内容</div>
-            <div class="bg-foot-s">AI商品标尺图 · <b id="rulerNum">0</b> 张<span id="rulerDone"></span></div>
+            <div class="bg-foot-s"><span class="foot-pts" id="rulerCntHint">1 张 · 共 <b>6</b> 积分</span><span id="rulerDone"></span></div>
           </div>
           <button class="bg-start" id="rulerStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -3756,7 +3778,10 @@ function renderCreditRule(body){
       '<tr><td>AI商品标尺图</td><td><b>6</b> 积分</td></tr>'+
     '</tbody></table>'+
     '<table style="margin-top:8px"><thead><tr><th>生成张数</th><th>可选档位</th></tr></thead><tbody>'+
-      '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张 / 9 张</td></tr>'+
+      '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张</td></tr>'+
+      '<tr><td>生图比例（AI卖点图）</td><td>1:1 / 4:3 / 16:9，单选，不额外计费</td></tr>'+
+      '<tr><td>突出细节（AI细节图）</td><td>材质纹理 / 工艺接缝 / 功能按键 / 品牌标识 / 包装细节 / 配件细节 / 内部结构 / 表面处理，可多选</td></tr>'+
+      '<tr><td>展示形式（AI细节图）</td><td>单细节展示 / 多细节拼接展示 / 细节+功能关联 / 细节+材质对比 / 细节+使用痕迹，单选</td></tr>'+
       '<tr><td>文案语种（AI卖点图）</td><td>中文 / 英语 / 阿拉伯语 / 泰语 / 印尼语 / 越南语 / 韩语 / 马来语 / 蒙古语，可多选</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">💎 充值套餐</h4>'+
@@ -4463,6 +4488,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var uploaded2=false;
     var langGroup=document.getElementById(key+'Langs');   /* 文案语种多选（AI卖点图） */
     var langHint=document.getElementById(key+'LangHint');
+    var ratioGroup=document.getElementById(key+'Ratio');   /* 生图比例单选（AI卖点图） */
     function ready(){return uploaded&&(!drop2||uploaded2);}
 
     /* ---- 生成张数与积分 ---- */
@@ -4473,7 +4499,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       return (isNaN(n)||n<1)?1:n;
     }
     function getTypes(){
-      var sel=page.querySelectorAll('.opt-chips:not(.cnt-group) .opt-chip.on');
+      var sel=page.querySelectorAll('.opt-chips:not(.cnt-group):not(.single-group) .opt-chip.on');
       return sel.length||1;
     }
     /* 语种数（AI卖点图）：与视频翻译一致，按语种数做倍数计费 */
@@ -4486,6 +4512,12 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       var out=[];
       if(langGroup){langGroup.querySelectorAll('.opt-chip.on').forEach(function(c){out.push(c.textContent.trim());});}
       return out;
+    }
+    /* 生图比例（单选组）当前值 */
+    function getRatio(){
+      if(!ratioGroup){return '';}
+      var on=ratioGroup.querySelector('.opt-chip.on');
+      return on?on.textContent.trim():'';
     }
     function unitPts(){
       if(key==='oneclick'){return IMG_PRICE.oneclick+(getTypes()-1)*ONECLICK_TYPE_ADD;}
@@ -4585,8 +4617,8 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       });
     });
 
-    /* 多选标签（生成类型 / 文案语种；张数组 .cnt-group 单独处理） */
-    page.querySelectorAll('.opt-chips:not(.cnt-group) .opt-chip').forEach(function(c){
+    /* 多选标签（生成类型 / 突出细节 / 文案语种；张数组 .cnt-group、单选组 .single-group 单独处理） */
+    page.querySelectorAll('.opt-chips:not(.cnt-group):not(.single-group) .opt-chip').forEach(function(c){
       c.addEventListener('click',function(){
         /* 语种至少保留 1 个，取消最后一个时抖动提示 */
         if(langGroup&&langGroup.contains(c)&&c.classList.contains('on')&&langGroup.querySelectorAll('.opt-chip.on').length<=1){
@@ -4595,6 +4627,16 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           return;
         }
         c.classList.toggle('on'); renderPts();
+      });
+    });
+
+    /* 单选标签（生图比例 / 展示形式） */
+    page.querySelectorAll('.opt-chips.single-group').forEach(function(g){
+      g.querySelectorAll('.opt-chip').forEach(function(c){
+        c.addEventListener('click',function(){
+          g.querySelectorAll('.opt-chip').forEach(function(x){x.classList.remove('on');});
+          c.classList.add('on'); renderPts();
+        });
       });
     });
 
@@ -4638,7 +4680,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           if(startTxt){startTxt.textContent=(key==='erase'?'应用消除':'开始处理');}
           running=false;
           var n=getCnt();
-          spendCredits(amt,IMG_NAMES[key],langGroup?('AI卖点图 '+n+' 张 × '+getLangs()+' 语种 · '+amt+' 积分'):('生成扣减 · '+amt+' 积分'));
+          spendCredits(amt,IMG_NAMES[key],langGroup?('AI卖点图 '+n+' 张 × '+getLangs()+' 语种'+(getRatio()?' · '+getRatio():'')+' · '+amt+' 积分'):('生成扣减 · '+amt+' 积分'));
           if(num){num.textContent=n;}
           if(done){
             if(key==='erase'){done.textContent='已完成 '+n+' 张 · 已扣 '+amt+' 积分';}
