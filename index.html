@@ -769,6 +769,12 @@
   .tpanel.a-cyan{--acc:#0e7490;--acc-50:#e5f5f9;}
   .tpanel.a-slate{--acc:#475569;--acc-50:#edf1f5;}
   .tpanel>.bg-scroll{flex:1;min-height:0;overflow-y:auto;padding-bottom:14px;}
+  /* 功能标题（图片处理各 tab 顶部，对齐视频面板的 vp-title / vp-sub） */
+  .tp-head{flex:none;padding:13px 22px 11px;border-bottom:1px solid var(--gray-100);}
+  .tp-head .tp-title{font-size:15px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:7px;line-height:1.3;}
+  .tp-head .tp-title::before{content:'';width:3px;height:13px;border-radius:2px;background:var(--acc,var(--purple));flex:none;}
+  .tp-head .tp-sub{font-size:12px;color:var(--gray-500);margin-top:3px;padding-left:10px;line-height:1.5;}
+  .panel>.tp-head{padding-left:16px;padding-right:16px;border-bottom:none;}
   .tcanvas{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;background:#f5f6fa;overflow:auto;padding:24px;}
 
   /* 标题右侧计数 0/9张 */
@@ -790,6 +796,8 @@
   .opt-chip svg{display:none;}
   .opt-chip.on svg{display:block;}
   .opt-chip .cdot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(17,24,39,.14);flex:none;display:block;}
+  .opt-chip.shake{animation:chipShake .38s;}
+  @keyframes chipShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
 
   /* 右侧画布示例卡 */
   .th-card{width:270px;flex:none;border-radius:16px;padding:18px 16px 16px;text-align:center;box-shadow:0 2px 12px rgba(17,24,39,.05);}
@@ -1076,6 +1084,10 @@
 
     <!-- ===== Left upload panel ===== -->
     <aside class="panel" id="imgPanel">
+      <div class="tp-head">
+        <div class="tp-title">图片处理</div>
+        <div class="tp-sub">上传商品图，一键抠图 / 变清晰 / 扩图</div>
+      </div>
       <div class="panel-head">
         <div class="panel-title"><span style="color:var(--red)">*</span>上传商品图片</div>
         <div class="panel-count"><b>2</b> <span style="color:var(--gray-400)">/</span> 3</div>
@@ -1189,6 +1201,10 @@
     <!-- ============ AI换背景（左操作区 + 右画布） ============ -->
     <section class="tpage" id="ipanel-bg" style="display:none">
       <div class="tpanel">
+      <div class="tp-head">
+        <div class="tp-title">AI换背景</div>
+        <div class="tp-sub">替换或生成商品背景，主体边缘自然保留</div>
+      </div>
       <div class="bg-scroll">
 
         <!-- 待调整图片 -->
@@ -1311,6 +1327,10 @@
     <!-- ============================================================ -->
     <section class="tpage" id="ipanel-whitebg" style="display:none">
       <div class="tpanel a-green">
+        <div class="tp-head">
+          <div class="tp-title">白底图</div>
+          <div class="tp-sub">一键去除背景，输出纯白底商品图</div>
+        </div>
         <div class="bg-scroll">
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -1372,6 +1392,10 @@
     <!-- ============================================================ -->
     <section class="tpage" id="ipanel-watermark" style="display:none">
       <div class="tpanel a-brown">
+        <div class="tp-head">
+          <div class="tp-title">去水印</div>
+          <div class="tp-sub">智能识别并擦除图片中的水印与文字</div>
+        </div>
         <div class="bg-scroll">
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -1432,6 +1456,10 @@
     <!-- ============================================================ -->
     <section class="tpage" id="ipanel-erase" style="display:none">
       <div class="tpanel a-teal">
+        <div class="tp-head">
+          <div class="tp-title">局部消除</div>
+          <div class="tp-sub">涂抹或框选，AI 自然填补被移除的区域</div>
+        </div>
         <div class="bg-scroll">
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -1500,6 +1528,10 @@
     <!-- ============================================================ -->
     <section class="tpage" id="ipanel-oneclick" style="display:none">
       <div class="tpanel">
+        <div class="tp-head">
+          <div class="tp-title">一键生图</div>
+          <div class="tp-sub">一次上传商品图，批量输出多种上架素材</div>
+        </div>
         <div class="bg-scroll">
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -1571,6 +1603,10 @@
     <!-- ============================================================ -->
     <section class="tpage" id="ipanel-sellpoint" style="display:none">
       <div class="tpanel a-pink">
+        <div class="tp-head">
+          <div class="tp-title">AI卖点图</div>
+          <div class="tp-sub">自动提炼卖点文案，排版生成营销主图</div>
+        </div>
         <div class="bg-scroll">
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -1605,6 +1641,26 @@
             <textarea class="vp-ta" id="sellpointKw" rows="2" placeholder="描述商品卖点，如「续航 48 小时 · IPX7 防水 · 一年换新」，留空则由 AI 自动提炼"></textarea>
           </div>
 
+          <!-- 文案语种 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">文案语种</span>
+              <span class="bg-sec-cnt cnt-pts" id="sellpointLangHint">已选 <b>1</b> 个语种</span>
+            </div>
+            <div class="opt-chips" id="sellpointLangs">
+              <button class="opt-chip on" type="button">中文</button>
+              <button class="opt-chip" type="button">英语</button>
+              <button class="opt-chip" type="button">阿拉伯语</button>
+              <button class="opt-chip" type="button">泰语</button>
+              <button class="opt-chip" type="button">印尼语</button>
+              <button class="opt-chip" type="button">越南语</button>
+              <button class="opt-chip" type="button">韩语</button>
+              <button class="opt-chip" type="button">马来语</button>
+              <button class="opt-chip" type="button">蒙古语</button>
+            </div>
+            <div class="opt-sub">可多选，每种语言输出一套卖点文案；与视频翻译一致，按语种数计入积分</div>
+          </div>
+
           <!-- 生成张数 -->
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -1617,7 +1673,7 @@
               <button class="opt-chip" type="button">4张</button>
               <button class="opt-chip" type="button">9张</button>
             </div>
-            <div class="opt-sub">按所选张数批量输出，单张 10 积分</div>
+            <div class="opt-sub">按所选张数批量输出，单张 10 积分 × 语种数</div>
           </div>
         </div>
         <div class="bg-foot">
@@ -1636,7 +1692,7 @@
         <div class="th-card t-pink">
           <span class="th-tag">AI卖点图</span>
           <div class="th-title">一图讲清卖点</div>
-          <div class="th-sub">文案自动提炼 · 排版上图</div>
+          <div class="th-sub">多语种文案 · 排版上图</div>
           <div class="th-shot">
             <img src="images/web/t-sellpoint.png" alt="">
             <span class="th-badge l dark">商品图</span>
@@ -1651,6 +1707,10 @@
     <!-- ============================================================ -->
     <section class="tpage" id="ipanel-tryon" style="display:none">
       <div class="tpanel a-blue">
+        <div class="tp-head">
+          <div class="tp-title">试穿试用</div>
+          <div class="tp-sub">模特与服装合成，生成真实上身效果图</div>
+        </div>
         <div class="bg-scroll">
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -1724,6 +1784,10 @@
     <!-- ============================================================ -->
     <section class="tpage" id="ipanel-recolor" style="display:none">
       <div class="tpanel a-amber">
+        <div class="tp-head">
+          <div class="tp-title">商品换色</div>
+          <div class="tp-sub">一键切换商品配色，批量输出多色版本</div>
+        </div>
         <div class="bg-scroll">
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -1799,6 +1863,10 @@
     <!-- ============================================================ -->
     <section class="tpage" id="ipanel-detail" style="display:none">
       <div class="tpanel a-cyan">
+        <div class="tp-head">
+          <div class="tp-title">AI细节图</div>
+          <div class="tp-sub">放大材质与工艺细节，突出商品品质感</div>
+        </div>
         <div class="bg-scroll">
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -1871,6 +1939,10 @@
     <!-- ============================================================ -->
     <section class="tpage" id="ipanel-ruler" style="display:none">
       <div class="tpanel a-slate">
+        <div class="tp-head">
+          <div class="tp-title">AI商品标尺图</div>
+          <div class="tp-sub">标注尺寸与比例参照，直观展示商品大小</div>
+        </div>
         <div class="bg-scroll">
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -3670,14 +3742,14 @@ function renderCreditRule(body){
       '<tr><td>每日签到</td><td style="color:#10b981">可领取 +100 积分</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">🖼 图片生成单价（按张计费）</h4>'+
-    '<div class="formula">图片生成积分 = <code>单张单价</code> × <code>生成张数</code>（一键生图按生成类型加价，商品换色按颜色数加价）</div>'+
+    '<div class="formula">图片生成积分 = <code>单张单价</code> × <code>生成张数</code>（一键生图按生成类型加价，商品换色按颜色数加价，AI卖点图按文案语种数加价）</div>'+
     '<table><thead><tr><th>工具</th><th>单张单价</th></tr></thead><tbody>'+
       '<tr><td>白底图</td><td><b>6</b> 积分</td></tr>'+
       '<tr><td>去水印</td><td><b>5</b> 积分</td></tr>'+
       '<tr><td>局部消除</td><td><b>8</b> 积分</td></tr>'+
       '<tr><td>AI换背景</td><td><b>8</b> 积分</td></tr>'+
       '<tr><td>一键生图</td><td><b>6</b> 积分 + 每多 1 个类型 <b>+2</b></td></tr>'+
-      '<tr><td>AI卖点图</td><td><b>10</b> 积分</td></tr>'+
+      '<tr><td>AI卖点图</td><td><b>10</b> 积分 × 文案语种数</td></tr>'+
       '<tr><td>试穿试用</td><td><b>12</b> 积分</td></tr>'+
       '<tr><td>商品换色</td><td><b>8</b> 积分 + 每多 1 个颜色 <b>+2</b></td></tr>'+
       '<tr><td>AI细节图</td><td><b>8</b> 积分</td></tr>'+
@@ -3685,6 +3757,7 @@ function renderCreditRule(body){
     '</tbody></table>'+
     '<table style="margin-top:8px"><thead><tr><th>生成张数</th><th>可选档位</th></tr></thead><tbody>'+
       '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张 / 9 张</td></tr>'+
+      '<tr><td>文案语种（AI卖点图）</td><td>中文 / 英语 / 阿拉伯语 / 泰语 / 印尼语 / 越南语 / 韩语 / 马来语 / 蒙古语，可多选</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">💎 充值套餐</h4>'+
     '<table><thead><tr><th>套餐</th><th>价格</th><th>实得积分</th></tr></thead><tbody>'+
@@ -4388,6 +4461,8 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var drop2=document.getElementById(key+'Drop2');       /* 第二上传位（试穿试用：服装图） */
     var inner2=document.getElementById(key+'DropInner2');
     var uploaded2=false;
+    var langGroup=document.getElementById(key+'Langs');   /* 文案语种多选（AI卖点图） */
+    var langHint=document.getElementById(key+'LangHint');
     function ready(){return uploaded&&(!drop2||uploaded2);}
 
     /* ---- 生成张数与积分 ---- */
@@ -4401,16 +4476,30 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       var sel=page.querySelectorAll('.opt-chips:not(.cnt-group) .opt-chip.on');
       return sel.length||1;
     }
+    /* 语种数（AI卖点图）：与视频翻译一致，按语种数做倍数计费 */
+    function getLangs(){
+      if(!langGroup){return 1;}
+      var n=langGroup.querySelectorAll('.opt-chip.on').length;
+      return n||1;
+    }
+    function langNames(){
+      var out=[];
+      if(langGroup){langGroup.querySelectorAll('.opt-chip.on').forEach(function(c){out.push(c.textContent.trim());});}
+      return out;
+    }
     function unitPts(){
       if(key==='oneclick'){return IMG_PRICE.oneclick+(getTypes()-1)*ONECLICK_TYPE_ADD;}
       if(key==='recolor'){return IMG_PRICE.recolor+(getTypes()-1)*RECOLOR_COLOR_ADD;}
       return IMG_PRICE[key]||6;
     }
-    function calcPts(){return unitPts()*getCnt();}
+    function calcPts(){return unitPts()*getCnt()*getLangs();}
     function renderPts(){
       var amt=calcPts();
       if(ptsNum){ptsNum.textContent=amt;}
-      if(cntHint){cntHint.innerHTML=getCnt()+' 张 · 共 <b>'+amt+'</b> 积分';}
+      if(cntHint){
+        cntHint.innerHTML=(langGroup?(getCnt()+' 张 × '+getLangs()+' 语种'):(getCnt()+' 张'))+' · 共 <b>'+amt+'</b> 积分';
+      }
+      if(langHint){langHint.innerHTML='已选 <b>'+getLangs()+'</b> 个语种';}
     }
 
     function setCount(){
@@ -4496,9 +4585,17 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       });
     });
 
-    /* 多选标签（生成类型；张数组 .cnt-group 单独处理） */
+    /* 多选标签（生成类型 / 文案语种；张数组 .cnt-group 单独处理） */
     page.querySelectorAll('.opt-chips:not(.cnt-group) .opt-chip').forEach(function(c){
-      c.addEventListener('click',function(){ c.classList.toggle('on'); renderPts(); });
+      c.addEventListener('click',function(){
+        /* 语种至少保留 1 个，取消最后一个时抖动提示 */
+        if(langGroup&&langGroup.contains(c)&&c.classList.contains('on')&&langGroup.querySelectorAll('.opt-chip.on').length<=1){
+          c.classList.add('shake');
+          setTimeout(function(){c.classList.remove('shake');},400);
+          return;
+        }
+        c.classList.toggle('on'); renderPts();
+      });
     });
 
     /* 生成张数（单选） */
@@ -4541,10 +4638,11 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           if(startTxt){startTxt.textContent=(key==='erase'?'应用消除':'开始处理');}
           running=false;
           var n=getCnt();
-          spendCredits(amt,IMG_NAMES[key],'生成扣减 · '+amt+' 积分');
+          spendCredits(amt,IMG_NAMES[key],langGroup?('AI卖点图 '+n+' 张 × '+getLangs()+' 语种 · '+amt+' 积分'):('生成扣减 · '+amt+' 积分'));
           if(num){num.textContent=n;}
           if(done){
             if(key==='erase'){done.textContent='已完成 '+n+' 张 · 已扣 '+amt+' 积分';}
+            else if(langGroup){done.innerHTML='<span class="done">已完成 '+n+' 张 × '+getLangs()+' 语种 · 已扣 '+amt+' 积分</span>';}
             else{done.innerHTML='<span class="done">已完成 · 已扣 '+amt+' 积分</span>';}
           }
           renderPts();
