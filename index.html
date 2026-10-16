@@ -1245,7 +1245,7 @@
           <div class="bg-sec-head">
             <span class="bg-sec-name req">生成张数</span>
           </div>
-          <div class="bg-sec-sub">按所选张数批量生成，单张 8 积分；余额不足时可前往「充值」补充</div>
+          <div class="bg-sec-sub">按所选张数批量生成；余额不足时可前往「充值」补充</div>
           <div class="opt-chips cnt-group" id="bgCntGroup">
             <button class="opt-chip on" type="button">1张</button>
             <button class="opt-chip" type="button">2张</button>
@@ -1368,7 +1368,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
-            <div class="bg-sec-sub">按所选张数批量输出，单张 6 积分</div>
+            <div class="bg-sec-sub">按所选张数批量输出</div>
             <div class="opt-chips cnt-group" id="whitebgCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
@@ -1430,7 +1430,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
-            <div class="bg-sec-sub">按所选张数批量去水印，单张 5 积分</div>
+            <div class="bg-sec-sub">按所选张数批量去水印</div>
             <div class="opt-chips cnt-group" id="watermarkCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
@@ -1502,7 +1502,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
-            <div class="bg-sec-sub">按所选张数批量消除，单张 8 积分</div>
+            <div class="bg-sec-sub">按所选张数批量消除</div>
             <div class="opt-chips cnt-group" id="eraseCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
@@ -1588,11 +1588,13 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生图比例</span>
             </div>
-            <div class="bg-sec-sub">1:1 适配平台主图，4:3 适配详情页，16:9 适配横幅与封面</div>
+            <div class="bg-sec-sub">1:1 平台主图 · 4:3 详情页横图 · 3:4 竖版主图 / 详情首屏 · 16:9 横幅 · 9:16 短视频封面</div>
             <div class="opt-chips single-group" id="sellpointRatio">
               <button class="opt-chip on" type="button">1:1</button>
               <button class="opt-chip" type="button">4:3</button>
+              <button class="opt-chip" type="button">3:4</button>
               <button class="opt-chip" type="button">16:9</button>
+              <button class="opt-chip" type="button">9:16</button>
             </div>
           </div>
 
@@ -1715,7 +1717,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
-            <div class="bg-sec-sub">按所选张数批量输出，单张 8 积分</div>
+            <div class="bg-sec-sub">按所选张数批量输出</div>
             <div class="opt-chips cnt-group" id="detailCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
@@ -1803,7 +1805,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
-            <div class="bg-sec-sub">按所选张数批量输出，单张 12 积分</div>
+            <div class="bg-sec-sub">按所选张数批量输出</div>
             <div class="opt-chips cnt-group" id="tryonCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
@@ -1864,7 +1866,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">目标花色</span>
             </div>
-            <div class="bg-sec-sub">用一句话描述想要的花色 / 纹理，AI 按描述重绘商品表面，保持形状、光影与细节不变；每次生成 1 张，单次 8 积分</div>
+            <div class="bg-sec-sub">用一句话描述想要的花色 / 纹理，AI 按描述重绘商品表面，保持形状、光影与细节不变；也可在下方直接上传花色参考图</div>
             <textarea class="vp-ta" id="recolorDesc" rows="2" placeholder="如「奶油白拼浅灰」「蓝白竖条纹」「原木胡桃色」「米色亚麻纹理」；留空则由 AI 自动匹配同品类热卖花色"></textarea>
           </div>
           <div class="bg-sec">
@@ -1880,6 +1882,22 @@
               <button class="opt-chip" type="button" data-p="焦糖棕色"><span class="cdot" style="background:#8b5e3c"></span>焦糖棕</button>
               <button class="opt-chip" type="button" data-p="樱花粉色"><span class="cdot" style="background:#f3c6d1"></span>樱花粉</button>
               <button class="opt-chip" type="button" data-p="原木色木纹"><span class="cdot" style="background:#c9a063"></span>原木色</button>
+            </div>
+          </div>
+
+          <!-- 花色参考图 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name">花色参考图<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
+              <span class="bg-sec-cnt">(<b id="recolorRefCnt">0</b>/1张)</span>
+            </div>
+            <div class="bg-sec-sub">上传一张想要的花色 / 纹理图，AI 把该花色迁移到商品上，保持形状与光影不变；与上方文字描述同时填写时以参考图为准</div>
+            <div class="bg-drop" id="recolorRefDrop">
+              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-inner" id="recolorRefDropInner">
+                <span class="plus">+</span>
+                <span class="t">上传花色参考图</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1899,7 +1917,7 @@
         <div class="th-card t-amber">
           <span class="th-tag">商品换色</span>
           <div class="th-title">换成想要的花色</div>
-          <div class="th-sub">文字描述花色 · 单次 1 张</div>
+          <div class="th-sub">描述花色或传参考图 · 单次 1 张</div>
           <div class="th-shot">
             <img src="images/web/t-recolor.png" alt="">
           </div>
@@ -1934,12 +1952,14 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">标尺类型</span>
             </div>
-            <div class="bg-sec-sub" id="rulerHint">长 × 宽 × 高：立体商品三维标注；长 × 宽：平面商品；高度：单边尺寸；直径 / 周长：圆形商品</div>
+            <div class="bg-sec-sub" id="rulerHint">长 × 宽 × 高：立体商品；长 × 宽：平面商品；高度 / 厚度：单边尺寸或薄型商品；直径 / 周长：圆形商品；重量：仅标注重量；长 × 宽 × 高 + 重量：完整规格</div>
             <div class="opt-chips single-group" id="rulerTypes">
               <button class="opt-chip on" type="button">长 × 宽 × 高</button>
               <button class="opt-chip" type="button">长 × 宽</button>
-              <button class="opt-chip" type="button">高度</button>
+              <button class="opt-chip" type="button">高度 / 厚度</button>
               <button class="opt-chip" type="button">直径 / 周长</button>
+              <button class="opt-chip" type="button">重量</button>
+              <button class="opt-chip" type="button">长 × 宽 × 高 + 重量</button>
             </div>
           </div>
 
@@ -1951,11 +1971,19 @@
             <div class="bg-sec-sub">按实物测量填写，AI 会把数值直接标在图上对应位置；留空则由 AI 按商品比例估算</div>
             <div class="rn-row" id="rulerNums"></div>
             <div class="rn-unit">
-              <span class="rn-unit-lb">单位</span>
+              <span class="rn-unit-lb">尺寸单位</span>
               <div class="opt-chips single-group" id="rulerUnit" style="margin-top:0">
                 <button class="opt-chip on" type="button">cm</button>
                 <button class="opt-chip" type="button">mm</button>
                 <button class="opt-chip" type="button">inch</button>
+              </div>
+            </div>
+            <div class="rn-unit" id="rulerWeightUnitRow" style="display:none">
+              <span class="rn-unit-lb">重量单位</span>
+              <div class="opt-chips single-group" id="rulerWUnit" style="margin-top:0">
+                <button class="opt-chip on" type="button">g</button>
+                <button class="opt-chip" type="button">kg</button>
+                <button class="opt-chip" type="button">lb</button>
               </div>
             </div>
           </div>
@@ -1974,7 +2002,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
-            <div class="bg-sec-sub">按所选张数批量输出，单张 6 积分</div>
+            <div class="bg-sec-sub">按所选张数批量输出</div>
             <div class="opt-chips cnt-group" id="rulerCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
@@ -2047,7 +2075,7 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生成张数</span>
             </div>
-            <div class="bg-sec-sub">按类型与张数计费：每张 6 积分，每增加 1 个生成类型 +2 积分</div>
+            <div class="bg-sec-sub">按所选张数批量输出，可一次生成多种类型素材</div>
             <div class="opt-chips cnt-group" id="oneclickCntGroup">
               <button class="opt-chip on" type="button">1张</button>
               <button class="opt-chip" type="button">2张</button>
@@ -2162,10 +2190,12 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">图片比例</span>
             </div>
-            <div class="bg-sec-sub">1:1 适配平台主图，3:4 适配移动端详情，9:16 适配短视频封面</div>
+            <div class="bg-sec-sub">1:1 平台主图 · 4:3 详情页横图 · 3:4 竖版主图 / 详情首屏 · 16:9 横幅 · 9:16 短视频封面</div>
             <div class="opt-chips single-group" id="suiteRatio">
               <button class="opt-chip on" type="button">1:1</button>
+              <button class="opt-chip" type="button">4:3</button>
               <button class="opt-chip" type="button">3:4</button>
+              <button class="opt-chip" type="button">16:9</button>
               <button class="opt-chip" type="button">9:16</button>
             </div>
           </div>
@@ -3959,15 +3989,16 @@ function renderCreditRule(body){
     '</tbody></table>'+
     '<table style="margin-top:8px"><thead><tr><th>生成张数</th><th>可选档位</th></tr></thead><tbody>'+
       '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张（商品换色固定 1 张）</td></tr>'+
-      '<tr><td>生图比例（AI卖点图）</td><td>1:1 / 4:3 / 16:9，单选，不额外计费</td></tr>'+
+      '<tr><td>生图比例（AI卖点图 / 电商套图）</td><td>1:1 / 4:3 / 3:4 / 16:9 / 9:16，单选，不额外计费</td></tr>'+
       '<tr><td>突出细节（AI细节图）</td><td>材质纹理 / 工艺接缝 / 功能按键 / 品牌标识 / 包装细节 / 配件细节 / 内部结构 / 表面处理，可多选</td></tr>'+
       '<tr><td>展示形式（AI细节图）</td><td>单细节展示 / 多细节拼接展示 / 细节+功能关联 / 细节+材质对比 / 细节+使用痕迹，单选</td></tr>'+
       '<tr><td>文案语种（AI卖点图）</td><td>中文 / 英语 / 阿拉伯语 / 泰语 / 印尼语 / 越南语 / 韩语 / 马来语 / 蒙古语，可多选</td></tr>'+
-      '<tr><td>标尺类型（AI商品标尺图）</td><td>长 × 宽 × 高 / 长 × 宽 / 高度 / 直径 / 周长，单选，不额外计费</td></tr>'+
-      '<tr><td>标尺数值 / 文本（AI商品标尺图）</td><td>按类型填长宽高数值（单位 cm / mm / inch），或输入一段白话描述；留空由 AI 自动标注</td></tr>'+
+      '<tr><td>标尺类型（AI商品标尺图）</td><td>长 × 宽 × 高 / 长 × 宽 / 高度 / 厚度 / 直径 / 周长 / 重量 / 长 × 宽 × 高 + 重量，单选，不额外计费</td></tr>'+
+      '<tr><td>标尺数值 / 文本（AI商品标尺图）</td><td>按类型填数值（尺寸单位 cm / mm / inch，重量单位 g / kg / lb），或输入一段白话描述；留空由 AI 自动标注</td></tr>'+
       '<tr><td>目标花色（商品换色）</td><td>文字描述想要的花色 / 纹理，另有常用花色可点选填入；留空由 AI 自动匹配</td></tr>'+
+      '<tr><td>花色参考图（商品换色）</td><td>选填，上传想要的花色 / 纹理图片，AI 迁移该花色；与文字描述同时填写时以参考图为准</td></tr>'+
       '<tr><td>模特参考（试穿试用）</td><td>AI 自动匹配 / 上传我的模特图 / 平台模特库（亚洲女模 / 亚洲男模 / 欧美女模 / 童模 / 大码模特），选填，不额外计费</td></tr>'+
-      '<tr><td>电商套图</td><td>套图模块：白底主图 / 场景展示图 / 卖点信息图 / 细节特写图 / 尺寸标注图 / 模特展示图 / 多角度展示 / 包装展示图，可多选；目标平台：AI 通用 / Amazon / TikTok Shop / TEMU / 速卖通 / Shopee / 独立站，单选；比例 1:1 / 3:4 / 9:16</td></tr>'+
+      '<tr><td>电商套图</td><td>套图模块：白底主图 / 场景展示图 / 卖点信息图 / 细节特写图 / 尺寸标注图 / 模特展示图 / 多角度展示 / 包装展示图，可多选；目标平台：AI 通用 / Amazon / TikTok Shop / TEMU / 速卖通 / Shopee / 独立站，单选；比例 1:1 / 4:3 / 3:4 / 16:9 / 9:16</td></tr>'+
       '<tr><td>上传图片</td><td>每个工具单次仅支持上传 1 张待处理图片</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">💎 充值套餐</h4>'+
@@ -4739,31 +4770,44 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var RULER_FIELDS={
       '长 × 宽 × 高':['长','宽','高'],
       '长 × 宽':['长','宽'],
-      '高度':['高'],
-      '直径 / 周长':['直径']
+      '高度 / 厚度':['高','厚'],
+      '直径 / 周长':['直径','周长'],
+      '重量':['重量'],
+      '长 × 宽 × 高 + 重量':['长','宽','高','重量']
     };
     var rulerNums=document.getElementById(key+'Nums');
     var rulerUnit=document.getElementById(key+'Unit');
+    var rulerWUnitRow=document.getElementById(key+'WeightUnitRow');
+    var rulerWUnit=document.getElementById(key+'WUnit');
     function getRulerUnit(){
       if(!rulerUnit){return '';}
       var on=rulerUnit.querySelector('.opt-chip.on');
       return on?on.textContent.trim():'cm';
     }
-    /* 已填数值摘要，如「长 32 × 宽 18 × 高 24 cm」；全空返回 '' */
+    function getRulerWUnit(){
+      if(!rulerWUnit){return '';}
+      var on=rulerWUnit.querySelector('.opt-chip.on');
+      return on?on.textContent.trim():'g';
+    }
+    /* 已填数值摘要，如「长 32 × 宽 18 × 高 24 cm · 重量 1.2 kg」；全空返回 '' */
     function rulerSpec(){
       if(!rulerNums){return '';}
-      var parts=[],unit=getRulerUnit();
+      var dim=[],wt='',unit=getRulerUnit(),wunit=getRulerWUnit();
       rulerNums.querySelectorAll('.rn-inp').forEach(function(inp){
         var v=inp.value.trim();
-        if(v){parts.push(inp.getAttribute('data-k')+' '+v);}
+        if(!v){return;}
+        var k=inp.getAttribute('data-k');
+        if(k==='重量'){wt=v;}else{dim.push(k+' '+v);}
       });
-      if(!parts.length){return '';}
-      return parts.join(' × ')+' '+(unit||'cm');
+      var out=dim.length?(dim.join(' × ')+' '+(unit||'cm')):'';
+      if(wt){out=out?(out+' · 重量 '+wt+' '+(wunit||'g')):('重量 '+wt+' '+(wunit||'g'));}
+      return out;
     }
     /* 按标尺类型渲染数值输入行 */
     function renderRulerNums(){
       if(!rulerNums){return;}
       var keys=RULER_FIELDS[getRulerType()]||RULER_FIELDS['长 × 宽 × 高'];
+      if(rulerWUnitRow){rulerWUnitRow.style.display=(keys.indexOf('重量')>=0)?'flex':'none';}
       var old={};
       rulerNums.querySelectorAll('.rn-inp').forEach(function(inp){old[inp.getAttribute('data-k')]=inp.value;});
       rulerNums.innerHTML='';
@@ -4778,7 +4822,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         inp.type='text';
         inp.inputMode='decimal';
         inp.setAttribute('data-k',k);
-        inp.placeholder='如 32';
+        inp.placeholder=(k==='重量'?'如 1.2':'如 32');
         inp.value=old[k]||'';
         inp.addEventListener('input',renderPts);
         cell.appendChild(lb); cell.appendChild(inp);
@@ -4920,6 +4964,50 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       });
     }
 
+    /* 花色参考图（商品换色）：上传参考图，AI 迁移该花色 */
+    var refDrop=document.getElementById(key+'RefDrop');
+    var refInner=document.getElementById(key+'RefDropInner');
+    var refCnt=document.getElementById(key+'RefCnt');
+    var refUploaded=false;
+    function renderRefDrop(){
+      if(!refInner||!refDrop){return;}
+      refInner.innerHTML='';
+      refDrop.classList.toggle('filled',refUploaded);
+      if(refCnt){refCnt.textContent=refUploaded?'1':'0';}
+      if(!refUploaded){
+        refInner.innerHTML='<span class="plus">+</span><span class="t">上传花色参考图</span>';
+      }else{
+        var wrap=document.createElement('div');
+        wrap.className='bg-thumb';
+        var img=document.createElement('img');
+        img.src='images/web/t-recolor.png'; img.alt='花色参考图';
+        var nm=document.createElement('span');
+        nm.className='bg-thumb-name';
+        nm.textContent='花色参考图-01.png';
+        var x=document.createElement('button');
+        x.type='button';
+        x.className='bg-thumb-x';
+        x.setAttribute('aria-label','移除参考图');
+        x.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+        x.addEventListener('click',function(e){
+          e.stopPropagation();
+          refUploaded=false;
+          renderRefDrop();
+        });
+        wrap.appendChild(img); wrap.appendChild(nm); wrap.appendChild(x);
+        refInner.appendChild(wrap);
+      }
+    }
+    if(key==='recolor'&&refDrop){
+      refDrop.addEventListener('click',function(){
+        if(refUploaded||running){return;}
+        refUploaded=true;
+        renderRefDrop();
+        if(done){done.textContent='';}
+      });
+      renderRefDrop();
+    }
+
     /* 模特参考（试穿试用）：AI 自动匹配 / 上传我的模特图 / 平台模特库 */
     var modModes=document.getElementById(key+'ModModes');
     var modDrop=document.getElementById(key+'ModDrop');
@@ -5054,7 +5142,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
                     :(key==='tryon')?('试穿试用 · '+(tryonMode()==='上传我的模特图'?'我的模特图':tryonMode()==='平台模特库'?('模特库 · '+(modName||'未选')):'AI 自动匹配模特')+' · '+n+' 张 · '+amt+' 积分')
                     :langGroup?('AI卖点图 '+n+' 张 × '+getLangs()+' 语种'+(getRatio()?' · '+getRatio():'')+' · '+amt+' 积分')
                     :(rulerGroup?('AI商品标尺图 '+getRulerType()+' · '+(rulerSpec()||'按商品比例自动标注')+' · '+n+' 张 · '+amt+' 积分')
-                    :(quick?('商品换色 · '+((desc&&desc.value.trim())||'AI 自动匹配同品类热卖花色')+' · 1 张 · '+amt+' 积分')
+                    :(quick?('商品换色 · '+(refUploaded?'按参考图花色':((desc&&desc.value.trim())||'AI 自动匹配同品类热卖花色'))+' · 1 张 · '+amt+' 积分')
                     :('生成扣减 · '+amt+' 积分')));
           spendCredits(amt,IMG_NAMES[key],logTxt);
           if(num){num.textContent=n;}
@@ -5063,7 +5151,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
             else if(key==='suite'){done.innerHTML='<span class="done">已生成 '+(suiteImgs()*getLangs())+' 张图（'+getMods()+' 模块'+(detailOn()?' + 详情页 3 张':'')+' × '+getLangs()+' 语种）· 已扣 '+amt+' 积分</span>';}
             else if(key==='tryon'){done.innerHTML='<span class="done">已生成 '+n+' 张试穿图 · 已扣 '+amt+' 积分</span>';}
             else if(langGroup){done.innerHTML='<span class="done">已生成 '+(n*getLangs())+' 张图（'+n+' 张 × '+getLangs()+' 语种）· 已扣 '+amt+' 积分</span>';}
-            else if(quick){done.innerHTML='<span class="done">已换成「'+((desc&&desc.value.trim())||'AI 自动匹配花色')+'」· 已扣 '+amt+' 积分</span>';}
+            else if(quick){done.innerHTML='<span class="done">'+(refUploaded?'已按参考图换色':'已换成「'+((desc&&desc.value.trim())||'AI 自动匹配花色')+'」')+' · 已扣 '+amt+' 积分</span>';}
             else{done.innerHTML='<span class="done">已完成 · 已扣 '+amt+' 积分</span>';}
           }
           renderPts();
