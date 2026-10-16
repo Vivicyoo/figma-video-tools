@@ -1596,26 +1596,13 @@
             </div>
           </div>
 
-          <!-- 生成张数（每种语种） -->
-          <div class="bg-sec">
-            <div class="bg-sec-head">
-              <span class="bg-sec-name req">生成张数<small style="color:var(--gray-400);font-weight:500">（每种语种）</small></span>
-            </div>
-            <div class="bg-sec-sub">可一次输出多张不同构图 或 卖点组合的商品图</div>
-            <div class="opt-chips cnt-group" id="sellpointCntGroup">
-              <button class="opt-chip on" type="button">1张</button>
-              <button class="opt-chip" type="button">2张</button>
-              <button class="opt-chip" type="button">4张</button>
-            </div>
-          </div>
-
           <!-- 文案语种（最后一步） -->
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name req">文案语种<small style="color:var(--gray-400);font-weight:500">（可多选）</small></span>
               <span class="bg-sec-cnt cnt-pts" id="sellpointLangHint">已选 <b>1</b> 个语种 · 共出图 <b>1</b> 张</span>
             </div>
-            <div class="bg-sec-sub">按所选语言输出整套卖点图，按「张数 × 语种数」计</div>
+            <div class="bg-sec-sub">按所选语言输出整套卖点图，每个语种 1 张，按语种数计</div>
             <div class="opt-chips" id="sellpointLangs">
               <button class="opt-chip on" type="button">中文</button>
               <button class="opt-chip" type="button">英语</button>
@@ -1632,7 +1619,7 @@
         <div class="bg-foot">
           <div class="bg-foot-l">
             <div class="bg-foot-t">处理内容</div>
-            <div class="bg-foot-s"><span class="foot-pts" id="sellpointCntHint">1 张 · 共 <b>10</b> 积分</span><span id="sellpointDone"></span></div>
+            <div class="bg-foot-s"><span class="foot-pts" id="sellpointCntHint">1 个语种 · 共 <b>10</b> 积分</span><span id="sellpointDone"></span></div>
           </div>
           <button class="bg-start" id="sellpointStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -3996,12 +3983,12 @@ function renderCreditRule(body){
       '<tr><td>电商套图</td><td><b>5</b> 积分/张 × 套图模块数 × 语种数（详情页套图追加 <b>3</b> 张）</td></tr>'+
     '</tbody></table>'+
     '<table style="margin-top:8px"><thead><tr><th>生成张数</th><th>可选档位</th></tr></thead><tbody>'+
-      '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张（商品换色固定 1 张）</td></tr>'+
+      '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张（商品换色固定 1 张；AI卖点图不选张数，每个语种 1 张）</td></tr>'+
       '<tr><td>生图比例（AI卖点图 / AI细节图）</td><td>1:1 / 4:3 / 9:16，单选，默认 1:1，不额外计费</td></tr>'+
       '<tr><td>生图比例（电商套图）</td><td>1:1 / 4:3 / 3:4 / 16:9 / 9:16，单选，不额外计费</td></tr>'+
       '<tr><td>突出细节（AI细节图）</td><td>材质纹理 / 工艺接缝 / 功能按键 / 品牌标识 / 包装细节 / 配件细节 / 内部结构 / 表面处理，可多选</td></tr>'+
       '<tr><td>展示形式（AI细节图）</td><td>单细节展示 / 多细节拼接展示，单选</td></tr>'+
-      '<tr><td>文案语种（AI卖点图）</td><td>中文 / 英语 / 阿拉伯语 / 泰语 / 印尼语 / 越南语 / 韩语 / 马来语 / 蒙古语，可多选</td></tr>'+
+      '<tr><td>文案语种（AI卖点图）</td><td>中文 / 英语 / 阿拉伯语 / 泰语 / 印尼语 / 越南语 / 韩语 / 马来语 / 蒙古语，可多选，每个语种输出 1 张卖点图</td></tr>'+
       '<tr><td>标尺类型（AI商品标尺图）</td><td>长 × 宽 × 高 / 长 × 宽 / 高度 / 厚度 / 直径 / 周长 / 重量 / 长 × 宽 × 高 + 重量，单选，不额外计费</td></tr>'+
       '<tr><td>标尺数值 / 文本（AI商品标尺图）</td><td>按类型填数值（尺寸单位 cm / mm / inch，重量单位 g / kg / lb），或输入一段白话描述；留空由 AI 自动标注</td></tr>'+
       '<tr><td>目标花色（商品换色）</td><td>文字描述想要的花色 / 纹理，另有常用花色可点选填入；留空由 AI 自动匹配</td></tr>'+
@@ -4865,9 +4852,9 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         return;
       }
       if(cntHint){
-        cntHint.innerHTML=(langGroup?(getCnt()+' 张 × '+getLangs()+' 语种'):(getCnt()+' 张'))+' · 共 <b>'+amt+'</b> 积分';
+        cntHint.innerHTML=(langGroup?(getLangs()+' 个语种'):(getCnt()+' 张'))+' · 共 <b>'+amt+'</b> 积分';
       }
-      if(langHint){langHint.innerHTML='已选 <b>'+getLangs()+'</b> 个语种 · 共出图 <b>'+(getCnt()*getLangs())+'</b> 张';}
+      if(langHint){langHint.innerHTML='已选 <b>'+getLangs()+'</b> 个语种 · 共出图 <b>'+getLangs()+'</b> 张';}
     }
 
     function setCount(){
@@ -5150,7 +5137,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           var logTxt=(key==='suite')?('电商套图 '+getPlat()+' · '+getMods()+' 模块'+(detailOn()?' + 详情页 3 张':'')+' · '+(getRatio()||'1:1')+' · '+getLangs()+' 语种 · '+amt+' 积分')
                     :(key==='tryon')?('试穿试用 · '+(tryonMode()==='上传我的模特图'?'我的模特图':tryonMode()==='平台模特库'?('模特库 · '+(modName||'未选')):'AI 自动匹配模特')+' · '+n+' 张 · '+amt+' 积分')
                     :(key==='detail')?('AI细节图 '+n+' 张 · '+(getRatio()||'1:1')+' · '+amt+' 积分')
-                    :langGroup?('AI卖点图 '+n+' 张 × '+getLangs()+' 语种'+(getRatio()?' · '+getRatio():'')+' · '+amt+' 积分')
+                    :langGroup?('AI卖点图 '+getLangs()+' 个语种'+(getRatio()?' · '+getRatio():'')+' · '+amt+' 积分')
                     :(rulerGroup?('AI商品标尺图 '+getRulerType()+' · '+(rulerSpec()||'按商品比例自动标注')+' · '+n+' 张 · '+amt+' 积分')
                     :(quick?('商品换色 · '+(refUploaded?'按参考图花色':((desc&&desc.value.trim())||'AI 自动匹配同品类热卖花色'))+' · 1 张 · '+amt+' 积分')
                     :('生成扣减 · '+amt+' 积分')));
@@ -5160,7 +5147,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
             if(key==='erase'){done.textContent='已完成 '+n+' 张 · 已扣 '+amt+' 积分';}
             else if(key==='suite'){done.innerHTML='<span class="done">已生成 '+(suiteImgs()*getLangs())+' 张图（'+getMods()+' 模块'+(detailOn()?' + 详情页 3 张':'')+' × '+getLangs()+' 语种）· 已扣 '+amt+' 积分</span>';}
             else if(key==='tryon'){done.innerHTML='<span class="done">已生成 '+n+' 张试穿图 · 已扣 '+amt+' 积分</span>';}
-            else if(langGroup){done.innerHTML='<span class="done">已生成 '+(n*getLangs())+' 张图（'+n+' 张 × '+getLangs()+' 语种）· 已扣 '+amt+' 积分</span>';}
+            else if(langGroup){done.innerHTML='<span class="done">已生成 '+getLangs()+' 张图（'+getLangs()+' 个语种）· 已扣 '+amt+' 积分</span>';}
             else if(quick){done.innerHTML='<span class="done">'+(refUploaded?'已按参考图换色':'已换成「'+((desc&&desc.value.trim())||'AI 自动匹配花色')+'」')+' · 已扣 '+amt+' 积分</span>';}
             else{done.innerHTML='<span class="done">已完成 · 已扣 '+amt+' 积分</span>';}
           }
