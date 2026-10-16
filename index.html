@@ -1588,12 +1588,10 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">生图比例</span>
             </div>
-            <div class="bg-sec-sub">1:1 平台主图 · 4:3 详情页横图 · 3:4 竖版主图 / 详情首屏 · 16:9 横幅 · 9:16 短视频封面</div>
+            <div class="bg-sec-sub">1:1 平台主图 · 4:3 详情页横图 · 9:16 竖版主图 / 短视频封面；默认 1:1</div>
             <div class="opt-chips single-group" id="sellpointRatio">
               <button class="opt-chip on" type="button">1:1</button>
               <button class="opt-chip" type="button">4:3</button>
-              <button class="opt-chip" type="button">3:4</button>
-              <button class="opt-chip" type="button">16:9</button>
               <button class="opt-chip" type="button">9:16</button>
             </div>
           </div>
@@ -1706,6 +1704,19 @@
             <div class="opt-chips single-group" id="detailForm">
               <button class="opt-chip on" type="button">单细节展示</button>
               <button class="opt-chip" type="button">多细节拼接展示</button>
+            </div>
+          </div>
+
+          <!-- 生图比例 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生图比例</span>
+            </div>
+            <div class="bg-sec-sub">1:1 平台主图 · 4:3 详情页横图 · 9:16 竖版主图 / 短视频封面；默认 1:1</div>
+            <div class="opt-chips single-group" id="detailRatio">
+              <button class="opt-chip on" type="button">1:1</button>
+              <button class="opt-chip" type="button">4:3</button>
+              <button class="opt-chip" type="button">9:16</button>
             </div>
           </div>
 
@@ -3986,7 +3997,8 @@ function renderCreditRule(body){
     '</tbody></table>'+
     '<table style="margin-top:8px"><thead><tr><th>生成张数</th><th>可选档位</th></tr></thead><tbody>'+
       '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张（商品换色固定 1 张）</td></tr>'+
-      '<tr><td>生图比例（AI卖点图 / 电商套图）</td><td>1:1 / 4:3 / 3:4 / 16:9 / 9:16，单选，不额外计费</td></tr>'+
+      '<tr><td>生图比例（AI卖点图 / AI细节图）</td><td>1:1 / 4:3 / 9:16，单选，默认 1:1，不额外计费</td></tr>'+
+      '<tr><td>生图比例（电商套图）</td><td>1:1 / 4:3 / 3:4 / 16:9 / 9:16，单选，不额外计费</td></tr>'+
       '<tr><td>突出细节（AI细节图）</td><td>材质纹理 / 工艺接缝 / 功能按键 / 品牌标识 / 包装细节 / 配件细节 / 内部结构 / 表面处理，可多选</td></tr>'+
       '<tr><td>展示形式（AI细节图）</td><td>单细节展示 / 多细节拼接展示，单选</td></tr>'+
       '<tr><td>文案语种（AI卖点图）</td><td>中文 / 英语 / 阿拉伯语 / 泰语 / 印尼语 / 越南语 / 韩语 / 马来语 / 蒙古语，可多选</td></tr>'+
@@ -3995,7 +4007,7 @@ function renderCreditRule(body){
       '<tr><td>目标花色（商品换色）</td><td>文字描述想要的花色 / 纹理，另有常用花色可点选填入；留空由 AI 自动匹配</td></tr>'+
       '<tr><td>花色参考图（商品换色）</td><td>选填，上传想要的花色 / 纹理图片，AI 迁移该花色；与文字描述同时填写时以参考图为准</td></tr>'+
       '<tr><td>模特参考（试穿试用）</td><td>AI 自动匹配 / 上传我的模特图 / 平台模特库（亚洲女模 / 亚洲男模 / 欧美女模 / 童模 / 大码模特），选填，不额外计费</td></tr>'+
-      '<tr><td>电商套图</td><td>套图模块：白底主图 / 场景展示图 / 卖点信息图 / 细节特写图 / 尺寸标注图 / 模特展示图 / 多角度展示 / 包装展示图，可多选；目标平台：AI 通用 / Amazon / TikTok Shop / TEMU / 速卖通 / Shopee / 独立站，单选；比例 1:1 / 4:3 / 3:4 / 16:9 / 9:16</td></tr>'+
+      '<tr><td>电商套图</td><td>套图模块：白底主图 / 场景展示图 / 卖点信息图 / 细节特写图 / 尺寸标注图 / 模特展示图 / 多角度展示 / 包装展示图，可多选；目标平台：AI 通用 / Amazon / TikTok Shop / TEMU / 速卖通 / Shopee / 独立站，单选</td></tr>'+
       '<tr><td>上传图片</td><td>每个工具单次仅支持上传 1 张待处理图片</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">💎 充值套餐</h4>'+
@@ -5137,6 +5149,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           var n=getCnt();
           var logTxt=(key==='suite')?('电商套图 '+getPlat()+' · '+getMods()+' 模块'+(detailOn()?' + 详情页 3 张':'')+' · '+(getRatio()||'1:1')+' · '+getLangs()+' 语种 · '+amt+' 积分')
                     :(key==='tryon')?('试穿试用 · '+(tryonMode()==='上传我的模特图'?'我的模特图':tryonMode()==='平台模特库'?('模特库 · '+(modName||'未选')):'AI 自动匹配模特')+' · '+n+' 张 · '+amt+' 积分')
+                    :(key==='detail')?('AI细节图 '+n+' 张 · '+(getRatio()||'1:1')+' · '+amt+' 积分')
                     :langGroup?('AI卖点图 '+n+' 张 × '+getLangs()+' 语种'+(getRatio()?' · '+getRatio():'')+' · '+amt+' 积分')
                     :(rulerGroup?('AI商品标尺图 '+getRulerType()+' · '+(rulerSpec()||'按商品比例自动标注')+' · '+n+' 张 · '+amt+' 积分')
                     :(quick?('商品换色 · '+(refUploaded?'按参考图花色':((desc&&desc.value.trim())||'AI 自动匹配同品类热卖花色'))+' · 1 张 · '+amt+' 积分')
