@@ -1665,11 +1665,24 @@
               </div>
             </div>
           </div>
+          <!-- 展示形式 -->
           <div class="bg-sec">
             <div class="bg-sec-head">
-              <span class="bg-sec-name req">突出细节</span>
+              <span class="bg-sec-name req">展示形式</span>
             </div>
-            <div class="bg-sec-sub">可多选，AI 将围绕所选细节生成特写；不选则自动识别</div>
+            <div class="bg-sec-sub">单选，决定细节图的呈现方式；单细节展示仅可选 1 项细节，多细节拼接可选 1-4 项</div>
+            <div class="opt-chips single-group" id="detailForm">
+              <button class="opt-chip on" type="button">单细节展示</button>
+              <button class="opt-chip" type="button">多细节拼接展示</button>
+            </div>
+          </div>
+
+          <!-- 突出细节 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name">突出细节<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
+            </div>
+            <div class="bg-sec-sub" id="detailChipsSub">仅可选择 1 个细节，AI 将围绕它生成特写；不选则自动识别</div>
             <div class="opt-chips" id="detailChips">
               <button class="opt-chip" type="button">材质纹理</button>
               <button class="opt-chip" type="button">工艺接缝</button>
@@ -1679,18 +1692,6 @@
               <button class="opt-chip" type="button">配件细节</button>
               <button class="opt-chip" type="button">内部结构</button>
               <button class="opt-chip" type="button">表面处理</button>
-            </div>
-          </div>
-
-          <!-- 展示形式 -->
-          <div class="bg-sec">
-            <div class="bg-sec-head">
-              <span class="bg-sec-name">展示形式</span>
-            </div>
-            <div class="bg-sec-sub">单选，决定细节图的呈现方式；默认单细节展示</div>
-            <div class="opt-chips single-group" id="detailForm">
-              <button class="opt-chip on" type="button">单细节展示</button>
-              <button class="opt-chip" type="button">多细节拼接展示</button>
             </div>
           </div>
 
@@ -3986,8 +3987,8 @@ function renderCreditRule(body){
       '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张（商品换色固定 1 张；AI卖点图不选张数，每个语种 1 张）</td></tr>'+
       '<tr><td>生图比例（AI卖点图 / AI细节图）</td><td>1:1 / 4:3 / 9:16，单选，默认 1:1，不额外计费</td></tr>'+
       '<tr><td>生图比例（电商套图）</td><td>1:1 / 4:3 / 3:4 / 16:9 / 9:16，单选，不额外计费</td></tr>'+
-      '<tr><td>突出细节（AI细节图）</td><td>材质纹理 / 工艺接缝 / 功能按键 / 品牌标识 / 包装细节 / 配件细节 / 内部结构 / 表面处理，可多选</td></tr>'+
-      '<tr><td>展示形式（AI细节图）</td><td>单细节展示 / 多细节拼接展示，单选</td></tr>'+
+      '<tr><td>突出细节（AI细节图）</td><td>材质纹理 / 工艺接缝 / 功能按键 / 品牌标识 / 包装细节 / 配件细节 / 内部结构 / 表面处理，选填；可选数量随展示形式联动：单细节展示仅可选 1 个，多细节拼接可选 1-4 个；不选则自动识别</td></tr>'+
+      '<tr><td>展示形式（AI细节图）</td><td>单细节展示 / 多细节拼接展示，单选，必填，默认单细节展示</td></tr>'+
       '<tr><td>文案语种（AI卖点图）</td><td>中文 / 英语 / 阿拉伯语 / 泰语 / 印尼语 / 越南语 / 韩语 / 马来语 / 蒙古语，可多选，每个语种输出 1 张卖点图</td></tr>'+
       '<tr><td>标尺类型（AI商品标尺图）</td><td>长 × 宽 × 高 / 长 × 宽 / 高度 / 厚度 / 直径 / 周长 / 重量 / 长 × 宽 × 高 + 重量，单选，不额外计费</td></tr>'+
       '<tr><td>标尺数值 / 文本（AI商品标尺图）</td><td>按类型填数值（尺寸单位 cm / mm / inch，重量单位 g / kg / lb），或输入一段白话描述；留空由 AI 自动标注</td></tr>'+
@@ -4722,6 +4723,38 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var detailSw=document.getElementById(key+'DetailSw');  /* 详情页套图开关（电商套图） */
     function ready(){return uploaded;}
 
+    /* ---- AI细节图：展示形式 ↔ 突出细节 嵌套联动 ----
+       单细节展示：突出细节仅可选 1 个；多细节拼接展示：可选 1-4 个 */
+    var detailFormGroup=document.getElementById('detailForm');
+    var detailChipsGroup=document.getElementById('detailChips');
+    var detailChipsSub=detailChipsGroup?detailChipsGroup.parentNode.querySelector('.bg-sec-sub'):null;
+    var DETAIL_MAX_MODS=4;
+    function isDetailSingle(){
+      if(!detailFormGroup){return false;}
+      var on=detailFormGroup.querySelector('.opt-chip.on');
+      return !on||on.textContent.trim().indexOf('单细节')===0;   /* 默认按单细节处理 */
+    }
+    function detailSelNames(){
+      var out=[];
+      if(detailChipsGroup){detailChipsGroup.querySelectorAll('.opt-chip.on').forEach(function(c){out.push(c.textContent.trim());});}
+      return out;
+    }
+    function applyDetailMode(){
+      if(!detailChipsGroup){return;}
+      if(isDetailSingle()){
+        if(detailChipsSub){detailChipsSub.textContent='仅可选择 1 个细节，AI 将围绕它生成特写；不选则自动识别';}
+        var sel=detailChipsGroup.querySelectorAll('.opt-chip.on');
+        for(var i=1;i<sel.length;i++){sel[i].classList.remove('on');}   /* 切回单细节时只保留第一个 */
+      }else{
+        if(detailChipsSub){detailChipsSub.textContent='可选 1-'+DETAIL_MAX_MODS+' 个细节，AI 将把所选细节拼接呈现；不选则自动识别';}
+      }
+    }
+    function detailLogTxt(n,amt){
+      var sel=detailSelNames();
+      var mode=isDetailSingle()?('单细节 · '+(sel[0]||'AI 自动识别')):('多细节拼接 · '+(sel.length?sel.length+' 项':'AI 自动识别'));
+      return 'AI细节图 '+mode+' · '+n+' 张 · '+(getRatio()||'1:1')+' · '+amt+' 积分';
+    }
+
     /* ---- 生成张数与积分 ---- */
     function getCnt(){
       if(!cntGroup){return 1;}
@@ -4903,6 +4936,20 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     /* 多选标签（生成类型 / 突出细节 / 文案语种；张数组 .cnt-group、单选组 .single-group、快捷填入组 .fill-group 单独处理） */
     page.querySelectorAll('.opt-chips:not(.cnt-group):not(.single-group):not(.fill-group) .opt-chip').forEach(function(c){
       c.addEventListener('click',function(){
+        /* AI细节图：单细节展示=仅可选 1 个；多细节拼接=可多选，最多 6 个 */
+        if(key==='detail'&&detailChipsGroup&&detailChipsGroup.contains(c)){
+          if(isDetailSingle()){
+            var was=c.classList.contains('on');
+            detailChipsGroup.querySelectorAll('.opt-chip').forEach(function(x){x.classList.remove('on');});
+            if(!was){c.classList.add('on');}
+            renderPts(); return;
+          }
+          if(!c.classList.contains('on')&&detailChipsGroup.querySelectorAll('.opt-chip.on').length>=DETAIL_MAX_MODS){
+            c.classList.add('shake');
+            setTimeout(function(){c.classList.remove('shake');},400);
+            return;
+          }
+        }
         /* 语种 / 套图模块至少保留 1 个，取消最后一个时抖动提示 */
         var minOne=(langGroup&&langGroup.contains(c))||(modGroup&&modGroup.contains(c));
         if(minOne&&c.classList.contains('on')&&c.parentElement.querySelectorAll('.opt-chip.on').length<=1){
@@ -4926,6 +4973,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
             if(ph&&SUITE_PLAT_HINTS[c.textContent.trim()]){ph.textContent=SUITE_PLAT_HINTS[c.textContent.trim()];}
           }
           if(key==='tryon'&&modModes&&g===modModes){renderTryonMod();}
+          if(key==='detail'&&g===detailFormGroup){applyDetailMode();}
           if(key==='erase'){
             var eh=document.getElementById('eraseHint');
             var lbl=c.textContent.trim();
@@ -5136,7 +5184,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           var n=getCnt();
           var logTxt=(key==='suite')?('电商套图 '+getPlat()+' · '+getMods()+' 模块'+(detailOn()?' + 详情页 3 张':'')+' · '+(getRatio()||'1:1')+' · '+getLangs()+' 语种 · '+amt+' 积分')
                     :(key==='tryon')?('试穿试用 · '+(tryonMode()==='上传我的模特图'?'我的模特图':tryonMode()==='平台模特库'?('模特库 · '+(modName||'未选')):'AI 自动匹配模特')+' · '+n+' 张 · '+amt+' 积分')
-                    :(key==='detail')?('AI细节图 '+n+' 张 · '+(getRatio()||'1:1')+' · '+amt+' 积分')
+                    :(key==='detail')?detailLogTxt(n,amt)
                     :langGroup?('AI卖点图 '+getLangs()+' 个语种'+(getRatio()?' · '+getRatio():'')+' · '+amt+' 积分')
                     :(rulerGroup?('AI商品标尺图 '+getRulerType()+' · '+(rulerSpec()||'按商品比例自动标注')+' · '+n+' 张 · '+amt+' 积分')
                     :(quick?('商品换色 · '+(refUploaded?'按参考图花色':((desc&&desc.value.trim())||'AI 自动匹配同品类热卖花色'))+' · 1 张 · '+amt+' 积分')
@@ -5149,6 +5197,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
             else if(key==='tryon'){done.innerHTML='<span class="done">已生成 '+n+' 张试穿图 · 已扣 '+amt+' 积分</span>';}
             else if(langGroup){done.innerHTML='<span class="done">已生成 '+getLangs()+' 张图（'+getLangs()+' 个语种）· 已扣 '+amt+' 积分</span>';}
             else if(quick){done.innerHTML='<span class="done">'+(refUploaded?'已按参考图换色':'已换成「'+((desc&&desc.value.trim())||'AI 自动匹配花色')+'」')+' · 已扣 '+amt+' 积分</span>';}
+            else if(key==='detail'){done.innerHTML='<span class="done">已生成 '+n+' 张细节图 · 已扣 '+amt+' 积分</span>';}
             else{done.innerHTML='<span class="done">已完成 · 已扣 '+amt+' 积分</span>';}
           }
           renderPts();
@@ -5156,7 +5205,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       });
     }
 
-    renderDrop(); setCount(); renderRulerNums(); renderPts();
+    renderDrop(); setCount(); renderRulerNums(); applyDetailMode(); renderPts();
   }
 
   TOOLS.forEach(initTool);
