@@ -413,6 +413,35 @@
   .invoice-x{width:28px;height:28px;border-radius:50%;border:none;background:transparent;color:var(--gray-500);font-size:20px;cursor:pointer;line-height:1;transition:background .12s;}
   .invoice-x:hover{background:var(--gray-100);color:var(--ink);}
   .invoice-body{padding:18px 22px 22px;overflow-y:auto;}
+
+  /* ===== 手绘标尺弹层 ===== */
+  .hand-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--gray-300);background:#fff;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;transition:background .12s,border-color .12s;}
+  .hand-btn:hover{background:var(--purple-50);border-color:var(--purple);}
+  .hand-btn svg{width:14px;height:14px;color:var(--purple);}
+  .hand-state{font-size:12px;color:var(--gray-500);margin-left:10px;}
+  .hand-state.has{color:var(--purple);font-weight:600;}
+  .hand-pop{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:210;display:none;align-items:center;justify-content:center;padding:20px;}
+  .hand-pop.open{display:flex;animation:fadeIn .18s ease;}
+  .hand-card{background:#fff;border-radius:14px;box-shadow:0 22px 56px rgba(15,23,42,.22);width:520px;max-width:100%;max-height:calc(100vh - 40px);display:flex;flex-direction:column;overflow:hidden;animation:popIn .2s ease;}
+  .hand-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--gray-200);flex-shrink:0;}
+  .hand-title{font-size:15px;font-weight:700;color:var(--ink);}
+  .hand-x{width:28px;height:28px;border-radius:50%;border:none;background:transparent;color:var(--gray-500);font-size:20px;cursor:pointer;line-height:1;transition:background .12s;}
+  .hand-x:hover{background:var(--gray-100);color:var(--ink);}
+  .hand-body{padding:16px 20px 18px;overflow-y:auto;}
+  .hand-canvas-wrap{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--gray-200);cursor:crosshair;touch-action:none;user-select:none;}
+  .hand-canvas-wrap svg{display:block;width:100%;height:auto;}
+  .hand-tip{font-size:12px;color:var(--gray-500);margin-top:10px;line-height:1.6;}
+  .hand-bar{display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap;}
+  .hand-inp{flex:1;min-width:180px;border:1px solid var(--gray-300);border-radius:8px;padding:8px 10px;font-size:13px;outline:none;}
+  .hand-inp:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(124,58,237,.12);}
+  .hand-ghost{border:1px solid var(--gray-300);background:#fff;border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;color:var(--gray-600);}
+  .hand-ghost:hover{background:var(--gray-100);}
+  .hand-done{border:none;background:var(--purple);color:#fff;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;margin-left:auto;}
+  .hand-done:hover{background:var(--purple-hi);}
+  .hand-cnt{font-size:12px;color:var(--gray-500);}
+  .hand-line-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray-600);background:var(--gray-100);border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .hand-line-item .del{margin-left:auto;border:none;background:transparent;color:var(--red);cursor:pointer;font-size:12px;padding:2px 6px;border-radius:6px;}
+  .hand-line-item .del:hover{background:var(--red-100);}
   .invoice-summary{background:linear-gradient(135deg,#f4f3ff,#faf7ff);border:1px solid #d9d4f3;border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
   .invoice-summary .l{font-size:12px;color:var(--gray-500);}
   .invoice-summary .l .sub{font-size:11px;color:var(--gray-400);margin-top:3px;font-weight:500;letter-spacing:.1px;}
@@ -686,6 +715,11 @@
   .bg-drop:hover{border-color:var(--gray-300);}
   .bg-drop.filled{cursor:default;background:#fff;}
   .bg-drop-hint{font-size:12px;color:var(--gray-400);line-height:1.5;margin-bottom:12px;}
+  .drop-btns{display:flex;gap:10px;justify-content:center;margin-top:12px;}
+  .drop-btn{border:1px solid var(--purple);color:var(--purple);background:#fff;border-radius:16px;padding:5px 18px;font-size:12px;cursor:pointer;transition:background .12s;}
+  .drop-btn:hover{background:var(--purple-50);}
+  .drop-btn.alt{border-color:var(--gray-300);color:var(--gray-600);}
+  .drop-btn.alt:hover{background:var(--gray-100);}
   .bg-drop-inner{min-height:118px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;}
   .bg-drop-inner .plus{font-size:30px;font-weight:200;line-height:1;color:var(--gray-400);}
   .bg-drop-inner .t{font-size:13px;font-weight:600;color:var(--ink);}
@@ -1649,7 +1683,7 @@
       <div class="tpanel a-cyan">
         <div class="tp-head">
           <div class="tp-title">AI细节图</div>
-          <div class="tp-sub">放大材质与工艺细节，突出商品品质感</div>
+          <div class="tp-sub">放大材质与工艺细节，突出商品品质感。</div>
         </div>
         <div class="bg-scroll">
           <div class="bg-sec">
@@ -1658,11 +1692,12 @@
               <span class="bg-sec-cnt">(<b id="detailCnt">0</b>/1张)</span>
             </div>
             <div class="bg-drop" id="detailDrop">
-              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
               <div class="bg-drop-inner" id="detailDropInner">
                 <span class="plus">+</span>
                 <span class="t">上传图片</span>
               </div>
+              <div class="bg-drop-hint">支持上传JPG/JPEG/PNG格式图片，单张大小20MB以内，尺寸不小于300px</div>
+              <div class="drop-btns"><button class="drop-btn" type="button">本地上传</button><button class="drop-btn alt" type="button">图库上传</button></div>
             </div>
           </div>
           <!-- 展示形式 -->
@@ -1670,19 +1705,19 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name req">展示形式</span>
             </div>
-            <div class="bg-sec-sub">单选，决定细节图的呈现方式；单细节展示仅可选 1 项细节，多细节拼接可选 1-4 项</div>
+            <div class="bg-sec-sub">单细节展示单角度；多细节拼接可展示多角度</div>
             <div class="opt-chips single-group" id="detailForm">
-              <button class="opt-chip on" type="button">单细节展示</button>
-              <button class="opt-chip" type="button">多细节拼接展示</button>
+              <button class="opt-chip on" type="button">单细节</button>
+              <button class="opt-chip" type="button">多细节拼接</button>
             </div>
           </div>
 
           <!-- 突出细节 -->
           <div class="bg-sec">
             <div class="bg-sec-head">
-              <span class="bg-sec-name">突出细节<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
+              <span class="bg-sec-name">突出细节<small id="detailChipsTag" style="color:var(--gray-400);font-weight:500">（选填，可选1-1项）</small></span>
             </div>
-            <div class="bg-sec-sub" id="detailChipsSub">仅可选择 1 个细节，AI 将围绕它生成特写；不选则自动识别</div>
+            <div class="bg-sec-sub">按所选细节类型生成；不选则自动识别</div>
             <div class="opt-chips" id="detailChips">
               <button class="opt-chip" type="button">材质纹理</button>
               <button class="opt-chip" type="button">工艺接缝</button>
@@ -1695,12 +1730,12 @@
             </div>
           </div>
 
-          <!-- 生图比例 -->
+          <!-- 生成比例 -->
           <div class="bg-sec">
             <div class="bg-sec-head">
-              <span class="bg-sec-name req">生图比例</span>
+              <span class="bg-sec-name req">生成比例</span>
             </div>
-            <div class="bg-sec-sub">1:1 平台主图 · 4:3 详情页横图 · 9:16 竖版主图 / 详情长图；默认 1:1</div>
+            <div class="bg-sec-sub">1:1 平台主图、4:3 详情页横图、9:16 竖版主图/详情长图</div>
             <div class="opt-chips single-group" id="detailRatio">
               <button class="opt-chip on" type="button">1:1</button>
               <button class="opt-chip" type="button">4:3</button>
@@ -1724,7 +1759,7 @@
         <div class="bg-foot">
           <div class="bg-foot-l">
             <div class="bg-foot-t">处理内容</div>
-            <div class="bg-foot-s"><span class="foot-pts" id="detailCntHint">1 张 · 共 <b>8</b> 积分</span><span id="detailDone"></span></div>
+            <div class="bg-foot-s"><span class="foot-pts" id="detailCntHint">AI细节图 · 1 张 · 共 <b>8</b> 积分</span><span id="detailDone"></span></div>
           </div>
           <button class="bg-start" id="detailStart">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -1993,6 +2028,18 @@
             <textarea class="vp-ta" id="rulerText" rows="2" placeholder="如「这款收纳箱长 32 厘米、宽 18、高 24，加上轮子再高 3 厘米，整体适合床底收纳」"></textarea>
           </div>
 
+          <!-- 手动绘制标尺（选填） -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name">手动绘制标尺<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
+            </div>
+            <div class="bg-sec-sub">打开画笔，在图片上手动添加标尺线与刻度文字，与 AI 标注合并输出</div>
+            <div style="display:flex;align-items:center">
+              <button class="hand-btn" id="rulerHandBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>手绘标尺</button>
+              <span class="hand-state" id="rulerHandHint">未绘制</span>
+            </div>
+          </div>
+
           <!-- 生成张数 -->
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -2025,6 +2072,33 @@
           <div class="th-sub">选标尺类型 · 填实测尺寸</div>
           <div class="th-shot">
             <img src="images/web/t-ruler.png" alt="">
+          </div>
+        </div>
+      </div>
+
+      <!-- 手绘标尺弹层 -->
+      <div class="hand-pop" id="rulerHandPop">
+        <div class="hand-card">
+          <div class="hand-head">
+            <span class="hand-title">手动绘制标尺</span>
+            <button class="hand-x" id="rulerHandX" type="button">✕</button>
+          </div>
+          <div class="hand-body">
+            <div class="hand-canvas-wrap" id="rulerHandWrap">
+              <svg id="rulerHandSvg" viewBox="0 0 440 330" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <image href="images/web/t-avocado.jpg" x="0" y="0" width="440" height="330" preserveAspectRatio="xMidYMid slice"></image>
+              </svg>
+            </div>
+            <div class="hand-tip">按住拖动画出标尺线，松开后输入刻度文字（如「长 32 cm」），留空不标注文字；在列表中可删除已画的线。</div>
+            <div class="hand-bar" id="rulerHandBar" style="display:none">
+              <input class="hand-inp" id="rulerHandInp" placeholder="输入刻度文字，如「长 32 cm」">
+            </div>
+            <div id="rulerHandList"></div>
+            <div class="hand-bar">
+              <button class="hand-ghost" id="rulerHandClear" type="button">清除全部</button>
+              <span class="hand-cnt" id="rulerHandCount">0 条标尺线</span>
+              <button class="hand-done" id="rulerHandDone" type="button">完成</button>
+            </div>
           </div>
         </div>
       </div>
@@ -3985,13 +4059,15 @@ function renderCreditRule(body){
     '</tbody></table>'+
     '<table style="margin-top:8px"><thead><tr><th>生成张数</th><th>可选档位</th></tr></thead><tbody>'+
       '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张（商品换色固定 1 张；AI卖点图不选张数，每个语种 1 张）</td></tr>'+
-      '<tr><td>生图比例（AI卖点图 / AI细节图）</td><td>1:1 / 4:3 / 9:16，单选，默认 1:1，不额外计费</td></tr>'+
+      '<tr><td>生图比例（AI卖点图）</td><td>1:1 / 4:3 / 9:16，单选，默认 1:1，不额外计费</td></tr>'+
+      '<tr><td>生成比例（AI细节图）</td><td>1:1 / 4:3 / 9:16，单选，不额外计费</td></tr>'+
       '<tr><td>生图比例（电商套图）</td><td>1:1 / 4:3 / 3:4 / 16:9 / 9:16，单选，不额外计费</td></tr>'+
-      '<tr><td>突出细节（AI细节图）</td><td>材质纹理 / 工艺接缝 / 功能按键 / 品牌标识 / 包装细节 / 配件细节 / 内部结构 / 表面处理，选填；可选数量随展示形式联动：单细节展示仅可选 1 个，多细节拼接可选 1-4 个；不选则自动识别</td></tr>'+
-      '<tr><td>展示形式（AI细节图）</td><td>单细节展示 / 多细节拼接展示，单选，必填，默认单细节展示</td></tr>'+
+      '<tr><td>突出细节（AI细节图）</td><td>材质纹理 / 工艺接缝 / 功能按键 / 品牌标识 / 包装细节 / 配件细节 / 内部结构 / 表面处理，选填，按所选细节类型生成；可选数量随展示形式联动（单细节 1-1 项 / 多细节拼接 1-4 项），不选则自动识别</td></tr>'+
+      '<tr><td>展示形式（AI细节图）</td><td>单细节 / 多细节拼接，单选，必填，默认单细节</td></tr>'+
       '<tr><td>文案语种（AI卖点图）</td><td>中文 / 英语 / 阿拉伯语 / 泰语 / 印尼语 / 越南语 / 韩语 / 马来语 / 蒙古语，可多选，每个语种输出 1 张卖点图</td></tr>'+
       '<tr><td>标尺类型（AI商品标尺图）</td><td>长 × 宽 × 高 / 长 × 宽 / 高度 / 厚度 / 直径 / 周长 / 重量 / 长 × 宽 × 高 + 重量，单选，不额外计费</td></tr>'+
       '<tr><td>标尺数值 / 文本（AI商品标尺图）</td><td>按类型填数值（尺寸单位 cm / mm / inch，重量单位 g / kg / lb），或输入一段白话描述；留空由 AI 自动标注</td></tr>'+
+      '<tr><td>手动绘制标尺（AI商品标尺图）</td><td>点击「手绘标尺」打开画布，按住拖拽添加标尺线并逐条输入刻度文字，可删除 / 清除；与 AI 标注合并输出，选填，不额外计费</td></tr>'+
       '<tr><td>目标花色（商品换色）</td><td>文字描述想要的花色 / 纹理，另有常用花色可点选填入；留空由 AI 自动匹配</td></tr>'+
       '<tr><td>花色参考图（商品换色）</td><td>选填，上传想要的花色 / 纹理图片，AI 迁移该花色；与文字描述同时填写时以参考图为准</td></tr>'+
       '<tr><td>模特参考（试穿试用）</td><td>AI 自动匹配 / 上传我的模特图 / 平台模特库（亚洲女模 / 亚洲男模 / 欧美女模 / 童模 / 大码模特），选填，不额外计费</td></tr>'+
@@ -4724,10 +4800,10 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     function ready(){return uploaded;}
 
     /* ---- AI细节图：展示形式 ↔ 突出细节 嵌套联动 ----
-       单细节展示：突出细节仅可选 1 个；多细节拼接展示：可选 1-4 个 */
+       单细节：突出细节仅可选 1 个；多细节拼接：可选 1-4 个 */
     var detailFormGroup=document.getElementById('detailForm');
     var detailChipsGroup=document.getElementById('detailChips');
-    var detailChipsSub=detailChipsGroup?detailChipsGroup.parentNode.querySelector('.bg-sec-sub'):null;
+    var detailChipsTag=document.getElementById('detailChipsTag');
     var DETAIL_MAX_MODS=4;
     function isDetailSingle(){
       if(!detailFormGroup){return false;}
@@ -4742,11 +4818,11 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     function applyDetailMode(){
       if(!detailChipsGroup){return;}
       if(isDetailSingle()){
-        if(detailChipsSub){detailChipsSub.textContent='仅可选择 1 个细节，AI 将围绕它生成特写；不选则自动识别';}
+        if(detailChipsTag){detailChipsTag.textContent='（选填，可选1-1项）';}
         var sel=detailChipsGroup.querySelectorAll('.opt-chip.on');
         for(var i=1;i<sel.length;i++){sel[i].classList.remove('on');}   /* 切回单细节时只保留第一个 */
       }else{
-        if(detailChipsSub){detailChipsSub.textContent='可选 1-'+DETAIL_MAX_MODS+' 个细节，AI 将把所选细节拼接呈现；不选则自动识别';}
+        if(detailChipsTag){detailChipsTag.textContent='（选填，可选1-4项）';}
       }
     }
     function detailLogTxt(n,amt){
@@ -4885,7 +4961,8 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         return;
       }
       if(cntHint){
-        cntHint.innerHTML=(langGroup?(getLangs()+' 个语种'):(getCnt()+' 张'))+' · 共 <b>'+amt+'</b> 积分';
+        var pre=(key==='detail')?'AI细节图 · ':'';
+        cntHint.innerHTML=pre+(langGroup?(getLangs()+' 个语种'):(getCnt()+' 张'))+' · 共 <b>'+amt+'</b> 积分';
       }
       if(langHint){langHint.innerHTML='已选 <b>'+getLangs()+'</b> 个语种 · 共出图 <b>'+getLangs()+'</b> 张';}
     }
@@ -4936,7 +5013,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     /* 多选标签（生成类型 / 突出细节 / 文案语种；张数组 .cnt-group、单选组 .single-group、快捷填入组 .fill-group 单独处理） */
     page.querySelectorAll('.opt-chips:not(.cnt-group):not(.single-group):not(.fill-group) .opt-chip').forEach(function(c){
       c.addEventListener('click',function(){
-        /* AI细节图：单细节展示=仅可选 1 个；多细节拼接=可多选，最多 6 个 */
+        /* AI细节图：单细节=仅可选 1 个；多细节拼接=可选 1-4 个 */
         if(key==='detail'&&detailChipsGroup&&detailChipsGroup.contains(c)){
           if(isDetailSingle()){
             var was=c.classList.contains('on');
@@ -5186,7 +5263,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
                     :(key==='tryon')?('试穿试用 · '+(tryonMode()==='上传我的模特图'?'我的模特图':tryonMode()==='平台模特库'?('模特库 · '+(modName||'未选')):'AI 自动匹配模特')+' · '+n+' 张 · '+amt+' 积分')
                     :(key==='detail')?detailLogTxt(n,amt)
                     :langGroup?('AI卖点图 '+getLangs()+' 个语种'+(getRatio()?' · '+getRatio():'')+' · '+amt+' 积分')
-                    :(rulerGroup?('AI商品标尺图 '+getRulerType()+' · '+(rulerSpec()||'按商品比例自动标注')+' · '+n+' 张 · '+amt+' 积分')
+                    :(rulerGroup?('AI商品标尺图 '+getRulerType()+' · '+(rulerSpec()||'按商品比例自动标注')+(handLines&&handLines.length?(' · 手绘 '+handLines.length+' 条'):'')+' · '+n+' 张 · '+amt+' 积分')
                     :(quick?('商品换色 · '+(refUploaded?'按参考图花色':((desc&&desc.value.trim())||'AI 自动匹配同品类热卖花色'))+' · 1 张 · '+amt+' 积分')
                     :('生成扣减 · '+amt+' 积分')));
           spendCredits(amt,IMG_NAMES[key],logTxt);
@@ -5202,6 +5279,99 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           }
           renderPts();
         },1900);
+      });
+    }
+
+    /* ---- AI标尺图：手动绘制标尺（画布拖拽画线 + 刻度文字） ---- */
+    if(key==='ruler'){
+      var handBtn=document.getElementById('rulerHandBtn');
+      var handPop=document.getElementById('rulerHandPop');
+      var handSvg=document.getElementById('rulerHandSvg');
+      var handBar=document.getElementById('rulerHandBar');
+      var handInp=document.getElementById('rulerHandInp');
+      var handList=document.getElementById('rulerHandList');
+      var handCount=document.getElementById('rulerHandCount');
+      var handHint=document.getElementById('rulerHandHint');
+      var handLines=[];     /* {x1,y1,x2,y2,label} SVG 坐标 */
+      var drawing=null;     /* 拖拽中的临时线 */
+      var pendingIdx=-1;    /* 等待输入刻度文字的线下标 */
+      function handEl(t,a){var e=document.createElementNS('http://www.w3.org/2000/svg',t);for(var k in a){e.setAttribute(k,a[k]);}return e;}
+      function handRender(){
+        [].slice.call(handSvg.querySelectorAll('.hline')).forEach(function(e){e.remove();});
+        var all=handLines.concat(drawing?[drawing]:[]);
+        all.forEach(function(L,i){
+          var col=(i===pendingIdx)?'#f59e0b':'#0ea5e9';
+          var g=handEl('g',{'class':'hline'});
+          g.appendChild(handEl('line',{x1:L.x1,y1:L.y1,x2:L.x2,y2:L.y2,stroke:col,'stroke-width':2.5,'stroke-linecap':'round'}));
+          var dx=L.x2-L.x1,dy=L.y2-L.y1,len=Math.sqrt(dx*dx+dy*dy)||1;
+          var px=-dy/len*6,py=dx/len*6;   /* 两端垂直刻度短杠 */
+          [[L.x1,L.y1],[L.x2,L.y2]].forEach(function(p){
+            g.appendChild(handEl('line',{x1:p[0]-px,y1:p[1]-py,x2:p[0]+px,y2:p[1]+py,stroke:col,'stroke-width':2.5,'stroke-linecap':'round'}));
+          });
+          g.appendChild(handEl('circle',{cx:L.x1,cy:L.y1,r:4,fill:col}));
+          g.appendChild(handEl('circle',{cx:L.x2,cy:L.y2,r:4,fill:col}));
+          if(L.label){
+            var t=handEl('text',{x:(L.x1+L.x2)/2,y:(L.y1+L.y2)/2-8,'text-anchor':'middle',fill:col,'font-size':13,'font-weight':700,stroke:'#fff','stroke-width':3,'paint-order':'stroke'});
+            t.textContent=L.label;
+            g.appendChild(t);
+          }
+          handSvg.appendChild(g);
+        });
+        handCount.textContent=handLines.length+' 条标尺线';
+        handHint.textContent=handLines.length?('已手绘 '+handLines.length+' 条标尺线'):'未绘制';
+        handHint.classList.toggle('has',handLines.length>0);
+        handList.innerHTML=handLines.map(function(L,i){
+          return '<div class="hand-line-item">标尺 '+(i+1)+(L.label?(' · '+L.label):' · 未标文字')+'<button class="del" type="button" data-i="'+i+'">删除</button></div>';
+        }).join('');
+      }
+      function svgPt(ev){
+        var r=handSvg.getBoundingClientRect();
+        return {x:(ev.clientX-r.left)/r.width*440,y:(ev.clientY-r.top)/r.height*330};
+      }
+      function commitLabel(){
+        if(pendingIdx<0||!handLines[pendingIdx]){return;}
+        var v=handInp.value.trim();
+        if(v){handLines[pendingIdx].label=v;}
+        pendingIdx=-1;handBar.style.display='none';handInp.value='';
+        handRender();
+      }
+      handSvg.addEventListener('pointerdown',function(ev){
+        commitLabel();   /* 上一条未命名的先落定 */
+        var p=svgPt(ev);
+        drawing={x1:p.x,y1:p.y,x2:p.x,y2:p.y,label:''};
+        try{handSvg.setPointerCapture(ev.pointerId);}catch(e){}
+        handRender();
+      });
+      handSvg.addEventListener('pointermove',function(ev){
+        if(!drawing){return;}
+        var p=svgPt(ev);drawing.x2=p.x;drawing.y2=p.y;handRender();
+      });
+      handSvg.addEventListener('pointerup',function(){
+        if(!drawing){return;}
+        var dx=drawing.x2-drawing.x1,dy=drawing.y2-drawing.y1;
+        if(dx*dx+dy*dy<100){drawing=null;handRender();return;}   /* 过短视为误触 */
+        handLines.push(drawing);drawing=null;
+        pendingIdx=handLines.length-1;
+        handBar.style.display='flex';
+        handInp.placeholder='为标尺 '+handLines.length+' 输入刻度文字，如「长 32 cm」';
+        handInp.value='';
+        handRender();
+        setTimeout(function(){handInp.focus();},30);
+      });
+      handInp.addEventListener('keydown',function(e){if(e.key==='Enter'){commitLabel();}});
+      handInp.addEventListener('blur',function(){commitLabel();});
+      handList.addEventListener('click',function(e){
+        var b=e.target.closest('.del');if(!b){return;}
+        var i=+b.getAttribute('data-i');
+        handLines.splice(i,1);
+        if(pendingIdx===i){pendingIdx=-1;handBar.style.display='none';}
+        handRender();
+      });
+      handBtn.addEventListener('click',function(){handPop.classList.add('open');handRender();});
+      document.getElementById('rulerHandX').addEventListener('click',function(){commitLabel();handPop.classList.remove('open');});
+      document.getElementById('rulerHandDone').addEventListener('click',function(){commitLabel();handPop.classList.remove('open');});
+      document.getElementById('rulerHandClear').addEventListener('click',function(){
+        handLines=[];drawing=null;pendingIdx=-1;handBar.style.display='none';handRender();
       });
     }
 
