@@ -476,6 +476,46 @@
   .ord-invoice:hover{border-color:var(--purple);color:var(--purple);background:#f4f3ff;}
   .ord-invoice.done{background:#ecfdf5;border-color:#a7f3d0;color:#059669;cursor:default;}
   .ord-invoice.done:hover{background:#ecfdf5;border-color:#a7f3d0;color:#059669;}
+  /* 退款按钮与状态 */
+  .ord-invoice.ref-apply{border-color:#fecaca;color:#dc2626;}
+  .ord-invoice.ref-apply:hover{background:#fef2f2;border-color:#fca5a5;color:#dc2626;}
+  .ord-invoice.ref-pending,.ord-invoice.ref-audited{background:#fffbeb;border-color:#fde68a;color:#b45309;}
+  .ord-invoice.ref-pending:hover,.ord-invoice.ref-audited:hover{background:#fffbeb;border-color:#fde68a;color:#b45309;}
+  /* 退款弹层 */
+  .rf-note{font-size:12px;color:#b45309;background:#fffbeb;border:1px dashed #fcd34d;border-radius:8px;padding:8px 11px;line-height:1.6;margin-bottom:12px;}
+  .rf-summary{background:var(--gray-50);border-radius:9px;padding:9px 12px;margin-bottom:12px;}
+  .rf-row{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--gray-600);line-height:1.7;}
+  .rf-row .v{color:var(--ink);font-weight:600;text-align:right;}
+  .rf-fld{margin:0 0 12px;}
+  .rf-fld label{font-size:12.5px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px;}
+  .rf-fld label i{color:#dc2626;font-style:normal;}
+  .rf-ta{width:100%;box-sizing:border-box;border:1px solid var(--gray-200);border-radius:9px;padding:9px 11px;font:inherit;font-size:12.5px;color:var(--ink);resize:vertical;min-height:64px;}
+  .rf-ta:focus{outline:none;border-color:var(--purple);}
+  .rf-ta.shake{animation:rfShake .32s;}
+  @keyframes rfShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+  .rf-err{color:#dc2626;font-size:11.5px;margin-top:4px;min-height:15px;}
+  .rf-tip{font-size:11.5px;color:var(--gray-400);text-align:center;margin-top:8px;line-height:1.6;}
+  .rf-head{font-size:13.5px;font-weight:700;padding:9px 12px;border-radius:9px;margin-bottom:12px;text-align:center;}
+  .rf-head.pending{background:#fffbeb;color:#b45309;}
+  .rf-head.audited{background:#eff6ff;color:#1d4ed8;}
+  .rf-head.refunded{background:#ecfdf5;color:#059669;}
+  .rf-steps{margin:0 0 12px;}
+  .rf-step{display:flex;gap:10px;align-items:flex-start;position:relative;padding-bottom:16px;}
+  .rf-step:last-child{padding-bottom:0;}
+  .rf-step .dot{width:10px;height:10px;border-radius:50%;background:var(--gray-200);flex:none;margin-top:3px;position:relative;z-index:1;}
+  .rf-step.done .dot{background:#10b981;}
+  .rf-step.doing .dot{background:#f59e0b;box-shadow:0 0 0 3px #fef3c7;}
+  .rf-step:not(:last-child)::before{content:'';position:absolute;left:4.5px;top:15px;bottom:0;width:1.5px;background:var(--gray-200);}
+  .rf-step.done:not(:last-child)::before{background:#a7f3d0;}
+  .rf-step .tx b{font-size:12.5px;color:var(--gray-400);font-weight:600;display:block;}
+  .rf-step .tx i{font-style:normal;font-size:11.5px;color:var(--gray-400);}
+  .rf-step.done .tx b,.rf-step.doing .tx b{color:var(--ink);}
+  .rf-step.doing .tx b{color:#b45309;}
+  .rf-step.doing .tx i{color:#b45309;}
+  .rf-step.done .tx i{color:#059669;}
+  .rf-reason{font-size:12.5px;color:var(--gray-600);background:var(--gray-50);border-radius:8px;padding:8px 11px;line-height:1.6;}
+  .rf-deduct{font-size:12px;color:var(--gray-500);background:var(--gray-50);border-radius:8px;padding:8px 11px;margin-top:12px;line-height:1.6;}
+  .rf-deduct.ok{color:#059669;background:#ecfdf5;}
   .pay-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--gray-200);}
   .pay-title{font-size:15px;font-weight:700;color:var(--ink);}
   .pay-x{background:transparent;border:none;color:var(--gray-500);width:28px;height:28px;border-radius:7px;font-size:18px;line-height:1;cursor:pointer;}
@@ -643,6 +683,8 @@
   .tr-langs{display:flex;gap:7px;flex-wrap:wrap;}
   .tr-lang{height:28px;padding:0 12px;border-radius:8px;border:1px solid var(--gray-200);background:#fff;font-size:12px;font-weight:600;color:var(--gray-600);}
   .tr-lang.on{background:var(--acc-50);border-color:var(--acc);color:var(--acc);}
+  .tr-subopts{display:none;}
+  .tr-subopts.show{display:block;}
   .tr-switch{display:flex;align-items:center;justify-content:space-between;padding:11px 0 2px;}
   .tr-switch .l{font-size:13px;font-weight:600;color:var(--ink);}
   .tr-switch .s{font-size:11.5px;color:var(--gray-500);margin-top:2px;}
@@ -2327,7 +2369,6 @@
         <button class="rail-item" data-vtool="dh"><span class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="6.5" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 18c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M14.5 3.5c.8.9 1.3 2 1.3 3.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M16.5 2c1.3 1.4 2 3.2 2 5.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>数字人</button>
         <button class="rail-item" data-vtool="koubo"><span class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="1" y="5" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M13 9l6-3v8l-6-3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7" cy="10" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M7 12v2M5.5 14h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>真人口播</button>
         <button class="rail-item" data-vtool="translate"><span class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="1" y="4" width="11" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M12 8l5-2.5v7L12 10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 13.5h12M7 13.5V17M13 13.5V17" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M5.5 7.5c.5-1 1.5-1.5 2-1.5s1.5.5 2 1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M4.5 9c.5.5 1.5 1 3 1s2.5-.5 3-1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></span>视频翻译</button>
-        <button class="rail-item" data-vtool="subtitle"><span class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="1" y="3" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 8.5h2M9 8.5h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4.5 11.5h3M10 11.5h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>字幕翻译</button>
         <button class="rail-item" data-vtool="frame"><span class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="1" y="4" width="7" height="12" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="4" width="7" height="12" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 10h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="1 1.5"/><circle cx="4.5" cy="10" r="1.5" fill="currentColor"/><circle cx="15.5" cy="10" r="1.5" fill="currentColor"/></svg></span>首尾帧</button>
         <button class="rail-item" data-vtool="text"><span class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="1" y="5" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M13 8.5l6-3v8l-6-3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 9h6M4 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>文生视频</button>
       </nav>
@@ -2614,16 +2655,16 @@
         <button class="vp-gen"><span>生成视频</span><span class="vp-gen-pts"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>20</span><span>积分</span></button>
       </aside>
 
-      <!-- ===== Video Translate (口播视频翻译) panel ===== -->
+      <!-- ===== Video Translate (视频翻译) panel ===== -->
       <aside class="panel video-panel tool-translate" id="vpanel-translate" data-tool="translate" style="display:none">
-        <div class="vp-title">口播视频翻译</div>
-        <div class="vp-sub">上传口播视频，一键翻译生成多语种版本</div>
+        <div class="vp-title">视频翻译</div>
+        <div class="vp-sub">翻译视频的语音与字幕，一键生成多语种版本</div>
         <div class="vp-step">
           <div class="vp-step-no">1</div>
-          <div class="vp-step-name">上传口播视频</div>
+          <div class="vp-step-name">上传视频</div>
           <label class="vp-upload">
             <span class="up-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>
-            <span class="vp-upload-n">点击上传口播视频</span>
+            <span class="vp-upload-n">点击上传视频</span>
             <span class="vp-upload-warn">请勿上传裸露、暴力、血腥或其他包含非法信息视频。<br>支持 MP4、MOV，50M 以内</span>
           </label>        </div>
         <div class="vp-step">
@@ -2645,13 +2686,26 @@
         </div>
         <div class="vp-step">
           <div class="vp-step-no">3</div>
-          <div class="vp-step-name">配音与输出设置</div>
+          <div class="vp-step-name">翻译设置</div>
           <div class="tr-switch">
             <div>
-              <div class="l">对齐口型</div>
-              <div class="s">关闭仅替换音频</div>
+              <div class="l">口型翻译</div>
+              <div class="s">对齐人物口型；关闭仅替换音频</div>
             </div>
             <span class="tr-sw on" id="trLipSwitch"></span>
+          </div>
+          <div class="tr-switch">
+            <div>
+              <div class="l">添加字幕</div>
+              <div class="s">生成目标语言字幕并烧入画面</div>
+            </div>
+            <span class="tr-sw on" id="trSubSwitch"></span>
+          </div>
+          <div class="tr-subopts show" id="trSubOpts">
+            <div class="vp-opt" style="margin-top:10px">
+              <div class="vp-opt-label">字幕位置</div>
+              <div class="vp-opts" data-group><button class="vp-opt-btn active">底部居中</button><button class="vp-opt-btn">顶部居中</button><button class="vp-opt-btn">跟随原片</button></div>
+            </div>
           </div>
           <div class="tr-switch">
             <div>
@@ -2659,53 +2713,6 @@
               <div class="s">仅替换人声部分</div>
             </div>
             <span class="tr-sw on" id="trBgmSwitch"></span>
-          </div>
-        </div>
-        <label class="vp-agree" style="margin:12px 16px 0;padding-left:2px;"><input type="checkbox"><span>我已确认对上传素材拥有合法版权，并已获得出镜人物的肖像授权</span></label>
-        <button class="vp-gen"><span>开始翻译</span><span class="vp-gen-pts"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>20</span><span>积分</span></button>
-      </aside>
-
-      <!-- ===== Video Subtitle (视频字幕翻译) panel ===== -->
-      <aside class="panel video-panel tool-subtitle" id="vpanel-subtitle" data-tool="subtitle" style="display:none">
-        <div class="vp-title">视频字幕翻译</div>
-        <div class="vp-sub">翻译视频的音频及字幕，字幕语言对齐</div>
-        <div class="vp-step">
-          <div class="vp-step-no">1</div>
-          <div class="vp-step-name">上传原始语言视频</div>
-          <label class="vp-upload">
-            <span class="up-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>
-            <span class="vp-upload-n">点击上传原始语言视频</span>
-            <span class="vp-upload-warn">请勿上传裸露、暴力、血腥或其他包含非法信息视频。<br>支持 MP4、MOV，50M 以内</span>
-          </label>        </div>
-        <div class="vp-step">
-          <div class="vp-step-no">2</div>
-          <div class="vp-step-name">选择翻译目标语言</div>
-          <div class="vp-hint2" style="padding-left:0">可多选，每种语言生成对齐的字幕版本</div>
-          <div class="tr-langs" id="subLangs">
-            <button class="tr-lang on">英语</button>
-            <button class="tr-lang">中文</button>
-            <button class="tr-lang">阿拉伯语</button>
-            <button class="tr-lang">泰语</button>
-            <button class="tr-lang">印尼语</button>
-            <button class="tr-lang">越南语</button>
-            <button class="tr-lang">韩语</button>
-            <button class="tr-lang">马来语</button>
-            <button class="tr-lang">蒙古语</button>
-          </div>
-        </div>
-        <div class="vp-step">
-          <div class="vp-step-no">3</div>
-          <div class="vp-step-name">字幕与配音选项</div>
-          <div class="tr-switch">
-            <div>
-              <div class="l">生成对齐字幕</div>
-              <div class="s">为每个语种生成与语音同步的字幕</div>
-            </div>
-            <span class="tr-sw on" id="subSwitch"></span>
-          </div>
-          <div class="vp-opt" style="margin-top:12px">
-            <div class="vp-opt-label">字幕位置</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">底部居中</button><button class="vp-opt-btn">顶部居中</button><button class="vp-opt-btn">跟随原片</button></div>
           </div>
         </div>
         <div class="vp-step">
@@ -2719,7 +2726,6 @@
             <div class="vp-opt-label">输出分辨率</div>
             <div class="vp-opts" data-group><button class="vp-opt-btn active">720p</button><button class="vp-opt-btn">1080p</button></div>
           </div>
-          <div class="tr-langcount">将生成 <b id="subCount">1</b> 个语言版本 · <span>英语</span></div>
         </div>
         <label class="vp-agree" style="margin:12px 16px 0;padding-left:2px;"><input type="checkbox"><span>我已确认对上传素材拥有合法版权，并已获得出镜人物的肖像授权</span></label>
         <button class="vp-gen"><span>开始翻译</span><span class="vp-gen-pts"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>20</span><span>积分</span></button>
@@ -2932,6 +2938,17 @@
       <button class="invoice-x" id="invoiceX" aria-label="关闭">×</button>
     </div>
     <div class="invoice-body" id="invoiceBody"></div>
+  </div>
+</div>
+
+<!-- ===== Refund 退款申请弹窗 ===== -->
+<div class="invoice-pop" id="refundPop">
+  <div class="invoice-card">
+    <div class="invoice-head">
+      <div class="invoice-title">申请退款</div>
+      <button class="invoice-x" id="refundX" aria-label="关闭">×</button>
+    </div>
+    <div class="invoice-body" id="refundBody"></div>
   </div>
 </div>
 
@@ -3158,7 +3175,7 @@ function closeMenus(){document.querySelectorAll('.menu').forEach(function(m){m.c
 document.addEventListener('click',closeMenus);
 
 /* mode-aware drawer filters: video mode filters video history, image mode filters image history */
-var vTypes=['全部','首尾帧','数字人','产品宣传','真人口播','视频翻译','视频字幕','文生视频'];
+var vTypes=['全部','首尾帧','数字人','产品宣传','真人口播','视频翻译','文生视频'];
 var vStatuses=['全部状态','成功','生成中','失败'];
 var stateCode={'成功':'ok','失败':'fail','生成中':'proc','待扣积分':'pending'};
 function filterOpts(kind){
@@ -3215,10 +3232,10 @@ var videoHistoryData=[
     {type:"数字人口播",name:"产品介绍·小雅形象·普通话",meta:"16:20 · 45s",pts:"25",state:"ok"},
     {type:"产品宣传视频",name:"护肤品·写实风·9:16·15s",meta:"16:05",pts:null,state:"proc"},
     {type:"首尾帧生视频",name:"产品展示·缓慢推进·16:9",meta:"14:42 · 10s",pts:"20",state:"ok"},
-    {type:"视频字幕翻译",name:"英语→阿拉伯语·对齐字幕",meta:"14:08 · 75s",pts:"28",state:"ok"}
+    {type:"视频翻译",name:"英语→阿拉伯语·对齐字幕",meta:"14:08 · 75s",pts:"28",state:"ok"}
   ]},
   {date:"2026年09月06日",items:[
-    {type:"口播视频翻译",name:"中→英语、韩语·1080p",meta:"11:30 · 60s",pts:"36",state:"ok"},
+    {type:"视频翻译",name:"中→英语、韩语·1080p",meta:"11:30 · 60s",pts:"36",state:"ok"},
     {type:"真人口播视频",name:"口播替换·普通话·女声A",meta:"10:18 · 30s",pts:"22",state:"ok"},
     {type:"文本生视频",name:"夕阳海浪·电影质感·16:9",meta:"09:55",pts:null,state:"fail",errmsg:"生成超时，服务器繁忙，请稍后再试"}
   ]},
@@ -3328,12 +3345,9 @@ var VTOOLS={
   koubo:{acc:'#6d28d9',acc50:'#f3e8ff',fig:'images/feat-record.png',tag:'真人口播视频完成',meta:'30s · 1080p · 9:16 · 约 15 MB',prev:'images/vid-recent-kuangbo.jpg',flow:['原始口播','融合新文案','输出视频'],descript:'声音与口型同步替换',
     intro:{t:'真人口播视频',d:'上传口播视频与文案，AI 保留人物形象并同步替换声音与口型，适合真人模特口播。',s:[['video','上传口播视频'],['doc','输入文案'],['spark','融合生成']]},
     demo:[{img:'images/vid-hist-5.jpg',label:'口播替换'},{img:'images/vid-hist-1.jpg',label:'女声口播'},{img:'images/vid-hist-8.jpg',label:'英文口播'}]},
-  translate:{acc:'#0891b2',acc50:'#ecfeff',fig:'images/feat-translate.png',tag:'口播视频翻译完成',meta:'60s · 1080p · 16:9 · 约 30 MB',prev:'images/vid-hist-2.jpg',flow:['中文口播','AI 翻译配音','多语种版本'],descript:'口型与人物形象保持同步',
-    intro:{t:'口播视频翻译',d:'翻译视频的音频及字幕，生成对应语种的配音版本，适合多语言内容出海。',s:[['video','上传口播视频'],['globe','选择语言'],['spark','翻译配音']]},
+  translate:{acc:'#0891b2',acc50:'#ecfeff',fig:'images/feat-translate.png',tag:'视频翻译完成',meta:'60s · 1080p · 16:9 · 约 30 MB',prev:'images/vid-hist-2.jpg',flow:['上传视频','AI 翻译配音','多语种版本'],descript:'口型、字幕与人物形象保持同步',
+    intro:{t:'视频翻译',d:'上传视频并选择目标语言，可同时开启口型翻译与添加字幕，生成对应语种的多语言版本，适合内容出海与外贸素材本地化。',s:[['video','上传视频'],['globe','选择语言'],['spark','翻译配音']]},
     demo:[{img:'images/vid-hist-4.jpg',label:'多语配音'},{img:'images/vid-hist-8.jpg',label:'英文版本'},{img:'images/vid-recent-city.jpg',label:'海外版本'}]},
-  subtitle:{acc:'#0e7490',acc50:'#ecfeff',fig:'images/feat-translate.png',tag:'视频字幕翻译完成',meta:'60s · 1080p · 16:9 · 约 28 MB',prev:'images/vid-hist-4.jpg',flow:['原始视频','AI 翻译配音','对齐字幕'],descript:'生成多语言音频与对齐字幕',
-    intro:{t:'字幕翻译',d:'上传原始语言视频，AI 生成多语言音频与对齐字幕，适合外贸商品运营等带字幕翻译场景。',s:[['video','上传视频'],['globe','选择多语种'],['text','对齐字幕']]},
-    demo:[{img:'images/vid-hist-4.jpg',label:'对齐字幕'},{img:'images/vid-hist-6.jpg',label:'电影字幕'},{img:'images/vid-hist-2.jpg',label:'商品字幕'}]},
   text:{acc:'#d97706',acc50:'#fffbeb',fig:'images/feat-text2video.png',tag:'文本生视频完成',meta:'10s · 720p · 16:9 · 约 3.2 MB',prev:'images/vid-hist-6.jpg',flow:['输入描述','选择风格','生成视频'],descript:'AI 理解语义自动生成',
     intro:{t:'文本生视频',d:'输入文字描述与风格，AI 理解语义生成相应的视频画面，快速产出灵感短片。',s:[['doc','输入描述'],['palette','选择风格'],['spark','生成视频']]},
     demo:[{img:'images/vid-hist-6.jpg',label:'夕阳海浪'},{img:'images/vid-hist-3.jpg',label:'城市夜景'},{img:'images/vid-hist-7.jpg',label:'科技感'}]}
@@ -3357,7 +3371,7 @@ document.querySelectorAll('#videoView .rail-item').forEach(function(b){
 /* ================= Credits rule engine ================= */
 /* 积分定价模型（视频生视频）—— 按业务定价表
  * 单条视频积分 = 场景基础分 + 时长加价 + 分辨率加价 + 功能项加分
- * 多语言场景（口播翻译 / 字幕翻译）：每种语言生成 1 条同规格视频，按语言数量倍数计费
+ * 多语言场景（视频翻译）：每种语言生成 1 条同规格视频，按语言数量倍数计费
  */
 var DUR_TIERS={5:0,10:20,15:40,30:60};
 var RES_TIERS={'720p':0,'1080p':10};
@@ -3365,8 +3379,7 @@ var CREDITS_RULES={
   promo:{base:25,dur:DUR_TIERS,res:RES_TIERS,feat:{}},
   dh:{base:20,dur:DUR_TIERS,res:RES_TIERS,feat:{genSub:5}},
   koubo:{base:20,dur:DUR_TIERS,res:RES_TIERS,feat:{customBg:5},featInvert:['customBg']},
-  translate:{base:15,perVideo:true,dur:DUR_TIERS,res:RES_TIERS,feat:{lip:5,keepBgm:0}},
-  subtitle:{base:15,perVideo:true,dur:DUR_TIERS,res:RES_TIERS,feat:{burnSub:5}},
+  translate:{base:15,perVideo:true,dur:DUR_TIERS,res:RES_TIERS,feat:{lip:5,keepBgm:0,burnSub:5}},
   text:{base:20,dur:DUR_TIERS,res:RES_TIERS,feat:{}},
   frame:{base:20,dur:DUR_TIERS,res:RES_TIERS,feat:{}}
 };
@@ -3531,21 +3544,21 @@ function addCredits(amt,name,detail){
 
 /* ================= Recharge packs & orders ================= */
 var PACKS=[
-  {id:'trial', tag:'体验装', price:6,   credits:60,   gift:0},
-  {id:'basic', tag:'基础包', price:30,  credits:320,  gift:0},
+  {id:'trial', tag:'体验包', price:6,   credits:60,   gift:0},
+  {id:'basic', tag:'基础包', price:32,  credits:320,  gift:0},
   {id:'std',   tag:'标准包', price:98,  credits:1100, gift:100, hot:true},
   {id:'create',tag:'创作包', price:198, credits:2400, gift:400},
   {id:'max',   tag:'至尊包', price:498, credits:6200, gift:1500}
 ];
-/* 折合单价按实得积分（含赠送）计算：0.100 → 0.094 → 0.082 → 0.071 → 0.065 */
+/* 折合单价按实得积分（含赠送）计算：0.100 → 0.100 → 0.082 → 0.071 → 0.065 */
 function packUnit(p){return p.price/(p.credits+(p.gift||0));}
 // 全屏充值页 4-5 项权益（按套餐分级；trial/basic 价格低无专属客服）
 var PACKS_PERKS={
   trial:  ['立即生效到账','积分长期有效','支持微信 / 支付宝','在线客服 7×24h'],
   basic:  ['立即生效到账','积分长期有效','在线客服工单','可申请电子发票'],
   std:    ['立即生效到账','积分长期有效','客服工单优先','可申请电子发票'],
-  create: ['立即生效到账','积分长期有效','专属 1V1 客服','生图特权工具解锁','VIP 创作徽标'],
-  max:    ['立即生效到账','积分长期有效','专属 VIP 客户经理','优先排队生成','内部模型 Beta 体验']
+  create: ['立即生效到账','积分长期有效','专属 1V1 客服','新功能Beta体验','VIP 创作徽标'],
+  max:    ['立即生效到账','积分长期有效','专属 VIP 客户经理','优先排队生成','最新模型同步体验']
 };
 var ORDERS_KEY='wb_credits_orders_v1';
 var INVOICES_KEY='wb_invoices_v1';
@@ -3566,9 +3579,150 @@ function saveInvoice(inv){
 }
 function saveOrder(o){var a=getOrders();a.unshift(o);localStorage.setItem(ORDERS_KEY,JSON.stringify(a.slice(0,50)));}
 function fmtMoney(n){return '¥'+n.toFixed(2);}
+
+/* ================= Refund 退款申请 ================= */
+/* 状态流转：pending(待后台人工审核) → audited(审核通过·等待支付平台退款) → refunded(退款成功·扣回积分)
+   原型用时间线模拟后台与支付平台的处理节奏，刷新页面后同样按时间正确流转 */
+var REFUNDS_KEY='wb_refunds_v1';
+var REFUND_AUDIT_MS=12*1000;   /* 提交后 12s：后台人工审核通过 */
+var REFUND_PAY_MS=15*1000;     /* 审核通过后 15s：支付平台原路退回到账 */
+var refundTimers=[];
+function clearRefundTimers(){refundTimers.forEach(clearTimeout);refundTimers.length=0;}
+function getRefunds(){
+  try{var a=JSON.parse(localStorage.getItem(REFUNDS_KEY)||'[]');return Array.isArray(a)?a:[];}
+  catch(e){return [];}
+}
+function getRefund(oid){return getRefunds().find(function(x){return x.orderId===oid;});}
+function saveRefund(r){
+  var a=getRefunds();
+  var i=a.findIndex(function(x){return x.orderId===r.orderId;});
+  if(i>=0){a[i]=r;}else{a.unshift(r);}
+  localStorage.setItem(REFUNDS_KEY,JSON.stringify(a.slice(0,50)));
+}
+/* 按时间线推进退款状态（待审核→退款中→已退款），到账时扣回积分 */
+function syncRefunds(){
+  var changed=false,now=Date.now();
+  getRefunds().forEach(function(r){
+    if(r.status==='pending'&&(r.applyTs+REFUND_AUDIT_MS)<=now){r.status='audited';r.auditTs=now;changed=true;saveRefund(r);}
+    if(r.status==='audited'&&(r.auditTs+REFUND_PAY_MS)<=now){r.status='refunded';r.doneTs=now;applyRefundDeduct(r);changed=true;saveRefund(r);}
+  });
+  return changed;
+}
+/* 退款到账：扣回该订单未消耗的购买积分与赠送积分（原型按订单总额从当前余额扣，最多扣到 0） */
+function applyRefundDeduct(r){
+  var o=getOrders().find(function(x){return x.id===r.orderId;});
+  if(!o){r.deduct=0;return;}
+  var total=o.credits+(o.gift||0);
+  var deduct=Math.min(getBalance(),total);
+  r.deduct=deduct;
+  if(deduct>0){
+    var giftPart=Math.min(deduct,o.gift||0);
+    setBalance(getBalance()-deduct);
+    logCredit('minus',deduct,'退款扣回 · '+o.pkg,'订单尾号 '+o.id.slice(-8)+' · 退款成功，扣回未消耗积分（购买 '+(deduct-giftPart)+' + 赠送 '+giftPart+'）');
+  }
+  if(typeof renderRechargePage==='function')renderRechargePage();
+}
+/* 在线时自动流转：安排下一个状态节点触发的定时器 */
+function scheduleRefundTick(){
+  clearRefundTimers();
+  var now=Date.now();
+  getRefunds().forEach(function(r){
+    if(r.status==='pending')refundTimers.push(setTimeout(onRefundTick,Math.max(0,(r.applyTs+REFUND_AUDIT_MS)-now)));
+    else if(r.status==='audited')refundTimers.push(setTimeout(onRefundTick,Math.max(0,(r.auditTs+REFUND_PAY_MS)-now)));
+  });
+}
+function onRefundTick(){
+  var changed=syncRefunds();
+  if(changed){
+    renderOrdersPage();
+    var cb=document.getElementById('creditsBody');
+    if(cb&&cb.children.length)renderOrders(cb);
+    var pop=document.getElementById('refundPop');
+    if(pop&&pop.classList.contains('open')){
+      var first=getRefunds()[0];
+      var order=first&&getOrders().find(function(x){return x.id===first.orderId;});
+      if(order)openRefundPop(order);
+    }
+  }
+  scheduleRefundTick();
+}
+function fmtTs(ts){var d=new Date(ts);var p2=function(n){return('0'+n).slice(-2);};return (d.getMonth()+1)+'-'+d.getDate()+' '+p2(d.getHours())+':'+p2(d.getMinutes());}
+function refundStatusText(st){
+  return st==='pending'?'已提交 · 待后台人工审核'
+    :(st==='audited'?'审核通过 · 等待支付平台退款'
+    :'退款成功 · 已扣回未消耗积分');
+}
+function refundFormHtml(o){
+  var total=o.credits+(o.gift||0);
+  var gift=o.gift||0;
+  return '<div class="rf-summary">'+
+      '<div class="rf-row"><span class="l">订单</span><span class="v">'+escHtml(o.pkg)+' · ¥'+o.amount+' · 单号 '+o.id.slice(-8)+'</span></div>'+
+      '<div class="rf-row"><span class="l">实得积分</span><span class="v">'+total.toLocaleString()+' 积分'+(gift?'（含赠送 '+gift+'）':'')+'</span></div>'+
+    '</div>'+
+    '<div class="rf-note">退款需后台人工审核，审核通过后由支付平台<b>原路退回</b>；退款到账后将扣回该订单未消耗的购买积分与赠送积分（当前可扣回 <b>'+total.toLocaleString()+'</b> 积分'+(gift?'，其中赠送 '+gift:'')+'），请谨慎申请。</div>'+
+    '<div class="rf-fld"><label>申请理由 <i>*</i></label>'+
+      '<textarea class="rf-ta" id="refundReason" rows="3" maxlength="200" placeholder="请填写退款申请理由，如「误充 / 重复充值 / 未达到预期效果」"></textarea>'+
+      '<div class="rf-err" id="refundErr"></div></div>'+
+    '<button class="pay-submit" id="refundSubmit" type="button">提交申请</button>'+
+    '<div class="rf-tip">提交后可在本条充值记录中查看退款进度</div>';
+}
+function refundStatusHtml(o,r){
+  var total=o.credits+(o.gift||0);
+  var st=[
+    {t:'提交申请',cls:'done',d:fmtTs(r.applyTs)},
+    {t:'后台人工审核',cls:r.status==='pending'?'doing':'done',d:r.status==='pending'?'人工审核中，请耐心等待':fmtTs(r.auditTs)},
+    {t:'支付平台退款',cls:r.status==='refunded'?'done':(r.status==='audited'?'doing':'wait'),d:r.status==='refunded'?'原路退回 ¥'+Number(o.amount).toFixed(2):(r.status==='audited'?'等待支付平台处理':'—')},
+    {t:'退款到账',cls:r.status==='refunded'?'done':'wait',d:r.status==='refunded'?fmtTs(r.doneTs):'—'}
+  ];
+  var deductLine=r.status==='refunded'
+    ?'<div class="rf-deduct ok">已扣回该订单未消耗积分 <b>'+(r.deduct||0).toLocaleString()+'</b> 积分（购买 + 赠送），可在积分明细中查看</div>'
+    :'<div class="rf-deduct">退款到账后将扣回该订单未消耗积分（当前剩余可扣 <b>'+total.toLocaleString()+'</b> 积分'+(o.gift?'，含赠送 '+o.gift:'')+'）</div>';
+  return '<div class="rf-head '+r.status+'">'+refundStatusText(r.status)+'</div>'+
+    '<div class="rf-summary"><div class="rf-row"><span class="l">订单</span><span class="v">'+escHtml(o.pkg)+' · ¥'+o.amount+' · 单号 '+o.id.slice(-8)+'</span></div></div>'+
+    '<div class="rf-steps">'+st.map(function(s){return '<div class="rf-step '+s.cls+'"><span class="dot"></span><div class="tx"><b>'+s.t+'</b><i>'+s.d+'</i></div></div>';}).join('')+'</div>'+
+    '<div class="rf-fld"><label>申请理由</label><div class="rf-reason">'+escHtml(r.reason||'—')+'</div></div>'+
+    deductLine;
+}
+function closeRefundPop(){
+  var pop=document.getElementById('refundPop');
+  if(pop)pop.classList.remove('open');
+}
+function openRefundPop(order){
+  var pop=document.getElementById('refundPop');
+  var body=document.getElementById('refundBody');
+  var title=document.querySelector('#refundPop .invoice-title');
+  if(!body||!pop)return;
+  var r=getRefund(order.id);
+  if(title)title.textContent=r?'退款进度':'申请退款';
+  body.innerHTML=r?refundStatusHtml(order,r):refundFormHtml(order);
+  pop.classList.add('open');
+  pop.onclick=function(e){if(e.target===pop)closeRefundPop();};
+  var x=document.getElementById('refundX');
+  if(x)x.onclick=closeRefundPop;
+  if(!r){
+    var sub=document.getElementById('refundSubmit');
+    if(sub)sub.addEventListener('click',function(){
+      var ta=document.getElementById('refundReason');
+      var reason=(ta.value||'').trim();
+      var err=document.getElementById('refundErr');
+      if(reason.length<5){
+        ta.classList.remove('shake');void ta.offsetWidth;ta.classList.add('shake');
+        if(err)err.textContent='请填写至少 5 个字的申请理由';
+        return;
+      }
+      if(err)err.textContent='';
+      saveRefund({orderId:order.id,reason:reason,status:'pending',applyTs:Date.now()});
+      scheduleRefundTick();
+      renderOrdersPage(); /* 立即回显「退款审核中」 */
+      openRefundPop(order); /* 提交后切到退款进度视图 */
+    });
+  }
+}
+
 function renderOrders(body){
   body=body||document.getElementById('creditsBody');
   if(!body)return;
+  syncRefunds(); /* 渲染前按时间线推进退款状态（刷新后同样生效） */
   var orders=getOrders();
   if(!orders.length){
     body.innerHTML='<div class="rec-orders-empty"><span class="em">💎</span>暂无充值记录 · <a id="recEmptyGo" style="color:var(--purple);cursor:pointer;font-weight:600">前往充值</a></div>';
@@ -3588,6 +3742,12 @@ function renderOrders(body){
       '<button class="ord-invoice done" data-invoice="'+o.id+'"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>发票已申请</button>'
       :'<button class="ord-invoice" data-invoice="'+o.id+'"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>申请发票</button>'
     ):'';
+    /* 退款：已支付订单可申请；申请后回显状态（待审核 / 退款中 / 已退款） */
+    var rf=getRefund(o.id);
+    var refundBtn=rf
+      ?'<button class="ord-invoice ref-'+rf.status+'" data-refund="'+o.id+'">'+(rf.status==='pending'?'退款审核中':(rf.status==='audited'?'退款中':'已退款'))+'</button>'
+      :(canInvoice?'<button class="ord-invoice ref-apply" data-refund="'+o.id+'">申请退款</button>':'');
+    var stText=rf?(rf.status==='pending'?'退款审核中':(rf.status==='audited'?'退款中':'已退款')):'已支付';
     html+='<div class="ord-row">'+
       '<div class="ic '+(isWx?'wx':'ali')+'">'+(isWx?'微':'支')+'</div>'+
       '<div class="main">'+
@@ -3596,8 +3756,9 @@ function renderOrders(body){
       '</div>'+
       '<div class="amt"><div class="v">+'+(o.credits+(o.gift||0)).toLocaleString()+' 积分</div><div class="m">¥'+o.amount+'</div></div>'+
       '<div class="ord-right">'+
-        '<div class="st">已支付</div>'+
+        '<div class="st">'+stText+'</div>'+
         invoiceBtn+
+        refundBtn+
       '</div>'+
     '</div>';
   });
@@ -3612,6 +3773,13 @@ function renderOrders(body){
       /* 统一传入完整订单（含积分/支付方式/时间），已申请过的由弹窗内部切换为只读视图 */
       var order=getOrders().find(function(x){return x.id===oid;});
       if(order)openInvoicePop(order);
+    });
+  });
+  body.querySelectorAll('.ord-invoice[data-refund]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var oid=b.getAttribute('data-refund');
+      var order=getOrders().find(function(x){return x.id===oid;});
+      if(order)openRefundPop(order); /* 未申请显示表单，已申请显示退款进度 */
     });
   });
 }
@@ -4007,7 +4175,7 @@ function renderCreditRule(body){
   body=body||document.getElementById('creditsBody');
   if(!body)return;
   var ruleKeys=Object.keys(CREDITS_RULES);
-  var LABELS={promo:'产品宣传视频',dh:'数字人口播',koubo:'真人口播视频',translate:'口播视频翻译',subtitle:'视频字幕翻译',frame:'首尾帧生视频',text:'文本生视频'};
+  var LABELS={promo:'产品宣传视频',dh:'数字人口播',koubo:'真人口播视频',translate:'视频翻译',frame:'首尾帧生视频',text:'文本生视频'};
   var baseRows=ruleKeys.filter(function(k){return LABELS[k];}).map(function(k){return '<tr><td>'+LABELS[k]+'</td><td><b>'+CREDITS_RULES[k].base+'</b> 积分</td></tr>';}).join('');
   // 通用加价项（所有视频场景一致）
   var durRows=Object.keys(DUR_TIERS).map(function(k){
@@ -4031,12 +4199,12 @@ function renderCreditRule(body){
     '<table><tbody>'+
       '<tr><td>数字人口播 · 生成字幕</td><td>+5</td></tr>'+
       '<tr><td>真人口播视频 · 自定义背景</td><td>+5</td></tr>'+
-      '<tr><td>口播视频翻译 · 对齐口型</td><td>+5</td></tr>'+
-      '<tr><td>口播视频翻译 · 保留背景音</td><td>+0</td></tr>'+
-      '<tr><td>视频字幕翻译 · 烧入字幕</td><td>+5</td></tr>'+
+      '<tr><td>视频翻译 · 口型翻译</td><td>+5</td></tr>'+
+      '<tr><td>视频翻译 · 添加字幕</td><td>+5</td></tr>'+
+      '<tr><td>视频翻译 · 保留原始背景音</td><td>+0</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:12px">🌐 多语言计费</h4>'+
-    '<div class="formula">多语言场景（口播翻译 / 字幕翻译）每种语言生成 1 条<b>同规格视频</b>，按语言数量 <code>倍数计费</code><br>例：单条 20 积分 × 3 种语言 = 60 积分</div>'+
+    '<div class="formula">多语言场景（视频翻译）每种语言生成 1 条<b>同规格视频</b>，按语言数量 <code>倍数计费</code><br>例：单条 25 积分 × 3 种语言 = 75 积分</div>'+
     '<h4 style="margin-top:12px">🔁 返还与领取</h4>'+
     '<table><tbody>'+
       '<tr><td>生成失败</td><td style="color:#2563eb">积分自动原路返还</td></tr>'+
@@ -4210,10 +4378,9 @@ function bindPanelInteractions(panel){
   var FEAT_IDS={
     dh:{'生成字幕':'genSub'},
     koubo:{'保留原始背景':'customBg'},
-    translate:{'对齐口型':'lip','保留原始背景音':'keepBgm'},
-    subtitle:{'生成对齐字幕':'burnSub'}
+    translate:{'口型翻译':'lip','添加字幕':'burnSub','保留原始背景音':'keepBgm'}
   };
-  var FEAT_LABELS={genSub:'生成字幕',customBg:'自定义背景',lip:'对齐口型',keepBgm:'保留背景音',burnSub:'生成对齐字幕'};
+  var FEAT_LABELS={genSub:'生成字幕',customBg:'自定义背景',lip:'口型翻译',keepBgm:'保留背景音',burnSub:'添加字幕'};
   var fmap=FEAT_IDS[panel.getAttribute('data-tool')]||{};
   panel.querySelectorAll('.tr-switch').forEach(function(sw){
     if(sw.getAttribute('data-feat-id'))return;
@@ -4280,7 +4447,7 @@ function bindPanelInteractions(panel){
   });
   panel.querySelectorAll('.tr-sw').forEach(function(sw){
     if(sw.__bound)return; sw.__bound=true;
-    sw.addEventListener('click',function(){sw.classList.toggle('on');renderGenCredits(panel);});
+    sw.addEventListener('click',function(){sw.classList.toggle('on');syncTrSubOpts(panel);renderGenCredits(panel);});
   });
   // image slots (promo) toggle
   panel.querySelectorAll('.promo-img').forEach(function(slot,i){
@@ -4333,6 +4500,13 @@ function updateTrCount(panel){
   var names=[];panel.querySelectorAll('.tr-lang.on').forEach(function(l){names.push(l.textContent.trim());});
   var lab=panel.querySelector('.tr-langcount span');if(lab)lab.textContent=names.join('、');
 }
+/* 视频翻译：关闭「添加字幕」时收起字幕位置选项 */
+function syncTrSubOpts(panel){
+  var sw=panel.querySelector('#trSubSwitch');
+  var box=panel.querySelector('#trSubOpts');
+  if(!sw||!box)return;
+  box.classList.toggle('show',sw.classList.contains('on'));
+}
 function updatePromoCount(panel){
   var n=panel.querySelectorAll('.promo-img.filled').length;
   var c=panel.querySelector('.promo-count');
@@ -4356,7 +4530,7 @@ function updateKouboEstDur(panel){
 }
 document.querySelectorAll('#videoView .video-panel').forEach(function(p){bindPanelInteractions(p);});
 updateTrCount(document.getElementById('vpanel-translate'));
-updateTrCount(document.getElementById('vpanel-subtitle'));
+scheduleRefundTick(); /* 退款单在线自动流转（待审核→退款中→已退款） */
 
 // character counter for textareas with data-max
 document.querySelectorAll('.vp-ta[data-max]').forEach(function(ta){
