@@ -481,6 +481,34 @@
   .ord-invoice.ref-apply:hover{background:#fef2f2;border-color:#fca5a5;color:#dc2626;}
   .ord-invoice.ref-pending,.ord-invoice.ref-audited{background:#fffbeb;border-color:#fde68a;color:#b45309;}
   .ord-invoice.ref-pending:hover,.ord-invoice.ref-audited:hover{background:#fffbeb;border-color:#fde68a;color:#b45309;}
+  /* 退款：隐晦入口 + 订单选择 */
+  .ord-right .st.st-link{background:none;border:none;padding:0;font-family:inherit;font-size:12px;font-weight:600;color:#b45309;cursor:pointer;}
+  .ord-right .st.st-link:hover{text-decoration:underline;}
+  .ord-service{margin-top:14px;text-align:center;}
+  .ord-service button{background:none;border:none;padding:2px 4px;font-family:inherit;font-size:11.5px;color:var(--gray-400);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .ord-service button:hover{color:var(--purple);}
+  .rf-lead{font-size:12px;color:var(--gray-500);line-height:1.65;margin-bottom:12px;}
+  .rf-back{background:none;border:none;padding:0;margin-bottom:10px;font-family:inherit;font-size:11.5px;color:var(--gray-500);cursor:pointer;}
+  .rf-back:hover{color:var(--purple);}
+  .rf-list{display:flex;flex-direction:column;gap:8px;max-height:38vh;overflow-y:auto;margin-bottom:12px;padding-right:2px;}
+  .rf-ord{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--gray-200);border-radius:10px;padding:10px 12px;cursor:pointer;font-family:inherit;}
+  .rf-ord:hover{border-color:var(--acc);background:#fcfcff;}
+  .rf-ord.on{border-color:var(--acc);background:var(--acc-50);}
+  .rf-ord .rd{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--gray-300);flex:none;position:relative;}
+  .rf-ord.on .rd{border-color:var(--acc);}
+  .rf-ord.on .rd::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--acc);}
+  .rf-ord .mi{flex:1;min-width:0;}
+  .rf-ord .mi b{display:block;font-size:12.5px;color:var(--ink);font-weight:600;}
+  .rf-ord .mi b em{font-style:normal;font-size:10.5px;color:var(--acc);margin-left:5px;}
+  .rf-ord .mi span{display:block;font-size:11px;color:var(--gray-400);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .rf-ord .am{text-align:right;flex:none;}
+  .rf-ord .am b{display:block;font-size:12.5px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .rf-ord .am b.st-pending,.rf-ord .am b.st-audited{color:#b45309;}
+  .rf-ord .am b.st-refunded{color:#059669;}
+  .rf-ord .am span{display:block;font-size:10.5px;color:var(--gray-400);margin-top:2px;}
+  .rf-empty{padding:26px 0;text-align:center;color:var(--gray-400);font-size:12.5px;background:var(--gray-50);border-radius:10px;margin-bottom:12px;}
+  .rf-done-h{font-size:11.5px;font-weight:600;color:var(--gray-500);margin:2px 0 8px;}
+  #refundNext:disabled{opacity:.45;cursor:not-allowed;}
   /* 退款弹层 */
   .rf-note{font-size:12px;color:#b45309;background:#fffbeb;border:1px dashed #fcd34d;border-radius:8px;padding:8px 11px;line-height:1.6;margin-bottom:12px;}
   .rf-summary{background:var(--gray-50);border-radius:9px;padding:9px 12px;margin-bottom:12px;}
@@ -675,6 +703,48 @@
   .dh-av .d{font-size:11px;color:var(--gray-400);}
   .dh-av.on{border-color:var(--acc);background:var(--acc-50);}
   .dh-av.on .n{color:var(--acc);}
+  /* 数字人：已选形象行 + 选择面板 */
+  .dh-pick{display:flex;align-items:center;gap:10px;width:100%;margin-top:10px;padding:9px 11px;border:1.5px solid var(--gray-200);border-radius:11px;background:#fff;font-family:inherit;cursor:pointer;text-align:left;transition:.14s;}
+  .dh-pick:hover{border-color:var(--acc);background:var(--acc-50);}
+  .dh-pick .thumb{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;background:var(--gray-100);}
+  .dh-pick .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+  .dh-pick .tx b{font-size:13px;font-weight:600;color:var(--ink);}
+  .dh-pick .tx em{font-style:normal;font-size:11.5px;color:var(--gray-400);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .dh-pick .chg{flex:none;font-size:12px;font-weight:600;color:var(--acc);}
+  .dh-sheet-mask{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:210;display:none;align-items:flex-end;justify-content:center;}
+  .dh-sheet-mask.open{display:flex;animation:fadeIn .18s ease;}
+  .dh-sheet{width:100%;max-width:460px;max-height:78vh;background:#fff;border-radius:18px 18px 0 0;display:flex;flex-direction:column;overflow:hidden;animation:sheetUp .22s ease;}
+  @keyframes sheetUp{from{transform:translateY(26px);opacity:.5;}to{transform:translateY(0);opacity:1;}}
+  .dh-sheet-bar{width:36px;height:4px;border-radius:2px;background:var(--gray-200);margin:8px auto 0;flex:none;}
+  .dh-sheet-head{display:flex;align-items:center;justify-content:space-between;padding:10px 18px 8px;flex:none;}
+  .dh-sheet-head .t{font-size:15px;font-weight:700;color:var(--ink);}
+  .dh-sheet-body{padding:0 18px 22px;overflow-y:auto;}
+  .dh-sec{margin-top:12px;}
+  .dh-sec-lab{display:flex;align-items:center;gap:6px;margin-bottom:9px;font-size:12px;font-weight:600;color:var(--gray-500);}
+  .dh-sec-lab i{font-style:normal;font-size:10.5px;font-weight:600;color:var(--gray-400);background:var(--gray-100);border-radius:20px;padding:1px 6px;}
+  .dh-sec-lab .new{margin-left:auto;border:none;background:none;font-family:inherit;font-size:12px;font-weight:600;color:var(--acc);cursor:pointer;padding:2px 0;}
+  .dh-mine-empty{font-size:11.5px;color:var(--gray-400);line-height:1.6;padding:0 0 8px;}
+  /* 创建数字人弹层 */
+  .dh-fld{margin-bottom:14px;}
+  .dh-fld>label{display:block;font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+  .dh-fld>label i{color:#dc2626;font-style:normal;margin-left:2px;}
+  .dh-up{display:flex;align-items:center;gap:10px;border:1.5px dashed var(--gray-300);border-radius:10px;padding:10px 12px;cursor:pointer;background:#fcfcfd;}
+  .dh-up:hover{border-color:var(--acc);background:var(--acc-50);}
+  .dh-up .prev{width:40px;height:40px;border-radius:50%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden;color:var(--gray-400);}
+  .dh-up .prev img{width:100%;height:100%;object-fit:cover;}
+  .dh-up .tx{flex:1;min-width:0;}
+  .dh-up .tx b{display:block;font-size:12.5px;color:var(--ink);font-weight:600;}
+  .dh-up .tx span{font-size:11px;color:var(--gray-400);line-height:1.5;display:block;margin-top:2px;}
+  .dh-up .st{font-size:11px;color:var(--gray-400);flex:none;}
+  .dh-up.done{border-style:solid;border-color:#a7f3d0;background:#ecfdf5;}
+  .dh-up.done .st{color:#059669;font-weight:600;}
+  .dh-inp{width:100%;box-sizing:border-box;border:1px solid var(--gray-200);border-radius:9px;padding:9px 11px;font:inherit;font-size:12.5px;color:var(--ink);}
+  .dh-inp:focus{outline:none;border-color:var(--purple);}
+  .dh-voice{display:flex;gap:8px;margin-bottom:8px;}
+  .dh-voice button{flex:1;border:1.5px solid var(--gray-200);border-radius:9px;background:#fff;padding:8px 6px;cursor:pointer;font-family:inherit;font-size:12px;color:var(--gray-600);}
+  .dh-voice button.on{border-color:var(--acc);background:var(--acc-50);color:var(--acc);font-weight:600;}
+  .dh-voice-sub{font-size:11.5px;color:var(--gray-400);line-height:1.6;}
+  .dh-err{color:#dc2626;font-size:11.5px;margin-top:-4px;margin-bottom:8px;min-height:15px;}
   /* script template snippets */
   .kb-sk{margin:0 16px 12px;border:1px solid var(--gray-200);border-radius:9px;padding:8px 10px;text-align:left;background:#fff;width:calc(100% - 32px);display:block;}
   .kb-sk .t{font-size:11.5px;font-weight:600;color:var(--acc);margin-bottom:3px;}
@@ -2370,7 +2440,6 @@
         <button class="rail-item" data-vtool="koubo"><span class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="1" y="5" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M13 9l6-3v8l-6-3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7" cy="10" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M7 12v2M5.5 14h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>真人口播</button>
         <button class="rail-item" data-vtool="translate"><span class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="1" y="4" width="11" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M12 8l5-2.5v7L12 10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 13.5h12M7 13.5V17M13 13.5V17" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M5.5 7.5c.5-1 1.5-1.5 2-1.5s1.5.5 2 1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M4.5 9c.5.5 1.5 1 3 1s2.5-.5 3-1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></span>视频翻译</button>
         <button class="rail-item" data-vtool="frame"><span class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="1" y="4" width="7" height="12" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="4" width="7" height="12" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 10h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="1 1.5"/><circle cx="4.5" cy="10" r="1.5" fill="currentColor"/><circle cx="15.5" cy="10" r="1.5" fill="currentColor"/></svg></span>首尾帧</button>
-        <button class="rail-item" data-vtool="text"><span class="icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="1" y="5" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M13 8.5l6-3v8l-6-3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 9h6M4 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>文生视频</button>
       </nav>
 
       <!-- ===== Video left config panel ===== -->
@@ -2450,12 +2519,14 @@
         <div class="vp-step">
           <div class="vp-step-no">1</div>
           <div class="vp-step-name">选择数字人形象</div>
-          <div class="dh-grid">
-            <button class="dh-av on"><img src="images/dh-xiaoya.jpg" alt="小雅"><span class="n">小雅</span><span class="d">专业</span></button>
-            <button class="dh-av"><img src="images/dh-xiaoming.jpg" alt="晓明"><span class="n">晓明</span><span class="d">商务</span></button>
-            <button class="dh-av"><img src="images/dh-xinran.jpg" alt="欣然"><span class="n">欣然</span><span class="d">时尚</span></button>
-            <button class="dh-av"><img src="images/dh-zixuan.jpg" alt="子轩"><span class="n">子轩</span><span class="d">年轻</span></button>
-          </div>
+          <button class="dh-pick" type="button" id="dhPick">
+            <img class="thumb" id="dhPickImg" src="images/dh-xiaoya.jpg" alt="">
+            <span class="tx">
+              <b id="dhPickName">小雅</b>
+              <em id="dhPickDesc">官方预设形象 · 专业</em>
+            </span>
+            <span class="chg">更换 ›</span>
+          </button>
         </div>
         <div class="vp-step">
           <div class="vp-step-no">2</div>
@@ -2577,6 +2648,25 @@
         </div>
         <div class="vp-step">
           <div class="vp-step-no">3</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+            <div class="vp-step-name" style="margin-bottom:0;">画面风格</div>
+            <div style="font-size:12.5px;color:var(--gray-500);">选填</div>
+          </div>
+          <div class="vp-opt">
+            <div class="vp-opts" data-group>
+              <button class="vp-opt-btn active">AI 自动</button>
+              <button class="vp-opt-btn">写实风格</button>
+              <button class="vp-opt-btn">电影质感</button>
+              <button class="vp-opt-btn">商业广告</button>
+              <button class="vp-opt-btn">动漫风格</button>
+              <button class="vp-opt-btn">赛博朋克</button>
+              <button class="vp-opt-btn">水墨风</button>
+            </div>
+          </div>
+          <div class="vp-hint2" style="padding-left:0">不指定时按商品类目自动匹配画面质感</div>
+        </div>
+        <div class="vp-step">
+          <div class="vp-step-no">4</div>
           <div class="vp-step-name">输出规格</div>
           <div class="vp-opt">
             <div class="vp-opt-label">画面比例</div>
@@ -2732,45 +2822,6 @@
       </aside>
 
       <!-- ===== Text-to-Video panel ===== -->
-      <aside class="panel video-panel tool-text" id="vpanel-text" data-tool="text" style="display:none">
-        <div class="vp-title">文本生视频</div>
-        <div class="vp-sub">通过文字描述生成创意视频内容</div>
-        <div class="vp-step">
-          <div class="vp-step-no">1</div>
-          <div class="vp-step-name">视频描述</div>
-          <textarea class="vp-ta" rows="3" placeholder="描述想要的视频内容，如「夕阳下海浪拍打礁石，金色光芒洒在水面，慢镜头，电影质感」..."></textarea>
-        </div>
-        <div class="vp-step">
-          <div class="vp-step-no">2</div>
-          <div class="vp-step-name">画面风格</div>
-          <div class="tx-grid">
-            <button class="tx-st on"><span class="t">写实风格</span><span class="d">真实自然</span></button>
-            <button class="tx-st"><span class="t">动漫风格</span><span class="d">二次元</span></button>
-            <button class="tx-st"><span class="t">电影质感</span><span class="d">大片感</span></button>
-            <button class="tx-st"><span class="t">商业广告</span><span class="d">简洁专业</span></button>
-            <button class="tx-st"><span class="t">赛博朋克</span><span class="d">科幻霓虹</span></button>
-            <button class="tx-st"><span class="t">水墨风</span><span class="d">中国风</span></button>
-          </div>
-        </div>
-        <div class="vp-step">
-          <div class="vp-step-no">3</div>
-          <div class="vp-step-name">输出规格</div>
-          <div class="vp-opt">
-            <div class="vp-opt-label">视频时长（最长 30s）</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">5s</button><button class="vp-opt-btn">10s</button><button class="vp-opt-btn">15s</button><button class="vp-opt-btn">30s</button></div>
-          </div>
-          <div class="vp-opt">
-            <div class="vp-opt-label">分辨率</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">720p</button><button class="vp-opt-btn">1080p</button></div>
-          </div>
-          <div class="vp-opt">
-            <div class="vp-opt-label">画面比例</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">16:9</button><button class="vp-opt-btn">9:16</button><button class="vp-opt-btn">1:1</button><button class="vp-opt-btn">4:3</button></div>
-          </div>
-        </div>
-        <button class="vp-gen"><span>生成视频</span><span class="vp-gen-pts"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>20</span><span>积分</span></button>
-      </aside>
-
       <!-- ===== Video center ===== -->
       <main class="center video-center">
         <div class="vc-canvas" id="vcCanvas" data-state="config"></div>
@@ -2868,12 +2919,12 @@
           </div>
           <div class="rec-faq-item" data-faq>
             <div class="rec-faq-q">积分可以退款吗？</div>
-            <div class="rec-faq-a">可以。未消耗积分可申请退款（扣 5% 手续费），原路退回微信 / 支付宝账户，1-3 个工作日到账。</div>
+            <div class="rec-faq-a">可以。未消耗的充值积分可申请退款：在「充值记录」页底部点击「订单遇到问题？申请退款」，选择订单并填写理由，后台审核通过后由支付平台原路退回微信 / 支付宝，1-3 个工作日到账。</div>
           </div>
         </div>
 
         <div class="rec-foot">
-          充值即视为同意《数字内容服务协议》· 积分长期有效 · 未消耗可申请退款（扣 5% 手续费）<br>
+          充值即视为同意《数字内容服务协议》· 积分长期有效 · 未消耗可申请退款，退款到账后扣回未消耗积分<br>
           <a href="#" id="footTerms">服务条款</a>·<a href="#" id="footPrivacy">隐私政策</a>·<a class="cs-link" id="footCs" href="#" rel="noopener">联系客服</a>·<a href="#" id="footInvoice">发票申请</a>
         </div>
       </div>
@@ -2938,6 +2989,76 @@
       <button class="invoice-x" id="invoiceX" aria-label="关闭">×</button>
     </div>
     <div class="invoice-body" id="invoiceBody"></div>
+  </div>
+</div>
+
+<!-- ===== 选择数字人形象 面板 ===== -->
+<div class="dh-sheet-mask" id="dhSheet">
+  <div class="dh-sheet">
+    <div class="dh-sheet-bar"></div>
+    <div class="dh-sheet-head">
+      <span class="t">选择数字人形象</span>
+      <button class="invoice-x" type="button" id="dhSheetX" aria-label="关闭">×</button>
+    </div>
+    <div class="dh-sheet-body">
+      <div class="dh-sec">
+        <div class="dh-sec-lab">我的数字人<i id="dhMineBadge">0</i><button class="new" type="button" id="dhCreateBtn">+ 新建</button></div>
+        <div class="dh-mine-empty" id="dhMineEmpty">还没有自己的数字人。用自己的照片或视频 + 声音，创建专属数字分身，之后可反复调用。</div>
+        <div class="dh-grid" id="dhMineGrid"></div>
+      </div>
+      <div class="dh-sec">
+        <div class="dh-sec-lab">官方形象</div>
+        <div class="dh-grid" id="dhOffGrid">
+          <button class="dh-av" type="button" data-dh-key="off:xiaoya" data-dh-name="小雅" data-dh-desc="专业"><img src="images/dh-xiaoya.jpg" alt=""><span class="n">小雅</span><span class="d">专业</span></button>
+          <button class="dh-av" type="button" data-dh-key="off:xiaoming" data-dh-name="晓明" data-dh-desc="商务"><img src="images/dh-xiaoming.jpg" alt=""><span class="n">晓明</span><span class="d">商务</span></button>
+          <button class="dh-av" type="button" data-dh-key="off:xinran" data-dh-name="欣然" data-dh-desc="时尚"><img src="images/dh-xinran.jpg" alt=""><span class="n">欣然</span><span class="d">时尚</span></button>
+          <button class="dh-av" type="button" data-dh-key="off:zixuan" data-dh-name="子轩" data-dh-desc="年轻"><img src="images/dh-zixuan.jpg" alt=""><span class="n">子轩</span><span class="d">年轻</span></button>
+        </div>
+      </div>
+      <div class="vp-hint2" style="padding:14px 0 0">自建形象支持克隆本人形象与音色，仅本账号可用</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 创建我的数字人 弹窗 ===== -->
+<div class="invoice-pop" id="dhPop">
+  <div class="invoice-card" style="width:440px">
+    <div class="invoice-head">
+      <div class="invoice-title">创建我的数字人</div>
+      <button class="invoice-x" id="dhPopX" aria-label="关闭">×</button>
+    </div>
+    <div class="invoice-body">
+      <div class="dh-fld">
+        <label>形象素材<i>*</i></label>
+        <div class="dh-up" id="dhUpFace">
+          <span class="prev" id="dhFacePrev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4.1 3.4-7 7.5-7s7.5 2.9 7.5 7"/></svg></span>
+          <span class="tx"><b id="dhFaceName">上传照片或视频</b><span>正面半身、光线均匀；视频建议 10-30 秒</span></span>
+          <span class="st" id="dhFaceSt">去上传</span>
+        </div>
+        <input type="file" id="dhFaceFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime" hidden>
+      </div>
+      <div class="dh-fld">
+        <label>音色<i>*</i></label>
+        <div class="dh-voice" id="dhVoice">
+          <button type="button" class="on" data-voice="clone">克隆我的音色</button>
+          <button type="button" data-voice="platform">使用平台音色</button>
+        </div>
+        <div class="dh-voice-sub" id="dhVoiceSub">录制或上传 10-30 秒清晰人声，复刻你的音色用于口播</div>
+        <div class="dh-up" id="dhUpVoice" style="margin-top:8px">
+          <span class="prev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+          <span class="tx"><b id="dhVoiceName">上传语音样本</b><span>10-30 秒单人说话，无背景音乐</span></span>
+          <span class="st" id="dhVoiceSt">去上传</span>
+        </div>
+        <input type="file" id="dhVoiceFile" accept="audio/*" hidden>
+      </div>
+      <div class="dh-fld">
+        <label>数字人名称<i>*</i></label>
+        <input class="dh-inp" id="dhName" maxlength="12" placeholder="如「我的主播形象」，最多 12 字">
+      </div>
+      <div class="dh-err" id="dhErr"></div>
+      <button class="pay-submit" id="dhCreate" type="button">创建并使用</button>
+      <div class="rf-tip">创建后可在「我的数字人」中随时切换；形象与音色仅本账号可用</div>
+    </div>
   </div>
 </div>
 
@@ -3175,7 +3296,7 @@ function closeMenus(){document.querySelectorAll('.menu').forEach(function(m){m.c
 document.addEventListener('click',closeMenus);
 
 /* mode-aware drawer filters: video mode filters video history, image mode filters image history */
-var vTypes=['全部','首尾帧','数字人','产品宣传','真人口播','视频翻译','文生视频'];
+var vTypes=['全部','首尾帧','数字人','产品宣传','真人口播','视频翻译'];
 var vStatuses=['全部状态','成功','生成中','失败'];
 var stateCode={'成功':'ok','失败':'fail','生成中':'proc','待扣积分':'pending'};
 function filterOpts(kind){
@@ -3236,8 +3357,7 @@ var videoHistoryData=[
   ]},
   {date:"2026年09月06日",items:[
     {type:"视频翻译",name:"中→英语、韩语·1080p",meta:"11:30 · 60s",pts:"36",state:"ok"},
-    {type:"真人口播视频",name:"口播替换·普通话·女声A",meta:"10:18 · 30s",pts:"22",state:"ok"},
-    {type:"文本生视频",name:"夕阳海浪·电影质感·16:9",meta:"09:55",pts:null,state:"fail",errmsg:"生成超时，服务器繁忙，请稍后再试"}
+    {type:"真人口播视频",name:"口播替换·普通话·女声A",meta:"10:18 · 30s",pts:"22",state:"ok"}
   ]},
   {date:"2026年09月05日",items:[
     {type:"产品宣传视频",name:"电子产品·商业广告·16:9",meta:"20:10 · 15s",pts:"30",state:"ok"},
@@ -3347,10 +3467,7 @@ var VTOOLS={
     demo:[{img:'images/vid-hist-5.jpg',label:'口播替换'},{img:'images/vid-hist-1.jpg',label:'女声口播'},{img:'images/vid-hist-8.jpg',label:'英文口播'}]},
   translate:{acc:'#0891b2',acc50:'#ecfeff',fig:'images/feat-translate.png',tag:'视频翻译完成',meta:'60s · 1080p · 16:9 · 约 30 MB',prev:'images/vid-hist-2.jpg',flow:['上传视频','AI 翻译配音','多语种版本'],descript:'口型、字幕与人物形象保持同步',
     intro:{t:'视频翻译',d:'上传视频并选择目标语言，可同时开启口型翻译与添加字幕，生成对应语种的多语言版本，适合内容出海与外贸素材本地化。',s:[['video','上传视频'],['globe','选择语言'],['spark','翻译配音']]},
-    demo:[{img:'images/vid-hist-4.jpg',label:'多语配音'},{img:'images/vid-hist-8.jpg',label:'英文版本'},{img:'images/vid-recent-city.jpg',label:'海外版本'}]},
-  text:{acc:'#d97706',acc50:'#fffbeb',fig:'images/feat-text2video.png',tag:'文本生视频完成',meta:'10s · 720p · 16:9 · 约 3.2 MB',prev:'images/vid-hist-6.jpg',flow:['输入描述','选择风格','生成视频'],descript:'AI 理解语义自动生成',
-    intro:{t:'文本生视频',d:'输入文字描述与风格，AI 理解语义生成相应的视频画面，快速产出灵感短片。',s:[['doc','输入描述'],['palette','选择风格'],['spark','生成视频']]},
-    demo:[{img:'images/vid-hist-6.jpg',label:'夕阳海浪'},{img:'images/vid-hist-3.jpg',label:'城市夜景'},{img:'images/vid-hist-7.jpg',label:'科技感'}]}
+    demo:[{img:'images/vid-hist-4.jpg',label:'多语配音'},{img:'images/vid-hist-8.jpg',label:'英文版本'},{img:'images/vid-recent-city.jpg',label:'海外版本'}]}
 };
 var curVTool='promo';
 function switchVTool(key){
@@ -3380,7 +3497,6 @@ var CREDITS_RULES={
   dh:{base:20,dur:DUR_TIERS,res:RES_TIERS,feat:{genSub:5}},
   koubo:{base:20,dur:DUR_TIERS,res:RES_TIERS,feat:{customBg:5},featInvert:['customBg']},
   translate:{base:15,perVideo:true,dur:DUR_TIERS,res:RES_TIERS,feat:{lip:5,keepBgm:0,burnSub:5}},
-  text:{base:20,dur:DUR_TIERS,res:RES_TIERS,feat:{}},
   frame:{base:20,dur:DUR_TIERS,res:RES_TIERS,feat:{}}
 };
 /* label text → normalized key (used by factor lookup) */
@@ -3639,9 +3755,11 @@ function onRefundTick(){
     if(cb&&cb.children.length)renderOrders(cb);
     var pop=document.getElementById('refundPop');
     if(pop&&pop.classList.contains('open')){
-      var first=getRefunds()[0];
-      var order=first&&getOrders().find(function(x){return x.id===first.orderId;});
-      if(order)openRefundPop(order);
+      if(refundOpenId==='center'){openRefundCenter();}
+      else{
+        var order=refundOpenId&&getOrders().find(function(x){return x.id===refundOpenId;});
+        if(order)openRefundPop(order);
+      }
     }
   }
   scheduleRefundTick();
@@ -3655,7 +3773,8 @@ function refundStatusText(st){
 function refundFormHtml(o){
   var total=o.credits+(o.gift||0);
   var gift=o.gift||0;
-  return '<div class="rf-summary">'+
+  return '<button class="rf-back" type="button" id="refundBack">‹ 重新选择订单</button>'+
+    '<div class="rf-summary">'+
       '<div class="rf-row"><span class="l">订单</span><span class="v">'+escHtml(o.pkg)+' · ¥'+o.amount+' · 单号 '+o.id.slice(-8)+'</span></div>'+
       '<div class="rf-row"><span class="l">实得积分</span><span class="v">'+total.toLocaleString()+' 积分'+(gift?'（含赠送 '+gift+'）':'')+'</span></div>'+
     '</div>'+
@@ -3683,15 +3802,88 @@ function refundStatusHtml(o,r){
     '<div class="rf-fld"><label>申请理由</label><div class="rf-reason">'+escHtml(r.reason||'—')+'</div></div>'+
     deductLine;
 }
+/* 退款入口：不挂在每条订单上，统一从「退款申请」入口查询并选择订单 */
+var refundOpenId='';
+var refundPick='';
+function refundCenterHtml(){
+  var can=getOrders().filter(function(o){return o.status==='paid'&&!getRefund(o.id);});
+  var done=getRefunds();
+  var h='<div class="rf-lead">选择一笔已支付的订单发起退款。提交后由后台人工审核，审核通过后由支付平台原路退回。</div>';
+  if(!can.length){
+    h+='<div class="rf-empty">暂无可申请退款的订单</div>';
+  }else{
+    h+='<div class="rf-list">';
+    can.forEach(function(o){
+      var dt=new Date(o.ts),p2=function(n){return('0'+n).slice(-2);};
+      var t=(dt.getMonth()+1)+'-'+dt.getDate()+' '+p2(dt.getHours())+':'+p2(dt.getMinutes());
+      h+='<button class="rf-ord" type="button" data-rf-ord="'+o.id+'">'+
+        '<span class="rd"></span>'+
+        '<span class="mi"><b>'+o.pkg+(o.gift?'<em>含赠 +'+o.gift+'</em>':'')+'</b>'+
+          '<span>'+(o.pay==='wx'?'微信支付':'支付宝')+' · '+t+' · 单号 '+o.id.slice(-8)+'</span></span>'+
+        '<span class="am"><b>¥'+Number(o.amount).toFixed(2)+'</b><span>'+(o.credits+(o.gift||0)).toLocaleString()+' 积分</span></span>'+
+      '</button>';
+    });
+    h+='</div>';
+  }
+  if(done.length){
+    h+='<div class="rf-done-h">退款进度</div>';
+    done.forEach(function(r){
+      var o=getOrders().find(function(x){return x.id===r.orderId;});
+      if(!o)return;
+      h+='<button class="rf-ord rf-view" type="button" data-rf-view="'+o.id+'">'+
+        '<span class="mi"><b>'+o.pkg+'</b><span>'+fmtTs(r.applyTs)+' 提交</span></span>'+
+        '<span class="am"><b class="st-'+r.status+'">'+(r.status==='pending'?'审核中':(r.status==='audited'?'退款中':'已退款'))+'</b><span>¥'+Number(o.amount).toFixed(2)+'</span></span>'+
+      '</button>';
+    });
+  }
+  h+='<button class="pay-submit" id="refundNext" type="button" disabled>下一步</button>';
+  h+='<div class="rf-tip">退款到账后将扣回该订单未消耗的购买积分与赠送积分</div>';
+  return h;
+}
+function openRefundCenter(){
+  var pop=document.getElementById('refundPop');
+  var body=document.getElementById('refundBody');
+  var title=document.querySelector('#refundPop .invoice-title');
+  if(!body||!pop)return;
+  refundOpenId='center';refundPick='';
+  if(title)title.textContent='退款申请';
+  body.innerHTML=refundCenterHtml();
+  pop.classList.add('open');
+  pop.onclick=function(e){if(e.target===pop)closeRefundPop();};
+  var x=document.getElementById('refundX');
+  if(x)x.onclick=closeRefundPop;
+  var next=document.getElementById('refundNext');
+  body.querySelectorAll('[data-rf-ord]').forEach(function(b){
+    b.addEventListener('click',function(){
+      body.querySelectorAll('[data-rf-ord]').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      refundPick=b.getAttribute('data-rf-ord');
+      if(next)next.disabled=false;
+    });
+  });
+  body.querySelectorAll('[data-rf-view]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var o=getOrders().find(function(x){return x.id===b.getAttribute('data-rf-view');});
+      if(o)openRefundPop(o);
+    });
+  });
+  if(next)next.addEventListener('click',function(){
+    if(!refundPick)return;
+    var o=getOrders().find(function(x){return x.id===refundPick;});
+    if(o)openRefundPop(o);
+  });
+}
 function closeRefundPop(){
   var pop=document.getElementById('refundPop');
   if(pop)pop.classList.remove('open');
+  refundOpenId='';refundPick='';
 }
 function openRefundPop(order){
   var pop=document.getElementById('refundPop');
   var body=document.getElementById('refundBody');
   var title=document.querySelector('#refundPop .invoice-title');
   if(!body||!pop)return;
+  refundOpenId=order.id;
   var r=getRefund(order.id);
   if(title)title.textContent=r?'退款进度':'申请退款';
   body.innerHTML=r?refundStatusHtml(order,r):refundFormHtml(order);
@@ -3700,6 +3892,8 @@ function openRefundPop(order){
   var x=document.getElementById('refundX');
   if(x)x.onclick=closeRefundPop;
   if(!r){
+    var back=document.getElementById('refundBack');
+    if(back)back.addEventListener('click',openRefundCenter);
     var sub=document.getElementById('refundSubmit');
     if(sub)sub.addEventListener('click',function(){
       var ta=document.getElementById('refundReason');
@@ -3742,12 +3936,12 @@ function renderOrders(body){
       '<button class="ord-invoice done" data-invoice="'+o.id+'"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>发票已申请</button>'
       :'<button class="ord-invoice" data-invoice="'+o.id+'"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>申请发票</button>'
     ):'';
-    /* 退款：已支付订单可申请；申请后回显状态（待审核 / 退款中 / 已退款） */
+    /* 退款不再逐单挂按钮：状态文字可点开进度，申请统一走页面底部入口 */
     var rf=getRefund(o.id);
-    var refundBtn=rf
-      ?'<button class="ord-invoice ref-'+rf.status+'" data-refund="'+o.id+'">'+(rf.status==='pending'?'退款审核中':(rf.status==='audited'?'退款中':'已退款'))+'</button>'
-      :(canInvoice?'<button class="ord-invoice ref-apply" data-refund="'+o.id+'">申请退款</button>':'');
     var stText=rf?(rf.status==='pending'?'退款审核中':(rf.status==='audited'?'退款中':'已退款')):'已支付';
+    var stHtml=rf
+      ?'<button class="st st-link" type="button" data-refund="'+o.id+'">'+stText+' ›</button>'
+      :'<div class="st">'+stText+'</div>';
     html+='<div class="ord-row">'+
       '<div class="ic '+(isWx?'wx':'ali')+'">'+(isWx?'微':'支')+'</div>'+
       '<div class="main">'+
@@ -3756,17 +3950,18 @@ function renderOrders(body){
       '</div>'+
       '<div class="amt"><div class="v">+'+(o.credits+(o.gift||0)).toLocaleString()+' 积分</div><div class="m">¥'+o.amount+'</div></div>'+
       '<div class="ord-right">'+
-        '<div class="st">'+stText+'</div>'+
+        stHtml+
         invoiceBtn+
-        refundBtn+
       '</div>'+
     '</div>';
   });
   html+='<div style="margin-top:14px;text-align:center"><button id="ordersGo" style="height:38px;padding:0 20px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;border:none;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit">+ 继续充值</button></div>';
+  html+='<div class="ord-service"><button type="button" class="refund-entry">订单遇到问题？申请退款</button></div>';
   html+='</div>';
   body.innerHTML=html;
   var go=document.getElementById('ordersGo');
   if(go)go.addEventListener('click',function(){setMode('recharge');});
+  body.querySelectorAll('.refund-entry').forEach(function(re){re.addEventListener('click',openRefundCenter);});
   body.querySelectorAll('.ord-invoice[data-invoice]').forEach(function(b){
     b.addEventListener('click',function(){
       var oid=b.getAttribute('data-invoice');
@@ -3775,7 +3970,7 @@ function renderOrders(body){
       if(order)openInvoicePop(order);
     });
   });
-  body.querySelectorAll('.ord-invoice[data-refund]').forEach(function(b){
+  body.querySelectorAll('.ord-right [data-refund]').forEach(function(b){
     b.addEventListener('click',function(){
       var oid=b.getAttribute('data-refund');
       var order=getOrders().find(function(x){return x.id===oid;});
@@ -4175,7 +4370,7 @@ function renderCreditRule(body){
   body=body||document.getElementById('creditsBody');
   if(!body)return;
   var ruleKeys=Object.keys(CREDITS_RULES);
-  var LABELS={promo:'产品宣传视频',dh:'数字人口播',koubo:'真人口播视频',translate:'视频翻译',frame:'首尾帧生视频',text:'文本生视频'};
+  var LABELS={promo:'产品宣传视频',dh:'数字人口播',koubo:'真人口播视频',translate:'视频翻译',frame:'首尾帧生视频'};
   var baseRows=ruleKeys.filter(function(k){return LABELS[k];}).map(function(k){return '<tr><td>'+LABELS[k]+'</td><td><b>'+CREDITS_RULES[k].base+'</b> 积分</td></tr>';}).join('');
   // 通用加价项（所有视频场景一致）
   var durRows=Object.keys(DUR_TIERS).map(function(k){
@@ -4253,7 +4448,7 @@ function renderCreditRule(body){
       '<tr><td>支付方式</td><td>微信支付 / 支付宝</td></tr>'+
       '<tr><td>充值时效</td><td>支付完成即时到账</td></tr>'+
       '<tr><td>积分有效期</td><td style="color:#b45309">长期有效（账号注销后清零）</td></tr>'+
-      '<tr><td>退款规则</td><td style="color:#b91c1c">充值后未消耗可申请退款，扣除 5% 手续费；已消耗部分不退</td></tr>'+
+      '<tr><td>退款规则</td><td style="color:#b91c1c">已支付的充值订单可申请退款；后台人工审核通过后由支付平台原路退回，退款到账时扣回该订单未消耗的购买积分与赠送积分，已消耗部分不退</td></tr>'+
     '</tbody></table>'+
     '</div>';
 }
@@ -4556,6 +4751,197 @@ var FAIL_REASONS=[
   '模型推理异常，已自动重试失败',
   '素材分辨率不足，请上传 ≥1080P 素材'
 ];
+/* ================= 我的数字人（自建形象 / 音色克隆） ================= */
+var MY_DH_KEY='wb_my_dh_v1';
+var MY_DH_DEFAULT=['images/web/m-female-asian.png','images/web/m-male-asian.png','images/web/m-female-west.png','images/web/m-plus.png'];
+var dhDraft={avatar:'',voice:'clone',voiceReady:false};
+function getMyDH(){
+  try{var a=JSON.parse(localStorage.getItem(MY_DH_KEY)||'[]');return Array.isArray(a)?a:[];}
+  catch(e){return [];}
+}
+function saveMyDH(list){localStorage.setItem(MY_DH_KEY,JSON.stringify((list||[]).slice(0,20)));}
+var DH_OFFICIAL={id:'off:xiaoya',name:'小雅',desc:'官方预设形象 · 专业',img:'images/dh-xiaoya.jpg'};
+var dhSel=DH_OFFICIAL;
+function dhSelect(o){
+  if(!o)return;
+  dhSel=o;
+  var im=document.getElementById('dhPickImg');if(im&&o.img)im.src=o.img;
+  var n=document.getElementById('dhPickName');if(n)n.textContent=o.name;
+  var d=document.getElementById('dhPickDesc');if(d)d.textContent=o.desc;
+  document.querySelectorAll('.dh-sheet .dh-av').forEach(function(b){
+    b.classList.toggle('on',b.getAttribute('data-dh-key')===o.id);
+  });
+}
+function openDhSheet(){
+  renderMyDH();
+  var s=document.getElementById('dhSheet');
+  if(s)s.classList.add('open');
+}
+function closeDhSheet(){
+  var s=document.getElementById('dhSheet');
+  if(s)s.classList.remove('open');
+}
+function myDHRow(d,i){
+  var img=d.avatar||MY_DH_DEFAULT[i%MY_DH_DEFAULT.length];
+  return '<button class="dh-av'+(dhSel.id===d.id?' on':'')+'" type="button" data-dh-key="'+d.id+'" data-dh-name="'+escHtml(d.name)+'" data-dh-img="'+img+'" data-dh-voice="'+(d.voice||'clone')+'">'+
+    '<img src="'+img+'" alt="">'+
+    '<span class="n">'+escHtml(d.name)+'</span>'+
+    '<span class="d">'+(d.voice==='clone'?'我的音色':'平台音色')+'</span></button>';
+}
+function renderMyDH(){
+  var grid=document.getElementById('dhMineGrid');
+  if(!grid)return;
+  var list=getMyDH();
+  var empty=document.getElementById('dhMineEmpty');
+  var badge=document.getElementById('dhMineBadge');
+  if(badge)badge.textContent=list.length;
+  if(empty)empty.style.display=list.length?'none':'block';
+  grid.innerHTML=list.map(myDHRow).join('');
+  grid.querySelectorAll('.dh-av').forEach(function(b){
+    b.addEventListener('click',function(){
+      dhSelect({
+        id:b.getAttribute('data-dh-key'),
+        name:b.getAttribute('data-dh-name'),
+        desc:'我的数字人 · '+(b.getAttribute('data-dh-voice')==='clone'?'我的音色':'平台音色'),
+        img:b.getAttribute('data-dh-img')
+      });
+      closeDhSheet();
+    });
+  });
+}
+function bindDhSheet(){
+  var sheet=document.getElementById('dhSheet');
+  if(!sheet||sheet.__bound)return;sheet.__bound=true;
+  var pick=document.getElementById('dhPick');
+  if(pick)pick.addEventListener('click',openDhSheet);
+  document.getElementById('dhSheetX').addEventListener('click',closeDhSheet);
+  sheet.addEventListener('click',function(e){if(e.target===sheet)closeDhSheet();});
+  sheet.querySelectorAll('#dhOffGrid .dh-av').forEach(function(b){
+    b.addEventListener('click',function(){
+      dhSelect({
+        id:b.getAttribute('data-dh-key'),
+        name:b.getAttribute('data-dh-name'),
+        desc:'官方预设形象 · '+b.getAttribute('data-dh-desc'),
+        img:b.querySelector('img').getAttribute('src')
+      });
+      closeDhSheet();
+    });
+  });
+  var cb=document.getElementById('dhCreateBtn');
+  if(cb)cb.addEventListener('click',function(){closeDhSheet();openDhPop();});
+  dhSelect(dhSel);
+}
+var DH_PERSON_ICON='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4.1 3.4-7 7.5-7s7.5 2.9 7.5 7"/></svg>';
+function openDhPop(){
+  var pop=document.getElementById('dhPop');
+  if(!pop)return;
+  dhDraft={avatar:'',voice:'clone',voiceReady:false};
+  var up=document.getElementById('dhUpFace'),vup=document.getElementById('dhUpVoice');
+  if(up)up.classList.remove('done');
+  if(vup)vup.classList.remove('done');
+  document.getElementById('dhFaceName').textContent='上传照片或视频';
+  document.getElementById('dhFaceSt').textContent='去上传';
+  document.getElementById('dhFacePrev').innerHTML=DH_PERSON_ICON;
+  document.getElementById('dhVoiceName').textContent='上传语音样本';
+  document.getElementById('dhVoiceSt').textContent='去上传';
+  document.getElementById('dhName').value='';
+  document.getElementById('dhErr').textContent='';
+  document.querySelectorAll('#dhVoice button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-voice')==='clone');});
+  document.getElementById('dhVoiceSub').textContent='录制或上传 10-30 秒清晰人声，复刻你的音色用于口播';
+  if(vup)vup.style.display='flex';
+  pop.classList.add('open');
+  pop.onclick=function(e){if(e.target===pop)closeDhPop();};
+}
+function closeDhPop(){var pop=document.getElementById('dhPop');if(pop)pop.classList.remove('open');}
+function captureSquare(src,w,h,cb){
+  var s=Math.min(w,h);
+  if(!s){cb('');return;}
+  var cv=document.createElement('canvas');cv.width=cv.height=200;
+  var ctx=cv.getContext('2d');
+  ctx.drawImage(src,(w-s)/2,(h-s)/2,s,s,0,0,200,200);
+  try{cb(cv.toDataURL('image/jpeg',0.82));}catch(e){cb('');}
+}
+function markDhFace(name,avatar){
+  dhDraft.avatar=avatar||'';
+  var up=document.getElementById('dhUpFace');
+  up.classList.add('done');
+  document.getElementById('dhFaceName').textContent=name||'已上传形象素材';
+  document.getElementById('dhFaceSt').textContent='已上传';
+  document.getElementById('dhFacePrev').innerHTML=avatar?('<img src="'+avatar+'" alt="">'):DH_PERSON_ICON;
+  document.getElementById('dhErr').textContent='';
+}
+function readDhFace(file){
+  if(!file)return;
+  var isVideo=/^video\//.test(file.type);
+  if(isVideo){
+    var v=document.createElement('video');
+    v.preload='auto';v.muted=true;v.playsInline=true;
+    var url=URL.createObjectURL(file);
+    v.onloadeddata=function(){try{v.currentTime=Math.min(1,v.duration||1);}catch(e){markDhFace(file.name,'');}};
+    v.onseeked=function(){
+      captureSquare(v,v.videoWidth,v.videoHeight,function(d){markDhFace(file.name,d);URL.revokeObjectURL(url);});
+    };
+    v.onerror=function(){markDhFace(file.name,'');URL.revokeObjectURL(url);};
+    v.src=url;
+  }else{
+    var fr=new FileReader();
+    fr.onload=function(){
+      var img=new Image();
+      img.onload=function(){captureSquare(img,img.width,img.height,function(d){markDhFace(file.name,d);});};
+      img.src=fr.result;
+    };
+    fr.readAsDataURL(file);
+  }
+}
+function createMyDH(){
+  var err=document.getElementById('dhErr');
+  var name=(document.getElementById('dhName').value||'').trim();
+  if(!dhDraft.avatar){err.textContent='请先上传形象照片或形象视频';return;}
+  if(dhDraft.voice==='clone'&&!dhDraft.voiceReady){err.textContent='请上传 10-30 秒语音样本，或改用平台音色';return;}
+  if(!name){err.textContent='请填写数字人名称';return;}
+  var list=getMyDH();
+  var d={id:'dh_'+Date.now(),name:name.slice(0,12),avatar:dhDraft.avatar,voice:dhDraft.voice,ts:Date.now()};
+  list.unshift(d);saveMyDH(list);
+  closeDhPop();
+  renderMyDH();
+  dhSelect({id:d.id,name:d.name,desc:'我的数字人 · '+(d.voice==='clone'?'我的音色':'平台音色'),img:d.avatar||MY_DH_DEFAULT[0]});
+}
+function bindDhPop(){
+  var pop=document.getElementById('dhPop');
+  if(!pop||pop.__bound)return;pop.__bound=true;
+  document.getElementById('dhPopX').addEventListener('click',closeDhPop);
+  var face=document.getElementById('dhUpFace');
+  var faceFile=document.getElementById('dhFaceFile');
+  face.addEventListener('click',function(){faceFile.click();});
+  faceFile.addEventListener('change',function(){readDhFace(faceFile.files[0]);});
+  var vup=document.getElementById('dhUpVoice');
+  var vfile=document.getElementById('dhVoiceFile');
+  vup.addEventListener('click',function(){vfile.click();});
+  vfile.addEventListener('change',function(){
+    var f=vfile.files[0];if(!f)return;
+    dhDraft.voiceReady=true;
+    vup.classList.add('done');
+    document.getElementById('dhVoiceName').textContent=f.name;
+    document.getElementById('dhVoiceSt').textContent='已采样';
+    document.getElementById('dhErr').textContent='';
+  });
+  pop.querySelectorAll('#dhVoice button').forEach(function(b){
+    b.addEventListener('click',function(){
+      pop.querySelectorAll('#dhVoice button').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      dhDraft.voice=b.getAttribute('data-voice');
+      var clone=dhDraft.voice==='clone';
+      vup.style.display=clone?'flex':'none';
+      document.getElementById('dhVoiceSub').textContent=clone
+        ?'录制或上传 10-30 秒清晰人声，复刻你的音色用于口播'
+        :'使用平台音色库，可在下方「声音」中随时切换音色';
+      document.getElementById('dhErr').textContent='';
+    });
+  });
+  document.getElementById('dhCreate').addEventListener('click',createMyDH);
+}
+renderMyDH();bindDhSheet();bindDhPop();
+
 function runVGenerate(panel){
   var agrees=panel.querySelectorAll('.vp-agree input');
   for(var i=0;i<agrees.length;i++){
@@ -4580,8 +4966,11 @@ function runVGenerate(panel){
   var gen=panel.querySelector('.vp-gen');
   var orig=gen.innerHTML;
   gen.classList.add('disabled');gen.disabled=true;gen.textContent='生成中...';
-  spendCredits(amt,cfg.tag,'生成扣减 · '+amt+' 积分');
-  var taskItem={type:cfg.tag,name:cfg.tag,pts:amt,state:'proc',date:new Date().toISOString(),creditDetail:cr};
+  /* 数字人口播：明细带上所选形象名（含「我的数字人」自建形象） */
+  var genName=cfg.tag;
+  if(key==='dh'&&dhSel&&dhSel.name){genName='数字人口播 · '+dhSel.name;}
+  spendCredits(amt,genName,'生成扣减 · '+amt+' 积分');
+  var taskItem={type:cfg.tag,name:genName,pts:amt,state:'proc',date:new Date().toISOString(),creditDetail:cr};
   var canvas=document.getElementById('vcCanvas');
   canvas.setAttribute('data-state','progress');
   canvas.style.setProperty('--acc',cfg.acc);
