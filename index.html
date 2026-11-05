@@ -1268,6 +1268,7 @@
       <button class="rail-item" data-itool="sellpoint"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.83z"/><circle cx="7" cy="7" r="1.2"/></svg></span>AI卖点图</button>
       <button class="rail-item" data-itool="detail"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>AI细节图</button>
       <button class="rail-item" data-itool="tryon"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M16 2l4 3-2 4-2-1v12H8V8l-2 1-2-4 4-3a4 4 0 0 0 8 0z"/></svg></span>试穿试用</button>
+      <button class="rail-item" data-itool="scene"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15.5l4.5-4.5 4 4 3-3L21 18"/><circle cx="9" cy="8" r="1.2"/><path d="M18.5 3.5v4M16.5 5.5h4" stroke-width="1.6"/></svg></span>一键试用</button>
       <button class="rail-item" data-itool="recolor"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></span>商品换色</button>
       <button class="rail-item" data-itool="ruler"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="9" width="20" height="6" rx="1"/><line x1="6" y1="9" x2="6" y2="12"/><line x1="10" y1="9" x2="10" y2="13"/><line x1="14" y1="9" x2="14" y2="12"/><line x1="18" y1="9" x2="18" y2="13"/></svg></span>AI商品标尺图</button>
       <button class="rail-item" data-itool="oneclick"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>一键生图</button>
@@ -2004,6 +2005,81 @@
             <img src="images/web/t-tryon.png" alt="">
             <span class="th-badge l dark">商品图</span>
             <span class="th-badge r light">上身效果</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ===== 一键试用 page ===== -->
+    <!-- ============================================================ -->
+    <section class="tpage" id="ipanel-scene" style="display:none">
+      <div class="tpanel a-blue">
+        <div class="tp-head">
+          <div class="tp-title">一键试用</div>
+          <div class="tp-sub">上传商品图与实拍背景，一键把商品放进真实场景生成试用图</div>
+        </div>
+        <div class="bg-scroll">
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">商品图片</span>
+              <span class="bg-sec-cnt">(<b id="sceneCnt">0</b>/1张)</span>
+            </div>
+            <div class="bg-drop" id="sceneDrop">
+              <div class="bg-drop-hint">上传商品图（平铺图 / 白底图 / 挂拍图均可），AI 自动抠取商品并融入场景；支持 JPG/JPEG/PNG，单张 25MB 以内，尺寸不小于 300px</div>
+              <div class="bg-drop-inner" id="sceneDropInner">
+                <span class="plus">+</span>
+                <span class="t">上传商品图</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">实拍背景</span>
+              <span class="bg-sec-cnt">(<b id="sceneBgCnt">0</b>/1张)</span>
+            </div>
+            <div class="bg-drop" id="sceneBgDrop">
+              <div class="bg-drop-hint">上传实拍的场景背景（桌面 / 货架 / 户外等），AI 按该场景的光影、透视与材质合成商品试用效果，生成比例与背景图一致</div>
+              <div class="bg-drop-inner" id="sceneBgDropInner">
+                <span class="plus">+</span>
+                <span class="t">上传实拍背景</span>
+              </div>
+            </div>
+          </div>
+          <!-- 生成张数 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">生成张数</span>
+            </div>
+            <div class="bg-sec-sub">按所选张数批量输出</div>
+            <div class="opt-chips cnt-group" id="sceneCntGroup">
+              <button class="opt-chip on" type="button">1张</button>
+              <button class="opt-chip" type="button">2张</button>
+              <button class="opt-chip" type="button">4张</button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-foot">
+          <div class="bg-foot-l">
+            <div class="bg-foot-t">处理内容</div>
+            <div class="bg-foot-s"><span class="foot-pts" id="sceneCntHint">1 张 · 共 <b>10</b> 积分</span><span id="sceneDone"></span></div>
+          </div>
+          <button class="bg-start" id="sceneStart">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span id="sceneStartTxt">开始处理</span>
+            <span class="bg-start-pts" id="scenePts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="scenePtsNum" style="font-style:normal">10</i></span>
+          </button>
+        </div>
+      </div>
+      <div class="tcanvas">
+        <div class="th-card t-blue">
+          <span class="th-tag">一键试用</span>
+          <div class="th-title">真实场景试用效果</div>
+          <div class="th-sub">商品图 + 实拍背景 · 一键融合</div>
+          <div class="th-shot">
+            <img src="images/web/t-bgrepl.jpg" alt="">
+            <span class="th-badge l dark">实拍背景</span>
+            <span class="th-badge r light">商品合成</span>
           </div>
         </div>
       </div>
@@ -2950,7 +3026,7 @@
         </div>
 
         <div class="rec-foot">
-          充值即视为同意《数字内容服务协议》· 积分长期有效 · 未消耗可申请退款，退款到账后扣回未消耗积分<br>
+          充值即视为同意《Chinamarket中国大集临沂商城 AIGC积分充值服务协议》<br>
           <a href="#" id="footTerms">服务条款</a>·<a href="#" id="footPrivacy">隐私政策</a>·<a class="cs-link" id="footCs" href="#" rel="noopener">联系客服</a>·<a href="#" id="footInvoice">发票申请</a>
         </div>
       </div>
@@ -3704,7 +3780,7 @@ var PACKS_PERKS={
   trial:  ['立即生效到账','积分长期有效','支持微信 / 支付宝','在线客服 7×24h'],
   basic:  ['立即生效到账','积分长期有效','在线客服工单','可申请电子发票'],
   std:    ['立即生效到账','积分长期有效','客服工单优先','可申请电子发票'],
-  create: ['立即生效到账','积分长期有效','专属 1V1 客服','新功能Beta体验','VIP 创作徽标'],
+  create: ['立即生效到账','积分长期有效','专属 1V1 客服','新功能Beta体验'],
   max:    ['立即生效到账','积分长期有效','专属 VIP 客户经理','优先排队生成','最新模型同步体验']
 };
 var ORDERS_KEY='wb_credits_orders_v1';
@@ -4446,6 +4522,7 @@ function renderCreditRule(body){
       '<tr><td>一键生图</td><td><b>6</b> 积分 + 每多 1 个类型 <b>+2</b></td></tr>'+
       '<tr><td>AI卖点图</td><td><b>10</b> 积分 × 文案语种数</td></tr>'+
       '<tr><td>试穿试用</td><td><b>12</b> 积分</td></tr>'+
+      '<tr><td>一键试用</td><td><b>10</b> 积分</td></tr>'+
       '<tr><td>商品换色</td><td><b>8</b> 积分 / 次（单次仅 1 张）</td></tr>'+
       '<tr><td>AI细节图</td><td><b>8</b> 积分</td></tr>'+
       '<tr><td>AI商品标尺图</td><td><b>6</b> 积分</td></tr>'+
@@ -4465,8 +4542,9 @@ function renderCreditRule(body){
       '<tr><td>目标花色（商品换色）</td><td>文字描述想要的花色 / 纹理，另有常用花色可点选填入；留空由 AI 自动匹配</td></tr>'+
       '<tr><td>花色参考图（商品换色）</td><td>选填，上传想要的花色 / 纹理图片，AI 迁移该花色；与文字描述同时填写时以参考图为准</td></tr>'+
       '<tr><td>模特参考（试穿试用）</td><td>AI 自动匹配 / 上传我的模特图 / 平台模特库（亚洲女模 / 亚洲男模 / 欧美女模 / 童模 / 大码模特），选填，不额外计费</td></tr>'+
+      '<tr><td>实拍背景（一键试用）</td><td>必填，上传实拍的场景背景图，AI 按该场景的光影、透视与材质合成商品试用效果；生成比例与背景图一致，不额外计费</td></tr>'+
       '<tr><td>电商套图</td><td>套图模块：白底主图 / 场景展示图 / 卖点信息图 / 细节特写图 / 尺寸标注图 / 模特展示图 / 多角度展示 / 包装展示图，可多选；目标平台：AI 通用 / Amazon / TikTok Shop / TEMU / 速卖通 / Shopee / 独立站，单选</td></tr>'+
-      '<tr><td>上传图片</td><td>每个工具单次仅支持上传 1 张待处理图片</td></tr>'+
+      '<tr><td>上传图片</td><td>每个工具单次仅支持上传 1 张待处理图片（一键试用为商品图 + 实拍背景各 1 张）</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">💎 充值套餐</h4>'+
     '<table><thead><tr><th>套餐</th><th>价格</th><th>实得积分</th></tr></thead><tbody>'+
@@ -5262,8 +5340,8 @@ document.getElementById('closeHistory').onclick=function(){drawer.classList.remo
 overlay.addEventListener('click',function(){drawer.classList.remove('open');overlay.classList.remove('open');});
 
 /* ================= 图片处理 左侧导航切换 ================= */
-var IMG_TOOL_PAGES=['whitebg','watermark','erase','sellpoint','detail','tryon','recolor','ruler','oneclick','suite'];
-var IMG_TOOL_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图',suite:'电商套图'};
+var IMG_TOOL_PAGES=['whitebg','watermark','erase','sellpoint','detail','tryon','scene','recolor','ruler','oneclick','suite'];
+var IMG_TOOL_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',scene:'一键试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图',suite:'电商套图'};
 function switchITool(key){
   document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     b.classList.toggle('active', b.getAttribute('data-itool')===key);
@@ -5464,11 +5542,11 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
 
 /* ================= 图片处理工具页（白底图 / 去水印 / 局部消除 / 一键生图） ================= */
 (function(){
-  var TOOLS=['whitebg','watermark','erase','sellpoint','detail','tryon','recolor','ruler','oneclick','suite'];
+  var TOOLS=['whitebg','watermark','erase','sellpoint','detail','tryon','scene','recolor','ruler','oneclick','suite'];
   /* 每张基础积分（复用生视频同一套余额 / 明细 / 余额不足引导体系） */
-  var IMG_PRICE={whitebg:6,watermark:5,erase:8,oneclick:6,sellpoint:10,tryon:12,recolor:8,detail:8,ruler:6,suite:5};
+  var IMG_PRICE={whitebg:6,watermark:5,erase:8,oneclick:6,sellpoint:10,tryon:12,scene:10,recolor:8,detail:8,ruler:6,suite:5};
   var ONECLICK_TYPE_ADD=2;   /* 一键生图：每增加 1 个生成类型，每张 +2 积分 */
-  var IMG_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图',suite:'电商套图'};
+  var IMG_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',scene:'一键试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图',suite:'电商套图'};
   var THUMBS={
     whitebg:'images/upd-cushion.png',
     watermark:'images/upd-product.jpg',
@@ -5476,6 +5554,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     oneclick:'images/web/t-oneclick.jpg',
     sellpoint:'images/upd-cushion.png',
     tryon:'images/web/t-tryon-item.png',
+    scene:'images/web/t-bgrepl.jpg',
     recolor:'images/upd-cushion.png',
     detail:'images/upd-product.jpg',
     ruler:'images/web/t-avocado.jpg',
@@ -5517,7 +5596,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var ptsNum=document.getElementById(key+'PtsNum');
     var cntHint=document.getElementById(key+'CntHint');
     var uploaded=false, running=false;
-    var preCheck=function(){return true;};                 /* 开始前附加校验（试穿模特图） */
+    var preCheck=function(){return true;};                 /* 开始前附加校验（试穿模特图 / 一键试用实拍背景） */
     var langGroup=document.getElementById(key+'Langs');   /* 文案语种多选（AI卖点图） */
     var langHint=document.getElementById(key+'LangHint');
     var ratioGroup=document.getElementById(key+'Ratio');   /* 生图比例单选（AI卖点图） */
@@ -5857,6 +5936,58 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       renderRefDrop();
     }
 
+    /* 一键试用：实拍背景第二上传位（必填，与商品图一起提交） */
+    var bgDrop=document.getElementById(key+'BgDrop');
+    var bgInner=document.getElementById(key+'BgDropInner');
+    var bgCntEl=document.getElementById(key+'BgCnt');
+    var bgUploaded=false;
+    function renderBgDrop(){
+      if(!bgInner||!bgDrop){return;}
+      bgInner.innerHTML='';
+      bgDrop.classList.toggle('filled',bgUploaded);
+      if(bgCntEl){bgCntEl.textContent=bgUploaded?'1':'0';}
+      if(!bgUploaded){
+        bgInner.innerHTML='<span class="plus">+</span><span class="t">上传实拍背景</span>';
+      }else{
+        var wrap=document.createElement('div');
+        wrap.className='bg-thumb';
+        var img=document.createElement('img');
+        img.src='images/web/t-bgrepl.jpg'; img.alt='实拍背景';
+        var nm=document.createElement('span');
+        nm.className='bg-thumb-name';
+        nm.textContent='实拍背景-01.jpg';
+        var x=document.createElement('button');
+        x.type='button';
+        x.className='bg-thumb-x';
+        x.setAttribute('aria-label','移除实拍背景');
+        x.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+        x.addEventListener('click',function(e){
+          e.stopPropagation();
+          bgUploaded=false;
+          renderBgDrop();
+        });
+        wrap.appendChild(img); wrap.appendChild(nm); wrap.appendChild(x);
+        bgInner.appendChild(wrap);
+      }
+    }
+    if(key==='scene'&&bgDrop){
+      /* 附加校验：未上传实拍背景时抖动提示 */
+      preCheck=function(){
+        if(!bgUploaded){
+          bgDrop.classList.add('shake');setTimeout(function(){bgDrop.classList.remove('shake');},430);
+          return false;
+        }
+        return true;
+      };
+      bgDrop.addEventListener('click',function(){
+        if(bgUploaded||running){return;}
+        bgUploaded=true;
+        if(done){done.textContent='';}
+        renderBgDrop();
+      });
+      renderBgDrop();
+    }
+
     /* 模特参考（试穿试用）：AI 自动匹配 / 上传我的模特图 / 平台模特库 */
     var modModes=document.getElementById(key+'ModModes');
     var modDrop=document.getElementById(key+'ModDrop');
@@ -5988,6 +6119,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           running=false;
           var n=getCnt();
           var logTxt=(key==='suite')?('电商套图 '+getPlat()+' · '+getMods()+' 模块'+(detailOn()?' + 详情页 3 张':'')+' · '+(getRatio()||'1:1')+' · '+getLangs()+' 语种 · '+amt+' 积分')
+                    :(key==='scene')?('一键试用 · 商品融入实拍背景 · '+n+' 张 · '+amt+' 积分')
                     :(key==='tryon')?('试穿试用 · '+(tryonMode()==='上传我的模特图'?'我的模特图':tryonMode()==='平台模特库'?('模特库 · '+(modName||'未选')):'AI 自动匹配模特')+' · '+n+' 张 · '+amt+' 积分')
                     :(key==='detail')?detailLogTxt(n,amt)
                     :langGroup?('AI卖点图 '+getLangs()+' 个语种'+(getRatio()?' · '+getRatio():'')+' · '+amt+' 积分')
@@ -6000,6 +6132,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
             if(key==='erase'){done.textContent='已完成 '+n+' 张 · 已扣 '+amt+' 积分';}
             else if(key==='suite'){done.innerHTML='<span class="done">已生成 '+(suiteImgs()*getLangs())+' 张图（'+getMods()+' 模块'+(detailOn()?' + 详情页 3 张':'')+' × '+getLangs()+' 语种）· 已扣 '+amt+' 积分</span>';}
             else if(key==='tryon'){done.innerHTML='<span class="done">已生成 '+n+' 张试穿图 · 已扣 '+amt+' 积分</span>';}
+            else if(key==='scene'){done.innerHTML='<span class="done">已生成 '+n+' 张试用图 · 已扣 '+amt+' 积分</span>';}
             else if(langGroup){done.innerHTML='<span class="done">已生成 '+getLangs()+' 张图（'+getLangs()+' 个语种）· 已扣 '+amt+' 积分</span>';}
             else if(quick){done.innerHTML='<span class="done">'+(refUploaded?'已按参考图换色':'已换成「'+((desc&&desc.value.trim())||'AI 自动匹配花色')+'」')+' · 已扣 '+amt+' 积分</span>';}
             else if(key==='detail'){done.innerHTML='<span class="done">已生成 '+n+' 张细节图 · 已扣 '+amt+' 积分</span>';}
