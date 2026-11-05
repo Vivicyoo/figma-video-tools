@@ -309,12 +309,14 @@
   .credits-pop-head{padding:16px 16px 14px;background:#fff;border-bottom:1px solid transparent;position:relative;}
   .credits-pop.wide .credits-pop-head{border-bottom-color:var(--gray-100);}
   .credits-pop-top{display:flex;align-items:center;gap:8px;}
-  .credits-pop-title{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--ink);flex:1;}
+  .credits-pop-title{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--ink);flex:1;white-space:nowrap;}
   .credits-pop-title svg{width:15px;height:15px;color:var(--purple);}
-  .credits-pop-links{display:flex;gap:12px;}
+  .credits-pop-links{display:flex;align-items:center;gap:10px;flex:none;white-space:nowrap;}
   .credits-pop.wide .credits-pop-links{display:none;}
   .credits-pop-link{font-size:12.5px;font-weight:600;color:var(--purple);cursor:pointer;white-space:nowrap;}
   .credits-pop-link:hover{text-decoration:underline;}
+  .credits-pop-link.is-primary{background:var(--purple);color:#fff;padding:5px 12px;border-radius:999px;font-size:12px;line-height:1;font-weight:600;transition:background .12s;}
+  .credits-pop-link.is-primary:hover{background:#6d28d9;text-decoration:none;}
   .credits-pop-x{flex:none;width:22px;height:22px;border-radius:6px;border:none;background:var(--gray-100);color:var(--gray-500);font-size:14px;line-height:1;cursor:pointer;font-family:inherit;padding:0;display:flex;align-items:center;justify-content:center;transition:background .12s;}
   .credits-pop-x:hover{background:var(--gray-200);color:var(--ink);}
   .credits-pop-balance{display:flex;align-items:baseline;gap:6px;margin-top:10px;}
@@ -711,19 +713,48 @@
   .dh-pick .tx b{font-size:13px;font-weight:600;color:var(--ink);}
   .dh-pick .tx em{font-style:normal;font-size:11.5px;color:var(--gray-400);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .dh-pick .chg{flex:none;font-size:12px;font-weight:600;color:var(--acc);}
-  .dh-sheet-mask{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:210;display:none;align-items:flex-end;justify-content:center;}
-  .dh-sheet-mask.open{display:flex;animation:fadeIn .18s ease;}
-  .dh-sheet{width:100%;max-width:460px;max-height:78vh;background:#fff;border-radius:18px 18px 0 0;display:flex;flex-direction:column;overflow:hidden;animation:sheetUp .22s ease;}
-  @keyframes sheetUp{from{transform:translateY(26px);opacity:.5;}to{transform:translateY(0);opacity:1;}}
-  .dh-sheet-bar{width:36px;height:4px;border-radius:2px;background:var(--gray-200);margin:8px auto 0;flex:none;}
-  .dh-sheet-head{display:flex;align-items:center;justify-content:space-between;padding:10px 18px 8px;flex:none;}
-  .dh-sheet-head .t{font-size:15px;font-weight:700;color:var(--ink);}
-  .dh-sheet-body{padding:0 18px 22px;overflow-y:auto;}
+  /* 数字人：更换 → 右侧展开「我的数字人」面板 */
+  .dh-fly-mask{position:fixed;inset:0;z-index:209;display:none;}
+  .dh-fly-mask.open{display:block;}
+  .dh-fly{position:fixed;width:332px;max-width:calc(100vw - 24px);max-height:min(560px,calc(100vh - 90px));background:#fff;border:1px solid var(--gray-200);border-radius:14px;box-shadow:0 18px 44px rgba(15,23,42,.16);z-index:210;display:none;flex-direction:column;overflow:hidden;}
+  .dh-fly.open{display:flex;animation:fadeIn .16s ease;}
+  .dh-fly-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px 9px;flex:none;}
+  .dh-fly-head .t{font-size:14.5px;font-weight:700;color:var(--ink);}
+  .dh-fly-body{padding:0 16px 16px;overflow-y:auto;}
   .dh-sec{margin-top:12px;}
   .dh-sec-lab{display:flex;align-items:center;gap:6px;margin-bottom:9px;font-size:12px;font-weight:600;color:var(--gray-500);}
   .dh-sec-lab i{font-style:normal;font-size:10.5px;font-weight:600;color:var(--gray-400);background:var(--gray-100);border-radius:20px;padding:1px 6px;}
   .dh-sec-lab .new{margin-left:auto;border:none;background:none;font-family:inherit;font-size:12px;font-weight:600;color:var(--acc);cursor:pointer;padding:2px 0;}
   .dh-mine-empty{font-size:11.5px;color:var(--gray-400);line-height:1.6;padding:0 0 8px;}
+  .dh-mcard{width:72px;border:1.5px solid var(--gray-200);border-radius:10px;background:#fff;display:flex;flex-direction:column;align-items:center;padding:8px 5px 6px;gap:3px;}
+  .dh-mcard.on{border-color:var(--acc);background:var(--acc-50);}
+  .dh-mcard .sel{background:none;border:none;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:0;}
+  .dh-mcard img{width:36px;height:36px;border-radius:50%;object-fit:cover;}
+  .dh-mcard .n{font-size:12px;font-weight:600;color:var(--ink);max-width:62px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .dh-mcard .vrow{background:none;border:none;font-family:inherit;font-size:10.5px;color:var(--gray-400);cursor:pointer;padding:0;display:flex;align-items:center;max-width:64px;}
+  .dh-mcard .vrow:hover{color:var(--acc);}
+  .dh-mcard .vrow span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:46px;}
+  .dh-vmenu{position:fixed;z-index:211;background:#fff;border:1px solid var(--gray-200);border-radius:11px;box-shadow:0 12px 30px rgba(15,23,42,.16);width:196px;display:none;overflow:hidden;}
+  .dh-vmenu.open{display:block;animation:fadeIn .14s ease;}
+  .dh-vmenu .it{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:none;font-family:inherit;font-size:12px;color:var(--ink);padding:9px 12px;cursor:pointer;text-align:left;}
+  .dh-vmenu .it:hover{background:var(--gray-50);}
+  .dh-vmenu .it.on{color:var(--acc);font-weight:600;}
+  .dh-vmenu .foot{border-top:1px solid var(--gray-200);color:var(--acc);}
+  /* 创建数字人：音色跟读采集 */
+  .dh-read{border:1.5px dashed var(--gray-300);border-radius:10px;padding:10px 12px;background:#fcfcfd;}
+  .dh-read .lab{font-size:11px;color:var(--gray-400);margin-bottom:6px;line-height:1.6;}
+  .dh-read .tx{font-size:12px;line-height:1.7;color:var(--ink);background:var(--gray-50);border-radius:8px;padding:8px 10px;margin-bottom:9px;}
+  .dh-read .ops{display:flex;align-items:center;gap:8px;}
+  .dh-read .ops button{height:30px;padding:0 12px;border-radius:8px;border:none;background:var(--acc);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;}
+  .dh-read .ops button.ghost{background:#fff;color:var(--gray-600);border:1px solid var(--gray-200);}
+  .dh-read .st{margin-left:auto;font-size:11.5px;color:var(--gray-400);}
+  .dh-read .st.ok{color:var(--green);font-weight:600;}
+  .dh-read .alt{font-size:11.5px;color:var(--gray-400);margin-top:8px;}
+  .dh-read .alt button{background:none;border:none;color:var(--acc);font-size:11.5px;cursor:pointer;font-family:inherit;padding:0;}
+  @media (max-width:768px){
+    .dh-fly{left:0 !important;right:0;top:auto !important;bottom:0;width:100%;max-width:100%;border-radius:18px 18px 0 0;max-height:72vh;animation:sheetUp .2s ease;}
+  }
+  @keyframes sheetUp{from{transform:translateY(26px);opacity:.5;}to{transform:translateY(0);opacity:1;}}
   /* 创建数字人弹层 */
   .dh-fld{margin-bottom:14px;}
   .dh-fld>label{display:block;font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:6px;}
@@ -740,10 +771,6 @@
   .dh-up.done .st{color:#059669;font-weight:600;}
   .dh-inp{width:100%;box-sizing:border-box;border:1px solid var(--gray-200);border-radius:9px;padding:9px 11px;font:inherit;font-size:12.5px;color:var(--ink);}
   .dh-inp:focus{outline:none;border-color:var(--purple);}
-  .dh-voice{display:flex;gap:8px;margin-bottom:8px;}
-  .dh-voice button{flex:1;border:1.5px solid var(--gray-200);border-radius:9px;background:#fff;padding:8px 6px;cursor:pointer;font-family:inherit;font-size:12px;color:var(--gray-600);}
-  .dh-voice button.on{border-color:var(--acc);background:var(--acc-50);color:var(--acc);font-weight:600;}
-  .dh-voice-sub{font-size:11.5px;color:var(--gray-400);line-height:1.6;}
   .dh-err{color:#dc2626;font-size:11.5px;margin-top:-4px;margin-bottom:8px;min-height:15px;}
   /* script template snippets */
   .kb-sk{margin:0 16px 12px;border:1px solid var(--gray-200);border-radius:9px;padding:8px 10px;text-align:left;background:#fff;width:calc(100% - 32px);display:block;}
@@ -2843,7 +2870,6 @@
             <p>充值即得积分，全站 AI 创作通用 · <b>积分长期有效</b></p>
             <div class="rec-hero-stats">
               <span><em>累计充值</em><b id="recHeroTotal">¥0</b></span>
-              <span><em>累计消耗</em><b id="recHeroSpent">¥0</b></span>
               <span><em>累计获赠积分</em><b id="recHeroGift">0</b></span>
             </div>
           </div>
@@ -2958,6 +2984,7 @@
       <div class="credits-pop-links">
         <a class="credits-pop-link" id="popStmtLink">积分明细 ›</a>
         <a class="credits-pop-link" id="popRuleLink">计费规则 ›</a>
+        <a class="credits-pop-link is-primary" id="popRechargeLink">充值</a>
       </div>
       <button class="credits-pop-x" id="creditsPopX" aria-label="关闭">×</button>
     </div>
@@ -2992,43 +3019,42 @@
   </div>
 </div>
 
-<!-- ===== 选择数字人形象 面板 ===== -->
-<div class="dh-sheet-mask" id="dhSheet">
-  <div class="dh-sheet">
-    <div class="dh-sheet-bar"></div>
-    <div class="dh-sheet-head">
-      <span class="t">选择数字人形象</span>
-      <button class="invoice-x" type="button" id="dhSheetX" aria-label="关闭">×</button>
-    </div>
-    <div class="dh-sheet-body">
-      <div class="dh-sec">
-        <div class="dh-sec-lab">我的数字人<i id="dhMineBadge">0</i><button class="new" type="button" id="dhCreateBtn">+ 新建</button></div>
-        <div class="dh-mine-empty" id="dhMineEmpty">还没有自己的数字人。用自己的照片或视频 + 声音，创建专属数字分身，之后可反复调用。</div>
-        <div class="dh-grid" id="dhMineGrid"></div>
+<!-- ===== 我的数字人 右侧展开面板 ===== -->
+<div class="dh-fly-mask" id="dhFlyMask"></div>
+<div class="dh-fly" id="dhFly">
+  <div class="dh-fly-head">
+    <span class="t">我的数字人</span>
+    <button class="invoice-x" type="button" id="dhFlyX" aria-label="关闭">×</button>
+  </div>
+  <div class="dh-fly-body">
+    <div class="dh-sec">
+      <div class="dh-sec-lab">官方形象</div>
+      <div class="dh-grid" id="dhOffGrid">
+        <button class="dh-av" type="button" data-dh-key="off:xiaoya" data-dh-name="小雅" data-dh-desc="专业"><img src="images/dh-xiaoya.jpg" alt=""><span class="n">小雅</span><span class="d">专业</span></button>
+        <button class="dh-av" type="button" data-dh-key="off:xiaoming" data-dh-name="晓明" data-dh-desc="商务"><img src="images/dh-xiaoming.jpg" alt=""><span class="n">晓明</span><span class="d">商务</span></button>
+        <button class="dh-av" type="button" data-dh-key="off:xinran" data-dh-name="欣然" data-dh-desc="时尚"><img src="images/dh-xinran.jpg" alt=""><span class="n">欣然</span><span class="d">时尚</span></button>
+        <button class="dh-av" type="button" data-dh-key="off:zixuan" data-dh-name="子轩" data-dh-desc="年轻"><img src="images/dh-zixuan.jpg" alt=""><span class="n">子轩</span><span class="d">年轻</span></button>
       </div>
-      <div class="dh-sec">
-        <div class="dh-sec-lab">官方形象</div>
-        <div class="dh-grid" id="dhOffGrid">
-          <button class="dh-av" type="button" data-dh-key="off:xiaoya" data-dh-name="小雅" data-dh-desc="专业"><img src="images/dh-xiaoya.jpg" alt=""><span class="n">小雅</span><span class="d">专业</span></button>
-          <button class="dh-av" type="button" data-dh-key="off:xiaoming" data-dh-name="晓明" data-dh-desc="商务"><img src="images/dh-xiaoming.jpg" alt=""><span class="n">晓明</span><span class="d">商务</span></button>
-          <button class="dh-av" type="button" data-dh-key="off:xinran" data-dh-name="欣然" data-dh-desc="时尚"><img src="images/dh-xinran.jpg" alt=""><span class="n">欣然</span><span class="d">时尚</span></button>
-          <button class="dh-av" type="button" data-dh-key="off:zixuan" data-dh-name="子轩" data-dh-desc="年轻"><img src="images/dh-zixuan.jpg" alt=""><span class="n">子轩</span><span class="d">年轻</span></button>
-        </div>
-      </div>
-      <div class="vp-hint2" style="padding:14px 0 0">自建形象支持克隆本人形象与音色，仅本账号可用</div>
     </div>
+    <div class="dh-sec">
+      <div class="dh-sec-lab">我的数字人<i id="dhMineBadge">0</i><button class="new" type="button" id="dhCreateBtn">+ 新建</button></div>
+      <div class="dh-mine-empty" id="dhMineEmpty">还没有自己的数字人。上传形象照片或视频，跟读一段文字采集音色，创建专属数字分身。</div>
+      <div class="dh-grid" id="dhMineGrid"></div>
+    </div>
+    <div class="vp-hint2" style="padding:14px 0 0">自建形象支持克隆本人形象与音色，仅本账号可用</div>
   </div>
 </div>
+<div class="dh-vmenu" id="dhVoiceMenu"></div>
 
 <!-- ===== 创建我的数字人 弹窗 ===== -->
 <div class="invoice-pop" id="dhPop">
   <div class="invoice-card" style="width:440px">
     <div class="invoice-head">
-      <div class="invoice-title">创建我的数字人</div>
+      <div class="invoice-title" id="dhPopTitle">创建我的数字人</div>
       <button class="invoice-x" id="dhPopX" aria-label="关闭">×</button>
     </div>
     <div class="invoice-body">
-      <div class="dh-fld">
+      <div class="dh-fld" id="dhFaceFld">
         <label>形象素材<i>*</i></label>
         <div class="dh-up" id="dhUpFace">
           <span class="prev" id="dhFacePrev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4.1 3.4-7 7.5-7s7.5 2.9 7.5 7"/></svg></span>
@@ -3038,13 +3064,18 @@
         <input type="file" id="dhFaceFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime" hidden>
       </div>
       <div class="dh-fld">
-        <label>音色<i>*</i></label>
-        <div class="dh-voice" id="dhVoice">
-          <button type="button" class="on" data-voice="clone">克隆我的音色</button>
-          <button type="button" data-voice="platform">使用平台音色</button>
+        <label>音色采集<i>*</i></label>
+        <div class="dh-read">
+          <div class="lab">安静朗读以下文字约 30 秒，AI 复刻你的音色</div>
+          <div class="tx">大家好，欢迎来到本店。今天为大家推荐这款新品，它采用轻量化设计，佩戴一整天也不会累。接下来我们一起看看它的材质细节，感受做工的用心之处。</div>
+          <div class="ops">
+            <button type="button" id="dhRecBtn">● 开始录音</button>
+            <button type="button" class="ghost" id="dhRerecBtn" style="display:none">重新录制</button>
+            <span class="st" id="dhRecSt">未采集</span>
+          </div>
+          <div class="alt">不方便朗读？也可以<button type="button" id="dhVoiceUpLink">上传语音样本</button>（10-30 秒清晰人声）</div>
         </div>
-        <div class="dh-voice-sub" id="dhVoiceSub">录制或上传 10-30 秒清晰人声，复刻你的音色用于口播</div>
-        <div class="dh-up" id="dhUpVoice" style="margin-top:8px">
+        <div class="dh-up" id="dhUpVoice" style="display:none;margin-top:8px">
           <span class="prev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
           <span class="tx"><b id="dhVoiceName">上传语音样本</b><span>10-30 秒单人说话，无背景音乐</span></span>
           <span class="st" id="dhVoiceSt">去上传</span>
@@ -3052,12 +3083,12 @@
         <input type="file" id="dhVoiceFile" accept="audio/*" hidden>
       </div>
       <div class="dh-fld">
-        <label>数字人名称<i>*</i></label>
+        <label id="dhNameLab">数字人名称<i>*</i></label>
         <input class="dh-inp" id="dhName" maxlength="12" placeholder="如「我的主播形象」，最多 12 字">
       </div>
       <div class="dh-err" id="dhErr"></div>
       <button class="pay-submit" id="dhCreate" type="button">创建并使用</button>
-      <div class="rf-tip">创建后可在「我的数字人」中随时切换；形象与音色仅本账号可用</div>
+      <div class="rf-tip" id="dhPopTip">创建后可在「我的数字人」中随时切换；形象与音色仅本账号可用</div>
     </div>
   </div>
 </div>
@@ -4519,6 +4550,13 @@ if(popRuleLink)popRuleLink.addEventListener('click',function(e){
   closeCreditsPop();
   setMode('rules');
 });
+// 紧凑卡 → 充值中心
+var popRechargeLink=document.getElementById('popRechargeLink');
+if(popRechargeLink)popRechargeLink.addEventListener('click',function(e){
+  e.stopPropagation();
+  closeCreditsPop();
+  setMode('recharge');
+});
 // 弹层 × 关闭（紧凑卡 / 明细弹窗共用）
 var creditsPopX=document.getElementById('creditsPopX');
 if(creditsPopX)creditsPopX.addEventListener('click',function(e){
@@ -4754,12 +4792,25 @@ var FAIL_REASONS=[
 /* ================= 我的数字人（自建形象 / 音色克隆） ================= */
 var MY_DH_KEY='wb_my_dh_v1';
 var MY_DH_DEFAULT=['images/web/m-female-asian.png','images/web/m-male-asian.png','images/web/m-female-west.png','images/web/m-plus.png'];
-var dhDraft={avatar:'',voice:'clone',voiceReady:false};
+var dhDraft={avatar:'',voiceReady:false,voiceSource:''};
 function getMyDH(){
   try{var a=JSON.parse(localStorage.getItem(MY_DH_KEY)||'[]');return Array.isArray(a)?a:[];}
   catch(e){return [];}
 }
 function saveMyDH(list){localStorage.setItem(MY_DH_KEY,JSON.stringify((list||[]).slice(0,20)));}
+/* 我的音色库（不与形象硬绑定，采集后入库，可配给任意数字人） */
+var MY_VOICE_KEY='wb_my_voice_v1';
+function getMyVoices(){
+  try{var a=JSON.parse(localStorage.getItem(MY_VOICE_KEY)||'[]');return Array.isArray(a)?a:[];}
+  catch(e){return [];}
+}
+function saveMyVoices(list){localStorage.setItem(MY_VOICE_KEY,JSON.stringify((list||[]).slice(0,20)));}
+function voiceLabel(i){return '我的音色 '+String.fromCharCode(65+(i%26));}
+function nextVoiceName(){return voiceLabel(getMyVoices().length);}
+function mineDesc(d){
+  var vn=d.voiceName||(d.voice==='platform'?'平台音色':'我的音色');
+  return {id:d.id,name:d.name,desc:'我的数字人 · '+vn,img:d.avatar||MY_DH_DEFAULT[0]};
+}
 var DH_OFFICIAL={id:'off:xiaoya',name:'小雅',desc:'官方预设形象 · 专业',img:'images/dh-xiaoya.jpg'};
 var dhSel=DH_OFFICIAL;
 function dhSelect(o){
@@ -4768,25 +4819,78 @@ function dhSelect(o){
   var im=document.getElementById('dhPickImg');if(im&&o.img)im.src=o.img;
   var n=document.getElementById('dhPickName');if(n)n.textContent=o.name;
   var d=document.getElementById('dhPickDesc');if(d)d.textContent=o.desc;
-  document.querySelectorAll('.dh-sheet .dh-av').forEach(function(b){
+  document.querySelectorAll('#dhOffGrid .dh-av').forEach(function(b){
+    b.classList.toggle('on',b.getAttribute('data-dh-key')===o.id);
+  });
+  document.querySelectorAll('#dhMineGrid .dh-mcard').forEach(function(b){
     b.classList.toggle('on',b.getAttribute('data-dh-key')===o.id);
   });
 }
-function openDhSheet(){
+/* ---- 右侧展开面板 ---- */
+function openDhFly(){
   renderMyDH();
-  var s=document.getElementById('dhSheet');
-  if(s)s.classList.add('open');
+  var fly=document.getElementById('dhFly'),mask=document.getElementById('dhFlyMask'),pick=document.getElementById('dhPick');
+  if(!fly||!pick)return;
+  fly.classList.add('open');mask.classList.add('open');
+  var r=pick.getBoundingClientRect();
+  var fw=Math.min(332,window.innerWidth-24),fh=fly.offsetHeight||430;
+  var left=r.right+10,top=r.top-6;
+  if(left+fw>window.innerWidth-12)left=window.innerWidth-12-fw;
+  if(left<12)left=12;
+  if(top+fh>window.innerHeight-12)top=window.innerHeight-12-fh;
+  fly.style.left=left+'px';fly.style.top=Math.max(64,top)+'px';
 }
-function closeDhSheet(){
-  var s=document.getElementById('dhSheet');
-  if(s)s.classList.remove('open');
+function closeDhFly(){
+  var fly=document.getElementById('dhFly'),mask=document.getElementById('dhFlyMask');
+  if(fly)fly.classList.remove('open');
+  if(mask)mask.classList.remove('open');
+  closeDhVoiceMenu();
 }
+/* ---- 分身卡音色更换（音色库复用） ---- */
+function setDHVoice(id,vname){
+  saveMyDH(getMyDH().map(function(d){
+    if(d.id!==id)return d;
+    d.voiceName=vname;d.voiceId='vx_'+vname;
+    if(dhSel.id===id)dhSelect(mineDesc(d));
+    return d;
+  }));
+  renderMyDH();
+}
+function openDhVoiceMenu(card){
+  var menu=document.getElementById('dhVoiceMenu');
+  if(!menu)return;
+  var cur=card.getAttribute('data-dh-voice-name')||'';
+  var list=getMyVoices();
+  var h='';
+  list.forEach(function(v){
+    h+='<button class="it'+(v.name===cur?' on':'')+'" type="button" data-voice-name="'+escHtml(v.name)+'">'+escHtml(v.name)+(v.name===cur?' ✓':'')+'</button>';
+  });
+  if(!list.length)h='<div class="it" style="cursor:default;color:var(--gray-400)">还没有采集过音色</div>';
+  h+='<button class="it foot" type="button" id="dhVoiceNew">＋ 采集新音色</button>';
+  menu.innerHTML=h;
+  menu.classList.add('open');
+  var r=card.getBoundingClientRect(),mw=196,mh=menu.offsetHeight||120;
+  var left=Math.min(r.left,window.innerWidth-mw-12),top=r.bottom+6;
+  if(top+mh>window.innerHeight-12)top=Math.max(12,r.top-mh-6);
+  menu.style.left=Math.max(12,left)+'px';menu.style.top=top+'px';
+  menu.querySelectorAll('.it[data-voice-name]').forEach(function(b){
+    b.addEventListener('click',function(){
+      setDHVoice(card.getAttribute('data-dh-key'),b.getAttribute('data-voice-name'));
+      closeDhVoiceMenu();
+    });
+  });
+  var nb=document.getElementById('dhVoiceNew');
+  if(nb)nb.addEventListener('click',function(){closeDhVoiceMenu();openDhPop('voice');});
+}
+function closeDhVoiceMenu(){var m=document.getElementById('dhVoiceMenu');if(m)m.classList.remove('open');}
+/* ---- 渲染我的数字人 ---- */
 function myDHRow(d,i){
   var img=d.avatar||MY_DH_DEFAULT[i%MY_DH_DEFAULT.length];
-  return '<button class="dh-av'+(dhSel.id===d.id?' on':'')+'" type="button" data-dh-key="'+d.id+'" data-dh-name="'+escHtml(d.name)+'" data-dh-img="'+img+'" data-dh-voice="'+(d.voice||'clone')+'">'+
-    '<img src="'+img+'" alt="">'+
-    '<span class="n">'+escHtml(d.name)+'</span>'+
-    '<span class="d">'+(d.voice==='clone'?'我的音色':'平台音色')+'</span></button>';
+  var vn=d.voiceName||(d.voice==='platform'?'平台音色':'我的音色');
+  return '<div class="dh-mcard'+(dhSel.id===d.id?' on':'')+'" data-dh-key="'+d.id+'" data-dh-name="'+escHtml(d.name)+'" data-dh-img="'+img+'" data-dh-voice-name="'+escHtml(vn)+'">'+
+    '<button class="sel" type="button"><img src="'+img+'" alt=""><span class="n">'+escHtml(d.name)+'</span></button>'+
+    '<button class="vrow" type="button" title="更换音色">音色：<span>'+escHtml(vn)+'</span> ›</button>'+
+  '</div>';
 }
 function renderMyDH(){
   var grid=document.getElementById('dhMineGrid');
@@ -4797,26 +4901,26 @@ function renderMyDH(){
   if(badge)badge.textContent=list.length;
   if(empty)empty.style.display=list.length?'none':'block';
   grid.innerHTML=list.map(myDHRow).join('');
-  grid.querySelectorAll('.dh-av').forEach(function(b){
-    b.addEventListener('click',function(){
-      dhSelect({
-        id:b.getAttribute('data-dh-key'),
-        name:b.getAttribute('data-dh-name'),
-        desc:'我的数字人 · '+(b.getAttribute('data-dh-voice')==='clone'?'我的音色':'平台音色'),
-        img:b.getAttribute('data-dh-img')
-      });
-      closeDhSheet();
+  grid.querySelectorAll('.dh-mcard').forEach(function(card,idx){
+    var d=list[idx];
+    card.querySelector('.sel').addEventListener('click',function(){
+      dhSelect(mineDesc(d));
+      closeDhFly();
+    });
+    card.querySelector('.vrow').addEventListener('click',function(e){
+      e.stopPropagation();
+      openDhVoiceMenu(card);
     });
   });
 }
-function bindDhSheet(){
-  var sheet=document.getElementById('dhSheet');
-  if(!sheet||sheet.__bound)return;sheet.__bound=true;
+function bindDhFly(){
+  var fly=document.getElementById('dhFly');
+  if(!fly||fly.__bound)return;fly.__bound=true;
   var pick=document.getElementById('dhPick');
-  if(pick)pick.addEventListener('click',openDhSheet);
-  document.getElementById('dhSheetX').addEventListener('click',closeDhSheet);
-  sheet.addEventListener('click',function(e){if(e.target===sheet)closeDhSheet();});
-  sheet.querySelectorAll('#dhOffGrid .dh-av').forEach(function(b){
+  if(pick)pick.addEventListener('click',openDhFly);
+  document.getElementById('dhFlyX').addEventListener('click',closeDhFly);
+  document.getElementById('dhFlyMask').addEventListener('click',closeDhFly);
+  fly.querySelectorAll('#dhOffGrid .dh-av').forEach(function(b){
     b.addEventListener('click',function(){
       dhSelect({
         id:b.getAttribute('data-dh-key'),
@@ -4824,31 +4928,64 @@ function bindDhSheet(){
         desc:'官方预设形象 · '+b.getAttribute('data-dh-desc'),
         img:b.querySelector('img').getAttribute('src')
       });
-      closeDhSheet();
+      closeDhFly();
     });
   });
   var cb=document.getElementById('dhCreateBtn');
-  if(cb)cb.addEventListener('click',function(){closeDhSheet();openDhPop();});
+  if(cb)cb.addEventListener('click',function(){closeDhFly();openDhPop('dh');});
+  document.addEventListener('click',function(e){
+    var m=document.getElementById('dhVoiceMenu');
+    if(m&&m.classList.contains('open')&&!m.contains(e.target)&&!e.target.closest('.vrow'))closeDhVoiceMenu();
+  });
   dhSelect(dhSel);
 }
 var DH_PERSON_ICON='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4.1 3.4-7 7.5-7s7.5 2.9 7.5 7"/></svg>';
-function openDhPop(){
+var dhPopMode='dh';
+function resetVoiceUI(){
+  dhDraft.voiceReady=false;dhDraft.voiceSource='';
+  var st=document.getElementById('dhRecSt');
+  st.textContent='未采集';st.classList.remove('ok');
+  document.getElementById('dhRecBtn').style.display='';
+  document.getElementById('dhRecBtn').disabled=false;
+  document.getElementById('dhRecBtn').textContent='● 开始录音';
+  document.getElementById('dhRerecBtn').style.display='none';
+  var vup=document.getElementById('dhUpVoice');
+  if(vup)vup.classList.remove('done');
+  document.getElementById('dhVoiceName').textContent='上传语音样本';
+  document.getElementById('dhVoiceSt').textContent='去上传';
+  document.getElementById('dhErr').textContent='';
+}
+function openDhPop(mode){
+  mode=mode||'dh';dhPopMode=mode;
   var pop=document.getElementById('dhPop');
   if(!pop)return;
-  dhDraft={avatar:'',voice:'clone',voiceReady:false};
+  dhDraft={avatar:'',voiceReady:false,voiceSource:''};
   var up=document.getElementById('dhUpFace'),vup=document.getElementById('dhUpVoice');
   if(up)up.classList.remove('done');
-  if(vup)vup.classList.remove('done');
   document.getElementById('dhFaceName').textContent='上传照片或视频';
   document.getElementById('dhFaceSt').textContent='去上传';
   document.getElementById('dhFacePrev').innerHTML=DH_PERSON_ICON;
-  document.getElementById('dhVoiceName').textContent='上传语音样本';
-  document.getElementById('dhVoiceSt').textContent='去上传';
-  document.getElementById('dhName').value='';
-  document.getElementById('dhErr').textContent='';
-  document.querySelectorAll('#dhVoice button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-voice')==='clone');});
-  document.getElementById('dhVoiceSub').textContent='录制或上传 10-30 秒清晰人声，复刻你的音色用于口播';
-  if(vup)vup.style.display='flex';
+  var faceFld=document.getElementById('dhFaceFld'),nameLab=document.getElementById('dhNameLab');
+  var titleEl=document.getElementById('dhPopTitle'),tipEl=document.getElementById('dhPopTip');
+  var nameInp=document.getElementById('dhName');
+  if(mode==='voice'){
+    if(titleEl)titleEl.textContent='采集我的音色';
+    if(faceFld)faceFld.style.display='none';
+    if(nameLab)nameLab.innerHTML='音色名称<i>*</i>';
+    nameInp.value=nextVoiceName();
+    nameInp.placeholder='如「我的音色 A」';
+    document.getElementById('dhCreate').textContent='保存音色';
+    if(tipEl)tipEl.textContent='采集后进入我的音色库，可配给任意数字人，无需重复朗读';
+  }else{
+    if(titleEl)titleEl.textContent='创建我的数字人';
+    if(faceFld)faceFld.style.display='';
+    if(nameLab)nameLab.innerHTML='数字人名称<i>*</i>';
+    nameInp.value='';
+    nameInp.placeholder='如「我的主播形象」，最多 12 字';
+    document.getElementById('dhCreate').textContent='创建并使用';
+    if(tipEl)tipEl.textContent='创建后可在「我的数字人」中随时切换；形象与音色仅本账号可用';
+  }
+  resetVoiceUI();
   pop.classList.add('open');
   pop.onclick=function(e){if(e.target===pop)closeDhPop();};
 }
@@ -4896,15 +5033,31 @@ function readDhFace(file){
 function createMyDH(){
   var err=document.getElementById('dhErr');
   var name=(document.getElementById('dhName').value||'').trim();
+  if(dhPopMode==='voice'){
+    if(!dhDraft.voiceReady){err.textContent='请先跟读采集音色，或上传语音样本';return;}
+    if(!name){err.textContent='请填写音色名称';return;}
+    var vs=getMyVoices();
+    var v={id:'vx_'+Date.now(),name:name.slice(0,12),ts:Date.now()};
+    vs.unshift(v);saveMyVoices(vs);
+    closeDhPop();
+    renderMyDH();
+    showToast('音色「'+v.name+'」已保存，可在数字人卡片上更换使用');
+    return;
+  }
   if(!dhDraft.avatar){err.textContent='请先上传形象照片或形象视频';return;}
-  if(dhDraft.voice==='clone'&&!dhDraft.voiceReady){err.textContent='请上传 10-30 秒语音样本，或改用平台音色';return;}
+  if(!dhDraft.voiceReady){err.textContent='请先跟读一段文字采集音色，或上传语音样本';return;}
   if(!name){err.textContent='请填写数字人名称';return;}
+  var voiceName=nextVoiceName();
+  var vlist=getMyVoices();
+  var v={id:'vx_'+Date.now(),name:voiceName,ts:Date.now()};
+  vlist.unshift(v);saveMyVoices(vlist);
   var list=getMyDH();
-  var d={id:'dh_'+Date.now(),name:name.slice(0,12),avatar:dhDraft.avatar,voice:dhDraft.voice,ts:Date.now()};
+  var d={id:'dh_'+Date.now(),name:name.slice(0,12),avatar:dhDraft.avatar,voiceId:v.id,voiceName:voiceName,ts:Date.now()};
   list.unshift(d);saveMyDH(list);
   closeDhPop();
   renderMyDH();
-  dhSelect({id:d.id,name:d.name,desc:'我的数字人 · '+(d.voice==='clone'?'我的音色':'平台音色'),img:d.avatar||MY_DH_DEFAULT[0]});
+  dhSelect(mineDesc(d));
+  showToast('数字人「'+d.name+'」已创建，音色 '+voiceName+' 已默认配对，可随时更换');
 }
 function bindDhPop(){
   var pop=document.getElementById('dhPop');
@@ -4917,30 +5070,42 @@ function bindDhPop(){
   var vup=document.getElementById('dhUpVoice');
   var vfile=document.getElementById('dhVoiceFile');
   vup.addEventListener('click',function(){vfile.click();});
+  function markVoiceReady(){
+    dhDraft.voiceReady=true;
+    var st=document.getElementById('dhRecSt');
+    st.textContent='✓ 已采集';st.classList.add('ok');
+    document.getElementById('dhRecBtn').style.display='none';
+    document.getElementById('dhRerecBtn').style.display='';
+    document.getElementById('dhErr').textContent='';
+  }
+  document.getElementById('dhRecBtn').addEventListener('click',function(){
+    var b=this;
+    b.disabled=true;b.textContent='● 录音中…';
+    setTimeout(function(){
+      b.disabled=false;b.textContent='● 开始录音';
+      dhDraft.voiceSource='record';
+      markVoiceReady();
+    },1200);
+  });
+  document.getElementById('dhRerecBtn').addEventListener('click',function(){
+    dhDraft.voiceReady=false;dhDraft.voiceSource='';
+    var st=document.getElementById('dhRecSt');
+    st.textContent='未采集';st.classList.remove('ok');
+    document.getElementById('dhRecBtn').style.display='';
+    this.style.display='none';
+  });
+  document.getElementById('dhVoiceUpLink').addEventListener('click',function(){vup.style.display='flex';vfile.click();});
   vfile.addEventListener('change',function(){
     var f=vfile.files[0];if(!f)return;
-    dhDraft.voiceReady=true;
+    dhDraft.voiceSource='upload';
     vup.classList.add('done');
     document.getElementById('dhVoiceName').textContent=f.name;
     document.getElementById('dhVoiceSt').textContent='已采样';
-    document.getElementById('dhErr').textContent='';
-  });
-  pop.querySelectorAll('#dhVoice button').forEach(function(b){
-    b.addEventListener('click',function(){
-      pop.querySelectorAll('#dhVoice button').forEach(function(x){x.classList.remove('on');});
-      b.classList.add('on');
-      dhDraft.voice=b.getAttribute('data-voice');
-      var clone=dhDraft.voice==='clone';
-      vup.style.display=clone?'flex':'none';
-      document.getElementById('dhVoiceSub').textContent=clone
-        ?'录制或上传 10-30 秒清晰人声，复刻你的音色用于口播'
-        :'使用平台音色库，可在下方「声音」中随时切换音色';
-      document.getElementById('dhErr').textContent='';
-    });
+    markVoiceReady();
   });
   document.getElementById('dhCreate').addEventListener('click',createMyDH);
 }
-renderMyDH();bindDhSheet();bindDhPop();
+renderMyDH();bindDhFly();bindDhPop();
 
 function runVGenerate(panel){
   var agrees=panel.querySelectorAll('.vp-agree input');
@@ -5948,16 +6113,13 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
 function renderRechargePage(){
   var view=document.getElementById('rechargeView');
   if(!view)return;
-  // Hero 统计：累计充值 / 累计消耗（按 ¥0.10/积分 反推）/ 累计获赠
+  // Hero 统计：累计充值 / 累计获赠
   var orders=getOrders();
   var totalPaid=orders.reduce(function(s,o){return s+(o.status==='paid'?o.amount:0);},0);
   var totalGift=orders.reduce(function(s,o){return s+(o.status==='paid'?(o.gift||0):0);},0);
-  var spentPts=0;
-  try{var log=JSON.parse(localStorage.getItem('wb_credit_log')||'[]');log.forEach(function(e){if(e.type==='minus')spentPts+=Math.abs(e.v);});}catch(e){}
   var bal=typeof getBalance==='function'?getBalance():0;
   var hBal=document.getElementById('recHeroBalance');if(hBal)hBal.textContent=bal.toLocaleString();
   var hTot=document.getElementById('recHeroTotal');if(hTot)hTot.textContent='¥'+totalPaid.toLocaleString();
-  var hSp=document.getElementById('recHeroSpent');if(hSp)hSp.textContent='¥'+parseFloat((spentPts*0.1).toFixed(1)).toLocaleString();
   var hGf=document.getElementById('recHeroGift');if(hGf)hGf.textContent=totalGift.toLocaleString();
 
   // 套餐卡片
