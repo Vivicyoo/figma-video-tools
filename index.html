@@ -4075,10 +4075,7 @@ function renderOrders(body){
     return;
   }
   if(!orders.length){
-    body.innerHTML='<div class="ord-empty-tip">'+((ORD_FILTER==='paid')?'暂无已支付订单':'暂无支付失败的订单')+'</div>'+
-      '<div style="text-align:center"><button id="ordersGo" style="height:38px;padding:0 20px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;border:none;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit">+ 继续充值</button></div>';
-    var g2=document.getElementById('ordersGo');
-    if(g2)g2.addEventListener('click',function(){setMode('recharge');});
+    body.innerHTML='<div class="ord-empty-tip">'+((ORD_FILTER==='paid')?'暂无已支付订单':'暂无支付失败的订单')+'</div>';
     return;
   }
   var html='<div class="rec-orders">';
