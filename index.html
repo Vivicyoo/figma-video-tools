@@ -591,6 +591,11 @@
   .pay-ok-ic{width:54px;height:54px;border-radius:50%;background:#e6f7ee;color:var(--green);font-size:32px;font-weight:800;line-height:54px;margin:0 auto 12px;}
   .pay-ok-t{font-size:22px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
   .pay-ok-d{font-size:12px;color:var(--gray-500);margin-top:6px;line-height:1.5;}
+  .pay-ok.is-fail .pay-ok-ic{background:#fef2f2;color:#dc2626;}
+  .pay-ok.is-fail .pay-ok-cap{color:#dc2626;}
+  .pay-ok.is-fail .pay-ok-t{font-size:20px;}
+  .pay-fail-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+  .pay-fail-acts .pay-btn{height:44px;}
   /* ===== 收银台（微信 / 支付宝 扫码支付页） ===== */
   .pay-brandbar{height:4px;}
   .pay-cash{padding:22px 22px 16px;text-align:center;}
@@ -4155,7 +4160,7 @@ function openPayConfirm(p){
   if(!body)return;
   var total=p.credits+(p.gift||0); /* 实得积分 = 基础分 + 赠送分（与支付到账口径一致） */
   var giftLine=p.gift>0?' <small style="color:var(--green);font-weight:600">（含赠送 +'+p.gift+'）</small>':'';
-  var isFirst=getOrders().length===0;
+  var isFirst=getOrders().filter(function(o){return o.status==='paid';}).length===0;
   var firstLine=isFirst?'<div style="font-size:11.5px;color:#b45309;background:#fffbeb;border:1px dashed #fcd34d;border-radius:7px;padding:6px 10px;margin:-4px 0 8px">🎁 新用户首充福利：再加赠 <b>100 积分</b>，支付成功后即时到账</div>':'';
   body.innerHTML=
     '<div class="pay-row"><span class="l">套餐</span><span class="v">'+p.tag+'</span></div>'+
@@ -4345,7 +4350,7 @@ function openCashier(p,pay){
   if(titleEl)titleEl.textContent='收银台 · '+brand.name;
   _cashOid=makeOrderId();
   var total=p.credits+(p.gift||0);
-  var firstHint=getOrders().length===0?' · 首充加赠 <b>+100</b>':'';
+  var firstHint=getOrders().filter(function(o){return o.status==='paid';}).length===0?' · 首充加赠 <b>+100</b>':'';
   body.innerHTML=
     '<div class="pay-brandbar" style="background:'+brand.color+'"></div>'+
     '<div class="pay-cash">'+
@@ -4367,10 +4372,10 @@ function openCashier(p,pay){
   if(cv)drawPseudoQR(cv,_cashOid+p.id,172);
   if(pop){
     pop.classList.add('open');
-    pop.onclick=function(e){if(e.target===pop)closePay();};
+    pop.onclick=function(e){if(e.target===pop)cancelPay('已关闭收银台',true);};
   }
   var cancelBtn=document.getElementById('cashCancel');
-  if(cancelBtn)cancelBtn.addEventListener('click',function(){closePay();});
+  if(cancelBtn)cancelBtn.addEventListener('click',function(){cancelPay('已取消支付');});
   var doneBtn=document.getElementById('cashDone');
   if(doneBtn)doneBtn.addEventListener('click',function(){
     if(doneBtn.disabled)return;
@@ -4384,6 +4389,7 @@ function openCashier(p,pay){
     var el=document.getElementById('payCount');
     if(!el){clearInterval(ct);return;}
     el.textContent=Math.floor(left/60)+':'+('0'+left%60).slice(-2);
+    if(left===0){clearInterval(ct);payFailed(p,pay,'支付超时未完成');}
   },1000);
   _cashTimers.push(ct);
   /* 模拟：2.8 秒后自动查询支付结果 */
@@ -4429,8 +4435,8 @@ function paySuccess(p,pay){
   clearCashTimers();
   var id=_cashOid||makeOrderId();
   var payName=pay==='wx'?'微信':'支付宝';
-  /* 新用户首充加赠 100 积分（与充值页横幅一致） */
-  var isFirst=getOrders().length===0;
+  /* 新用户首充加赠 100 积分（与充值页横幅一致）；仅统计已支付订单，失败单不占用首充资格 */
+  var isFirst=getOrders().filter(function(o){return o.status==='paid';}).length===0;
   var bonus=isFirst?100:0;
   var base=p.credits+(p.gift||0); /* 套餐基础分 + 赠送分 */
   var total=base+bonus;
@@ -4461,6 +4467,42 @@ function submitPay(p,pay){
   var btn=document.getElementById('paySubmit');
   if(!btn||!pay)return;
   openCashier(p,pay);
+}
+/* 离开收银台（取消 / 关闭 / 超时）：落一笔「支付失败」订单，积分不到账 */
+function cancelPay(reason,closeOnly){
+  var body=document.getElementById('payBody');
+  var inCashier=!!(body&&body.querySelector('#payQr'));
+  if(!inCashier){closePay();return;}
+  payFailed(_selectedPkg,_selectedPay,reason||'已取消支付',closeOnly);
+}
+function payFailed(p,pay,reason,closeOnly){
+  clearCashTimers();
+  if(!p){closePay();return;}
+  var id=_cashOid||makeOrderId();
+  var payName=pay==='wx'?'微信':(pay==='ali'?'支付宝':'');
+  saveOrder({id:id,pkg:p.tag,amount:p.price,credits:p.credits,gift:(p.gift||0),pay:pay||'',status:'failed',ts:new Date().toISOString()});
+  _cashOid=null;
+  if(closeOnly){closePay();showToast('支付未完成，订单已记入充值记录「支付失败」');return;}
+  var titleEl=document.querySelector('#payPop .pay-title');
+  if(titleEl)titleEl.textContent='支付结果';
+  var body=document.getElementById('payBody');
+  if(!body)return;
+  body.innerHTML=
+    '<div class="pay-ok is-fail">'+
+      '<div class="pay-ok-ic">×</div>'+
+      '<div class="pay-ok-cap">支付未完成 · 订单已关闭</div>'+
+      '<div class="pay-ok-t">积分未到账</div>'+
+      '<div class="pay-ok-d">'+p.tag+(payName?' · '+payName:'')+' · '+fmtMoney(p.price)+' · 订单号 '+id.slice(-8)+'<br>'+
+        (reason||'支付未完成')+'，该订单已记入充值记录「支付失败」，可重新发起支付</div>'+
+    '</div>'+
+    '<div class="pay-fail-acts">'+
+      '<button class="pay-btn ghost" id="payFailOrders" type="button">查看订单</button>'+
+      '<button class="pay-btn main" id="payRetry" type="button" style="background:linear-gradient(135deg,#7F77DD,#534AB7)">重新支付</button>'+
+    '</div>';
+  var retry=document.getElementById('payRetry');
+  if(retry)retry.addEventListener('click',function(){openPayConfirm(p);});
+  var goOrd=document.getElementById('payFailOrders');
+  if(goOrd)goOrd.addEventListener('click',function(){closePay();setMode('orders');});
 }
 function refreshClaimUI(){
   var claimed=todayClaimed();
@@ -4694,7 +4736,7 @@ if(creditsPopX)creditsPopX.addEventListener('click',function(e){
 var payXBtn=document.getElementById('payX');
 if(payXBtn)payXBtn.addEventListener('click',function(e){
   e.stopPropagation();
-  closePay();
+  cancelPay('已关闭收银台',true);
 });
 // 发票申请弹窗 × 关闭 + 点击遮罩关闭
 var invoicePop=document.getElementById('invoicePop');
