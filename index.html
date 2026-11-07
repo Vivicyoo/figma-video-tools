@@ -375,6 +375,18 @@
   .ord-row .amt .v{font-size:16px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;}
   .ord-row .amt .m{font-size:12px;color:var(--gray-400);margin-top:2px;font-variant-numeric:tabular-nums;}
   .ord-row .st{flex:none;font-size:12px;font-weight:600;color:var(--green);background:var(--green-50);border-radius:999px;padding:3px 10px;}
+  .ord-row.fail .st{color:#b91c1c;background:#fef2f2;}
+  .ord-row.fail .amt .v{color:var(--gray-400);font-weight:700;}
+  .ord-row.fail .n em{display:none;}
+
+  /* 充值记录筛选 tabs */
+  .ord-tabs{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap;}
+  .ord-tab{height:32px;padding:0 14px;border-radius:999px;background:#fff;border:1px solid var(--gray-200);color:var(--gray-600);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px;transition:background .12s,border-color .12s,color .12s;}
+  .ord-tab i{font-style:normal;font-size:11px;font-weight:600;color:var(--gray-400);font-variant-numeric:tabular-nums;}
+  .ord-tab:hover{border-color:#c7c0f0;color:var(--purple);}
+  .ord-tab.on{background:var(--purple);border-color:var(--purple);color:#fff;}
+  .ord-tab.on i{color:rgba(255,255,255,.82);}
+  .ord-empty-tip{padding:38px 0 22px;text-align:center;color:var(--gray-400);font-size:13px;}
 
   /* ===== Recharge packs (in wide mode) ===== */
   .rec-wrap{padding:18px 22px 22px;}
@@ -3037,6 +3049,7 @@
       <div class="rec-page">
         <button class="rec-page-back" data-back><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>返回</button>
         <div class="rec-sub-title">充值记录<small>全部充值订单与到账明细</small></div>
+        <div class="ord-tabs" id="ordTabs"></div>
         <div id="ordersPageBody"></div>
       </div>
     </div>
@@ -3333,6 +3346,7 @@ function setMode(mode){
   if(ordersV)ordersV.style.display=mode==='orders'?'flex':'none';
   var rulesV=document.getElementById('rulesView');
   if(rulesV)rulesV.style.display=mode==='rules'?'flex':'none';
+  if(mode==='orders'){ORD_FILTER='all';}
   if(mode==='orders'&&typeof renderOrdersPage==='function')renderOrdersPage();
   if(mode==='rules'&&typeof renderRulesPage==='function')renderRulesPage();
   if(rec&&mode==='recharge'&&typeof renderRechargePage==='function')renderRechargePage();
@@ -4020,15 +4034,51 @@ function openRefundPop(order){
   }
 }
 
+/* 充值记录筛选：全部 / 已支付 / 支付失败（进入页面默认「全部」） */
+var ORD_FILTER='all';
+function ordTabCounts(){
+  var all=getOrders();
+  return {
+    all:all.length,
+    paid:all.filter(function(o){return o.status==='paid';}).length,
+    failed:all.filter(function(o){return o.status==='failed';}).length
+  };
+}
+function renderOrderTabs(){
+  var t=document.getElementById('ordTabs');
+  if(!t)return;
+  var c=ordTabCounts();
+  var defs=[{k:'all',n:'全部'},{k:'paid',n:'已支付'},{k:'failed',n:'支付失败'}];
+  t.innerHTML=defs.map(function(d){
+    return '<button type="button" class="ord-tab'+(ORD_FILTER===d.k?' on':'')+'" data-f="'+d.k+'">'+d.n+'<i>'+c[d.k]+'</i></button>';
+  }).join('');
+  t.querySelectorAll('.ord-tab').forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.getAttribute('data-f');
+      if(f===ORD_FILTER)return;
+      ORD_FILTER=f;
+      renderOrdersPage();
+    });
+  });
+}
+
 function renderOrders(body){
   body=body||document.getElementById('creditsBody');
   if(!body)return;
   syncRefunds(); /* 渲染前按时间线推进退款状态（刷新后同样生效） */
-  var orders=getOrders();
-  if(!orders.length){
+  var all=getOrders();
+  var orders=(ORD_FILTER==='all')?all:all.filter(function(o){return o.status===ORD_FILTER;});
+  if(!all.length){
     body.innerHTML='<div class="rec-orders-empty"><span class="em">💎</span>暂无充值记录 · <a id="recEmptyGo" style="color:var(--purple);cursor:pointer;font-weight:600">前往充值</a></div>';
     var g=document.getElementById('recEmptyGo');
     if(g)g.addEventListener('click',function(){setMode('recharge');});
+    return;
+  }
+  if(!orders.length){
+    body.innerHTML='<div class="ord-empty-tip">'+((ORD_FILTER==='paid')?'暂无已支付订单':'暂无支付失败的订单')+'</div>'+
+      '<div style="text-align:center"><button id="ordersGo" style="height:38px;padding:0 20px;border-radius:9px;background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;border:none;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit">+ 继续充值</button></div>';
+    var g2=document.getElementById('ordersGo');
+    if(g2)g2.addEventListener('click',function(){setMode('recharge');});
     return;
   }
   var html='<div class="rec-orders">';
@@ -4038,6 +4088,7 @@ function renderOrders(body){
     var p2=function(n){return('0'+n).slice(-2);};
     var timeStr=(dt.getMonth()+1)+'-'+dt.getDate()+' '+p2(dt.getHours())+':'+p2(dt.getMinutes());
     var inv=getInvoice(o.id);
+    var isFailed=(o.status==='failed');
     var canInvoice=o.status==='paid'; /* 所有已支付订单均可申请发票 */
     var invoiceBtn=canInvoice?(inv?
       '<button class="ord-invoice done" data-invoice="'+o.id+'"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>发票已申请</button>'
@@ -4045,17 +4096,17 @@ function renderOrders(body){
     ):'';
     /* 退款不再逐单挂按钮：状态文字可点开进度，申请统一走页面底部入口 */
     var rf=getRefund(o.id);
-    var stText=rf?(rf.status==='pending'?'退款审核中':(rf.status==='audited'?'退款中':'已退款')):'已支付';
-    var stHtml=rf
+    var stText=isFailed?'支付失败':(rf?(rf.status==='pending'?'退款审核中':(rf.status==='audited'?'退款中':'已退款')):'已支付');
+    var stHtml=(rf&&!isFailed)
       ?'<button class="st st-link" type="button" data-refund="'+o.id+'">'+stText+' ›</button>'
       :'<div class="st">'+stText+'</div>';
-    html+='<div class="ord-row">'+
+    html+='<div class="ord-row'+(isFailed?' fail':'')+'">'+
       '<div class="ic '+(isWx?'wx':'ali')+'">'+(isWx?'微':'支')+'</div>'+
       '<div class="main">'+
-        '<div class="n">'+o.pkg+(o.gift?'<em>含赠 +'+o.gift+'</em>':'')+'</div>'+
+        '<div class="n">'+o.pkg+((o.gift&&!isFailed)?'<em>含赠 +'+o.gift+'</em>':'')+'</div>'+
         '<div class="d">'+(isWx?'微信支付':'支付宝')+' · 单号 '+o.id.slice(-8)+' · '+timeStr+'</div>'+
       '</div>'+
-      '<div class="amt"><div class="v">+'+(o.credits+(o.gift||0)).toLocaleString()+' 积分</div><div class="m">¥'+o.amount+'</div></div>'+
+      '<div class="amt"><div class="v">'+(isFailed?'未到账':('+'+(o.credits+(o.gift||0)).toLocaleString()+' 积分'))+'</div><div class="m">¥'+o.amount+'</div></div>'+
       '<div class="ord-right">'+
         stHtml+
         invoiceBtn+
@@ -4086,6 +4137,7 @@ function renderOrders(body){
   });
 }
 function renderOrdersPage(){
+  renderOrderTabs();
   var el=document.getElementById('ordersPageBody');
   if(el)renderOrders(el);
 }
