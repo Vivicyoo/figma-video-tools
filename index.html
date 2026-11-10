@@ -596,6 +596,18 @@
   .pay-ok.is-fail .pay-ok-t{font-size:20px;}
   .pay-fail-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
   .pay-fail-acts .pay-btn{height:44px;}
+  .pay-agree{display:flex;align-items:center;gap:8px;margin-top:12px;padding:0 2px;font-size:12.5px;color:var(--gray-600);}
+  .pay-agree-chk{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--gray-300);background:#fff;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;transition:all .12s ease;}
+  .pay-agree-chk svg{display:none;}
+  .pay-agree-chk.on{background:var(--purple);border-color:var(--purple);}
+  .pay-agree-chk.on svg{display:block;}
+  .pay-agree-link{color:var(--purple);font-weight:700;cursor:pointer;}
+  .pay-agree-link:hover{text-decoration:underline;}
+  .pay-agreement{max-height:60vh;overflow-y:auto;}
+  .agr-meta{font-size:11.5px;color:var(--gray-500);background:#f9fafb;border-radius:8px;padding:8px 12px;margin-bottom:12px;line-height:1.5;}
+  .agr-sec{margin-bottom:12px;}
+  .agr-t{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+  .agr-l{font-size:12px;color:var(--gray-600);line-height:1.65;margin-bottom:3px;}
   /* ===== 收银台（微信 / 支付宝 扫码支付页） ===== */
   .pay-brandbar{height:4px;}
   .pay-cash{padding:22px 22px 16px;text-align:center;}
@@ -4175,6 +4187,10 @@ function openPayConfirm(p){
       '</div>'+
     '</div>'+
     '<button class="pay-submit" id="paySubmit" type="button" disabled>选择支付方式后确认</button>'+
+    '<div class="pay-agree">'+
+      '<button class="pay-agree-chk" id="payAgreeChk" type="button" aria-label="同意协议"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>'+
+      '<span>已阅读并同意</span><a class="pay-agree-link" id="payAgreeLink">《大集AI充值服务协议》</a>'+
+    '</div>'+
     '<div class="pay-tip">点击确认后将进入收银台，扫码完成支付，积分即时到账</div>';
   var pop=document.getElementById('payPop');
   if(pop){
@@ -4186,10 +4202,25 @@ function openPayConfirm(p){
       body.querySelectorAll('.pay-method-btn').forEach(function(x){x.classList.remove('on');});
       b.classList.add('on');
       _selectedPay=b.getAttribute('data-pay');
-      var sub=document.getElementById('paySubmit');
-      if(sub){sub.disabled=false;sub.textContent='确认支付 ¥'+p.price+'.00';}
+      updateSubmit();
     });
   });
+  var agreeOk=false;
+  var updateSubmit=function(){
+    var sub=document.getElementById('paySubmit');
+    if(!sub)return;
+    if(!_selectedPay){sub.disabled=true;sub.textContent='选择支付方式后确认';return;}
+    if(!agreeOk){sub.disabled=true;sub.textContent='请先阅读并同意《大集AI充值服务协议》';return;}
+    sub.disabled=false;sub.textContent='确认支付 ¥'+p.price+'.00';
+  };
+  var chk=document.getElementById('payAgreeChk');
+  if(chk)chk.addEventListener('click',function(){
+    agreeOk=!agreeOk;
+    chk.classList.toggle('on',agreeOk);
+    updateSubmit();
+  });
+  var link=document.getElementById('payAgreeLink');
+  if(link)link.addEventListener('click',function(){openPayAgreement(p);});
   var sub=document.getElementById('paySubmit');
   if(sub)sub.addEventListener('click',function(){submitPay(p,_selectedPay);});
 }
@@ -4197,6 +4228,43 @@ function closePay(){
   clearCashTimers();
   var pop=document.getElementById('payPop');
   if(pop)pop.classList.remove('open');
+}
+/* 《大集AI充值服务协议》弹层内页（确认订单页点协议标题进入） */
+function openPayAgreement(p){
+  clearCashTimers();
+  var titleEl=document.querySelector('#payPop .pay-title');
+  if(titleEl)titleEl.textContent='大集AI充值服务协议';
+  var body=document.getElementById('payBody');
+  if(!body)return;
+  var sec=function(t,lines){
+    return '<div class="agr-sec"><div class="agr-t">'+t+'</div>'+lines.map(function(l){return '<div class="agr-l">'+l+'</div>';}).join('')+'</div>';
+  };
+  body.innerHTML=
+    '<div class="pay-agreement">'+
+      '<div class="agr-meta">生效日期：2026 年 11 月 1 日 · 适用范围：集智创平台 AI 积分充值服务</div>'+
+      sec('一、充值与到账',[
+        '1. 用户通过充值中心购买积分套餐并完成支付后，购买积分与赠送积分即时到账，到账明细可在「积分明细」中查看。',
+        '2. 新用户首笔成功支付的订单可享首充加赠 100 积分；支付失败或未完成的订单不发放积分、不占用首充资格。'
+      ])+
+      sec('二、积分使用与有效期',[
+        '1. 积分用于平台全部 AI 创作功能的消耗计费，不同功能按计费规则扣除相应积分。',
+        '2. 积分长期有效，不设过期时间；赠送积分与购买积分同等使用。'
+      ])+
+      sec('三、退款规则',[
+        '1. 已支付的订单可通过充值记录中的退款入口提交申请，经平台人工审核通过后，由原支付渠道退回，到账时间以支付平台为准。',
+        '2. 退款到账后，该订单未消耗的购买积分及赠送积分将一并扣回；已消耗部分不予退还。'
+      ])+
+      sec('四、发票',[
+        '1. 已支付订单均可在充值记录中申请开票，发票申请提交后 3 个工作日内开具。'
+      ])+
+      sec('五、其他',[
+        '1. 充值即视为同意本协议；如对充值、退款或发票有疑问，可通过「联系客服」咨询。',
+        '2. 平台如对本协议进行调整，将在充值中心公示后生效。'
+      ])+
+      '<button class="pay-btn ghost" id="agrBack" type="button" style="width:100%;margin-top:4px">返回确认订单</button>'+
+    '</div>';
+  var back=document.getElementById('agrBack');
+  if(back)back.addEventListener('click',function(){openPayConfirm(p);});
 }
 
 /* ================= Invoice 发票申请 ================= */
