@@ -4521,14 +4521,11 @@ function paySuccess(p,pay){
       '<div class="pay-ok-d">'+p.tag+(p.gift?'（含赠送 +'+p.gift+'）':'')+(bonus>0?' · 首充加赠 +'+bonus+'（新用户福利）':'')+' · '+fmtMoney(p.price)+' · '+payName+' · 订单号 '+id.slice(-8)+'</div>'+
     '</div>'+
     '<button class="pay-submit" id="payDone" type="button">查看我的订单</button>'+
-    '<button class="pay-tip" id="payStmt" type="button" style="background:transparent;border:none;display:block;margin:8px auto 0;color:var(--purple);cursor:pointer;font-weight:600">查看积分明细</button>'+
-    '<button class="pay-tip" id="payContinue" type="button" style="background:transparent;border:none;display:block;margin:4px auto 0;color:var(--gray-400);cursor:pointer;font-weight:600;font-size:12px">继续充值</button>';
+    '<button class="pay-btn ghost" id="payBackRec" type="button" style="width:100%;margin-top:10px">返回</button>';
   var done=document.getElementById('payDone');
   if(done)done.addEventListener('click',function(){closePay();setMode('orders');});
-  var stmt=document.getElementById('payStmt');
-  if(stmt)stmt.addEventListener('click',function(){closePay();openStmtPop();});
-  var cont=document.getElementById('payContinue');
-  if(cont)cont.addEventListener('click',function(){openPayConfirm(p);});
+  var backRec=document.getElementById('payBackRec');
+  if(backRec)backRec.addEventListener('click',function(){closePay();setMode('recharge');});
 }
 function submitPay(p,pay){
   var btn=document.getElementById('paySubmit');
