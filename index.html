@@ -428,20 +428,15 @@
   .invoice-x:hover{background:var(--gray-100);color:var(--ink);}
   .invoice-body{padding:18px 22px 22px;overflow-y:auto;}
 
-  /* ===== 手绘标尺弹层 ===== */
-  .hand-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--gray-300);background:#fff;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;transition:background .12s,border-color .12s;}
-  .hand-btn:hover{background:var(--purple-50);border-color:var(--purple);}
-  .hand-btn svg{width:14px;height:14px;color:var(--purple);}
-  .hand-state{font-size:12px;color:var(--gray-500);margin-left:10px;}
-  .hand-state.has{color:var(--purple);font-weight:600;}
-  .hand-pop{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:210;display:none;align-items:center;justify-content:center;padding:20px;}
-  .hand-pop.open{display:flex;animation:fadeIn .18s ease;}
-  .hand-card{background:#fff;border-radius:14px;box-shadow:0 22px 56px rgba(15,23,42,.22);width:520px;max-width:100%;max-height:calc(100vh - 40px);display:flex;flex-direction:column;overflow:hidden;animation:popIn .2s ease;}
-  .hand-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--gray-200);flex-shrink:0;}
-  .hand-title{font-size:15px;font-weight:700;color:var(--ink);}
-  .hand-x{width:28px;height:28px;border-radius:50%;border:none;background:transparent;color:var(--gray-500);font-size:20px;cursor:pointer;line-height:1;transition:background .12s;}
-  .hand-x:hover{background:var(--gray-100);color:var(--ink);}
-  .hand-body{padding:16px 20px 18px;overflow-y:auto;}
+  /* ===== 手绘标尺（右侧内嵌画布卡片） ===== */
+  .hand-inline{width:100%;max-width:480px;background:#fff;border-radius:14px;border:1px solid var(--gray-200);box-shadow:0 10px 30px rgba(15,23,42,.08);overflow:hidden;}
+  .hand-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--gray-200);background:linear-gradient(135deg,#f4f3ff,#faf7ff);}
+  .hand-title{font-size:14px;font-weight:700;color:var(--ink);}
+  .hand-head .hand-cnt{font-size:12px;color:var(--purple);font-weight:600;}
+  .hand-body{padding:14px 16px 16px;}
+  .hand-empty{text-align:center;color:var(--gray-400);font-size:13px;padding:40px 12px;background:var(--gray-100);border-radius:10px;border:1px dashed var(--gray-300);line-height:1.6;}
+  .hand-saved{display:none;font-size:12px;color:var(--green);font-weight:600;margin-top:8px;line-height:1.5;}
+  .hand-saved.show{display:block;}
   .hand-canvas-wrap{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--gray-200);cursor:crosshair;touch-action:none;user-select:none;}
   .hand-canvas-wrap svg{display:block;width:100%;height:auto;}
   .hand-tip{font-size:12px;color:var(--gray-500);margin-top:10px;line-height:1.6;}
@@ -780,6 +775,33 @@
   .dh-read .st.ok{color:var(--green);font-weight:600;}
   .dh-read .alt{font-size:11.5px;color:var(--gray-400);margin-top:8px;}
   .dh-read .alt button{background:none;border:none;color:var(--acc);font-size:11.5px;cursor:pointer;font-family:inherit;padding:0;}
+  /* 音色采集：准备提示 / 录音中 / 试听 */
+  .dh-read.is-rec{border-color:#fca5a5;background:#fff8f8;}
+  .dh-rec-tips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px;}
+  .dh-rec-tips span{font-size:10.5px;color:#6b7280;background:#f3f4f6;border-radius:5px;padding:2px 7px;line-height:1.6;}
+  .dh-meter{display:flex;align-items:flex-end;gap:3px;height:26px;margin-bottom:9px;}
+  .dh-meter i{flex:1;height:20%;background:linear-gradient(180deg,#fca5a5,#ef4444);border-radius:2px;animation:dhWave .9s ease-in-out infinite;}
+  .dh-meter i:nth-child(2n){animation-delay:.22s;}
+  .dh-meter i:nth-child(3n){animation-delay:.42s;}
+  .dh-meter i:nth-child(4n){animation-delay:.6s;}
+  @keyframes dhWave{0%,100%{height:16%;}50%{height:88%;}}
+  .dh-recbar{display:flex;align-items:center;gap:8px;background:#fef2f2;border:1px solid #fecaca;border-radius:9px;padding:7px 10px;margin-bottom:9px;}
+  .dh-recbar .dot{width:8px;height:8px;border-radius:50%;background:#ef4444;animation:dhPulse 1.1s ease-in-out infinite;flex:none;}
+  @keyframes dhPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.8);}}
+  .dh-recbar b{font-size:13px;color:#b91c1c;font-variant-numeric:tabular-nums;}
+  .dh-recbar .cap{font-size:11px;color:#f87171;}
+  .dh-recbar button{margin-left:auto;height:27px;padding:0 12px;border:none;border-radius:7px;background:#ef4444;color:#fff;font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;}
+  .dh-player{display:flex;align-items:center;gap:9px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:9px;padding:7px 10px;margin-bottom:9px;}
+  .dh-player .pl{width:27px;height:27px;border-radius:50%;border:none;background:#059669;color:#fff;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;padding:0;}
+  .dh-player .pl svg{width:11px;height:11px;}
+  .dh-player .wave{flex:1;height:4px;border-radius:2px;background:#d1fae5;overflow:hidden;}
+  .dh-player .wave i{display:block;height:100%;width:0;background:#059669;border-radius:2px;}
+  .dh-player .dur{font-size:11px;color:#047857;font-variant-numeric:tabular-nums;flex:none;}
+  .dh-player .lk{border:none;background:none;color:#047857;font-size:11.5px;cursor:pointer;font-family:inherit;padding:0;flex:none;}
+  .dh-consent{display:flex;gap:8px;align-items:flex-start;font-size:11.5px;color:var(--gray-500);line-height:1.55;margin:0 0 12px;cursor:pointer;user-select:none;}
+  .dh-consent input{margin:2px 0 0;accent-color:var(--purple);flex:none;}
+  .dh-consent.shake{animation:agreeShake .3s;color:#dc2626;}
+  .dh-up.audio .prev{background:#ecfdf5;color:#059669;}
   @media (max-width:768px){
     .dh-fly{left:0 !important;right:0;top:auto !important;bottom:0;width:100%;max-width:100%;border-radius:18px 18px 0 0;max-height:72vh;animation:sheetUp .2s ease;}
   }
@@ -2223,6 +2245,18 @@
               </div>
             </div>
           </div>
+          <!-- 标注方式：智能生成 / 手绘标尺 -->
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">标注方式</span>
+            </div>
+            <div class="bg-sec-sub" id="rulerModeHint">智能生成：按标尺类型与实测数值由 AI 自动标注；手绘标尺：在右侧画布手动添加标尺线与刻度文字</div>
+            <div class="opt-chips single-group" id="rulerModeGroup">
+              <button class="opt-chip on" type="button">智能生成</button>
+              <button class="opt-chip" type="button">手绘标尺</button>
+            </div>
+          </div>
+          <div id="rulerAiCfg">
           <div class="bg-sec">
             <div class="bg-sec-head">
               <span class="bg-sec-name req">标尺类型</span>
@@ -2272,18 +2306,6 @@
             <textarea class="vp-ta" id="rulerText" rows="2" placeholder="如「这款收纳箱长 32 厘米、宽 18、高 24，加上轮子再高 3 厘米，整体适合床底收纳」"></textarea>
           </div>
 
-          <!-- 手动绘制标尺（选填） -->
-          <div class="bg-sec">
-            <div class="bg-sec-head">
-              <span class="bg-sec-name">手动绘制标尺<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
-            </div>
-            <div class="bg-sec-sub">打开画笔，在图片上手动添加标尺线与刻度文字，与 AI 标注合并输出</div>
-            <div style="display:flex;align-items:center">
-              <button class="hand-btn" id="rulerHandBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>手绘标尺</button>
-              <span class="hand-state" id="rulerHandHint">未绘制</span>
-            </div>
-          </div>
-
           <!-- 生成张数 -->
           <div class="bg-sec">
             <div class="bg-sec-head">
@@ -2296,6 +2318,7 @@
               <button class="opt-chip" type="button">4张</button>
             </div>
           </div>
+          </div><!-- /rulerAiCfg -->
         </div>
         <div class="bg-foot">
           <div class="bg-foot-l">
@@ -2310,7 +2333,7 @@
         </div>
       </div>
       <div class="tcanvas">
-        <div class="th-card t-slate">
+        <div class="th-card t-slate" id="rulerAiCanvas">
           <span class="th-tag">AI商品标尺图</span>
           <div class="th-title">尺寸自动标注</div>
           <div class="th-sub">选标尺类型 · 填实测尺寸</div>
@@ -2318,30 +2341,31 @@
             <img src="images/web/t-ruler.png" alt="">
           </div>
         </div>
-      </div>
-
-      <!-- 手绘标尺弹层 -->
-      <div class="hand-pop" id="rulerHandPop">
-        <div class="hand-card">
+        <!-- 手绘标尺：右侧画布（预览上传图 + 添加标尺线） -->
+        <div class="hand-inline" id="rulerHandCard" style="display:none">
           <div class="hand-head">
-            <span class="hand-title">手动绘制标尺</span>
-            <button class="hand-x" id="rulerHandX" type="button">✕</button>
+            <span class="hand-title">手绘标尺 · 商品尺寸标注</span>
+            <span class="hand-cnt" id="rulerHandCountTop">未绘制</span>
           </div>
           <div class="hand-body">
-            <div class="hand-canvas-wrap" id="rulerHandWrap">
-              <svg id="rulerHandSvg" viewBox="0 0 440 330" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <image href="images/web/t-avocado.jpg" x="0" y="0" width="440" height="330" preserveAspectRatio="xMidYMid slice"></image>
-              </svg>
-            </div>
-            <div class="hand-tip">按住拖动画出标尺线，松开后输入刻度文字（如「长 32 cm」），留空不标注文字；在列表中可删除已画的线。</div>
-            <div class="hand-bar" id="rulerHandBar" style="display:none">
-              <input class="hand-inp" id="rulerHandInp" placeholder="输入刻度文字，如「长 32 cm」">
-            </div>
-            <div id="rulerHandList"></div>
-            <div class="hand-bar">
-              <button class="hand-ghost" id="rulerHandClear" type="button">清除全部</button>
-              <span class="hand-cnt" id="rulerHandCount">0 条标尺线</span>
-              <button class="hand-done" id="rulerHandDone" type="button">完成</button>
+            <div class="hand-empty" id="rulerHandEmpty">请先在左侧上传商品图片<br>上传后此处将预览图片并开启手绘标尺</div>
+            <div id="rulerHandTools" style="display:none">
+              <div class="hand-canvas-wrap" id="rulerHandWrap">
+                <svg id="rulerHandSvg" viewBox="0 0 440 330" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                  <image id="rulerHandImg" href="images/web/t-avocado.jpg" x="0" y="0" width="440" height="330" preserveAspectRatio="xMidYMid slice"></image>
+                </svg>
+              </div>
+              <div class="hand-tip">按住拖动画出标尺线，松开后输入刻度文字（如「长 32 cm」），留空不标注文字；在列表中可删除已画的线。点击「保存」生成 1 张标尺图（6 积分）并同步到任务列表 / 历史记录。</div>
+              <div class="hand-bar" id="rulerHandBar" style="display:none">
+                <input class="hand-inp" id="rulerHandInp" placeholder="输入刻度文字，如「长 32 cm」">
+              </div>
+              <div id="rulerHandList"></div>
+              <div class="hand-bar">
+                <button class="hand-ghost" id="rulerHandClear" type="button">清除全部</button>
+                <span class="hand-cnt" id="rulerHandCount">0 条标尺线</span>
+                <button class="hand-done" id="rulerHandDone" type="button">保存</button>
+              </div>
+              <div class="hand-saved" id="rulerHandSaved"></div>
             </div>
           </div>
         </div>
@@ -3170,23 +3194,38 @@
       </div>
       <div class="dh-fld">
         <label>音色采集<i>*</i></label>
-        <div class="dh-read">
-          <div class="lab">安静朗读以下文字约 30 秒，AI 复刻你的音色</div>
+        <div class="dh-read" id="dhRead">
+          <div class="lab">在安静环境下朗读以下文字约 30 秒，AI 复刻你的音色</div>
+          <div class="dh-rec-tips"><span>单人朗读</span><span>无背景音乐</span><span>距麦克风 50cm 内</span></div>
           <div class="tx">大家好，欢迎来到本店。今天为大家推荐这款新品，它采用轻量化设计，佩戴一整天也不会累。接下来我们一起看看它的材质细节，感受做工的用心之处。</div>
-          <div class="ops">
+          <div class="dh-meter" id="dhMeter" style="display:none"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="dh-recbar" id="dhRecBar" style="display:none">
+            <span class="dot"></span><b id="dhRecTime">00:00</b><span class="cap">/ 00:30</span>
+            <button type="button" id="dhRecStop">完成录音</button>
+          </div>
+          <div class="dh-player" id="dhPlayer" style="display:none">
+            <button class="pl" type="button" id="dhPlayBtn" aria-label="试听"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 21 12 6 21 6 3"/></svg></button>
+            <div class="wave"><i id="dhPlayFill"></i></div>
+            <span class="dur" id="dhPlayDur">00:00</span>
+            <button class="lk" type="button" id="dhRerecBtn">重新录制</button>
+          </div>
+          <div class="ops" id="dhRecOps">
             <button type="button" id="dhRecBtn">● 开始录音</button>
-            <button type="button" class="ghost" id="dhRerecBtn" style="display:none">重新录制</button>
             <span class="st" id="dhRecSt">未采集</span>
           </div>
           <div class="alt">不方便朗读？也可以<button type="button" id="dhVoiceUpLink">上传语音样本</button>（10-30 秒清晰人声）</div>
         </div>
-        <div class="dh-up" id="dhUpVoice" style="display:none;margin-top:8px">
+        <div class="dh-up audio" id="dhUpVoice" style="display:none;margin-top:8px">
           <span class="prev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
-          <span class="tx"><b id="dhVoiceName">上传语音样本</b><span>10-30 秒单人说话，无背景音乐</span></span>
+          <span class="tx"><b id="dhVoiceName">上传语音样本</b><span>10-30 秒单人说话，无背景音乐；支持 mp3 / wav / m4a</span></span>
           <span class="st" id="dhVoiceSt">去上传</span>
         </div>
         <input type="file" id="dhVoiceFile" accept="audio/*" hidden>
       </div>
+      <label class="dh-consent" id="dhConsentRow">
+        <input type="checkbox" id="dhConsent">
+        <span>我确认这是本人声音，或已获得声音权利人的书面授权，并同意将其用于 AI 音色复刻</span>
+      </label>
       <div class="dh-fld">
         <label id="dhNameLab">数字人名称<i>*</i></label>
         <input class="dh-inp" id="dhName" maxlength="12" placeholder="如「我的主播形象」，最多 12 字">
@@ -4693,7 +4732,7 @@ function renderCreditRule(body){
       '<tr><td>文案语种（AI卖点图）</td><td>中文 / 英语 / 阿拉伯语 / 泰语 / 印尼语 / 越南语 / 韩语 / 马来语 / 蒙古语，可多选，每个语种输出 1 张卖点图</td></tr>'+
       '<tr><td>标尺类型（AI商品标尺图）</td><td>长 × 宽 × 高 / 长 × 宽 / 高度 / 厚度 / 直径 / 周长 / 重量 / 长 × 宽 × 高 + 重量，单选，不额外计费</td></tr>'+
       '<tr><td>标尺数值 / 文本（AI商品标尺图）</td><td>按类型填数值（尺寸单位 cm / mm / inch，重量单位 g / kg / lb），或输入一段白话描述；留空由 AI 自动标注</td></tr>'+
-      '<tr><td>手动绘制标尺（AI商品标尺图）</td><td>点击「手绘标尺」打开画布，按住拖拽添加标尺线并逐条输入刻度文字，可删除 / 清除；与 AI 标注合并输出，选填，不额外计费</td></tr>'+
+      '<tr><td>标注方式（AI商品标尺图）</td><td>智能生成 / 手绘标尺，单选，必填，默认智能生成；手绘标尺在右侧画布拖拽添加标尺线并逐条输入刻度文字，点击保存输出 1 张标尺图（按 6 积分 / 张计费），不额外加价</td></tr>'+
       '<tr><td>目标花色（商品换色）</td><td>文字描述想要的花色 / 纹理，另有常用花色可点选填入；留空由 AI 自动匹配</td></tr>'+
       '<tr><td>花色参考图（商品换色）</td><td>选填，上传想要的花色 / 纹理图片，AI 迁移该花色；与文字描述同时填写时以参考图为准</td></tr>'+
       '<tr><td>模特参考（试穿试用）</td><td>AI 自动匹配 / 上传我的模特图 / 平台模特库（亚洲女模 / 亚洲男模 / 欧美女模 / 童模 / 大码模特），选填，不额外计费</td></tr>'+
@@ -5174,18 +5213,164 @@ function bindDhFly(){
 }
 var DH_PERSON_ICON='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4.1 3.4-7 7.5-7s7.5 2.9 7.5 7"/></svg>';
 var dhPopMode='dh';
+var dhVoice={recording:false,playing:false,elapsed:0,ready:false,source:'',dur:0,url:'',timer:null,playTimer:null,stream:null,rec:null,chunks:[],audio:null};
+function dhFmt(s){s=Math.max(0,Math.round(s||0));return ('0'+Math.floor(s/60)).slice(-2)+':'+('0'+(s%60)).slice(-2);}
+function dhSetSt(txt,ok){
+  var st=document.getElementById('dhRecSt');
+  if(st){st.textContent=txt;st.classList.toggle('ok',!!ok);}
+}
+function dhIcon(play){
+  return play
+    ?'<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 21 12 6 21 6 3"/></svg>'
+    :'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
+}
+function dhStopPlay(){
+  dhVoice.playing=false;
+  if(dhVoice.playTimer){clearInterval(dhVoice.playTimer);dhVoice.playTimer=null;}
+  if(dhVoice.audio){try{dhVoice.audio.pause();}catch(e){}dhVoice.audio=null;}
+  var fill=document.getElementById('dhPlayFill');
+  if(fill)fill.style.width='0%';
+  var pb=document.getElementById('dhPlayBtn');
+  if(pb)pb.innerHTML=dhIcon(true);
+}
+function dhResetAudio(){
+  dhStopPlay();
+  if(dhVoice.recording){clearInterval(dhVoice.timer);dhVoice.recording=false;}
+  if(dhVoice.rec&&dhVoice.rec.state!=='inactive'){try{dhVoice.rec.stop();}catch(e){}}
+  dhVoice.rec=null;dhVoice.chunks=[];
+  if(dhVoice.stream){try{dhVoice.stream.getTracks().forEach(function(t){t.stop();});}catch(e){}dhVoice.stream=null;}
+  if(dhVoice.url){try{URL.revokeObjectURL(dhVoice.url);}catch(e){}dhVoice.url='';}
+  dhVoice.dur=0;dhVoice.elapsed=0;
+}
 function resetVoiceUI(){
   dhDraft.voiceReady=false;dhDraft.voiceSource='';
-  var st=document.getElementById('dhRecSt');
-  st.textContent='未采集';st.classList.remove('ok');
-  document.getElementById('dhRecBtn').style.display='';
-  document.getElementById('dhRecBtn').disabled=false;
-  document.getElementById('dhRecBtn').textContent='● 开始录音';
-  document.getElementById('dhRerecBtn').style.display='none';
+  dhResetAudio();
+  dhVoice.ready=false;dhVoice.source='';
+  var btn=document.getElementById('dhRecBtn');
+  if(btn){btn.style.display='';btn.disabled=false;btn.textContent='● 开始录音';}
+  var bar=document.getElementById('dhRecBar'),meter=document.getElementById('dhMeter'),player=document.getElementById('dhPlayer'),ops=document.getElementById('dhRecOps');
+  if(bar)bar.style.display='none';
+  if(meter)meter.style.display='none';
+  if(player)player.style.display='none';
+  if(ops)ops.style.display='';
+  var rd=document.getElementById('dhRead');if(rd)rd.classList.remove('is-rec');
+  var tm=document.getElementById('dhRecTime');if(tm)tm.textContent='00:00';
+  dhSetSt('未采集',false);
   var vup=document.getElementById('dhUpVoice');
   if(vup)vup.classList.remove('done');
   document.getElementById('dhVoiceName').textContent='上传语音样本';
   document.getElementById('dhVoiceSt').textContent='去上传';
+  var ck=document.getElementById('dhConsent');if(ck)ck.checked=false;
+  document.getElementById('dhErr').textContent='';
+}
+function dhShowPlayer(dur){
+  var player=document.getElementById('dhPlayer'),ops=document.getElementById('dhRecOps'),bar=document.getElementById('dhRecBar'),meter=document.getElementById('dhMeter');
+  if(player)player.style.display='flex';
+  if(ops)ops.style.display='flex';
+  if(bar)bar.style.display='none';
+  if(meter)meter.style.display='none';
+  var btn=document.getElementById('dhRecBtn');if(btn)btn.style.display='none';
+  var d=document.getElementById('dhPlayDur');if(d)d.textContent=dhFmt(dur);
+}
+function dhStartRec(){
+  if(dhVoice.recording)return;
+  dhResetAudio();
+  dhVoice.recording=true;dhVoice.source='record';dhVoice.ready=false;dhDraft.voiceReady=false;
+  var rd=document.getElementById('dhRead'),bar=document.getElementById('dhRecBar'),meter=document.getElementById('dhMeter'),ops=document.getElementById('dhRecOps'),player=document.getElementById('dhPlayer');
+  if(rd)rd.classList.add('is-rec');
+  if(bar)bar.style.display='flex';
+  if(meter)meter.style.display='flex';
+  if(ops)ops.style.display='none';
+  if(player)player.style.display='none';
+  document.getElementById('dhRecTime').textContent='00:00';
+  /* 有麦克风权限则真录，无权限 / file:// 环境下自动降级为模拟录音 */
+  if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){
+      dhVoice.stream=st;
+      try{
+        var mr=new MediaRecorder(st);
+        dhVoice.chunks=[];
+        mr.ondataavailable=function(e){if(e.data&&e.data.size){dhVoice.chunks.push(e.data);}};
+        mr.onstop=function(){
+          try{
+            var blob=new Blob(dhVoice.chunks,{type:mr.mimeType||'audio/webm'});
+            dhVoice.url=URL.createObjectURL(blob);
+          }catch(e){}
+        };
+        mr.start();dhVoice.rec=mr;
+      }catch(e){}
+    }).catch(function(){/* 用户拒绝或环境不支持：走模拟计时 */});
+  }
+  dhVoice.timer=setInterval(function(){
+    if(!dhVoice.recording){return;}
+    dhVoice.elapsed++;
+    document.getElementById('dhRecTime').textContent=dhFmt(dhVoice.elapsed);
+    if(dhVoice.elapsed>=30){dhStopRec();}
+  },1000);
+}
+function dhStopRec(){
+  if(!dhVoice.recording)return;
+  dhVoice.recording=false;
+  if(dhVoice.timer){clearInterval(dhVoice.timer);dhVoice.timer=null;}
+  if(dhVoice.rec&&dhVoice.rec.state!=='inactive'){try{dhVoice.rec.stop();}catch(e){}}
+  if(dhVoice.stream){try{dhVoice.stream.getTracks().forEach(function(t){t.stop();});}catch(e){}dhVoice.stream=null;}
+  var rd=document.getElementById('dhRead');if(rd)rd.classList.remove('is-rec');
+  var d=Math.min(30,Math.max(0,dhVoice.elapsed));
+  if(d<5){
+    dhSetSt('录音过短，请至少朗读 5 秒',false);
+    var btn=document.getElementById('dhRecBtn');
+    if(btn)btn.style.display='';
+    dhVoice.ready=false;
+    var bar=document.getElementById('dhRecBar'),meter=document.getElementById('dhMeter');
+    if(bar)bar.style.display='none';
+    if(meter)meter.style.display='none';
+    var ops=document.getElementById('dhRecOps');if(ops)ops.style.display='flex';
+    return;
+  }
+  dhVoice.dur=d;dhVoice.ready=true;dhDraft.voiceReady=true;dhDraft.voiceSource='record';
+  dhShowPlayer(d);
+  dhSetSt('已录制 '+dhFmt(d)+' · 待确认',true);
+  document.getElementById('dhErr').textContent='';
+}
+function dhPlayToggle(){
+  if(dhVoice.playing){dhStopPlay();return;}
+  dhVoice.playing=true;
+  var pb=document.getElementById('dhPlayBtn');if(pb)pb.innerHTML=dhIcon(false);
+  var fill=document.getElementById('dhPlayFill');if(fill)fill.style.width='0%';
+  if(dhVoice.url){
+    var a=new Audio(dhVoice.url);dhVoice.audio=a;
+    a.onended=dhStopPlay;
+    a.ontimeupdate=function(){
+      if(a.duration&&isFinite(a.duration)&&fill)fill.style.width=Math.min(100,a.currentTime/a.duration*100)+'%';
+    };
+    var p=a.play();
+    if(p&&p.catch){p.catch(function(){dhSimPlay();});}
+  }else{
+    dhSimPlay();   /* 无真实录音（原型模拟）：按采集时长走进度 */
+  }
+}
+function dhSimPlay(){
+  var start=Date.now(),dur=Math.max(3,dhVoice.dur||30);
+  var fill=document.getElementById('dhPlayFill');
+  if(dhVoice.playTimer){clearInterval(dhVoice.playTimer);}
+  dhVoice.playTimer=setInterval(function(){
+    var pc=Math.min(1,(Date.now()-start)/(dur*1000));
+    if(fill)fill.style.width=(pc*100)+'%';
+    if(pc>=1){dhStopPlay();}
+  },80);
+}
+function dhMarkUpload(name,dur){
+  dhResetAudio();
+  dhVoice.source='upload';dhVoice.ready=true;dhVoice.dur=dur||0;
+  dhDraft.voiceReady=true;dhDraft.voiceSource='upload';
+  var vup=document.getElementById('dhUpVoice');
+  if(vup)vup.classList.add('done');
+  document.getElementById('dhVoiceName').textContent=name;
+  document.getElementById('dhVoiceSt').textContent='已采样';
+  var rd=document.getElementById('dhRead');
+  if(rd)rd.classList.remove('is-rec');
+  dhShowPlayer(dur||0);
+  dhSetSt('已上传样本'+(dur?(' · '+dhFmt(dur)):'')+' · 待确认',true);
   document.getElementById('dhErr').textContent='';
 }
 function openDhPop(mode){
@@ -5222,7 +5407,12 @@ function openDhPop(mode){
   pop.classList.add('open');
   pop.onclick=function(e){if(e.target===pop)closeDhPop();};
 }
-function closeDhPop(){var pop=document.getElementById('dhPop');if(pop)pop.classList.remove('open');}
+function closeDhPop(){
+  var pop=document.getElementById('dhPop');
+  if(pop)pop.classList.remove('open');
+  dhResetAudio();   /* 关闭弹层时停止录音 / 试听并释放麦克风 */
+  dhVoice.recording=false;dhVoice.playing=false;
+}
 function captureSquare(src,w,h,cb){
   var s=Math.min(w,h);
   if(!s){cb('');return;}
@@ -5266,31 +5456,44 @@ function readDhFace(file){
 function createMyDH(){
   var err=document.getElementById('dhErr');
   var name=(document.getElementById('dhName').value||'').trim();
-  if(dhPopMode==='voice'){
-    if(!dhDraft.voiceReady){err.textContent='请先跟读采集音色，或上传语音样本';return;}
-    if(!name){err.textContent='请填写音色名称';return;}
-    var vs=getMyVoices();
-    var v={id:'vx_'+Date.now(),name:name.slice(0,12),ts:Date.now()};
-    vs.unshift(v);saveMyVoices(vs);
-    closeDhPop();
-    renderMyDH();
-    showToast('音色「'+v.name+'」已保存，可在数字人卡片上更换使用');
+  if(dhPopMode!=='voice'&&!dhDraft.avatar){err.textContent='请先上传形象照片或形象视频';return;}
+  if(dhVoice.recording){err.textContent='录音中，请先点「完成录音」再创建';return;}
+  if(!dhDraft.voiceReady){err.textContent='请先录制一段音色，或上传语音样本';return;}
+  if(!name){err.textContent=dhPopMode==='voice'?'请填写音色名称':'请填写数字人名称';return;}
+  var ck=document.getElementById('dhConsent');
+  if(ck&&!ck.checked){
+    err.textContent='请先勾选声音授权确认';
+    var row=document.getElementById('dhConsentRow');
+    if(row){row.classList.remove('shake');void row.offsetWidth;row.classList.add('shake');}
     return;
   }
-  if(!dhDraft.avatar){err.textContent='请先上传形象照片或形象视频';return;}
-  if(!dhDraft.voiceReady){err.textContent='请先跟读一段文字采集音色，或上传语音样本';return;}
-  if(!name){err.textContent='请填写数字人名称';return;}
-  var voiceName=nextVoiceName();
-  var vlist=getMyVoices();
-  var v={id:'vx_'+Date.now(),name:voiceName,ts:Date.now()};
-  vlist.unshift(v);saveMyVoices(vlist);
-  var list=getMyDH();
-  var d={id:'dh_'+Date.now(),name:name.slice(0,12),avatar:dhDraft.avatar,voiceId:v.id,voiceName:voiceName,ts:Date.now()};
-  list.unshift(d);saveMyDH(list);
-  closeDhPop();
-  renderMyDH();
-  dhSelect(mineDesc(d));
-  showToast('数字人「'+d.name+'」已创建，音色 '+voiceName+' 已默认配对，可随时更换');
+  var btn=document.getElementById('dhCreate');
+  var origTxt=btn.textContent;
+  btn.disabled=true;btn.textContent='音色复刻中…';
+  err.textContent='';
+  setTimeout(function(){
+    btn.disabled=false;btn.textContent=origTxt;
+    if(dhPopMode==='voice'){
+      var vs=getMyVoices();
+      var v0={id:'vx_'+Date.now(),name:name.slice(0,12),ts:Date.now()};
+      vs.unshift(v0);saveMyVoices(vs);
+      closeDhPop();
+      renderMyDH();
+      showToast('音色「'+v0.name+'」已保存，可在数字人卡片上更换使用');
+      return;
+    }
+    var voiceName=nextVoiceName();
+    var vlist=getMyVoices();
+    var v={id:'vx_'+Date.now(),name:voiceName,ts:Date.now()};
+    vlist.unshift(v);saveMyVoices(vlist);
+    var list=getMyDH();
+    var d={id:'dh_'+Date.now(),name:name.slice(0,12),avatar:dhDraft.avatar,voiceId:v.id,voiceName:voiceName,ts:Date.now()};
+    list.unshift(d);saveMyDH(list);
+    closeDhPop();
+    renderMyDH();
+    dhSelect(mineDesc(d));
+    showToast('数字人「'+d.name+'」已创建，音色 '+voiceName+' 已默认配对，可随时更换');
+  },1200);
 }
 function bindDhPop(){
   var pop=document.getElementById('dhPop');
@@ -5303,38 +5506,36 @@ function bindDhPop(){
   var vup=document.getElementById('dhUpVoice');
   var vfile=document.getElementById('dhVoiceFile');
   vup.addEventListener('click',function(){vfile.click();});
-  function markVoiceReady(){
-    dhDraft.voiceReady=true;
-    var st=document.getElementById('dhRecSt');
-    st.textContent='✓ 已采集';st.classList.add('ok');
-    document.getElementById('dhRecBtn').style.display='none';
-    document.getElementById('dhRerecBtn').style.display='';
-    document.getElementById('dhErr').textContent='';
-  }
-  document.getElementById('dhRecBtn').addEventListener('click',function(){
-    var b=this;
-    b.disabled=true;b.textContent='● 录音中…';
-    setTimeout(function(){
-      b.disabled=false;b.textContent='● 开始录音';
-      dhDraft.voiceSource='record';
-      markVoiceReady();
-    },1200);
-  });
+  document.getElementById('dhRecBtn').addEventListener('click',dhStartRec);
+  document.getElementById('dhRecStop').addEventListener('click',dhStopRec);
+  document.getElementById('dhPlayBtn').addEventListener('click',dhPlayToggle);
   document.getElementById('dhRerecBtn').addEventListener('click',function(){
-    dhDraft.voiceReady=false;dhDraft.voiceSource='';
-    var st=document.getElementById('dhRecSt');
-    st.textContent='未采集';st.classList.remove('ok');
-    document.getElementById('dhRecBtn').style.display='';
-    this.style.display='none';
+    dhResetAudio();dhVoice.ready=false;dhDraft.voiceReady=false;dhDraft.voiceSource='';
+    var player=document.getElementById('dhPlayer'),ops=document.getElementById('dhRecOps'),btn=document.getElementById('dhRecBtn');
+    if(player)player.style.display='none';
+    if(ops)ops.style.display='flex';
+    if(btn)btn.style.display='';
+    dhSetSt('未采集',false);
+    var vup2=document.getElementById('dhUpVoice');
+    if(vup2)vup2.classList.remove('done');
+    document.getElementById('dhVoiceName').textContent='上传语音样本';
+    document.getElementById('dhVoiceSt').textContent='去上传';
   });
   document.getElementById('dhVoiceUpLink').addEventListener('click',function(){vup.style.display='flex';vfile.click();});
   vfile.addEventListener('change',function(){
     var f=vfile.files[0];if(!f)return;
-    dhDraft.voiceSource='upload';
-    vup.classList.add('done');
-    document.getElementById('dhVoiceName').textContent=f.name;
-    document.getElementById('dhVoiceSt').textContent='已采样';
-    markVoiceReady();
+    var d=0;
+    try{
+      var u=URL.createObjectURL(f);var a=new Audio();
+      a.preload='metadata';
+      a.onloadedmetadata=function(){
+        d=a.duration||0;
+        if(f.__ready!==true){f.__ready=true;dhMarkUpload(f.name,d);}
+      };
+      a.onerror=function(){dhMarkUpload(f.name,0);};
+      a.src=u;
+    }catch(e){dhMarkUpload(f.name,0);}
+    if(!d){setTimeout(function(){if(!dhVoice.ready){dhMarkUpload(f.name,0);}},600);}
   });
   document.getElementById('dhCreate').addEventListener('click',createMyDH);
 }
@@ -6298,20 +6499,60 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       });
     }
 
-    /* ---- AI标尺图：手动绘制标尺（画布拖拽画线 + 刻度文字） ---- */
+    /* ---- AI标尺图：标注方式（智能生成 / 手绘标尺）+ 右侧手绘画布 ---- */
     if(key==='ruler'){
-      var handBtn=document.getElementById('rulerHandBtn');
-      var handPop=document.getElementById('rulerHandPop');
+      var modeGroup=document.getElementById('rulerModeGroup');
+      var modeHint=document.getElementById('rulerModeHint');
+      var aiCfg=document.getElementById('rulerAiCfg');
+      var aiCanvas=document.getElementById('rulerAiCanvas');
+      var handCard=document.getElementById('rulerHandCard');
+      var handEmpty=document.getElementById('rulerHandEmpty');
+      var handTools=document.getElementById('rulerHandTools');
+      var handCountTop=document.getElementById('rulerHandCountTop');
+      var handSaved=document.getElementById('rulerHandSaved');
       var handSvg=document.getElementById('rulerHandSvg');
       var handBar=document.getElementById('rulerHandBar');
       var handInp=document.getElementById('rulerHandInp');
       var handList=document.getElementById('rulerHandList');
       var handCount=document.getElementById('rulerHandCount');
-      var handHint=document.getElementById('rulerHandHint');
       var handLines=[];     /* {x1,y1,x2,y2,label} SVG 坐标 */
       var drawing=null;     /* 拖拽中的临时线 */
       var pendingIdx=-1;    /* 等待输入刻度文字的线下标 */
       function handEl(t,a){var e=document.createElementNS('http://www.w3.org/2000/svg',t);for(var k in a){e.setAttribute(k,a[k]);}return e;}
+      function isHandMode(){
+        var on=modeGroup&&modeGroup.querySelector('.opt-chip.on');
+        return !!(on&&on.textContent.trim()==='手绘标尺');
+      }
+      function syncHandState(){
+        if(!handCard)return;
+        var has=uploaded;
+        if(handEmpty)handEmpty.style.display=has?'none':'';
+        if(handTools)handTools.style.display=has?'':'none';
+        if(has&&handSvg){
+          var im=handSvg.querySelector('image');
+          if(im&&THUMBS[key])im.setAttribute('href',THUMBS[key]);
+        }
+      }
+      function applyRulerMode(){
+        var hand=isHandMode();
+        if(aiCfg)aiCfg.style.display=hand?'none':'';
+        if(aiCanvas)aiCanvas.style.display=hand?'none':'';
+        if(handCard)handCard.style.display=hand?'':'none';
+        var foot=page.querySelector('.bg-foot');
+        if(foot)foot.style.display=hand?'none':'flex';
+        if(modeHint){modeHint.textContent=hand?'在右侧画布按住拖拽添加标尺线与刻度文字，点击保存生成 1 张标尺图（6 积分）并同步到任务列表 / 历史记录':'智能生成：按标尺类型与实测数值由 AI 自动标注；手绘标尺：在右侧画布手动添加标尺线与刻度文字';}
+        if(hand){syncHandState();handRender();}
+      }
+      function syncHandHistory(n,amt){
+        if(typeof historyData==='undefined'||typeof renderHistory!=='function')return;
+        var d=new Date();
+        var ds=d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';
+        var g=(historyData[0]&&historyData[0].date===ds)?historyData[0]:null;
+        if(!g){g={date:ds,items:[]};historyData.unshift(g);}
+        g.items.unshift({tag:'AI商品标尺图',name:'手绘标尺·商品尺寸标注',meta:'手绘 '+n+' 条标尺线',pts:String(amt),state:'ok'});
+        if(typeof histThumb!=='undefined'){histThumb['手绘标尺·商品尺寸标注']='hist-scenery.jpg';}
+        renderHistory();
+      }
       function handRender(){
         [].slice.call(handSvg.querySelectorAll('.hline')).forEach(function(e){e.remove();});
         var all=handLines.concat(drawing?[drawing]:[]);
@@ -6334,8 +6575,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           handSvg.appendChild(g);
         });
         handCount.textContent=handLines.length+' 条标尺线';
-        handHint.textContent=handLines.length?('已手绘 '+handLines.length+' 条标尺线'):'未绘制';
-        handHint.classList.toggle('has',handLines.length>0);
+        if(handCountTop)handCountTop.textContent=handLines.length?(handLines.length+' 条标尺线'):'未绘制';
         handList.innerHTML=handLines.map(function(L,i){
           return '<div class="hand-line-item">标尺 '+(i+1)+(L.label?(' · '+L.label):' · 未标文字')+'<button class="del" type="button" data-i="'+i+'">删除</button></div>';
         }).join('');
@@ -6353,6 +6593,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       }
       handSvg.addEventListener('pointerdown',function(ev){
         commitLabel();   /* 上一条未命名的先落定 */
+        if(handSaved)handSaved.classList.remove('show');
         var p=svgPt(ev);
         drawing={x1:p.x,y1:p.y,x2:p.x,y2:p.y,label:''};
         try{handSvg.setPointerCapture(ev.pointerId);}catch(e){}
@@ -6383,12 +6624,41 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         if(pendingIdx===i){pendingIdx=-1;handBar.style.display='none';}
         handRender();
       });
-      handBtn.addEventListener('click',function(){handPop.classList.add('open');handRender();});
-      document.getElementById('rulerHandX').addEventListener('click',function(){commitLabel();handPop.classList.remove('open');});
-      document.getElementById('rulerHandDone').addEventListener('click',function(){commitLabel();handPop.classList.remove('open');});
-      document.getElementById('rulerHandClear').addEventListener('click',function(){
-        handLines=[];drawing=null;pendingIdx=-1;handBar.style.display='none';handRender();
+      /* 方式切换（通用单选组已处理选中态，这里联动显隐与画布状态） */
+      modeGroup.querySelectorAll('.opt-chip').forEach(function(c){
+        c.addEventListener('click',function(){setTimeout(applyRulerMode,0);});
       });
+      /* 上传 / 移除图片后同步手绘画布（renderDrop 切换 .filled 类） */
+      if(drop){
+        new MutationObserver(function(){if(isHandMode())syncHandState();}).observe(drop,{attributes:true,attributeFilter:['class']});
+      }
+      /* 保存：扣 1 张积分 + 同步一条记录到任务列表 / 历史记录 */
+      document.getElementById('rulerHandDone').addEventListener('click',function(){
+        commitLabel();
+        if(!isHandMode())return;
+        if(!uploaded){showToast('请先上传商品图片');return;}
+        if(!handLines.length){showToast('请先在画布上绘制至少一条标尺线');return;}
+        var amt=IMG_PRICE.ruler;   /* 手绘标尺固定 1 张 */
+        var bal=getBalance();
+        if(bal<amt){
+          var ok=confirm('当前积分不足，保存标尺图需要 '+amt+' 积分，您当前余额 '+bal+' 积分，还差 '+(amt-bal)+' 积分。\n\n点击「确定」前往充值。');
+          if(ok){setTimeout(function(){setMode('recharge');},0);}
+          return;
+        }
+        spendCredits(amt,IMG_NAMES[key],'AI商品标尺图 · 手绘标尺 · 手绘 '+handLines.length+' 条标尺线 · 1 张 · '+amt+' 积分');
+        syncHandHistory(handLines.length,amt);
+        if(handSaved){
+          handSaved.textContent='✓ 已保存 1 张标尺图 · 已扣 '+amt+' 积分 · 已同步到任务列表 / 历史记录';
+          handSaved.classList.add('show');
+        }
+        showToast('已保存 · 1 张生成图已同步到历史记录');
+      });
+      document.getElementById('rulerHandClear').addEventListener('click',function(){
+        handLines=[];drawing=null;pendingIdx=-1;handBar.style.display='none';
+        if(handSaved)handSaved.classList.remove('show');
+        handRender();
+      });
+      applyRulerMode();
     }
 
     renderDrop(); setCount(); renderRulerNums(); applyDetailMode(); renderPts();
