@@ -2689,6 +2689,7 @@
           <div class="vp-step-name">口播文案</div>
           <textarea class="vp-ta" rows="2" data-max="500" placeholder="输入口播文案，数字人将同步朗读并配合肢体演示..."></textarea>
           <div class="vp-char">0/500</div>
+          <div class="vp-est" id="dhEst"><span>预估时长 <b>5s</b>（按 4 字/秒自动计算）</span><span class="vp-est-warn">文案较长，超出 30s 按 30s 档计费</span></div>
         </div>
         <div class="vp-step">
           <div class="vp-step-no">3</div>
@@ -2720,15 +2721,7 @@
         <div class="vp-step">
           <div class="vp-step-no">4</div>
           <div class="vp-step-name">输出规格</div>
-          <div class="vp-opt">
-            <div class="vp-opt-label">视频时长</div>
-            <div class="vp-opts" data-group>
-              <button class="vp-opt-btn active">5s</button>
-              <button class="vp-opt-btn">10s</button>
-              <button class="vp-opt-btn">15s</button>
-              <button class="vp-opt-btn">30s</button>
-            </div>
-          </div>
+          <div class="vp-hint2" style="padding-left:0;padding-bottom:2px">视频时长按口播文案自动计算，无需选择</div>
           <div class="vp-opt">
             <div class="vp-opt-label">分辨率</div>
             <div class="vp-opts" data-group>
@@ -2739,10 +2732,12 @@
           <div class="vp-opt">
             <div class="vp-opt-label">画面比例</div>
             <div class="vp-opts" data-group>
-              <button class="vp-opt-btn active">1:1</button>
+              <button class="vp-opt-btn active">默认</button>
+              <button class="vp-opt-btn">1:1</button>
               <button class="vp-opt-btn">9:16</button>
               <button class="vp-opt-btn">16:9</button>
             </div>
+            <div class="vp-hint2" style="padding:6px 0 0">默认跟随数字人形象素材比例，也可手动指定</div>
           </div>
           <div class="tr-switch">
             <div>
@@ -2964,13 +2959,14 @@
         <div class="vp-step">
           <div class="vp-step-no">4</div>
           <div class="vp-step-name">输出规格</div>
+          <div class="vp-hint2" style="padding-left:0;padding-bottom:2px">画面比例与分辨率跟随原视频，不支持修改</div>
           <div class="vp-opt">
             <div class="vp-opt-label">画面比例</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">原始</button><button class="vp-opt-btn">16:9</button><button class="vp-opt-btn">9:16</button><button class="vp-opt-btn">1:1</button></div>
+            <div class="vp-opts" data-group><button class="vp-opt-btn active">原始</button></div>
           </div>
           <div class="vp-opt">
             <div class="vp-opt-label">输出分辨率</div>
-            <div class="vp-opts" data-group><button class="vp-opt-btn active">720p</button><button class="vp-opt-btn">1080p</button></div>
+            <div class="vp-opts" data-group><button class="vp-opt-btn active">原始</button></div>
           </div>
         </div>
         <label class="vp-agree" style="margin:12px 16px 0;padding-left:2px;"><input type="checkbox"><span>我已确认对上传素材拥有合法版权，并已获得出镜人物的肖像授权</span></label>
@@ -3707,9 +3703,14 @@ function calcCredits(panel){
   var durLbl=durG?activeLabel(durG):'';
   var durSec=durG?(parseInt((durLbl||'').replace('s',''),10)||0):0;
   // koubo: 按文案预估时长与档位取较大者（视频长度不能短于读完文案所需时长）
-  if(key==='koubo'&&panel.dataset.estDur){
+  // dh: 时长由口播文案自动计算，无手动档位
+  if((key==='koubo'||key==='dh')&&panel.dataset.estDur){
     var estSec=parseInt(panel.dataset.estDur,10);
-    if(estSec>durSec){durSec=estSec;durLbl='预估 '+estSec+'s';}
+    var rawSec=parseInt(panel.dataset.estRaw,10)||estSec;
+    if(estSec>durSec){
+      durSec=estSec;
+      durLbl=(key==='dh')?('预估 '+rawSec+'s（按 '+estSec+'s 档计）'):('预估 '+estSec+'s');
+    }
   }
   var durDelta=(rule.dur||{})[durSec]||0;
   if(durLbl){rows.push({l:'时长加价 · '+durLbl,v:durDelta});}
@@ -3717,7 +3718,8 @@ function calcCredits(panel){
   var resG=panel.querySelector('.vp-opts[data-factor="res"]');
   var resLbl=resG?activeLabel(resG):'';
   var resDelta=resG?(rule.res||{})[resKey(resLbl)]||0:0;
-  if(resLbl){rows.push({l:'分辨率加价 · '+resLbl,v:resDelta});}
+  /* 视频翻译分辨率跟随原视频（固定「原始」），不展示 0 加价行 */
+  if(resLbl&&!(key==='translate'&&resLbl==='原始')){rows.push({l:'分辨率加价 · '+resLbl,v:resDelta});}
 
   // feature switches（功能项加分）
   var featAdd=0;
@@ -4689,6 +4691,7 @@ function renderCreditRule(body){
     '<table><thead><tr><th>功能场景</th><th>基础分</th></tr></thead><tbody>'+baseRows+'</tbody></table>'+
     '<h4 style="margin-top:12px">⏱ 视频生成时长（通用加价项）</h4>'+
     '<table><thead><tr><th>时长</th><th>加分</th></tr></thead><tbody>'+durRows+'</tbody></table>'+
+    '<div class="formula" style="margin-top:8px">数字人口播：时长按口播文案自动计算（4 字/秒，下限 5s，最高按 30s 档计费），无需手动选择；真人口播视频：按文案预估时长与所选档位取较大者。</div>'+
     '<h4 style="margin-top:12px">📐 分辨率（通用加价项）</h4>'+
     '<table><thead><tr><th>分辨率</th><th>加分</th></tr></thead><tbody>'+resRows+'</tbody></table>'+
     '<h4 style="margin-top:12px">➕ 功能项加分</h4>'+
@@ -4700,7 +4703,7 @@ function renderCreditRule(body){
       '<tr><td>视频翻译 · 保留原始背景音</td><td>+0</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:12px">🌐 多语言计费</h4>'+
-    '<div class="formula">多语言场景（视频翻译）每种语言生成 1 条<b>同规格视频</b>，按语言数量 <code>倍数计费</code><br>例：单条 25 积分 × 3 种语言 = 75 积分</div>'+
+    '<div class="formula">多语言场景（视频翻译）每种语言生成 1 条<b>同规格视频</b>，按语言数量 <code>倍数计费</code><br>例：单条 25 积分 × 3 种语言 = 75 积分<br>视频翻译的画面比例与输出分辨率跟随原视频，不支持修改，不额外计费</div>'+
     '<h4 style="margin-top:12px">🔁 返还与领取</h4>'+
     '<table><tbody>'+
       '<tr><td>生成失败</td><td style="color:#2563eb">积分自动原路返还</td></tr>'+
@@ -5018,18 +5021,22 @@ function updatePromoCount(panel){
   if(c)c.textContent=n;
 }
 function updateKouboEstDur(panel){
-  if(panel.getAttribute('data-tool')!=='koubo')return;
+  var _pk=panel.getAttribute('data-tool');
+  if(_pk!=='koubo'&&_pk!=='dh')return;
   var ta=panel.querySelector('.vp-ta');if(!ta)return;
   var chars=(ta.value||'').length;
   var raw=Math.max(5,Math.ceil(chars/4));   // 4 字/秒 默认下限 5s
   var TIERS=[5,10,15,30];
   var tier=TIERS.find(function(t){return t>=raw;})||30;
-  var warn=chars>30*4;                       // >120 字 → 已按 30s 计算
+  var warn=chars>30*4;                       // >120 字 → 已按 30s 档计算
   panel.dataset.estDur=tier;
+  panel.dataset.estRaw=raw;
   var d=panel.querySelector('.vp-est');
   if(d){
     d.classList.toggle('warn',warn);
-    var b=d.querySelector('b');if(b)b.textContent=tier+'s';
+    var b=d.querySelector('b');if(b)b.textContent=(_pk==='dh'?raw:tier)+'s';
+    var w=d.querySelector('.vp-est-warn');
+    if(w&&_pk==='dh')w.textContent='文案较长，超出 30s 按 30s 档计费';
   }
   renderGenCredits(panel);
 }
