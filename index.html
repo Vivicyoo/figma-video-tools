@@ -1066,6 +1066,12 @@
   .opt-chip .cdot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(17,24,39,.14);flex:none;display:block;}
   .opt-chip.shake{animation:chipShake .38s;}
   @keyframes chipShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+  /* 卡片式单选（说明小字内置，等宽整行三列） */
+  .opt-chips.opt-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .opt-chip.opt-card{height:auto;padding:9px 11px;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;}
+  .opt-chip.opt-card .oc-t{font-size:12.5px;font-weight:600;line-height:1.3;}
+  .opt-chip.opt-card .oc-d{font-size:11px;font-weight:400;line-height:1.5;color:var(--gray-400);}
+  .opt-chip.opt-card.on .oc-d{color:var(--acc);}
 
   /* 标尺图 · 参数数值输入 */
   .rn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px;}
@@ -2045,12 +2051,11 @@
             <div class="bg-sec-head">
               <span class="bg-sec-name">模特参考<small style="color:var(--gray-400);font-weight:500">（选填）</small></span>
             </div>
-            <div class="opt-chips single-group" id="tryonModModes">
-              <button class="opt-chip on" type="button">AI 自动匹配</button>
-              <button class="opt-chip" type="button">平台模特库</button>
-              <button class="opt-chip" type="button">上传我的模特图</button>
+            <div class="opt-chips single-group opt-cards" id="tryonModModes">
+              <button class="opt-chip opt-card on" type="button" data-mode="AI 自动匹配"><span class="oc-t">AI 自动匹配</span><span class="oc-d">不指定模特，AI 根据商品品类自动匹配标准模特身材与姿势</span></button>
+              <button class="opt-chip opt-card" type="button" data-mode="平台模特库"><span class="oc-t">平台模特库</span><span class="oc-d">从平台模特库选择一位模特，AI 按所选模特生成试穿效果</span></button>
+              <button class="opt-chip opt-card" type="button" data-mode="上传我的模特图"><span class="oc-t">上传我的模特图</span><span class="oc-d">AI 按您上传的模特生成试穿效果，需确保已获肖像授权</span></button>
             </div>
-            <div class="bg-sec-sub" id="tryonModHint" style="margin:8px 0 0">不指定模特，AI 根据商品品类自动匹配标准模特身材与姿势</div>
             <div class="bg-drop" id="tryonModDrop" style="display:none;margin-top:11px">
               <div class="bg-drop-hint">上传模特半身 / 全身照，正面直立效果最佳，AI 按该模特生成试穿效果；支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
               <div class="bg-drop-inner" id="tryonModDropInner">
@@ -6165,12 +6170,6 @@ function closeUploadMenu(){if(upMenuEl)upMenuEl.classList.remove('open');upMenuC
     '独立站':'独立站规范：无平台限制，自由发挥场景与品牌调性，建议 2048px 以上正方形'
   };
   /* 试穿试用：模特参考说明（随所选方式切换） */
-  var TRYON_MOD_HINTS={
-    'AI 自动匹配':'不指定模特，AI 根据商品品类自动匹配标准模特身材与姿势',
-    '上传我的模特图':'AI 将按您上传的模特生成试穿效果，请确保已获得该人像的肖像授权',
-    '平台模特库':'从平台模特库选择一位模特，AI 按所选模特生成试穿效果'
-  };
-
   function initTool(key){
     var page=document.getElementById('ipanel-'+key);
     if(!page){return;}
@@ -6638,19 +6637,17 @@ function closeUploadMenu(){if(upMenuEl)upMenuEl.classList.remove('open');upMenuC
     var modDrop=document.getElementById(key+'ModDrop');
     var modInner=document.getElementById(key+'ModDropInner');
     var modLib=document.getElementById(key+'ModLib');
-    var modHint=document.getElementById(key+'ModHint');
     var modUploaded=false, modName='', modSrc='', modFileName='';
     function tryonMode(){
       if(!modModes){return '';}
       var on=modModes.querySelector('.opt-chip.on');
-      return on?on.textContent.trim():'AI 自动匹配';
+      return on?(on.getAttribute('data-mode')||on.textContent.trim()):'AI 自动匹配';
     }
     function renderTryonMod(){
       if(!modModes){return;}
       var m=tryonMode();
       if(modDrop){modDrop.style.display=(m==='上传我的模特图')?'':'none';}
       if(modLib){modLib.style.display=(m==='平台模特库')?'grid':'none';}
-      if(modHint&&TRYON_MOD_HINTS[m]){modHint.textContent=TRYON_MOD_HINTS[m];}
       renderPts();
     }
     if(key==='tryon'&&modModes){
