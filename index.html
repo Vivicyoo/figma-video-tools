@@ -451,6 +451,50 @@
   .hand-line-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray-600);background:var(--gray-100);border-radius:8px;padding:6px 10px;margin-top:6px;}
   .hand-line-item .del{margin-left:auto;border:none;background:transparent;color:var(--red);cursor:pointer;font-size:12px;padding:2px 6px;border-radius:6px;}
   .hand-line-item .del:hover{background:var(--red-100);}
+  /* ===== 商品图上传菜单（本地上传 / 选择商品图） ===== */
+  .upmenu{position:fixed;z-index:260;background:#fff;border:1px solid var(--gray-200);border-radius:12px;box-shadow:0 12px 34px rgba(15,23,42,.16);padding:6px;display:none;min-width:168px;}
+  .upmenu.open{display:block;animation:popIn .16s ease;}
+  .upmenu-it{display:flex;align-items:center;gap:10px;width:100%;border:none;background:transparent;border-radius:8px;padding:10px 12px;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer;font-family:inherit;text-align:left;}
+  .upmenu-it:hover{background:var(--gray-100);}
+  .upmenu-it .ic{display:flex;color:var(--gray-500);}
+  .upmenu-it:hover .ic{color:var(--purple);}
+  /* ===== 图库弹层（商品图库 / 我的上传 / AIGC图库） ===== */
+  .imglib-tabs{display:flex;gap:6px;padding:12px 22px 0;}
+  .imglib-tab{border:none;background:var(--gray-100);color:var(--gray-600);border-radius:999px;padding:7px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .12s,color .12s;}
+  .imglib-tab:hover{color:var(--ink);}
+  .imglib-tab.on{background:#efeafd;color:var(--purple);}
+  .imglib-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .imglib-card{position:relative;border:1.5px solid var(--gray-200);border-radius:10px;overflow:hidden;background:var(--gray-100);cursor:pointer;padding:0;transition:border-color .12s,transform .12s;}
+  .imglib-card:hover{border-color:var(--purple);transform:translateY(-2px);}
+  .imglib-card.on{border-color:var(--purple);box-shadow:0 0 0 2px rgba(124,58,237,.18);}
+  .imglib-card img{display:block;width:100%;height:110px;object-fit:cover;}
+  .imglib-nm{display:block;font-size:11.5px;color:var(--gray-600);padding:7px 9px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left;}
+  .imglib-badge{position:absolute;top:6px;left:6px;background:rgba(15,23,42,.62);color:#fff;font-size:10px;font-weight:600;border-radius:5px;padding:2px 6px;letter-spacing:.5px;}
+  .imglib-empty{grid-column:1/-1;text-align:center;color:var(--gray-400);font-size:13px;padding:36px 10px;border:1px dashed var(--gray-300);border-radius:10px;line-height:1.7;}
+  /* ===== 生成中 / 生成后 状态卡（右侧画布区） ===== */
+  .gen-state{width:100%;max-width:480px;background:#fff;border:1px solid var(--gray-200);border-radius:14px;box-shadow:0 10px 30px rgba(15,23,42,.08);padding:34px 26px 30px;text-align:center;animation:fadeIn .2s ease;}
+  .gen-spin{width:44px;height:44px;margin:0 auto 14px;border-radius:50%;border:3.5px solid #e6e2f8;border-top-color:var(--purple);animation:genSpin .8s linear infinite;}
+  @keyframes genSpin{to{transform:rotate(360deg);}}
+  .gen-t1{font-size:16px;font-weight:800;color:var(--ink);}
+  .gen-t2{font-size:12.5px;color:var(--gray-500);margin-top:6px;}
+  .gen-bar{position:relative;height:6px;border-radius:999px;background:var(--gray-100);margin:16px 8px 0;overflow:hidden;}
+  .gen-bar i{position:absolute;left:0;top:0;bottom:0;width:40%;border-radius:999px;background:linear-gradient(90deg,#a89bf0,var(--purple));animation:genBar 1.9s ease forwards;}
+  @keyframes genBar{0%{width:6%;}70%{width:72%;}100%{width:100%;}}
+  .gen-tips{font-size:11.5px;color:var(--gray-400);margin-top:12px;line-height:1.6;}
+  .gen-result{width:100%;max-width:480px;background:#fff;border:1px solid var(--gray-200);border-radius:14px;box-shadow:0 10px 30px rgba(15,23,42,.08);overflow:hidden;animation:fadeIn .2s ease;}
+  .genr-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--gray-200);background:linear-gradient(135deg,#f4f3ff,#faf7ff);}
+  .genr-head .th-tag{margin:0;background:#e6e0fb;color:#4c3aa8;}
+  .genr-st{font-size:12px;font-weight:700;color:var(--green);}
+  .genr-st::before{content:'●';font-size:9px;margin-right:4px;}
+  .genr-img{background:var(--gray-100);}
+  .genr-img img{display:block;width:100%;height:230px;object-fit:cover;}
+  .genr-meta{font-size:12px;color:var(--gray-500);padding:10px 14px 0;line-height:1.6;}
+  .genr-btns{display:flex;gap:10px;padding:12px 14px 14px;}
+  .genr-btns button{border-radius:9px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .12s,transform .12s;}
+  .genr-dl{flex:1;border:none;background:var(--purple);color:#fff;}
+  .genr-dl:hover{background:var(--purple-hi);transform:translateY(-1px);}
+  .genr-again{border:1px solid var(--gray-300);background:#fff;color:var(--gray-600);}
+  .genr-again:hover{background:var(--gray-100);}
   .invoice-summary{background:linear-gradient(135deg,#f4f3ff,#faf7ff);border:1px solid #d9d4f3;border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
   .invoice-summary .l{font-size:12px;color:var(--gray-500);}
   .invoice-summary .l .sub{font-size:11px;color:var(--gray-400);margin-top:3px;font-weight:500;letter-spacing:.1px;}
@@ -1324,6 +1368,7 @@
       <button class="rail-item" data-itool="ruler"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="9" width="20" height="6" rx="1"/><line x1="6" y1="9" x2="6" y2="12"/><line x1="10" y1="9" x2="10" y2="13"/><line x1="14" y1="9" x2="14" y2="12"/><line x1="18" y1="9" x2="18" y2="13"/></svg></span>AI商品标尺图</button>
       <button class="rail-item" data-itool="oneclick"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>一键生图</button>
       <button class="rail-item" data-itool="suite"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg></span>电商套图</button>
+      <button class="rail-item" data-itool="itrans"><span class="icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8h4M10 8c0 3-1.5 5-3.5 6.5M9 12c1 2 2.5 3 4.5 3.8"/><path d="M14.5 18l2.5-6 2.5 6M15.4 16h3.2"/></svg></span>图片翻译</button>
     </nav>
 
     <!-- ===== Left upload panel ===== -->
@@ -2002,8 +2047,8 @@
             </div>
             <div class="opt-chips single-group" id="tryonModModes">
               <button class="opt-chip on" type="button">AI 自动匹配</button>
-              <button class="opt-chip" type="button">上传我的模特图</button>
               <button class="opt-chip" type="button">平台模特库</button>
+              <button class="opt-chip" type="button">上传我的模特图</button>
             </div>
             <div class="bg-sec-sub" id="tryonModHint" style="margin:8px 0 0">不指定模特，AI 根据商品品类自动匹配标准模特身材与姿势</div>
             <div class="bg-drop" id="tryonModDrop" style="display:none;margin-top:11px">
@@ -2022,18 +2067,7 @@
             </div>
           </div>
 
-          <!-- 生成张数 -->
-          <div class="bg-sec">
-            <div class="bg-sec-head">
-              <span class="bg-sec-name req">生成张数</span>
-            </div>
-            <div class="bg-sec-sub">按所选张数批量输出</div>
-            <div class="opt-chips cnt-group" id="tryonCntGroup">
-              <button class="opt-chip on" type="button">1张</button>
-              <button class="opt-chip" type="button">2张</button>
-              <button class="opt-chip" type="button">4张</button>
-            </div>
-          </div>
+          <!-- 生成张数已移除：试穿试用固定单次 1 张 -->
         </div>
         <div class="bg-foot">
           <div class="bg-foot-l">
@@ -2306,18 +2340,7 @@
             <textarea class="vp-ta" id="rulerText" rows="2" placeholder="如「这款收纳箱长 32 厘米、宽 18、高 24，加上轮子再高 3 厘米，整体适合床底收纳」"></textarea>
           </div>
 
-          <!-- 生成张数 -->
-          <div class="bg-sec">
-            <div class="bg-sec-head">
-              <span class="bg-sec-name req">生成张数</span>
-            </div>
-            <div class="bg-sec-sub">按所选张数批量输出</div>
-            <div class="opt-chips cnt-group" id="rulerCntGroup">
-              <button class="opt-chip on" type="button">1张</button>
-              <button class="opt-chip" type="button">2张</button>
-              <button class="opt-chip" type="button">4张</button>
-            </div>
-          </div>
+          <!-- 生成张数已移除：AI商品标尺图固定单次 1 张 -->
           </div><!-- /rulerAiCfg -->
         </div>
         <div class="bg-foot">
@@ -2577,6 +2600,71 @@
           <div class="th-sub">主图 · 场景 · 卖点 · 详情一次出齐</div>
           <div class="th-shot">
             <img src="images/web/t-suite.png" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 图片翻译 page ===== -->
+    <section class="tpage" id="ipanel-itrans" style="display:none">
+      <div class="tpanel a-blue">
+        <div class="tp-head">
+          <div class="tp-title">图片翻译</div>
+          <div class="tp-sub">上传含文字的商品图，AI 识别并替换为目标语言，版式与画面保持不变</div>
+        </div>
+        <div class="bg-scroll">
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">商品图片</span>
+              <span class="bg-sec-cnt">(<b id="itransCnt">0</b>/1张)</span>
+            </div>
+            <div class="bg-drop" id="itransDrop">
+              <div class="bg-drop-hint">上传含外文 / 中文文字的商品图、详情图或卖点图，AI 自动识别图内文字并翻译为目标语言；支持上传JPG/JPEG/PNG格式图片，单张大小25MB以内，尺寸不小于300px</div>
+              <div class="bg-drop-inner" id="itransDropInner">
+                <span class="plus">+</span>
+                <span class="t">上传图片</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-sec">
+            <div class="bg-sec-head">
+              <span class="bg-sec-name req">翻译语种<small style="color:var(--gray-400);font-weight:500">（可多选）</small></span>
+              <span class="bg-sec-cnt cnt-pts" id="itransLangHint">已选 <b>1</b> 个语种 · 共出图 <b>1</b> 张</span>
+            </div>
+            <div class="bg-sec-sub">每个语种输出 1 张翻译图，按「张数 × 语种数」计费；小语种译文的图片字体、排版与原图保持一致</div>
+            <div class="opt-chips" id="itransLangs">
+              <button class="opt-chip on" type="button">英语</button>
+              <button class="opt-chip" type="button">阿拉伯语</button>
+              <button class="opt-chip" type="button">泰语</button>
+              <button class="opt-chip" type="button">印尼语</button>
+              <button class="opt-chip" type="button">越南语</button>
+              <button class="opt-chip" type="button">韩语</button>
+              <button class="opt-chip" type="button">西班牙语</button>
+              <button class="opt-chip" type="button">俄语</button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-foot">
+          <div class="bg-foot-l">
+            <div class="bg-foot-t">处理内容</div>
+            <div class="bg-foot-s"><span class="foot-pts" id="itransCntHint">1 个语种 · 共 <b>5</b> 积分</span><span id="itransDone"></span></div>
+          </div>
+          <button class="bg-start" id="itransStart">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span id="itransStartTxt">开始处理</span>
+            <span class="bg-start-pts" id="itransPts"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><i id="itransPtsNum" style="font-style:normal">5</i></span>
+          </button>
+        </div>
+      </div>
+      <div class="tcanvas">
+        <div class="th-card t-blue">
+          <span class="th-tag">图片翻译</span>
+          <div class="th-title">商品图多语言化</div>
+          <div class="th-sub">识别图中文字 · 一键换语种</div>
+          <div class="th-shot">
+            <img src="images/upd-product.jpg" alt="">
+            <span class="th-badge l dark">原文商品图</span>
+            <span class="th-badge r light">多语言版本</span>
           </div>
         </div>
       </div>
@@ -3172,6 +3260,23 @@
 <div class="dh-vmenu" id="dhVoiceMenu"></div>
 
 <!-- ===== 创建我的数字人 弹窗 ===== -->
+<div class="invoice-pop" id="imgLibPop">
+  <div class="invoice-card" style="width:560px">
+    <div class="invoice-head">
+      <div class="invoice-title" id="imgLibTitle">选择商品图</div>
+      <button class="invoice-x" id="imgLibX" aria-label="关闭">×</button>
+    </div>
+    <div class="imglib-tabs" id="imgLibTabs">
+      <button class="imglib-tab on" type="button">商品图库</button>
+      <button class="imglib-tab" type="button">我的上传</button>
+      <button class="imglib-tab" type="button">AIGC图库</button>
+    </div>
+    <div class="invoice-body">
+      <div class="imglib-grid" id="imgLibGrid"></div>
+    </div>
+  </div>
+</div>
+
 <div class="invoice-pop" id="dhPop">
   <div class="invoice-card" style="width:440px">
     <div class="invoice-head">
@@ -4710,7 +4815,7 @@ function renderCreditRule(body){
       '<tr><td>每日签到</td><td style="color:#10b981">可领取 +100 积分</td></tr>'+
     '</tbody></table>'+
     '<h4 style="margin-top:14px">🖼 图片生成单价（按张计费）</h4>'+
-    '<div class="formula">图片生成积分 = <code>单张单价</code> × <code>生成张数</code>（一键生图按生成类型加价，AI卖点图按文案语种数加价；商品换色固定单次 1 张；电商套图按套图模块数出图）</div>'+
+    '<div class="formula">图片生成积分 = <code>单张单价</code> × <code>生成张数</code>（一键生图按生成类型加价，AI卖点图 / 图片翻译按语种数加价；商品换色 / 试穿试用 / AI商品标尺图固定单次 1 张；电商套图按套图模块数出图）</div>'+
     '<table><thead><tr><th>工具</th><th>单张单价</th></tr></thead><tbody>'+
       '<tr><td>白底图</td><td><b>6</b> 积分</td></tr>'+
       '<tr><td>去水印</td><td><b>5</b> 积分</td></tr>'+
@@ -4718,15 +4823,16 @@ function renderCreditRule(body){
       '<tr><td>AI换背景</td><td><b>8</b> 积分</td></tr>'+
       '<tr><td>一键生图</td><td><b>6</b> 积分 + 每多 1 个类型 <b>+2</b></td></tr>'+
       '<tr><td>AI卖点图</td><td><b>10</b> 积分 × 文案语种数</td></tr>'+
-      '<tr><td>试穿试用</td><td><b>12</b> 积分</td></tr>'+
+      '<tr><td>试穿试用</td><td><b>12</b> 积分 / 次（单次仅 1 张）</td></tr>'+
       '<tr><td>一键试用</td><td><b>10</b> 积分</td></tr>'+
       '<tr><td>商品换色</td><td><b>8</b> 积分 / 次（单次仅 1 张）</td></tr>'+
       '<tr><td>AI细节图</td><td><b>8</b> 积分</td></tr>'+
-      '<tr><td>AI商品标尺图</td><td><b>6</b> 积分</td></tr>'+
+      '<tr><td>AI商品标尺图</td><td><b>6</b> 积分 / 次（单次仅 1 张）</td></tr>'+
+      '<tr><td>图片翻译</td><td><b>5</b> 积分 × 翻译语种数（每个语种 1 张）</td></tr>'+
       '<tr><td>电商套图</td><td><b>5</b> 积分/张 × 套图模块数 × 语种数（详情页套图追加 <b>3</b> 张）</td></tr>'+
     '</tbody></table>'+
     '<table style="margin-top:8px"><thead><tr><th>生成张数</th><th>可选档位</th></tr></thead><tbody>'+
-      '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张（商品换色固定 1 张；AI卖点图不选张数，每个语种 1 张）</td></tr>'+
+      '<tr><td>按张批量输出</td><td>1 张 / 2 张 / 4 张（商品换色 / 试穿试用 / AI商品标尺图固定 1 张；AI卖点图不选张数，每个语种 1 张；图片翻译按语种数出图）</td></tr>'+
       '<tr><td>生图比例（AI卖点图）</td><td>1:1 / 4:3 / 9:16，单选，默认 1:1，不额外计费</td></tr>'+
       '<tr><td>生成比例（AI细节图）</td><td>1:1 / 4:3 / 9:16，单选，不额外计费</td></tr>'+
       '<tr><td>生图比例（电商套图）</td><td>1:1 / 4:3 / 3:4 / 16:9 / 9:16，单选，不额外计费</td></tr>'+
@@ -4738,7 +4844,8 @@ function renderCreditRule(body){
       '<tr><td>标注方式（AI商品标尺图）</td><td>智能生成 / 手绘标尺，单选，必填，默认智能生成；手绘标尺在右侧画布拖拽添加标尺线并逐条输入刻度文字，点击保存输出 1 张标尺图（按 6 积分 / 张计费），不额外加价</td></tr>'+
       '<tr><td>目标花色（商品换色）</td><td>文字描述想要的花色 / 纹理，另有常用花色可点选填入；留空由 AI 自动匹配</td></tr>'+
       '<tr><td>花色参考图（商品换色）</td><td>选填，上传想要的花色 / 纹理图片，AI 迁移该花色；与文字描述同时填写时以参考图为准</td></tr>'+
-      '<tr><td>模特参考（试穿试用）</td><td>AI 自动匹配 / 上传我的模特图 / 平台模特库（亚洲女模 / 亚洲男模 / 欧美女模 / 童模 / 大码模特），选填，不额外计费</td></tr>'+
+      '<tr><td>模特参考（试穿试用）</td><td>AI 自动匹配 / 平台模特库（亚洲女模 / 亚洲男模 / 欧美女模 / 童模 / 大码模特）/ 上传我的模特图（第三个），单选，选填，不额外计费</td></tr>'+
+      '<tr><td>翻译语种（图片翻译）</td><td>英语 / 阿拉伯语 / 泰语 / 印尼语 / 越南语 / 韩语 / 西班牙语 / 俄语，可多选，每个语种输出 1 张翻译图，按 5 积分 × 语种数计</td></tr>'+
       '<tr><td>实拍背景（一键试用）</td><td>必填，上传实拍的场景背景图，AI 按该场景的光影、透视与材质合成商品试用效果；生成比例与背景图一致，不额外计费</td></tr>'+
       '<tr><td>电商套图</td><td>套图模块：白底主图 / 场景展示图 / 卖点信息图 / 细节特写图 / 尺寸标注图 / 模特展示图 / 多角度展示 / 包装展示图，可多选；目标平台：AI 通用 / Amazon / TikTok Shop / TEMU / 速卖通 / Shopee / 独立站，单选</td></tr>'+
       '<tr><td>上传图片</td><td>每个工具单次仅支持上传 1 张待处理图片（一键试用为商品图 + 实拍背景各 1 张）</td></tr>'+
@@ -5703,8 +5810,8 @@ document.getElementById('closeHistory').onclick=function(){drawer.classList.remo
 overlay.addEventListener('click',function(){drawer.classList.remove('open');overlay.classList.remove('open');});
 
 /* ================= 图片处理 左侧导航切换 ================= */
-var IMG_TOOL_PAGES=['whitebg','watermark','erase','sellpoint','detail','tryon','scene','recolor','ruler','oneclick','suite'];
-var IMG_TOOL_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',scene:'一键试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图',suite:'电商套图'};
+var IMG_TOOL_PAGES=['whitebg','watermark','erase','sellpoint','detail','tryon','scene','recolor','ruler','oneclick','suite','itrans'];
+var IMG_TOOL_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',scene:'一键试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图',suite:'电商套图',itrans:'图片翻译'};
 function switchITool(key){
   document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     b.classList.toggle('active', b.getAttribute('data-itool')===key);
@@ -5903,13 +6010,113 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
   renderDrop(); updateCount(); renderGrid(); renderPts();
 })();
 
+/* ================= 商品图上传菜单（本地上传 / 选择商品图）+ 图库弹层 ================= */
+var IMG_LIB_DATA={
+  '商品图库':[
+    {src:'images/upd-product.jpg',n:'扫地机器人_主图.jpg'},
+    {src:'images/upd-cushion.png',n:'乳胶坐垫_主图.png'},
+    {src:'images/web/t-avocado.jpg',n:'牛油果_平铺图.jpg'},
+    {src:'images/web/t-tryon-item.png',n:'连衣裙_挂拍图.png'},
+    {src:'images/web/t-recolor.png',n:'布艺沙发_商品图.png'},
+    {src:'images/web/t-detail.png',n:'保温杯_商品图.png'}
+  ],
+  '我的上传':[
+    {src:'images/upd-product.jpg',n:'O1CN01qtm2SS1YFKlbkxaKY_product.jpg'},
+    {src:'images/upd-cushion.png',n:'气垫1.png'}
+  ],
+  'AIGC图库':[
+    {src:'images/hist-productbg.jpg',n:'AI换背景_01.jpg'},
+    {src:'images/hist-cutout.jpg',n:'智能抠图_01.png'},
+    {src:'images/hist-scenery.jpg',n:'场景图_01.jpg'},
+    {src:'images/hist-repair.jpg',n:'变清晰_01.jpg'},
+    {src:'images/hist-expand.jpg',n:'扩图_01.jpg'},
+    {src:'images/hist-watermark.jpg',n:'去水印_01.jpg'}
+  ]
+};
+var imgLibTab='商品图库',imgLibCb=null;
+function imgLibRender(){
+  var grid=document.getElementById('imgLibGrid');
+  if(!grid)return;
+  var items=IMG_LIB_DATA[imgLibTab]||[];
+  grid.innerHTML=items.length?items.map(function(it,i){
+    return '<button class="imglib-card" type="button" data-i="'+i+'"><span class="imglib-badge">'+imgLibTab+'</span><img src="'+it.src+'" alt="'+it.n+'"><span class="imglib-nm">'+it.n+'</span></button>';
+  }).join(''):'<div class="imglib-empty">暂无图片</div>';
+}
+function openImgLib(cb){
+  imgLibCb=cb||null;
+  imgLibRender();
+  var pop=document.getElementById('imgLibPop');
+  if(pop)pop.classList.add('open');
+}
+function closeImgLib(){
+  var pop=document.getElementById('imgLibPop');
+  if(pop)pop.classList.remove('open');
+  imgLibCb=null;
+}
+(function(){
+  var pop=document.getElementById('imgLibPop');
+  if(!pop)return;
+  document.getElementById('imgLibTabs').addEventListener('click',function(e){
+    var t=e.target.closest('.imglib-tab');if(!t)return;
+    document.querySelectorAll('#imgLibTabs .imglib-tab').forEach(function(x){x.classList.remove('on');});
+    t.classList.add('on');
+    imgLibTab=t.textContent.trim();
+    imgLibRender();
+  });
+  document.getElementById('imgLibGrid').addEventListener('click',function(e){
+    var c=e.target.closest('.imglib-card');if(!c)return;
+    var it=(IMG_LIB_DATA[imgLibTab]||[])[+c.getAttribute('data-i')];
+    var cb=imgLibCb;
+    closeImgLib();
+    if(it&&cb){cb(it.src,it.n);}
+  });
+  document.getElementById('imgLibX').addEventListener('click',closeImgLib);
+  pop.addEventListener('click',function(e){if(e.target===pop)closeImgLib();});
+  imgLibRender();
+})();
+/* 锚点上传菜单：本地上传 → cb(null,null)；选择商品图 → 图库弹层 → cb(src,name) */
+var upMenuEl=null,upMenuCb=null,upMenuAnchor=null;
+function openUploadMenu(anchor,cb){
+  if(!upMenuEl){
+    upMenuEl=document.createElement('div');
+    upMenuEl.className='upmenu';
+    upMenuEl.innerHTML=
+      '<button class="upmenu-it" data-act="local" type="button"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>本地上传</button>'+
+      '<button class="upmenu-it" data-act="lib" type="button"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="4" width="19" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M2.5 17l5-5 4 4 3.5-3.5 6.5 6"/></svg></span>选择商品图</button>';
+    document.body.appendChild(upMenuEl);
+    upMenuEl.addEventListener('click',function(e){
+      var b=e.target.closest('.upmenu-it');if(!b)return;
+      var act=b.getAttribute('data-act');
+      var cbc=upMenuCb;
+      closeUploadMenu();
+      if(act==='local'){if(cbc)cbc(null,null);}
+      else{openImgLib(function(src,name){if(cbc)cbc(src,name);});}
+    });
+    document.addEventListener('click',function(e){
+      if(!upMenuEl.classList.contains('open'))return;
+      if(upMenuEl.contains(e.target))return;
+      if(upMenuAnchor&&upMenuAnchor.contains(e.target))return;
+      closeUploadMenu();
+    });
+  }
+  upMenuCb=cb;upMenuAnchor=anchor;
+  var r=anchor.getBoundingClientRect();
+  upMenuEl.classList.add('open');
+  var mw=upMenuEl.offsetWidth,mh=upMenuEl.offsetHeight;
+  upMenuEl.style.left=Math.min(Math.max(r.left,10),window.innerWidth-mw-10)+'px';
+  var top=r.bottom+6;
+  if(top+mh>window.innerHeight-10){top=Math.max(10,r.top-mh-6);}
+  upMenuEl.style.top=top+'px';
+}
+function closeUploadMenu(){if(upMenuEl)upMenuEl.classList.remove('open');upMenuCb=null;}
+
 /* ================= 图片处理工具页（白底图 / 去水印 / 局部消除 / 一键生图） ================= */
 (function(){
-  var TOOLS=['whitebg','watermark','erase','sellpoint','detail','tryon','scene','recolor','ruler','oneclick','suite'];
+  var TOOLS=['whitebg','watermark','erase','sellpoint','detail','tryon','scene','recolor','ruler','oneclick','suite','itrans'];
   /* 每张基础积分（复用生视频同一套余额 / 明细 / 余额不足引导体系） */
-  var IMG_PRICE={whitebg:6,watermark:5,erase:8,oneclick:6,sellpoint:10,tryon:12,scene:10,recolor:8,detail:8,ruler:6,suite:5};
+  var IMG_PRICE={whitebg:6,watermark:5,erase:8,oneclick:6,sellpoint:10,tryon:12,scene:10,recolor:8,detail:8,ruler:6,suite:5,itrans:5};
   var ONECLICK_TYPE_ADD=2;   /* 一键生图：每增加 1 个生成类型，每张 +2 积分 */
-  var IMG_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',scene:'一键试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图',suite:'电商套图'};
+  var IMG_NAMES={whitebg:'白底图',watermark:'去水印',erase:'局部消除',oneclick:'一键生图',sellpoint:'AI卖点图',tryon:'试穿试用',scene:'一键试用',recolor:'商品换色',detail:'AI细节图',ruler:'AI商品标尺图',suite:'电商套图',itrans:'图片翻译'};
   var THUMBS={
     whitebg:'images/upd-cushion.png',
     watermark:'images/upd-product.jpg',
@@ -5921,8 +6128,27 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     recolor:'images/upd-cushion.png',
     detail:'images/upd-product.jpg',
     ruler:'images/web/t-avocado.jpg',
-    suite:'images/web/t-suite.png'
+    suite:'images/web/t-suite.png',
+    itrans:'images/upd-product.jpg'
   };
+  /* 生成中 / 生成后 状态卡：参与完善状态页的工具（结果图 + 历史缩略图） */
+  var GEN_RESULT={
+    tryon:{img:'images/web/t-tryon.png',res:'试穿效果图',hist:'hist-cutout.jpg'},
+    recolor:{img:'images/web/t-recolor.png',res:'换色效果图',hist:'hist-productbg.jpg'},
+    ruler:{img:'images/web/t-ruler.png',res:'标尺图',hist:'hist-scenery.jpg'},
+    itrans:{img:'images/upd-product.jpg',res:'翻译图',hist:'hist-repair.jpg'}
+  };
+  /* 生成完成后同步一条记录到任务列表 / 历史记录（与手绘标尺同一套数据结构） */
+  function syncImgHistory(tag,name,meta,amt,thumb){
+    if(typeof historyData==='undefined'||typeof renderHistory!=='function')return;
+    var d=new Date();
+    var ds=d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';
+    var g=(historyData[0]&&historyData[0].date===ds)?historyData[0]:null;
+    if(!g){g={date:ds,items:[]};historyData.unshift(g);}
+    g.items.unshift({tag:tag,name:name,meta:meta,pts:String(amt),state:'ok'});
+    if(typeof histThumb!=='undefined'&&thumb){histThumb[name]=thumb;}
+    renderHistory();
+  }
   /* 消除方式说明（随所选方式切换） */
   var ERASE_HINTS={
     '涂抹消除':'涂抹消除：手动圈选要移除的区域；文字替换：框选文字后自动识别并替换',
@@ -5959,7 +6185,47 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var ptsNum=document.getElementById(key+'PtsNum');
     var cntHint=document.getElementById(key+'CntHint');
     var uploaded=false, running=false;
+    var pickSrc='',pickName='';   /* 图库选择的图片（本地上传保持默认示例图） */
     var preCheck=function(){return true;};                 /* 开始前附加校验（试穿模特图 / 一键试用实拍背景） */
+    /* ---- 生成中 / 生成后 状态卡（右侧画布区，试穿试用 / 商品换色 / 标尺图 / 图片翻译） ---- */
+    function genClear(){
+      var tc=page.querySelector('.tcanvas');if(!tc)return;
+      tc.querySelectorAll('.gen-state,.gen-result').forEach(function(el){el.remove();});
+    }
+    function genRestore(){
+      genClear();
+      var tc=page.querySelector('.tcanvas');if(!tc)return;
+      tc.querySelectorAll('.th-card').forEach(function(el){el.style.display='';});
+      if(key==='ruler'&&typeof applyRulerMode==='function'){applyRulerMode();}
+    }
+    function genShow(label,amt){
+      var tc=page.querySelector('.tcanvas');if(!tc)return;
+      genClear();
+      tc.querySelectorAll('.th-card,.hand-inline').forEach(function(el){el.style.display='none';});
+      var d=document.createElement('div');
+      d.className='gen-state';
+      d.innerHTML='<div class="gen-spin"></div><div class="gen-t1">AI 生成中…</div>'+
+        '<div class="gen-t2">'+label+' · 预计 10 秒内完成 · 本次消耗 '+amt+' 积分</div>'+
+        '<div class="gen-bar"><i></i></div>'+
+        '<div class="gen-tips">任务已提交，生成完成后自动同步到「生图历史」</div>';
+      tc.appendChild(d);
+    }
+    function genResult(n,amt,meta){
+      genClear();
+      var g=GEN_RESULT[key];
+      var tc=page.querySelector('.tcanvas');if(!tc||!g)return;
+      var d=new Date();
+      var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+      var card=document.createElement('div');
+      card.className='gen-result';
+      card.innerHTML='<div class="genr-head"><span class="th-tag">'+IMG_NAMES[key]+'</span><span class="genr-st">已完成</span></div>'+
+        '<div class="genr-img"><img src="'+g.img+'" alt="'+g.res+'"></div>'+
+        '<div class="genr-meta">'+g.res+' · '+n+' 张 · 已扣 '+amt+' 积分 · '+ds+'</div>'+
+        '<div class="genr-btns"><button class="genr-dl" type="button">下载</button><button class="genr-again" type="button">移除</button></div>';
+      tc.appendChild(card);
+      card.querySelector('.genr-dl').addEventListener('click',function(){showToast('生成图已下载到本地');});
+      card.querySelector('.genr-again').addEventListener('click',genRestore);
+    }
     var langGroup=document.getElementById(key+'Langs');   /* 文案语种多选（AI卖点图） */
     var langHint=document.getElementById(key+'LangHint');
     var ratioGroup=document.getElementById(key+'Ratio');   /* 生图比例单选（AI卖点图） */
@@ -6153,10 +6419,10 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         var wrap=document.createElement('div');
         wrap.className='bg-thumb';
         var img=document.createElement('img');
-        img.src=THUMBS[key]; img.alt='待调整图片';
+        img.src=pickSrc||THUMBS[key]; img.alt='待调整图片';
         var nm=document.createElement('span');
         nm.className='bg-thumb-name';
-        nm.textContent='待调整图片-01.png';
+        nm.textContent=pickName||'待调整图片-01.png';
         var x=document.createElement('button');
         x.type='button';
         x.className='bg-thumb-x';
@@ -6175,8 +6441,14 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     if(drop){
       drop.addEventListener('click',function(){
         if(uploaded||running){return;}
-        uploaded=true; if(done){done.textContent='';}
-        renderDrop(); setCount();
+        /* 上传菜单：本地上传（示例图）/ 选择商品图（图库弹层） */
+        openUploadMenu(drop,function(src,name){
+          if(uploaded)return;
+          if(src){pickSrc=src;pickName=name||'';}
+          else{pickSrc='';pickName='';}
+          uploaded=true; if(done){done.textContent='';}
+          renderDrop(); setCount();
+        });
       });
     }
 
@@ -6259,7 +6531,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var refDrop=document.getElementById(key+'RefDrop');
     var refInner=document.getElementById(key+'RefDropInner');
     var refCnt=document.getElementById(key+'RefCnt');
-    var refUploaded=false;
+    var refUploaded=false, refSrc='', refName='';
     function renderRefDrop(){
       if(!refInner||!refDrop){return;}
       refInner.innerHTML='';
@@ -6271,10 +6543,10 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         var wrap=document.createElement('div');
         wrap.className='bg-thumb';
         var img=document.createElement('img');
-        img.src='images/web/t-recolor.png'; img.alt='花色参考图';
+        img.src=refSrc||'images/web/t-recolor.png'; img.alt='花色参考图';
         var nm=document.createElement('span');
         nm.className='bg-thumb-name';
-        nm.textContent='花色参考图-01.png';
+        nm.textContent=refName||'花色参考图-01.png';
         var x=document.createElement('button');
         x.type='button';
         x.className='bg-thumb-x';
@@ -6292,9 +6564,14 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     if(key==='recolor'&&refDrop){
       refDrop.addEventListener('click',function(){
         if(refUploaded||running){return;}
-        refUploaded=true;
-        renderRefDrop();
-        if(done){done.textContent='';}
+        openUploadMenu(refDrop,function(src,name){
+          if(refUploaded)return;
+          if(src){refSrc=src;refName=name||'';}
+          else{refSrc='';refName='';}
+          refUploaded=true;
+          renderRefDrop();
+          if(done){done.textContent='';}
+        });
       });
       renderRefDrop();
     }
@@ -6303,7 +6580,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var bgDrop=document.getElementById(key+'BgDrop');
     var bgInner=document.getElementById(key+'BgDropInner');
     var bgCntEl=document.getElementById(key+'BgCnt');
-    var bgUploaded=false;
+    var bgUploaded=false, bgSrc='', bgName='';
     function renderBgDrop(){
       if(!bgInner||!bgDrop){return;}
       bgInner.innerHTML='';
@@ -6315,10 +6592,10 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         var wrap=document.createElement('div');
         wrap.className='bg-thumb';
         var img=document.createElement('img');
-        img.src='images/web/t-bgrepl.jpg'; img.alt='实拍背景';
+        img.src=bgSrc||'images/web/t-bgrepl.jpg'; img.alt='实拍背景';
         var nm=document.createElement('span');
         nm.className='bg-thumb-name';
-        nm.textContent='实拍背景-01.jpg';
+        nm.textContent=bgName||'实拍背景-01.jpg';
         var x=document.createElement('button');
         x.type='button';
         x.className='bg-thumb-x';
@@ -6344,9 +6621,14 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       };
       bgDrop.addEventListener('click',function(){
         if(bgUploaded||running){return;}
-        bgUploaded=true;
-        if(done){done.textContent='';}
-        renderBgDrop();
+        openUploadMenu(bgDrop,function(src,name){
+          if(bgUploaded)return;
+          if(src){bgSrc=src;bgName=name||'';}
+          else{bgSrc='';bgName='';}
+          bgUploaded=true;
+          if(done){done.textContent='';}
+          renderBgDrop();
+        });
       });
       renderBgDrop();
     }
@@ -6357,7 +6639,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
     var modInner=document.getElementById(key+'ModDropInner');
     var modLib=document.getElementById(key+'ModLib');
     var modHint=document.getElementById(key+'ModHint');
-    var modUploaded=false, modName='';
+    var modUploaded=false, modName='', modSrc='', modFileName='';
     function tryonMode(){
       if(!modModes){return '';}
       var on=modModes.querySelector('.opt-chip.on');
@@ -6390,10 +6672,10 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           var wrap=document.createElement('div');
           wrap.className='bg-thumb';
           var img=document.createElement('img');
-          img.src='images/web/m-female-asian.png'; img.alt='模特参考图';
+          img.src=modSrc||'images/web/m-female-asian.png'; img.alt='模特参考图';
           var nm=document.createElement('span');
           nm.className='bg-thumb-name';
-          nm.textContent='我的模特图-01.png';
+          nm.textContent=modFileName||'我的模特图-01.png';
           var x=document.createElement('button');
           x.type='button';
           x.className='bg-thumb-x';
@@ -6410,8 +6692,13 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
       }
       modDrop.addEventListener('click',function(){
         if(modUploaded||running){return;}
-        modUploaded=true;
-        renderModDrop();
+        openUploadMenu(modDrop,function(src,name){
+          if(modUploaded)return;
+          if(src){modSrc=src;modFileName=name||'';}
+          else{modSrc='';modFileName='';}
+          modUploaded=true;
+          renderModDrop();
+        });
       });
       /* 模特库单选，可再点取消 */
       if(modLib){
@@ -6475,6 +6762,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         var spin=document.createElement('span');
         spin.className='bg-spin';
         start.insertBefore(spin,startTxt);
+        if(GEN_RESULT[key]){genShow(IMG_NAMES[key],amt);}
         setTimeout(function(){
           if(spin.parentNode){spin.parentNode.removeChild(spin);}
           start.classList.remove('busy');
@@ -6482,6 +6770,7 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
           running=false;
           var n=getCnt();
           var logTxt=(key==='suite')?('电商套图 '+getPlat()+' · '+getMods()+' 模块'+(detailOn()?' + 详情页 3 张':'')+' · '+(getRatio()||'1:1')+' · '+getLangs()+' 语种 · '+amt+' 积分')
+                    :(key==='itrans')?('图片翻译 · '+getLangs()+' 个语种 · '+getLangs()+' 张 · '+amt+' 积分')
                     :(key==='scene')?('一键试用 · 商品融入实拍背景 · '+n+' 张 · '+amt+' 积分')
                     :(key==='tryon')?('试穿试用 · '+(tryonMode()==='上传我的模特图'?'我的模特图':tryonMode()==='平台模特库'?('模特库 · '+(modName||'未选')):'AI 自动匹配模特')+' · '+n+' 张 · '+amt+' 积分')
                     :(key==='detail')?detailLogTxt(n,amt)
@@ -6490,12 +6779,17 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
                     :(quick?('商品换色 · '+(refUploaded?'按参考图花色':((desc&&desc.value.trim())||'AI 自动匹配同品类热卖花色'))+' · 1 张 · '+amt+' 积分')
                     :('生成扣减 · '+amt+' 积分')));
           spendCredits(amt,IMG_NAMES[key],logTxt);
+          if(GEN_RESULT[key]){
+            genResult(n,amt);
+            syncImgHistory(IMG_NAMES[key],GEN_RESULT[key].res,logTxt,amt,GEN_RESULT[key].hist);
+          }
           if(num){num.textContent=n;}
           if(done){
             if(key==='erase'){done.textContent='已完成 '+n+' 张 · 已扣 '+amt+' 积分';}
             else if(key==='suite'){done.innerHTML='<span class="done">已生成 '+(suiteImgs()*getLangs())+' 张图（'+getMods()+' 模块'+(detailOn()?' + 详情页 3 张':'')+' × '+getLangs()+' 语种）· 已扣 '+amt+' 积分</span>';}
             else if(key==='tryon'){done.innerHTML='<span class="done">已生成 '+n+' 张试穿图 · 已扣 '+amt+' 积分</span>';}
             else if(key==='scene'){done.innerHTML='<span class="done">已生成 '+n+' 张试用图 · 已扣 '+amt+' 积分</span>';}
+            else if(key==='itrans'){done.innerHTML='<span class="done">已生成 '+getLangs()+' 张翻译图（'+getLangs()+' 个语种）· 已扣 '+amt+' 积分</span>';}
             else if(langGroup){done.innerHTML='<span class="done">已生成 '+getLangs()+' 张图（'+getLangs()+' 个语种）· 已扣 '+amt+' 积分</span>';}
             else if(quick){done.innerHTML='<span class="done">'+(refUploaded?'已按参考图换色':'已换成「'+((desc&&desc.value.trim())||'AI 自动匹配花色')+'」')+' · 已扣 '+amt+' 积分</span>';}
             else if(key==='detail'){done.innerHTML='<span class="done">已生成 '+n+' 张细节图 · 已扣 '+amt+' 积分</span>';}
@@ -6537,11 +6831,12 @@ document.querySelectorAll('#imgRail .rail-item').forEach(function(b){
         if(handTools)handTools.style.display=has?'':'none';
         if(has&&handSvg){
           var im=handSvg.querySelector('image');
-          if(im&&THUMBS[key])im.setAttribute('href',THUMBS[key]);
+          if(im)im.setAttribute('href',pickSrc||THUMBS[key]);
         }
       }
       function applyRulerMode(){
         var hand=isHandMode();
+        genClear();   /* 切换标注方式时清除生成中 / 生成后状态卡 */
         if(aiCfg)aiCfg.style.display=hand?'none':'';
         if(aiCanvas)aiCanvas.style.display=hand?'none':'';
         if(handCard)handCard.style.display=hand?'':'none';
